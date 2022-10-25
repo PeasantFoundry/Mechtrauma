@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+    <Item name="Lua Moon" identifier="luamoon" category="Weapon" maxstacksize="1" interactthroughwalls="true" cargocontaineridentifier="metalcrate" Scale="0.1" tags="smallitem,luarevolverammo" impactsoundtag="impact_metal_light">
+        <InventoryIcon texture="%ModDir%/lua.png" sourcerect="0,0,1200,1200" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/lua.png" sourcerect="0,0,1200,1200" depth="0.55" origin="0.5,0.5" />
+        <Body width="100" height="100" density="40" />
+        <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+        <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
+
+    <Item name="Advanced Lua Device" identifier="advancedluadevice" category="Electrical" tags="command" scale="0.6" impactsoundtag="impact_metal_light" isshootable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+        <Sprite texture="%ModDir%/luadevice.png" sourcerect="0,0,112,172" depth="0.7" origin="0.5,0.5" />
+        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+            <AlternativeLayout anchor="CenterRight" />
+            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+                <Affliction identifier="stun" strength="5" />
+                <Affliction identifier="burn" strength="5" />
+            </StatusEffect>
+            <requireditem items="screwdriver" type="Equipped" />
+            <input name="input_1" displayname="connection.input_1" />
+            <input name="input_2" displayname="connection.input_2" />
+            <input name="output" displayname="connection.output" />
+        </ConnectionPanel>
+        <Body width="200" height="200" density="40" />
+        <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetachWrench" PickingTime="60.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+            <requireditem identifier="wrench" type="Equipped" />
+        </Holdable>
+    </Item>
+
+    <Item name="Lua Device" identifier="luadevice" category="Electrical" tags="command" scale="0.6" impactsoundtag="impact_metal_light" isshootable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+        <Sprite texture="%ModDir%/luadevice.png" sourcerect="0,0,112,172" depth="0.7" origin="0.5,0.5" />
+        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+            <AlternativeLayout anchor="CenterRight" />
+            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+                <Affliction identifier="stun" strength="5" />
+                <Affliction identifier="burn" strength="5" />
+            </StatusEffect>
+            <requireditem items="screwdriver" type="Equipped" />
+            <input name="input" displayname="connection.input" />
+            <input name="output" displayname="connection.output" />
+        </ConnectionPanel>
+        <Body width="200" height="200" density="40" />
+        <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="ItemMsgDetachWrench" PickingTime="60.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+            <requireditem identifier="wrench" type="Equipped" />
+        </Holdable>
+    </Item>
+
+    <Item name="Lua Revolver Round" identifier="luarevolverround" category="Weapon" maxstacksize="12" interactthroughwalls="true" cargocontaineridentifier="metalcrate" Scale="0.5" tags="smallitem,luarevolverammo" impactsoundtag="impact_metal_light">
+        <PreferredContainer primary="luarevolver" amount="6" spawnprobability="1" />
+        <PreferredContainer primary="armcab" amount="6" spawnprobability="1" />
+        <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" minamount="1" maxamount="6" spawnprobability="0.2" />
+        <PreferredContainer secondary="wreckarmcab,abandonedarmcab" minamount="1" maxamount="3" spawnprobability="0.25" />
+        <PreferredContainer secondary="secarmcab" />
+        <Price baseprice="30" minavailable="6">
+            <Price storeidentifier="merchantoutpost" multiplier="1.5" />
+            <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="12" />
+            <Price storeidentifier="merchantresearch" multiplier="1.25" />
+            <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="24" />
+            <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="12" />
+            <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="24" />
+        </Price>
+        <Fabricate suitablefabricators="fabricator" requiredtime="20" requiresrecipe="true" amount="12">
+            <RequiredSkill identifier="weapons" level="30" />
+            <RequiredItem identifier="magnesium" amount="2" />
+            <RequiredItem identifier="lead" amount="2" />
+            <RequiredItem identifier="copper" />
+        </Fabricate>
+        <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="704,384,64,64" origin="0.5,0.5" />
+        <Sprite texture="Content/Items/Weapons/weapons_new.png" sourcerect="191,290,21,7" depth="0.55" origin="0.5,0.5" />
+        <Body width="29" height="10" density="40" />
+        <Pickable slots="Any" msg="ItemMsgPickUpSelect" />
+        <Projectile characterusable="false" hitscan="true" removeonhit="true">
+            <ParticleEmitter particle="tracerfirearm" particleamount="1" velocitymin="0" velocitymax="0" colormultiplier="255,255,115,175" scalemultiplier="1,0.6" />
+            <Attack structuredamage="10" targetforce="10" itemdamage="20" severlimbsprobability="0.2" armorpenetration="0.1">
+                <Affliction identifier="gunshotwound" strength="28" />
+                <Affliction identifier="bleeding" strength="25" />
+                <Affliction identifier="stun" strength="0.3" />
+            </Attack>
+            <StatusEffect type="OnImpact" target="UseTarget,Character">
+                <ParticleEmitter particle="impactfirearm" particleamount="1" velocitymin="0" velocitymax="0" />
+                <LuaHook name="luaRevolverRound.onImpact" />
+            </StatusEffect>
+            <StatusEffect type="OnImpact" target="UseTarget">
+                <Conditional entitytype="eq Structure" />
+                <Conditional hastag="eq door" />
+                <ParticleEmitter particle="spark" copyentityangle="true" anglemin="-10" anglemax="10" particleamount="5" velocitymin="-10" velocitymax="-200" scalemin="0.5" scalemax="1" />
+            </StatusEffect>
+        </Projectile>
+        <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
+
+    <Item name="Lua Revolver" identifier="luarevolver" category="Weapon" cargocontaineridentifier="metalcrate" tags="smallitem,weapon,gun,pistolitem,gunsmith,mountableweapon" Scale="0.5" impactsoundtag="impact_metal_light">
+        <PreferredContainer secondary="outpostsecarmcab" amount="1" spawnprobability="0.5" />
+        <PreferredContainer secondary="wrecksecarmcab,abandonedsecarmcab" amount="1" spawnprobability="0.25" />
+        <PreferredContainer primary="secarmcab" secondary="armcab,weaponholder" />
+        <Price baseprice="150">
+            <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.5" />
+            <Price storeidentifier="merchantcity" multiplier="1.25" sold="false" minavailable="1" />
+            <Price storeidentifier="merchantresearch" sold="false" multiplier="1.25" />
+            <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+            <Price storeidentifier="merchantmine" sold="false" multiplier="1.25" />
+            <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+        </Price>
+        <Deconstruct time="10">
+            <Item identifier="steel" />
+            <Item identifier="plastic" />
+        </Deconstruct>
+        <InventoryIcon texture="%ModDir%/luarevolver.png" sourcerect="0,0,75,41" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/luarevolver.png" sourcerect="0,0,75,41" origin="0.5,0.5" depth="0.55" />
+        <Body width="72" height="40" density="50" />
+        <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,5" handle1="-25,-7" msg="ItemMsgPickUpSelect" />
+        <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2">
+            <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+            <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+            <Sound file="Content/Items/Weapons/Revolver1.ogg" type="OnUse" range="3000" selectionmode="Random" />
+            <Sound file="Content/Items/Weapons/Revolver2.ogg" type="OnUse" range="3000" />
+            <Sound file="Content/Items/Weapons/Revolver3.ogg" type="OnUse" range="3000" />
+            <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+            <StatusEffect type="OnUse">
+                <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+            </StatusEffect>
+            <StatusEffect type="OnUse" target="Character">
+                <LuaHook name="luaRevolver.onUse" />
+            </StatusEffect>
+            <RequiredItems items="luarevolverammo" type="Contained" msg="ItemMsgAmmoRequired" />
+            <RequiredSkill identifier="weapons" level="40" />
+        </RangedWeapon>
+        <ItemContainer capacity="1" maxstacksize="6" hideitems="true" containedstateindicatorstyle="bullet">
+            <Containable items="luarevolverammo" />
+        </ItemContainer>
+        <aitarget sightrange="2000" soundrange="5000" fadeouttime="5" />
+        <Quality>
+            <QualityStat stattype="StrikingPowerMultiplier" value="0.1" />
+        </Quality>
+        <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    </Item>
+</Items>

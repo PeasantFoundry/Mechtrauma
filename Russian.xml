@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Russian" nowhitespace="false" translatedname="Русский">
+
+ <!-- =============< DECORATIVE >=============  -->
+
+  <entityname.copper_pipe_h>Горизонтальная медная труба</entityname.copper_pipe_h>
+  <entitydescription.copper_pipe_h>Изменяемая горизонтальная медная труба.</entitydescription.copper_pipe_h>
+
+<!-- =============< BIOTRAUMA >=============  -->
+
+  <entityname.bacteria_analyzer>Микроскопический анализатор</entityname.bacteria_analyzer>
+  <entitydescription.bacteria_analyzer>Биотравма: Микроскопический анализатор для бактерий, плесени, грибка и т.д.</entitydescription.bacteria_analyzer>
+
+  <entityname.bacterial_sample_a4>Бактериальная проба A4</entityname.bacterial_sample_a4>
+  <entitydescription.bacterial_sample_a4>Очищенный бактериальный образец A4.</entitydescription.bacterial_sample_a4>
+
+  <entityname.antibacterial_a4>A4 Антибактериальный</entityname.antibacterial_a4>
+  <entitydescription.antibacterial_a4>Антибактериальное средство для бактерий A4.</entitydescription.antibacterial_a4>
+
+  <entityname.spore_fungus>Грибок</entityname.spore_fungus>
+  <entitydescription.spore_fungus>Неизвестный грибок.</entitydescription.spore_fungus>
+
+ <!-- =============< ELECTRICAL >=============  -->
+
+  <entityname.textdisplaylarge>Большой текстовый дисплей</entityname.textdisplaylarge>
+  <entitydescription.textdisplaylarge>Большой текстовый дисплей.</entitydescription.textdisplaylarge>
+
+  <entityname.textdisplay_short_tight>Короткий текстовый дисплей</entityname.textdisplay_short_tight>
+  <entitydescription.textdisplay_short_tight>Предназначен для коротких номеров, таких как 3-значное состояние.</entitydescription.textdisplay_short_tight>
+
+  <entityname.lcd>Телевизор</entityname.lcd>
+  <entitydescription.lcd>Телевизор.</entitydescription.lcd>
+
+  <entityname.average_component>Средний компонент</entityname.average_component>
+  <entitydescription.average_component>Выводит среднее значение комбинированных входных сигналов. Требуется Lua.</entitydescription.average_component>
+
+ <!-- =============< ITEMS >=============  -->
+  <entityname.peasantprime>Коробка PeasantPrime</entityname.peasantprime>
+  <entitydescription.peasantprime>Коробка PeasantPrime.</entitydescription.peasantprime>
+
+  
+<!-- =============< WEAPONS >=============  -->
+  <entityname.airrifle>Пневматическая винтовка</entityname.airrifle>
+  <entitydescription.airrifle>Маломощное, легкодоступное и легко восполняемое оружие.</entitydescription.airrifle>
+  
+  <entityname.leadpellet>Свинцовая дробинка</entityname.leadpellet>
+  <entitydescription.leadpellet>Боеприпасы для пневматической винтовки.</entitydescription.leadpellet>
+
+  <entityname.gunners_chair>Кресло артиллериста</entityname.gunners_chair>
+  <entitydescription.gunners_chair>Сидите на месте.</entitydescription.gunners_chair>
+  
+  <entityname.mt_coilgun>Магнитная пушка MT</entityname.mt_coilgun>
+  <entitydescription.mt_coilgun>Альтернативный цвет для магнитной пушки.</entitydescription.mt_coilgun>
+
+  <entityname.50cal_turret>Турель 50 калибра</entityname.50cal_turret>
+  <entitydescription.50cal_turret>Недорогая альтернатива катушечному ружью, но для выстрела не нужна мощность.</entitydescription.50cal_turret>
+
+  <entityname.50cal_loader>Погрузчик 50 калибра</entityname.50cal_loader>
+  <entitydescription.50cal_loader>Загрузчик боеприпасов для турели 50 калибра.</entitydescription.50cal_loader>
+
+  <entityname.50cal_ammobox>Патронный ящик 50 калибра</entityname.50cal_ammobox>
+  <entitydescription.50cal_ammobox>Загрузчик боеприпасов для турели 50 калибра.</entitydescription.50cal_ammobox>
+
+  <entityname.50cal_bolt>Болт 50 калибра</entityname.50cal_bolt>
+  <entitydescription.50cal_bolt>Болт 50 калибра</entitydescription.50cal_bolt>
+
+
+  <entityname.fuse_panel>Электрический щиток с прелохранителем</entityname.fuse_panel>
+  <entitydescription.fuse_panel>Электрическая релейная панель с предохранителем для защиты от перенапряжения.</entitydescription.fuse_panel>
+
+  <entityname.electrical_panel>Электрический щиток</entityname.electrical_panel>
+  <entitydescription.electrical_panel>Электрический щиток.</entitydescription.electrical_panel>
+  
+  <entityname.key_button>Кнопка с ключом</entityname.key_button>
+  <entitydescription.key_button>Кнопка с ключом.</entitydescription.key_button>
+
+  <entityname.battery_bank>Аккумуляторная батарея</entityname.battery_bank>
+  <entitydescription.battery_bank>Аккумуляторная батарея.</entitydescription.battery_bank>
+
+  <entityname.fuse>Предохранитель</entityname.fuse>
+  <entitydescription.fuse>Предохранитель</entitydescription.fuse>
+
+<!-- =============< COMPONENTS >=============  -->
+
+ 
+  
+  <entityname.sealed_bearing>Подшипник с уплотнением</entityname.sealed_bearing>
+  <entitydescription.sealed_bearing>Механический компонент для изготовления деталей.</entitydescription.sealed_bearing>
+
+  <entityname.bearing_sleeve>Втулка подшипника</entityname.bearing_sleeve>
+  <entitydescription.bearing_sleeve>Для замены использованных подшипников.</entitydescription.bearing_sleeve>
+    
+  <entityname.grease_can>Банка смазки</entityname.grease_can>
+  <entitydescription.grease_can>Разделите на отдельные пакеты со смазкой.</entitydescription.grease_can>
+
+  <entityname.grease_packet>Пакет со смазкой</entityname.grease_packet>
+  <entitydescription.grease_packet>Пакет смазки для механического ремонта и изготовления.</entitydescription.grease_packet>
+
+  <entityname.copper_windings>Медные обмотки</entityname.copper_windings>
+  <entitydescription.copper_windings>Медные обмотки для ремонта электродвигателей.</entitydescription.copper_windings>
+
+<!-- =============< PARTS >=============  -->
+  <entityname.oil_filter>Масляный фильтр</entityname.oil_filter>
+  <entitydescription.oil_filter>Экономит черное золото.</entitydescription.oil_filter>
+
+  <entityname.bearing>Подшипник</entityname.bearing>
+  <entitydescription.bearing>Подшипник для механического ремонта.</entitydescription.bearing>
+  
+  <entityname.electric_motor>Электрический двигатель</entityname.electric_motor>
+  <entitydescription.electric_motor>Механическая деталь для ремонта машин.</entitydescription.electric_motor>
+
+  <entityname.circulator_pump>Циркуляционный насос</entityname.circulator_pump>
+  <entitydescription.circulator_pump>Циркуляционный насос для машин.</entitydescription.circulator_pump>    
+  
+  <entityname.drive_gear>Приводная шестерня</entityname.drive_gear>
+  <entitydescription.drive_gear>Для использования в машинах, например, в качестве понижающей передачи.</entitydescription.drive_gear>
+
+  <entityname.turbine_blade>Лопасть турбины</entityname.turbine_blade>
+  <entitydescription.turbine_blade>Для использования в таких машинах, как паровая турбина.</entitydescription.turbine_blade>
+  
+
+
+
+<!-- =============< MATERIALS >=============  -->
+
+  <entityname.scrap_steel>Стальной металлолом</entityname.scrap_steel>
+  <entitydescription.scrap_steel>Не забывайте перерабатывать!</entitydescription.scrap_steel>
+
+  <entityname.scrap_aluminum>Алюминиевый металлолом</entityname.scrap_aluminum>
+  <entitydescription.scrap_aluminum>Не забывайте перерабатывать!</entitydescription.scrap_aluminum>
+
+  <entityname.scrap_copper>Медный металлолом</entityname.scrap_copper>
+  <entitydescription.scrap_copper>Не забывайте перерабатывать!</entitydescription.scrap_copper>
+
+  <entityname.water_pump_small>Небольшой водяной насос</entityname.water_pump_small>
+  <entitydescription.water_pump_small>Для перемещения воды.</entitydescription.water_pump_small>
+  <entityname.water_pump>Водяной насос</entityname.water_pump>
+  <entitydescription.water_pump>Для перемещения воды.</entitydescription.water_pump>
+  <entityname.water_pump_gate>Затвор водяного насоса</entityname.water_pump_gate>
+  <entitydescription.water_pump_gate>Требуется движущаяся вода.</entitydescription.water_pump_gate>
+
+  <entityname.oxygentank_compressor>Компрессор для кислородных баллонов</entityname.oxygentank_compressor>
+  <entitydescription.oxygentank_compressor>Сжимает кислород корпуса в баллоны для использования.</entitydescription.oxygentank_compressor>
+
+  <entityname.oxygentank_fr>Огнестойкий кислородный баллон</entityname.oxygentank_fr>
+  <entitydescription.oxygentank_fr>Огнестойкий кислородный баллон.</entitydescription.oxygentank_fr>
+
+  <entityname.oxygentank_large>Большой кислородный баллон</entityname.oxygentank_large>
+  <entitydescription.oxygentank_large>Большой кислородный баллон, предназначен только для использования на кислородных станциях.</entitydescription.oxygentank_large>
+
+  <entityname.oxygen_station>Станция для кислородных баллонов</entityname.oxygen_station>
+  <entitydescription.oxygen_station>Для быстрой заправки кислородных баллонов и высвобождения кислорода в чрезвычайных ситуациях.</entitydescription.oxygen_station>
+
+  <entityname.oxygen_vent>Вентиляционное отверстие для кислорода</entityname.oxygen_vent>
+  <entitydescription.oxygen_vent>Регулярно очищайте. Регулярно обновляйте фильтр Co2.</entitydescription.oxygen_vent>
+
+  <entityname.co2_cartridge>Фильтр Co2</entityname.co2_cartridge>
+  <entitydescription.co2_cartridge>Для фильтрации Co2 из атмосферы.</entitydescription.co2_cartridge>
+
+  <entityname.oxygen_supply>Поставка кислорода</entityname.oxygen_supply>
+  <entitydescription.oxygen_supply>Альтернатива генератору кислорода.</entitydescription.oxygen_supply>
+
+  <entityname.oil_can>Масляная банка</entityname.oil_can>
+  <entitydescription.oil_can>Черное золото.</entitydescription.oil_can>
+
+  <entityname.oil_barrel>Бочка с нефтью</entityname.oil_barrel>
+  <entitydescription.oil_barrel>Черное золото.</entitydescription.oil_barrel>
+
+  <entityname.oil_station>Нефтяная станция</entityname.oil_station>
+  <entitydescription.oil_station>Черное золото.</entitydescription.oil_station>
+
+  <entityname.welder>Сварочный аппарат</entityname.welder>
+  <entitydescription.welder>Электросварочный аппарат, использующий аргоновый газ.</entitydescription.welder>
+
+  <entityname.handtruck>Ручная грузовая тележка</entityname.handtruck>
+  <entitydescription.handtruck>Используйте его для перемещения тяжелых вещей. Не повредите спину.</entitydescription.handtruck>
+  
+  <entityname.closet>Шкаф для хранения</entityname.closet>
+  <entitydescription.closet>Уберите за собой! Это место для хранения больших, громоздких предметов.</entitydescription.closet>
+
+  <entityname.storage_container_single>Контейнер для хранения</entityname.storage_container_single>
+  <entitydescription.storage_container_single>Контейнер для хранения, больше, чем шкаф.</entitydescription.storage_container_single>
+
+  <entityname.shipping_container_open>Открытый грузовой контейнер.</entityname.shipping_container_open>
+  <entitydescription.shipping_container_open>Убирайте за собой!</entitydescription.shipping_container_open>
+
+  <entityname.shipping_container_closed>Закрытый грузовой контейнер.</entityname.shipping_container_closed>
+  <entitydescription.shipping_container_closed>Убирайте за собой!</entitydescription.shipping_container_closed>
+
+  <entityname.cargo_crane>Грузовой кран.</entityname.cargo_crane>
+  <entitydescription.cargo_crane>Поднимайте груз!</entitydescription.cargo_crane>
+
+  <entityname.cargo_hatch>Грузовой люк.</entityname.cargo_hatch>
+  <entitydescription.cargo_hatch>Иногда нужно перемещать крупные вещи.</entitydescription.cargo_hatch>
+
+  <entityname.mechcab>Кабинет быстрого доступа</entityname.mechcab>
+  <entitydescription.mechcab>Быстрый доступ в чрезвычайных ситуациях.</entitydescription.mechcab>
+
+  <entityname.cncfab>Изготовитель механических изделий с ЧПУ</entityname.cncfab>
+  <entitydescription.cncfab>Сделайте свою мечту реальностью!.</entitydescription.cncfab>
+
+  <entityname.repairtable>Ремонтный стол</entityname.repairtable>
+  <entitydescription.repairtable>Специализированный фабрикатор по ремонту водолазных костюмов и снаряжения.</entitydescription.repairtable>
+
+  <entityname.argon_tank>Аргоновый бак</entityname.argon_tank>
+  <entitydescription.argon_tank>Для заправки.</entitydescription.argon_tank>
+
+  <entityname.extinguisher_station>Станция для огнетушителей</entityname.extinguisher_station>
+  <entitydescription.extinguisher_station>Для заправки.</entitydescription.extinguisher_station>
+
+  <entityname.extinguisher_tank>Бак для огнетушителя</entityname.extinguisher_tank>
+  <entitydescription.extinguisher_tank>Для заправки.</entitydescription.extinguisher_tank>
+
+  <entityname.S5_Extinguisher>Огнетушитель С5</entityname.S5_Extinguisher>
+  <entitydescription.S5_Extinguisher>Небольшой 5-секундный огнетушитель, который можно носить на поясе.</entitydescription.S5_Extinguisher>
+  
+  <entityname.l100_extinguisher>L100-Огнетушитель</entityname.l100_extinguisher>
+  <entitydescription.l100_extinguisher>Большой огнетушитель для использования в костюме пожарного.</entitydescription.l100_extinguisher>
+
+  <entityname.argon_station>Аргоновая станция</entityname.argon_station>
+  <entitydescription.argon_station>Для заправки.</entitydescription.argon_station>
+
+  <entityname.boiler>Паровой котел</entityname.boiler>
+  <entitydescription.boiler>Генерирует пар.</entitydescription.boiler>
+
+  <entityname.steam_turbine>Паровая турбина</entityname.steam_turbine>
+  <entitydescription.steam_turbine>Преобразует пар в крутящий момент.</entitydescription.steam_turbine>
+
+  <entityname.reduction_gear>Редуктор</entityname.reduction_gear>
+  <entitydescription.reduction_gear>Генерирует крутящий момент от паровой турбины.</entitydescription.reduction_gear>
+
+  <entityname.gear_locker>Шкафчик для хранения снаряжения</entityname.gear_locker>
+  <entitydescription.gear_locker>Для хранения снаряжения.</entitydescription.gear_locker>
+
+  <entityname.plague_doctor_mask>Маска чумного доктора</entityname.plague_doctor_mask>
+  <entitydescription.plague_doctor_mask>Маска чумного доктора.</entitydescription.plague_doctor_mask>
+
+  <entityname.radiation_suit2>Радиационный костюм</entityname.radiation_suit2>
+  <entitydescription.radiation_suit2>Лучшая защита от радиации.</entitydescription.radiation_suit2>
+
+  <entityname.radiation_suit>Радиационный костюм</entityname.radiation_suit>
+  <entitydescription.radiation_suit>Радиационный костюм.</entitydescription.radiation_suit>
+
+  <entityname.turnout_gear2>Костюм пожарного</entityname.turnout_gear2>
+  <entitydescription.turnout_gear2>Оснастите его огнестойким кислородным баллоном и огнетушителем L100.</entitydescription.turnout_gear2>
+
+  <entityname.dry_suit>Сухой гидрокостюм</entityname.dry_suit>
+  <entitydescription.dry_suit>Костюм низкого давления. Полезен для проведения ремонтных работ в подлодке и уменьшения износа водолазных костюмов.</entitydescription.dry_suit>
+
+  <entityname.expedition_divingsuit>Экспедиционный костюм для дайвинга</entityname.expedition_divingsuit>
+  <entitydescription.expedition_divingsuit>Экспедиционный костюм для дайвинга.</entitydescription.expedition_divingsuit>
+
+  <entityname.armored_divingsuit>Бронированный водолазный костюм</entityname.armored_divingsuit>
+  <entitydescription.armored_divingsuit>Разработан для боя, функциональность превыше формы.</entitydescription.armored_divingsuit>
+
+  <entityname.armored_suit>Доспехи</entityname.armored_suit>
+  <entitydescription.armored_suit>Реликвия середины 15-го века с земли. Это настоящее произведение искусства!</entitydescription.armored_suit>
+
+  <entityname.plague_doctor_kit>Набор чумного доктора</entityname.plague_doctor_kit>
+  <entitydescription.plague_doctor_kit>Набор чумного доктора.</entitydescription.plague_doctor_kit>
+
+  <entityname.kit_utility>Комплект принадлежностей</entityname.kit_utility>
+  <entitydescription.kit_utility>Комплект принадлежностей.</entitydescription.kit_utility>
+
+  <entityname.captains_kit>Комплект капитана</entityname.captains_kit>
+  <entitydescription.captains_kit>Хорошо быть капитаном.</entitydescription.captains_kit>
+
+  <entityname.diesel_fuel_can>Канистра дизельного топлива</entityname.diesel_fuel_can>
+  <entitydescription.diesel_fuel_can>Канистра дизельного топлива объёмом 5-галлонов.</entitydescription.diesel_fuel_can>
+
+  <entityname.diesel_fuel_barrel>Бочка дизельного топлива</entityname.diesel_fuel_barrel>
+  <entitydescription.diesel_fuel_barrel>Бочка дизельного топлива объемом 50 галлонов.</entitydescription.diesel_fuel_barrel>
+
+  <entityname.diesel_fuel_tank>Дизельный топливный бак</entityname.diesel_fuel_tank>
+  <entitydescription.diesel_fuel_tank>Судовой бак для дизельного топлива. Заправляет канистры из бочек. </entitydescription.diesel_fuel_tank>
+
+  <entityname.s1500D>Дизельный генератор</entityname.s1500D>
+  <entitydescription.s1500D>Из карбона, мощность 1500 кВт</entitydescription.s1500D>
+
+  <entityname.S5000D>Дизельный генератор S5000D</entityname.S5000D>
+  <entitydescription.S5000D>Из углерода, энергия.</entitydescription.S5000D>
+
+  <entityname.pdg500>Портативный дизельный генератор</entityname.pdg500>
+  <entitydescription.pdg500>Энергия на ходу!</entitydescription.pdg500>
+
+  <entityname.keys>Ключи</entityname.keys>
+  <entitydescription.keys>Не выходите из дома без них.</entitydescription.keys>
+
+  <entityname.trash_can>Мусорка</entityname.trash_can>
+  <entitydescription.trash_can>Прощайте удостоверения личности!</entitydescription.trash_can>
+
+  <entityname.incinerator>Мусоросжигатель</entityname.incinerator>
+  <entitydescription.incinerator>Утилизируйте ненужные предметы на среднем уровне.</entitydescription.incinerator>
+
+  <entityname.trashcan>Mechtrauma Мусорный бак</entityname.trashcan>
+  <entitydescription.trashcan>Утилизация ненужных предметов</entitydescription.trashcan>
+
+<!-- =============< GEAR >=============  -->
+  <entityname.mechanic_toolkit>Жилет механика с инструментами</entityname.mechanic_toolkit>
+  <entitydescription.mechanic_toolkit>Механик имеет при себе множество инструментов и деталей.</entitydescription.mechanic_toolkit> 
+  
+  <entityname.engineer_toolkit>Инженерный рюкзак</entityname.engineer_toolkit>
+  <entitydescription.engineer_toolkit>Инженер имеет при себе множество инструментов и деталей.</entitydescription.engineer_toolkit>
+
+
+
+ <!-- =============< MISSIONS >=============  -->
+<missionname.cargopeasantprime>PeasantPrime Груз</missionname.cargopeasantprime>
+<missiondescription.peasantprime>Если у вас есть свободное место на вашем транспорте, мы ищем человека, который доставит груз ящиков PeasantPrime в [location2] за вознаграждение в [reward] марок.</missiondescription.peasantprime>
+<missionsuccess.cargopeasantprime>Коробки PeasantPrime были успешно доставлены! Вы внесли свой вклад в развитие безудержного потребительства. </missionsuccess.cargopeasantprime>
+
+
+</infotexts> 
