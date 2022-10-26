@@ -203,13 +203,13 @@
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
 
   <entityname.argon_tank>Argon Tank</entityname.argon_tank>
-  <entitydescription.argon_tank>Refil.</entitydescription.argon_tank>
+  <entitydescription.argon_tank>Refill.</entitydescription.argon_tank>
 
   <entityname.extinguisher_station>Extinguisher Station</entityname.extinguisher_station>
-  <entitydescription.extinguisher_station>Refil.</entitydescription.extinguisher_station>
+  <entitydescription.extinguisher_station>Refill.</entitydescription.extinguisher_station>
 
   <entityname.extinguisher_tank>ExtinguisherTank</entityname.extinguisher_tank>
-  <entitydescription.extinguisher_tank>Refil.</entitydescription.extinguisher_tank>
+  <entitydescription.extinguisher_tank>Refill.</entitydescription.extinguisher_tank>
 
   <entityname.S5_Extinguisher>S5_Extinguisher</entityname.S5_Extinguisher>
   <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
@@ -218,7 +218,7 @@
   <entitydescription.l100_extinguisher>A large extinguisher for use in turnour gear.</entitydescription.l100_extinguisher>
 
   <entityname.argon_station>Argon Station</entityname.argon_station>
-  <entitydescription.argon_station>Refil.</entitydescription.argon_station>
+  <entitydescription.argon_station>Refill.</entitydescription.argon_station>
 
   <entityname.boiler>Steam Boiler</entityname.boiler>
   <entitydescription.boiler>Generates steam.</entitydescription.boiler>
@@ -304,10 +304,23 @@
 
 
 
- <!-- =============< MISSIONS >=============  -->
-<missionname.cargopeasantprime>PeasantPrime Shipment</missionname.cargopeasantprime>
-<missiondescription.peasantprime>If you have extra room on your transport, we are looking for someone deliver a load PeasantPrime boxes to [location2] for a reward of [reward] marks.</missiondescription.peasantprime>
-<missionsuccess.cargopeasantprime>The PeasantPrime boxes have been successfully delivered! You've done your part to enable rampant consumerism. </missionsuccess.cargopeasantprime>
+  <!-- =============< MISSIONS >=============  -->
+  <missionname.cargopeasantprime>PeasantPrime Shipment</missionname.cargopeasantprime>
+  <missiondescription.peasantprime>If you have extra room on your transport, we are looking for someone deliver a load PeasantPrime boxes to [location2] for a reward of [reward] marks.</missiondescription.peasantprime>
+  <missionsuccess.cargopeasantprime>The PeasantPrime boxes have been successfully delivered! You've done your part to enable rampant consumerism. </missionsuccess.cargopeasantprime>
+
+
+ <!-- =============< NEW ITEMS (you're welcome) >=============  -->
+  <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
+  <entitydescription.boiler_p>Generates steam.</entitydescription.boiler_p>
+
+  <entityname.steam_turbine_p>Steam Turbine for Peasants</entityname.steam_turbine_p>
+  <entitydescription.steam_turbine_p>Converts steam into torque.</entitydescription.steam_turbine_p>
+
+  <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
+  <entitydescription.reduction_gear_p>Generates torque from steam turbine.</entitydescription.reduction_gear_p>
+
+
 
 
 </infotexts> 

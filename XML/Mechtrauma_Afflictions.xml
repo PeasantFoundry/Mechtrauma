@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+<!-- Steam Burn! -->
+  <Burn
+    name="Steam Burn"
+    identifier="steam_burn"
+    description="The area is blistered and red, and skin is already beginning to peel away in sheets. The patient is in a great deal of pain."
+    type="burn"
+    causeofdeathdescription="Steamed to death. Nasty Business."
+    selfcauseofdeathdescription="You have burned to death."
+    limbspecific="true"
+    maxstrength="200"
+    burnoverlayalpha="1"
+    healcostmultiplier="2.25">
+    <Effect minstrength="0" maxstrength="200" multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="2"/>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0"/>
+  </Burn>
+
 <!-- THE BELOVED SPORE INFECTION! -->
     <Affliction name="Spore Infection" identifier="spore_infection" description="A spore infection from a fungus or mold." type="poison" activationthreshold="0" causeofdeathdescription="Died from a spore infection." selfcauseofdeathdescription="You have died from a spore infection." limbspecific="false" indicatorlimb="Torso" showiconthreshold="225" showinhealthscannerthreshold="50" maxstrength="400">
      
