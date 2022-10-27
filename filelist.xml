@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<contentpackage name="Mechtrauma" modversion="1.0.51" corepackage="False" steamworkshopid="2855458020" gameversion="0.19.14.0" altnames="Mechtrauma">
-  <Item file="%ModDir%/XML/Mechtrauma.xml" />
+<contentpackage name="Mechtrauma" modversion="1.0.50" corepackage="False" steamworkshopid="2855458020" gameversion="0.19.14.0" altnames="Mechtrauma">
+  
+  <!-- XML -->
+  <Item file="%ModDir%/XML/Mechtrauma_Items.xml" />
   <Missions file="%ModDir%/XML/Mechtrauma_Missions.xml" />
   <Afflictions file="%ModDir%/XML/Mechtrauma_Afflictions.xml" />
-  <Text file="%ModDir%/English.xml" />
-  <Text file="%ModDir%/Russian.xml" />
-  <Text file="%ModDir%/MechtraumaSCtext.xml" />
+  
+  <!-- LOCALIZATION -->
+  <Text file="%ModDir%/localization/english/English.xml" />
+  <Text file="%ModDir%/localization/russian/Russian.xml" />
+  <Text file="%ModDir%/localization/MechtraumaSCtext.xml" />
+    
+  <!-- LUA -->
+  <Other file="%ModDir%/Lua/Autorun/Mechtrauma.lua" />
+
+  <!-- IMAGES -->
   <Other file="%ModDir%/images/lcd.png" />
   <Other file="%ModDir%/images/gunners_chair.png" />
   <Other file="%ModDir%/images/mt_turrets.png" />
@@ -32,8 +41,7 @@
   <Other file="%ModDir%/images/oxygentank_compressor.png" />
   <Other file="%ModDir%/images/diesel_generator.png" />
   <Other file="%ModDir%/images/portable_diesel_generator.png" />
-  <Other file="%ModDir%/images/S5000D.png" />
-  <Other file="%ModDir%/images/PDG500_instructions.png" />
+  <Other file="%ModDir%/images/S5000D.png" />  
   <Other file="%ModDir%/images/keys.png" />
   <Other file="%ModDir%/images/closet.png" />
   <Other file="%ModDir%/images/shipping_container.png" />
@@ -57,6 +65,7 @@
   <Other file="%ModDir%/images/diesel_fuel_can.png" />
   <Other file="%ModDir%/images/diesel_fuel_barrel.png" />
   <Other file="%ModDir%/images/diesel_fuel_tank.png" />
+  <!-- SOUNDS -->
   <Other file="%ModDir%/sound/screams_woman_2.ogg" />
   <Other file="%ModDir%/sound/diesel_sound.ogg" />
   <Other file="%ModDir%/sound/diesel_sound_deep.ogg" />
@@ -70,5 +79,5 @@
   <Other file="%ModDir%/sound/analyze.ogg" />
   <Other file="%ModDir%/sound/receipt1.ogg" />
   <Other file="%ModDir%/sound/buzz.ogg" />
-  <Other file="%ModDir%/Lua/Autorun/Mechtrauma.lua" />
+
 </contentpackage>
