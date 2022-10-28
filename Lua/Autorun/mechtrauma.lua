@@ -70,13 +70,14 @@ Hook.Add("signalReceived.average_component", "scripts.Mechtrauma", function(sign
   itemBuffer[1] = nil
 end)
 
+--[[
 Timer.Wait(function()
   if NTCyb ~= nil then
       NTCyb.ItemMethods.mechweldingtool = NTCyb.ItemMethods.weldingtool
   end
 end,1000)
 
---[[
+
 Hook.Add("roundStart", "scripts.Mechtrauma", function(item)
   for k, v in pairs(Item.ItemList) do
     print(v)

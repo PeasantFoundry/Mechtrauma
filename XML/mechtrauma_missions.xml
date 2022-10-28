@@ -8,15 +8,15 @@
     commonness="100"
     reward="250"
     achievementidentifier="cargomission"
-    requireddeliveryamount="0.98">
+    requireddeliveryamount="0.85">
     <Items>
       <Item identifier="peasantprime" reward="20" maxcount="240">  
-        <Item identifier="wrench" amount="240"/>        
+        <Item identifier="wrench" amount="1"/>        
       </Item>
     </Items>
     <Reputation identifier="location" amount="4" />
     <Reputation identifier="coalition" amount="2" />
-    <Icon texture="%ModDir%/images/mechtrauma_logo.png" sourcerect="0,0,128,128" color="243,146,55"/>
+    <Icon texture="%ModDir%/images/mechtrauma_logo.png" sourcerect="0,0,128,128" color="255,255,255"/>
     <LocationType from="AnyOutpost" to="AnyOutpost" />
   </CargoMission>
 

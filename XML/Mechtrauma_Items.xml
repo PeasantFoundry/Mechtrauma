@@ -51,10 +51,16 @@
       </LightComponent>     
   </Item>
 
-  <Item name="PeasantPrime Box" identifier="peasantprime" category="Decorative" scale="0.5" Tags="crate" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" isshootable="true" spritecolor="255,255,255,255">
-    <sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="1024,0,128,108" depth="0.65"/>        
+  <Item name="PeasantPrime Box" identifier="peasantprime" tags="crate" scale="0.5" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+    <Deconstruct time="0.5"/>
+    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="1024,0,128,108" />
+    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="1024,0,128,108" depth="0.54" origin="0.5,0.5" />
+    <Body width="150" height="80" density="25" />
+    <Holdable slots="RightHand+LeftHand" holdpos="0,-80" handle1="-30,14" handle2="30,14" aimable="false" msg="ItemMsgPickUpSelect" />
+    <ItemContainer capacity="1" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+      <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+    </ItemContainer>
   </Item>
-
   
  
  <!-- CARGO HATCH: --> 
@@ -174,7 +180,7 @@
       <Price storeidentifier="merchantmine" minavailable="2" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" />
+      <Item identifier="scrap_aluminium" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator" requiredtime="10" outcondition="0">
       <RequiredSkill identifier="mechanical" level="20" />
@@ -207,7 +213,7 @@
       <Price storeidentifier="merchantmine" minavailable="2" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" />
+      <Item identifier="scrap_aluminium" />
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="10" outcondition="0">
       <RequiredSkill identifier="mechanical" level="20" />
@@ -395,8 +401,8 @@
     </Quality>
   </Item>
 
-   <!-- SCRAP ALUMINUM: -->
-  <Item name="Scrap Aluminum" identifier="scrap_aluminum" Category="material" Tags="smallitem,material,mechanical" maxstacksize="64" cargocontaineridentifier="metalcrate" health="10" scale="0.25">
+   <!-- SCRAP aluminium: -->
+  <Item name="Scrap aluminium" identifier="scrap_aluminium" Category="material" Tags="smallitem,material,mechanical" maxstacksize="64" cargocontaineridentifier="metalcrate" health="10" scale="0.25">
     <PreferredContainer primary="mechcab"/>
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="64,256,56,64" depth="0.55" origin="0.5,0.5" />
     <Body width="64" height="64" density="60" />
@@ -909,7 +915,7 @@
 
 <!-- HAND TRUCK: -->
   <Item name="Hand Truck" identifier="handtruck" tags="crate,allowcleanup" scale="0.5" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
-    <Fabricate suitablefabricators="fabricator" amount="5" requiredtime="5" outcondition="0">      
+    <Fabricate suitablefabricators="fabricator" amount="1" requiredtime="5">      
       <RequiredItem identifier="steel" />
     </Fabricate>  
     <Deconstruct time="5">
@@ -917,11 +923,11 @@
     </Deconstruct>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
     <Sprite texture="%ModDir%/images/handtruck.png"  depth="0.54" sourcerect="0,0,240,340" origin="0.5,0.5" />
-    <Body width="120" height="170" density="50" />
+    <Body width="240" height="340" density="50" />
     <Holdable slots="RightHand+LeftHand" holdpos="-75,-250" handle1="-75,75" handle2="-75,75" holdangle="45" aimable="false" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.8" setvalue="true" />
     </Holdable>  
-    <ItemContainer capacity="1" canbeselected="false" hideitems="false" itempos="0,-25" keepopenwhenequipped="true" movableframe="true">
+    <ItemContainer capacity="1" canbeselected="false" hideitems="false" itempos="0,-45" keepopenwhenequipped="true" movableframe="true">
       <Containable items="handtruck,largeitem,mediumitem,ammobox" excludeditems="toolbox,cargoscooter" />
         <StatusEffect type="OnContaining" targettype="This,Contained" itempos="0,-50" Comparison="And">
           <Requireditem items="oil_barrel" type="contained" /> 
@@ -944,10 +950,10 @@
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
     </Deconstruct>
  
     <InventoryIcon texture="%ModDir%/images/argon_tank.png" sourcerect="0,0,80,268" origin="0.5,0.5" />
@@ -973,10 +979,10 @@
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="2" />
     </Price>
     <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
-      <Item identifier="scrap_aluminum" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
+      <Item identifier="scrap_aluminium" />
     </Deconstruct>
  
     <InventoryIcon texture="%ModDir%/images/extinguisher_tank.png" sourcerect="0,0,80,268" origin="0.5,0.5" />
@@ -1039,12 +1045,12 @@
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
     </Price>
       <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" amount="1" />
+      <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
     <!-- OIL FILTER: Make a new filter.  -->
     <Fabricate suitablefabricators="fabricator" amount="4" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
-      <RequiredItem identifier="aluminum" />
+      <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>    
 
@@ -1268,7 +1274,7 @@
     <PreferredContainer secondary="respawncontainer" amount="8" spawnprobability="1" notcampaign="true"/>
     <PreferredContainer primary="oxygentankcontainer" amount="3" spawnprobability="1"/>
     <PreferredContainer primary="oxygengenerator" maxcondition="75"/>
-    <PreferredContainer primary="divingmask,plasmacutter,deepdiving" spawnprobability="1.0" mincondition="25"/>
+    <PreferredContainer primary="deepdiving,turnout_gearv2" spawnprobability="1.0" mincondition="25"/>
     <PreferredContainer secondary="divingcab" minamount="3" maxamount="5" spawnprobability="1" mincondition="25" notcampaign="true"/>
     <PreferredContainer secondary="supplycab" amount="1" spawnprobability="0.5" mincondition="25" notcampaign="true"/>
     <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.2"/>
@@ -1392,12 +1398,12 @@
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
     </Price>
       <Deconstruct time="10">
-      <Item identifier="scrap_aluminum" amount="1" />
+      <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
     <!-- Co2 CARTRIDGE: Make a new scrubber cartridges.  -->
     <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
-      <RequiredItem identifier="aluminum" />
+      <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="calcium" />
       <RequiredItem identifier="sodium" />
       <RequiredItem identifier="potassium" />
@@ -2186,7 +2192,7 @@
       </StatusEffect>
     </Wearable>
     <ItemContainer capacity="1" maxstacksize="1" hideitems="true" containedstateindicatorstyle="tank">
-      <Containable items="smallitem,oxygensource,weldingtoolfuel" />
+      <Containable items="smallitem,oxygensource,weldingtoolfuel" excludeditems="divingmask,oxygentank_fr" />
     </ItemContainer>
   </Item>
 
@@ -2656,7 +2662,7 @@
         <RequiredItem items="oxygenitetank" type="Contained" />
       </StatusEffect>
 
-         <!-- SCBA PROTECTION:  -->
+      <!-- SCBA PROTECTION:  -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
         <Affliction identifier="SCBA" amount="5" />                
@@ -2670,7 +2676,6 @@
 
    <!-- PUCS: This wouldn't have happened if you didn't try and live inside a god dammed pucs suit! -->
     <Item name="" identifier="pucs" category="Equipment,Diving" tags="diving,deepdiving,divinggear_wearableindoors,provocative" scale="0.5" fireproof="false" description="" allowdroppingonswapwith="diving" impactsoundtag="impact_metal_heavy">
-      <PreferredContainer primary="divingsuitcontainer" spawnprobability="0.0" />
       <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="768,0,128,128" origin="0.5,0.5" />
       <Sprite name="PUCS Item" texture="Content/Items/Jobgear/Engineer/PUCS_Items.png" sourcerect="0,0,154,134" depth="0.55" origin="0.5,0.5" />
     </Item>
@@ -3629,7 +3634,7 @@
     </Price>
     <Deconstruct time="10">
       <Item identifier="steel" />
-      <Item identifier="aluminum" />
+      <Item identifier="aluminium" />
     </Deconstruct>
     
     <InventoryIcon texture="%ModDir%/images/mechtrauma_weapons.png" sourcerect="0,384,232,60" origin="0.5,0.5" />
@@ -4574,8 +4579,6 @@
 
 <!-- ARGON STATION: For filing welding tanks -->
  <Item name="Argon Station" identifier="argon_station" tags="welding" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
-    <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Argon Station" texture="%ModDir%/images/argon_station.png" sourcerect="0,0,220,324" depth="0.81" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/argon_station.png" sourcerect="0,0,220,324"  origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/argon_station.png" sourcerect="0,0,220,324"  origin="0.5,0.5" depth="0.81" maxcondition="0" />
@@ -4596,15 +4599,17 @@
     <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" depth="0.80" sourcerect="64,192,24,64" origin="0.5,0.5" offset="88,-48" scale="0.75" rotationspeed="0" Comparison="And"> 
       <Conditional HasStatusTag="slot3" targetcontainer="true" />       
     </DecorativeSprite>
-    
 
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="2" hideitems="true" itempos="48,-175" canbeselected="true" msg="ArgonStation">
       <GuiFrame relativesize="0.2,0.5" anchor="Center" style="ItemUI" />         
-         
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="960,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="960,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+
       <SubContainer capacity="1" maxstacksize="1" itemsperrow="1" >
         <Containable items="argon_tank" excludebroken="false" excludefullcondition="false">  
-       
-    
+           
         <!-- SPRITE CHECK: argon tank in slot0  (Statuseffect tags need to have a duration applied) -->
         <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="slot0" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
           <Requireditem items="argon_tank" type="contained" targetslot="0" excludebroken="false" excludefullcondition="false"/>             
@@ -4710,18 +4715,18 @@
 
 <!-- EXTINGUISHER STATION: For filing fire extinguishers -->
  <Item name="Extinguisher Station" identifier="extinguisher_station" tags="machine" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Sprite name="Extinguisher Station" texture="%ModDir%/images/extinguisher_station.png" sourcerect="0,0,100,304" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/extinguisher_station.png" sourcerect="0,0,100,304"  origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/extinguisher_station.png" sourcerect="0,0,100,304"  origin="0.5,0.5" depth="0.8" maxcondition="0" />
  
     <ItemContainer capacity="0" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="false" itempos="51,-175" iteminterval="4,30" containedspritedepths="0.81,0.79" canbeselected="true" msg="ExtinguisherStation">
       <GuiFrame relativesize="0.2,0.5" anchor="Center" style="ItemUI" />         
-         
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="960,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="960,64,64,64" origin="0.5,0.5" /> 
+
       <SubContainer capacity="1" maxstacksize="1" itemsperrow="1" >
         <Containable items="extinguisher_tank" excludebroken="true" excludefullcondition="false">  
       
-
          <!-- Check for a non empty extinguisher_tank in slot 0  (Statuseffect tags need to have a duration applied) -->
           <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="fillailibleinslot0" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
             <Requireditem items="extinguisher_tank" type="contained" targetslot="0"/>            
@@ -4756,8 +4761,7 @@
           <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="tanktofillinslot1" targetslot="1" excludefullcondition="true" duration="0.1" stackable="false" Comparison="And">
             <Requireditem items="extinguisher,s5_extinguisher" type="contained" targetslot="1"/>
           </StatusEffect>
-          
-                
+                          
           <!-- Fill the welding tank in slot1 -->
           <StatusEffect type="OnContaining" target="Contained" targetslot="1" stackable="false" Condition="50" Comparison="And">
             <Conditional HasStatusTag="fillailibleinslot0" targetcontainer="true" />
@@ -4785,7 +4789,9 @@
  
     <ItemContainer capacity="0" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" itempos="51,-175" iteminterval="4,30" containedspritedepths="0.81,0.79" canbeselected="true" msg="OilStation">
       <GuiFrame relativesize="0.2,0.5" anchor="Center" style="ItemUI" />         
-         
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+
       <SubContainer capacity="1" maxstacksize="1" itemsperrow="1" >
         <Containable items="oil_barrel" excludebroken="true" excludefullcondition="false">  
       
@@ -4795,7 +4801,7 @@
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>            
           </StatusEffect>
           
-          <!-- Empty the oil barrelin slot 0! -->
+          <!-- Empty the oil barrel in slot 0! -->
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-50.0" Comparison="And">
             <Conditional HasStatusTag="tanktofillinslot1" targetcontainer="true"/>
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>
@@ -4899,7 +4905,7 @@
       </StatusEffect>
       
       <!-- Engine Friction - make sure you have clean oil in it! -->
-      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" condition="-2.0" Comparison="And">
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" condition="-2.0" stackable="false" Comparison="And">
         <Conditional HasStatusTag="combustion"/> 
       </StatusEffect> 
 
@@ -5089,20 +5095,20 @@
     <!-- <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />--> 
     
       <!-- Engine Friction - make sure you have clean oil in it! -->
-      <StatusEffect type="Always" targettype="This" target="This" delay="1" stackable="false" condition="-1.0" Comparison="And">
-      <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
+      <StatusEffect type="Always" targettype="This" target="This" stackable="false" condition="-1.0" Comparison="And">
+      <RequiredItem items="diesel_fuel_barrel" type="Contained" targetitemcomponent="ItemContainer" mincondition="5.0" />
         <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
       </StatusEffect> 
  
       <!-- Engine Friction (Atmosphere) - make sure you have clean oil in it! -->
-      <StatusEffect type="Always" targettype="This" target="This" delay="1" stackable="false" condition="-1.0" Comparison="And">
-        <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
+      <StatusEffect type="Always" targettype="This" target="This" stackable="false" condition="-1.0" Comparison="And">
+        <RequiredItem items="diesel_fuel_barrel" type="Contained" targetitemcomponent="ItemContainer" mincondition="5.0" />
         <Conditional HullOxygenPercentage="gte 50" />
         <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
       </StatusEffect> 
 
        <!-- Engine Friction (OxygenTank) - make sure you have clean oil in it! -->
-      <StatusEffect type="Always" targettype="This" target="This" delay="1" stackable="false" condition="-1.0" Comparison="And">
+      <StatusEffect type="Always" targettype="This" target="This" stackable="false" condition="-1.0" Comparison="And">
         <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
         <Conditional HullOxygenPercentage="lt 50" />
         <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
@@ -5700,6 +5706,15 @@
 
     <ItemContainer capacity="0" slotsperrow="4" maxstacksize="1" canbeselected="true" hideitems="true" msg="SteamTurbine">
       <GuiFrame relativesize="0.25,0.3" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+
       <SubContainer capacity="4">
         <Containable items="turbine_blade" excludebroken="false" excludefullcondition="false">                            
           <!-- DISABLE: Strip the trubine blades -->
@@ -5856,6 +5871,15 @@
 
     <ItemContainer capacity="0" slotsperrow="4" maxstacksize="1" canbeselected="true" hideitems="true" msg="SteamTurbine">
       <GuiFrame relativesize="0.25,0.3" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,128,64,64" origin="0.5,0.5" /> 
+
       <SubContainer capacity="4">
         <Containable items="turbine_blade" excludebroken="false" excludefullcondition="false">                            
           <!-- DISABLE: Strip the trubine blades -->
@@ -6014,7 +6038,8 @@
  
   <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
       <GuiFrame relativesize="0.2,0.2" minsize="450,160" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
-     
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
      
        <!-- Deteriorate the circulator_pumps -->
       <Containable items="circulator_pump" excludebroken="false" excludefullcondition="false">
@@ -6136,6 +6161,8 @@
  
   <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
       <GuiFrame relativesize="0.2,0.2" minsize="450,160" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
      
      
        <!-- Deteriorate the circulator_pumps -->
@@ -6213,11 +6240,11 @@
       <sound file="Content/Items/Engine/Engine.ogg" type="OnActive" range="7500.0" volumeproperty="CurrentVolume" loop="true" />
       <sound file="Content/Items/Engine/EngineBroken.ogg" type="Always" range="15000.0" volumeproperty="CurrentBrokenVolume" loop="true" />
       <poweronsound file="Content/Items/PowerOnHeavy1.ogg" range="3000" loop="false" />
-      <propellerdamage damagerange="100" targetforce="500" severlimbsprobability="10.0">
-        <Affliction identifier="lacerations" strength="5" />
-        <Affliction identifier="bleeding" strength="10" />
+      <!-- This is a spinning propellor people... Stay out of it!-->
+      <propellerdamage damagerange="100" targetforce="750" severlimbsprobability="90.0">
+        <Affliction identifier="lacerations" strength="20" />
+        <Affliction identifier="bleeding" strength="30" />
       </propellerdamage>
-
        <!-- Gear Friction.  -->
         <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
          <Conditional Voltage="gt 0.1" />        
@@ -6245,6 +6272,15 @@
 
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true" msg="GearBox">
       <GuiFrame relativesize="0.2,0.6" minsize="450,450" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+
        <!-- DRIVE GEARS: Slots, 0,1 -->
        <SubContainer capacity="2" maxstacksize="1" >
         <Containable items="drive_gear" excludebroken="true" excludefullcondition="false">
@@ -6393,9 +6429,10 @@
       <sound file="Content/Items/Engine/Engine.ogg" type="OnActive" range="7500.0" volumeproperty="CurrentVolume" loop="true" />
       <sound file="Content/Items/Engine/EngineBroken.ogg" type="Always" range="15000.0" volumeproperty="CurrentBrokenVolume" loop="true" />
       <poweronsound file="Content/Items/PowerOnHeavy1.ogg" range="3000" loop="false" />
-      <propellerdamage damagerange="100" targetforce="500" severlimbsprobability="10.0">
-        <Affliction identifier="lacerations" strength="5" />
-        <Affliction identifier="bleeding" strength="10" />
+      <!-- This is a spinning propellor people... Stay out of it!-->
+      <propellerdamage damagerange="100" targetforce="500" severlimbsprobability="75.0">
+        <Affliction identifier="lacerations" strength="15" />
+        <Affliction identifier="bleeding" strength="25" />
       </propellerdamage>
 
        <!-- Gear Friction.  -->
@@ -6425,6 +6462,15 @@
 
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true" msg="GearBox">
       <GuiFrame relativesize="0.2,0.6" minsize="450,450" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+
        <!-- DRIVE GEARS: Slots, 0,1 -->
        <SubContainer capacity="2" maxstacksize="1" >
         <Containable items="drive_gear" excludebroken="true" excludefullcondition="false">
@@ -6784,9 +6830,9 @@
     </Item>
   </Override>
 
-  <!-- ALUMINUM: Adding recipie to craft aluminum from aluminum scrap. -->
+  <!-- aluminium: Adding recipie to craft aluminium from aluminium scrap. -->
   <Override>
-    <Item name="" identifier="aluminum" category="Material" maxstacksize="8" Tags="smallitem,petfood3" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
+    <Item name="" identifier="aluminium" category="Material" maxstacksize="8" Tags="smallitem,petfood3" canbepicked="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light">
       <PreferredContainer primary="storagecab"/>
       <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05"/>
       <Price baseprice="42" sold="false">
@@ -6798,7 +6844,7 @@
       </Price>
       <Fabricate suitablefabricators="fabricator" requiredtime="5">
         <RequiredSkill identifier="mechanical" level="20" />
-        <RequiredItem identifier="scrap_aluminum" amount="10" />
+        <RequiredItem identifier="scrap_aluminium" amount="10" />
       </Fabricate>
       <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,192,64,64" />
       <Sprite texture="Content/Items/Materials/CraftingElements1.png" sourcerect="53,53,47,39" depth="0.55" origin="0.5,0.5" />

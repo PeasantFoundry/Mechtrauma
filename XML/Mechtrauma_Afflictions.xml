@@ -140,7 +140,7 @@
       <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="384,896,128,128" color="10,193,114,255" origin="0,0"/>
     </Affliction>
 
-    <Affliction name="SCBA" identifier="scba" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
+    <Affliction name="SCBA" identifier="scba" healableinmedicalclinic="false" targets="human" description="SCBA gives resistance against airborne afflictions such as carbon dioxide poisoning and spore infections. " type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
       <!-- Prevents airborn poisons -->
       <Effect minstrength="0" maxstrength="600" strengthchange="-100" resistancefor="spore_infection,co2_poisoning" minresistance="1" maxresistance="1"/>
       <icon texture="Content/UI/CommandUIBackground.png" sourcerect="384,896,128,128" color="0,65,50,255" origin="0,0"/>

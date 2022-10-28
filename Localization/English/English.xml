@@ -126,8 +126,8 @@
   <entityname.scrap_steel>Scrap Steel</entityname.scrap_steel>
   <entitydescription.scrap_steel>Don't forget to recycle!.</entitydescription.scrap_steel>
 
-  <entityname.scrap_aluminum>Scrap Aluminum</entityname.scrap_aluminum>
-  <entitydescription.scrap_aluminum>Don't forget to recycle!.</entitydescription.scrap_aluminum>
+  <entityname.scrap_aluminium>Scrap aluminium</entityname.scrap_aluminium>
+  <entitydescription.scrap_aluminium>Don't forget to recycle!.</entitydescription.scrap_aluminium>
 
   <entityname.scrap_copper>Scrap Copper</entityname.scrap_copper>
   <entitydescription.scrap_copper>Don't forget to recycle!.</entitydescription.scrap_copper>
