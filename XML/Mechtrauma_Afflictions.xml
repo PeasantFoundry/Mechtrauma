@@ -2,7 +2,7 @@
 <Afflictions>
 
 <!-- Steam Burn! -->
-  <Burn
+  <Affliction
     name="Steam Burn"
     identifier="steam_burn"
     description="The area is blistered and red, and skin is already beginning to peel away in sheets. The patient is in a great deal of pain."
@@ -17,43 +17,22 @@
       minvitalitydecrease="0"
       maxvitalitydecrease="2"/>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0"/>
-  </Burn>
+  </Affliction>
 
 <!-- THE BELOVED SPORE INFECTION! -->
+<!-- smyptoms have been moved to humanupdate.lua -->
     <Affliction name="Spore Infection" identifier="spore_infection" description="A spore infection from a fungus or mold." type="poison" activationthreshold="0" causeofdeathdescription="Died from a spore infection." selfcauseofdeathdescription="You have died from a spore infection." limbspecific="false" indicatorlimb="Torso" showiconthreshold="225" showinhealthscannerthreshold="50" maxstrength="400">
      
       <!-- Starts out with minimal effects -->
       <Effect minstrength="0" maxstrength="100" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
-   
-        <StatusEffect target="character" disabledeltatime="false" comparison="and">
-          <conditional ishuman="true" />
-          <Affliction identifier="tachycardia" amount="0.1" probability="0.25" />
-          <Affliction identifier="dyspnea" amount="0.1" />
-          <Affliction identifier="hypoxemia" amount="0.1" />
-        </StatusEffect>
-    
       </Effect>
 
       <!-- Starts to become serious when strength is above 100 -->
-      <Effect minstrength="100" maxstrength="250"  minvitalitydecrease="0" maxvitalitydecrease="5.0" minscreendistort="2.0" maxscreendistort="0.0" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
-        <StatusEffect target="character" disabledeltatime="true" comparison="and">
-          <conditional ishuman="true" />   
-          <Affliction identifier="tachycardia" amount="0.1" probability="0.25" />
-          <Affliction identifier="dyspnea" amount="0.1" />
-          <Affliction identifier="hypoxemia" amount="0.1" />
-          <Affliction identifier="respiratoryarrest" amount="0.1" probability="0.01" />
-          <Affliction identifier="seizure" amount="-0.1" probability="0.01" />
-        </StatusEffect>
+      <Effect minstrength="100" maxstrength="250"  minvitalitydecrease="0" maxvitalitydecrease="10" minscreendistort="2.0" maxscreendistort="0.0" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
       </Effect> 
 
       <!-- FINAL STAGES: Better it goes quickly -->
       <Effect minstrength="250" maxstrength="300"  minvitalitydecrease="10" maxvitalitydecrease="100" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
-        <StatusEffect target="character" disabledeltatime="true" comparison="and">
-          <conditional ishuman="true" />      
-          <!-- <Affliction identifier="sym_unconsciousness" amount="10" probability="0.15" /> -->
-          <Affliction identifier="respiratoryarrest" amount="5" probability="0.1" />
-          <Affliction identifier="seizure" amount="5" probability="0.1" />
-        </StatusEffect>
       </Effect> 
       
       <!-- NATURAL IMMUNITY: Congratulations, your body fought off the infection for you -->
@@ -90,39 +69,15 @@
     </Affliction>
 
     <!-- CO2 POISONING: -->
-    <Affliction name="Carbon Dioxide Poisoning" identifier="co2_poisoning" description="Carbon Dioxide Poisoning." type="poison" causeofdeathdescription="Died from Carbon Dioxide Poisoning." selfcauseofdeathdescription="You have died from Carbon Dioxide Poisoning." limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" maxstrength="1000">
+    <Affliction name="Carbon Dioxide Poisoning" identifier="co2_poisoning" description="Carbon Dioxide Poisoning." type="poison" causeofdeathdescription="Died from Carbon Dioxide Poisoning." selfcauseofdeathdescription="You have died from Carbon Dioxide Poisoning." limbspecific="false" indicatorlimb="Torso" showiconthreshold="10" showinhealthscannerthreshold="10" maxstrength="1000">
       <!-- Minimal effects at this level -->
       <Effect minstrength="1" maxstrength="50" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
-      <StatusEffect target="character" disabledeltatime="false" comparison="and">
-          <conditional ishuman="true" />      
-          <Affliction identifier="tachycardia" amount="0.1" probability="0.25" />
-          <Affliction identifier="dyspnea" amount="0.1" />
-          <Affliction identifier="oxygenlow" amount="0.1" />
-          <Affliction identifier="hypoxemia" amount="0.1" />
-        </StatusEffect>
       </Effect>
       <!-- Starts to become serious when strength is above 50 -->
-      <Effect minstrength="51" maxstrength="99" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.5" minradialdistort="0.5" maxradialdistort="0.5"  minscreenblur="0.1" maxscreenblur="1.0" >
-        <StatusEffect target="character" disabledeltatime="false" comparison="and">
-          <conditional ishuman="true" />      
-          <Affliction identifier="tachycardia" amount="5" probability="0.25" />
-          <Affliction identifier="dyspnea" amount="5" />
-          <Affliction identifier="oxygenlow" amount="5" />
-          <Affliction identifier="hypoxemia" amount="5" />
-        </StatusEffect>               
+      <Effect minstrength="51" maxstrength="99" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.5" minradialdistort="0.5" maxradialdistort="0.5"  minscreenblur="0.1" maxscreenblur="1.0" >          
       </Effect>
       <!-- Starts to become lethal when strength is above 100 -->
       <Effect minstrength="100" maxstrength="1000" minvitalitydecrease="0" maxvitalitydecrease="20.0" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
-        <StatusEffect target="character" disabledeltatime="false" SpeedMultiplier="0.8" comparison="and">
-          <conditional ishuman="true" />
-          <Affliction identifier="tachycardia" amount="10" probability="0.25" />
-          <Affliction identifier="dyspnea" amount="15" />
-          <Affliction identifier="oxygenlow" amount="15" />
-          <Affliction identifier="hypoxemia" amount="15" />
-          <Affliction identifier="sym_unconsciousness" amount="10" probability="0.15" />
-          <Affliction identifier="respiratoryarrest" amount="10" probability="0.25" />
-          <Affliction identifier="seizure" amount="5" probability="0.05" />
-        </StatusEffect>       
       </Effect>    
 
      

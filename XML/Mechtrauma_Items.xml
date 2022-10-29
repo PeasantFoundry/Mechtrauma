@@ -5528,9 +5528,6 @@
 
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="Unconscionable stupidity" selfcauseofdeathdescription="Unconscionable stupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
         <Affliction identifier="bleeding" strength="35" />
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
@@ -5942,14 +5939,8 @@
       <!-- Don't stick your arm in a turbine when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gte 0.5" targetitemcomponent="RelayComponent"/>
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="InconscionalbeStupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>        
-        <Affliction identifier="la_arterialcut" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-           <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="3,3" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
     
-        <!-- <Affliction identifier="bleeding" strength="35" /> -->
+        <Affliction identifier="bleeding" strength="35" />
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
 
@@ -6107,14 +6098,8 @@
       <!-- Don't stick your arm in a turbine when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gte 0.5" targetitemcomponent="RelayComponent"/>
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="InconscionalbeStupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>        
-        <Affliction identifier="la_arterialcut" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-           <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="3,3" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
     
-        <!-- <Affliction identifier="bleeding" strength="35" /> -->
+        <Affliction identifier="bleeding" strength="35" />
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
 
@@ -6542,12 +6527,6 @@
       <!-- Don't stick your arm in a gearbox when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="InconscionalbeStupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>        
-        <Affliction identifier="la_arterialcut" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-           <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="3,3" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
     
         <Affliction identifier="bleeding" strength="35" /> 
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
@@ -6732,12 +6711,6 @@
       <!-- Don't stick your arm in a gearbox when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="InconscionalbeStupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>        
-        <Affliction identifier="la_arterialcut" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="InconscionalbeStupidity" selfcauseofdeathdescription="" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-           <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="3,3" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
     
         <Affliction identifier="bleeding" strength="35" /> 
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
@@ -6859,9 +6832,6 @@
 
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
-        <Affliction identifier="tla_amputation" description="" healableinmedicalclinic="false" targets="human" isbuff="true" type="t_amputation" causeofdeathdescription="Unconscionable stupidity" selfcauseofdeathdescription="Unconscionable stupidity" limbspecific="false" indicatorlimb="LeftArm" showiconthreshold="0.25" maxstrength="0.5" iconcolors="200,0,0,255;200,0,0,255">
-          <icon texture="%ModDir%/Images/AfflictionIcons.png" sheetindex="1,6" sheetelementsize="128,128" origin="0,0" />
-        </Affliction>
         <Affliction identifier="bleeding" strength="35" />
         <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
