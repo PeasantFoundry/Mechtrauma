@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="Simplified Chinese" nowhitespace="false" translatedname="中文(简体)">
   <!-- =============< DECORATIVE >=============  -->
   <entityname.copper_pipe_h>铜管（水平）</entityname.copper_pipe_h>
@@ -42,7 +42,7 @@
   <entityname.50cal_bolt>50 cal bolt</entityname.50cal_bolt>
   <entitydescription.50cal_bolt>50 cal bolt</entitydescription.50cal_bolt>
   <entityname.fuse_panel>熔断器板</entityname.fuse_panel>
-  <entitydescription.fuse_panel>装有保险丝的继电器面板，适时熔断以防止电压过高。</entitydescription.fuse_panel>
+  <entitydescription.fuse_panel>装有保险丝的继电器面板，适时熔断以防止电流过高。</entitydescription.fuse_panel>
   <entityname.electrical_panel>电器面板</entityname.electrical_panel>
   <entitydescription.electrical_panel>电器面板。</entitydescription.electrical_panel>
   <entityname.key_button>钥匙按钮</entityname.key_button>
@@ -64,7 +64,7 @@
   <entitydescription.copper_windings>用于维修电机的铜质绕组。</entitydescription.copper_windings>
   <!-- =============< PARTS >=============  -->
   <entityname.oil_filter>滤油器</entityname.oil_filter>
-  <entitydescription.oil_filter>能节省石油。</entitydescription.oil_filter>
+  <entitydescription.oil_filter>能过滤杂质，延长机油使用寿命。</entitydescription.oil_filter>
   <entityname.bearing>轴承</entityname.bearing>
   <entitydescription.bearing>用于机械维修的轴承。</entitydescription.bearing>
   <entityname.electric_motor>电机</entityname.electric_motor>
@@ -102,20 +102,20 @@
   <entitydescription.co2_cartridge>装于氧气排放口，用于从空气中过滤二氧化碳。</entitydescription.co2_cartridge>
   <entityname.oxygen_supply>制氧机</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>机械创伤版本的制氧机。</entitydescription.oxygen_supply>
-  <entityname.oil_can>油罐</entityname.oil_can>
-  <entitydescription.oil_can>里面装着石油。</entitydescription.oil_can>
-  <entityname.oil_barrel>油桶</entityname.oil_barrel>
-  <entitydescription.oil_barrel>里面装着石油。</entitydescription.oil_barrel>
+  <entityname.oil_can>罐装机油</entityname.oil_can>
+  <entitydescription.oil_can>里面装着昂贵的发动机润滑油。</entitydescription.oil_can>
+  <entityname.oil_barrel>桶装机油</entityname.oil_barrel>
+  <entitydescription.oil_barrel>里面装着昂贵的发动机润滑油。</entitydescription.oil_barrel>
   <entityname.oil_station>加油站</entityname.oil_station>
-  <entitydescription.oil_station>里面装着石油。</entitydescription.oil_station>
-  <entityname.welder>焊枪</entityname.welder>
-  <entitydescription.welder>使用氩气的电焊枪。</entitydescription.welder>
+  <entitydescription.oil_station>里面装着昂贵的发动机润滑油。</entitydescription.oil_station>
+  <entityname.mechweldingtool>焊枪</entityname.mechweldingtool>
+  <entitydescription.mechweldingtool>使用氩气的电焊枪。</entitydescription.mechweldingtool>
   <entityname.handtruck>手推车</entityname.handtruck>
   <entitydescription.handtruck>用它来搬运重物，别把背伤了。</entitydescription.handtruck>
-  <entityname.closet>储物橱柜</entityname.closet>
+  <entityname.closet>储物柜</entityname.closet>
   <entitydescription.closet>整理好你自己的东西！能装大又重的物品。</entitydescription.closet>
   <entityname.storage_container_single>储物箱</entityname.storage_container_single>
-  <entitydescription.storage_container_single>用来储存物品，比橱柜更大。</entitydescription.storage_container_single>
+  <entitydescription.storage_container_single>用来储存物品，比储物柜容量更大。</entitydescription.storage_container_single>
   <entityname.shipping_container_open>货柜（开启）</entityname.shipping_container_open>
   <entitydescription.shipping_container_open>整理好你自己的东西！</entitydescription.shipping_container_open>
   <entityname.shipping_container_closed>货柜（关闭）</entityname.shipping_container_closed>
@@ -143,11 +143,11 @@
   <entityname.argon_station>氩气灌装站</entityname.argon_station>
   <entitydescription.argon_station>用于灌装。</entitydescription.argon_station>
   <entityname.boiler>蒸汽锅炉</entityname.boiler>
-  <entitydescription.boiler>产生蒸汽。</entitydescription.boiler>
+  <entitydescription.boiler>通过电力加热水产生蒸汽。</entitydescription.boiler>
   <entityname.steam_turbine>蒸汽轮机</entityname.steam_turbine>
-  <entitydescription.steam_turbine>将蒸汽转换为扭矩。</entitydescription.steam_turbine>
+  <entitydescription.steam_turbine>蒸汽推动涡轮叶片输出扭矩。</entitydescription.steam_turbine>
   <entityname.reduction_gear>减速机</entityname.reduction_gear>
-  <entitydescription.reduction_gear>调节蒸汽轮机产生的扭矩。</entitydescription.reduction_gear>
+  <entitydescription.reduction_gear>将蒸汽轮机产生的扭矩转化为水平推力。</entitydescription.reduction_gear>
   <entityname.gear_locker>作业服柜</entityname.gear_locker>
   <entitydescription.gear_locker>用于存放各式作业服。</entitydescription.gear_locker>
   <entityname.plague_doctor_mask>瘟疫医生面具</entityname.plague_doctor_mask>
@@ -164,7 +164,7 @@
   <entitydescription.expedition_divingsuit>探险潜水服。</entitydescription.expedition_divingsuit>
   <entityname.armored_divingsuit>装甲潜水服</entityname.armored_divingsuit>
   <entitydescription.armored_divingsuit>专为战斗设计，功能强于外观。</entitydescription.armored_divingsuit>
-  <entityname.armored_suit>盔甲</entityname.armored_suit>
+  <entityname.armored_suit>中世纪盔甲</entityname.armored_suit>
   <entitydescription.armored_suit>来自地球15世纪中期的遗物。绝美的艺术品！</entitydescription.armored_suit>
   <entityname.plague_doctor_kit>瘟疫医生服</entityname.plague_doctor_kit>
   <entitydescription.plague_doctor_kit>瘟疫医生服</entitydescription.plague_doctor_kit>
@@ -174,7 +174,7 @@
   <entitydescription.captains_kit>做船长真好。</entitydescription.captains_kit>
   <entityname.diesel_fuel_can>柴油燃料罐</entityname.diesel_fuel_can>
   <entitydescription.diesel_fuel_can>一罐5加仑的柴油。</entitydescription.diesel_fuel_can>
-  <entityname.diesel_fuel_barrel>柴油机燃料桶</entityname.diesel_fuel_barrel>
+  <entityname.diesel_fuel_barrel>柴油燃料桶</entityname.diesel_fuel_barrel>
   <entitydescription.diesel_fuel_barrel>一桶50加仑的柴油。</entitydescription.diesel_fuel_barrel>
   <entityname.diesel_fuel_tank>柴油燃料箱</entityname.diesel_fuel_tank>
   <entitydescription.diesel_fuel_tank>船用柴油燃料箱。能用燃料桶灌装燃料罐。</entitydescription.diesel_fuel_tank>
@@ -190,7 +190,7 @@
   <entitydescription.trash_can>ID卡拜拜了您嘞！</entitydescription.trash_can>
   <entityname.incinerator>焚化炉</entityname.incinerator>
   <entitydescription.incinerator>能让你在巡回中处理掉不想要的物品。</entitydescription.incinerator>
-  <entityname.trashcan>机械创伤垃圾桶</entityname.trashcan>
+  <entityname.trashcan>垃圾桶（MT）</entityname.trashcan>
   <entitydescription.trashcan>能让你在巡回中处理掉不想要的物品。</entitydescription.trashcan>
   <!-- =============< GEAR >=============  -->
   <entityname.mechanic_toolkit>机修工具背心</entityname.mechanic_toolkit>
@@ -201,4 +201,14 @@
   <missionname.cargopeasantprime>PeasantPrime运输任务</missionname.cargopeasantprime>
   <missiondescription.peasantprime>如果你的潜艇上还有空位，我们正在找人运输一堆PeasantPrime箱到[location2]，运费[reward]马克。</missiondescription.peasantprime>
   <missionsuccess.cargopeasantprime>PeasantPrime箱已成功运抵目的地！ 你为推动猖獗的消费主义做出了自己的贡献。</missionsuccess.cargopeasantprime>
+  <!-- =============< NEW ITEMS (I hope this makes it easier to find changes) >=============  -->
+  <entityname.boiler_p>蒸汽锅炉（节能版）</entityname.boiler_p>
+  <entitydescription.boiler_p>通过电力加热水产生蒸汽。组件损耗速度降低50%。</entitydescription.boiler_p>
+  <entityname.steam_turbine_p>蒸汽轮机（节能版）</entityname.steam_turbine_p>
+  <entitydescription.steam_turbine_p>蒸汽推动涡轮叶片输出扭矩。组件损耗速度降低50%。</entitydescription.steam_turbine_p>
+  <entityname.reduction_gear_p>减速机（节能版）</entityname.reduction_gear_p>
+  <entitydescription.reduction_gear_p>将蒸汽轮机产生的扭矩转化为水平推力。组件损耗速度降低50%。</entitydescription.reduction_gear_p>
+  <!-- 10/29/22 --> 
+  <entityname.fatboy>重装防化服</entityname.fatboy>
+  <entitydescription.fatboy>用于进行危险操作的重度防护压力服。额定深度：4500米。抗火，抗辐射，抗外伤。 </entitydescription.fatboy>
 </infotexts>
