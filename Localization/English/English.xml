@@ -310,16 +310,18 @@
   <missionsuccess.cargopeasantprime>The PeasantPrime boxes have been successfully delivered! You've done your part to enable rampant consumerism. </missionsuccess.cargopeasantprime>
 
 
- <!-- =============< NEW ITEMS (you're welcome) >=============  -->
+ <!-- =============< NEW ITEMS (I hope this makes it easier to find changes) >=============  -->
+  <!-- 10/27/22 -->
   <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
   <entitydescription.boiler_p>Generates steam.</entitydescription.boiler_p>
-
   <entityname.steam_turbine_p>Steam Turbine for Peasants</entityname.steam_turbine_p>
   <entitydescription.steam_turbine_p>Converts steam into torque.</entitydescription.steam_turbine_p>
-
   <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
   <entitydescription.reduction_gear_p>Generates torque from steam turbine.</entitydescription.reduction_gear_p>
-
+  
+  <!-- 10/29/22 -->  
+  <entityname.fatboy>FatBoy</entityname.fatboy>
+  <entitydescription.fatboy>Heavily shielded pressure suit for Hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.fatboy>
 
 
 
