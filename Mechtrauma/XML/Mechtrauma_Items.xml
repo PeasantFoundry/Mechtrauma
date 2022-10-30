@@ -4255,7 +4255,7 @@
     
 
 <!-- CNC: Mechanical Fabricator --> 
-  <Item name="CNC Mechanical Fabricator" identifier="cncfab" tags="CNC,donttakeitems,dontsellitems" category="Machine" linkable="true" allowedlinks="mechcab" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="CNC Mechanical Fabricator" identifier="cncfab" tags="CNC,donttakeitems,dontsellitems" category="Machine" linkable="true" allowedlinks="deconstructor,locker" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="256,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/cnc.png" sourcerect="0,0,400,460" depth="0.84"/>
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
