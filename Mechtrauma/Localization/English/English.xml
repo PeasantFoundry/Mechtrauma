@@ -274,14 +274,14 @@
   <entityname.diesel_fuel_tank>Diesel Fuel Tank</entityname.diesel_fuel_tank>
   <entitydescription.diesel_fuel_tank>Ship's Diesel Fuel tank. Refills cans from barrels. </entitydescription.diesel_fuel_tank>
 
-  <entityname.s1500D>Diesel Generator</entityname.s1500D>
-  <entitydescription.s1500D>From carbon, power. 1500kw</entitydescription.s1500D>
+  <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
+  <entitydescription.s1500D>Emergency backup diesel generator rated for 1500kw.</entitydescription.s1500D>
 
-  <entityname.S5000D>S5000D</entityname.S5000D>
-  <entitydescription.S5000D>From carbon, power.</entitydescription.S5000D>
+  <entityname.S5000D>s5000D Diesel Generator</entityname.S5000D>
+  <entitydescription.S5000D>Diesel generator rated for 5000kw.</entitydescription.S5000D>
 
-  <entityname.pdg500>Portable Diesel Generator</entityname.pdg500>
-  <entitydescription.pdg500>Power on the go!</entitydescription.pdg500>
+  <entityname.pdg500>PDG500 Diesel Generator</entityname.pdg500>
+  <entitydescription.pdg500>Portable diesel generator rated for 500kw.</entitydescription.pdg500>
 
   <entityname.keys>Keys</entityname.keys>
   <entitydescription.keys>Don't leave home without them.</entitydescription.keys>

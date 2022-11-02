@@ -1,6 +1,6 @@
 
 -- set the below variable to true to enable debug and testing features
-MT.TestingEnabled = false
+MT.TestingEnabled = true
 
 Hook.Add('chatMessage', 'MT.testing', function(msg, client)
     

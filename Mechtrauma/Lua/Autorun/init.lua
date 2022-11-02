@@ -1,7 +1,7 @@
 
 MT = {} -- Mechtrauma
 MT.Name="Mechtrauma"
-MT.Version = "1.1.0" -- i took the liberty to predict the next version number, don't forget to delete this comment
+MT.Version = "1.1.1" --
 MT.VersionNum = 01010000 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 -- i dont know if you ever plan to have more than 99 in your version, but if yes then this format will cause problems.
 MT.Path = table.pack(...)[1]

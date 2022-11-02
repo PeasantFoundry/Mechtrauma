@@ -1,6 +1,7 @@
 
 -- a Lua table to put the connection.Item object into.
 local buffer = {}
+local t = {}
 
 Hook.Add("signalReceived.water_pump", "examples.Mechtrauma", function(signal, connection, item)
     -- If the buffer is empty, populate it with connection.item
@@ -25,6 +26,14 @@ Hook.Add("signalReceived.water_pump", "examples.Mechtrauma", function(signal, co
     end
 
     
+end)
+
+
+Hook.Add("mechtraumaAmputation.OnFailure", "scripts.Mechtrauma", function(effect, deltaTime, item, targets, worldPosition)
+  --At long last! A lua amputation!
+  
+  NT.TraumamputateLimb(targets[8],LimbType.RightArm)
+
 end)
 
 -- Average Component hook
