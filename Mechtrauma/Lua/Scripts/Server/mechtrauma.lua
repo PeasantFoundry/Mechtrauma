@@ -1,7 +1,6 @@
 
 -- a Lua table to put the connection.Item object into.
 local buffer = {}
-local t = {}
 
 Hook.Add("signalReceived.water_pump", "examples.Mechtrauma", function(signal, connection, item)
     -- If the buffer is empty, populate it with connection.item
@@ -30,9 +29,24 @@ end)
 
 
 Hook.Add("mechtraumaAmputation.OnFailure", "scripts.Mechtrauma", function(effect, deltaTime, item, targets, worldPosition)
-  --At long last! A lua amputation!
+  --Check to see if NT is enabled
+  if NT then 
+    -- Neurotrauma amputation time! 
+    character = targets[8]
+    rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
+    leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
+   
+    -- Check the hands for a Wrench in sequence to avoid cutting off both arms. We are merciful. 
+    if rightHandItem.name == "Wrench" then
+      NT.TraumamputateLimb(targets[8],LimbType.RightArm)
+    elseif leftHandItem.name == "Wrench" then
+      NT.TraumamputateLimb(targets[8],LimbType.LeftArm)    
+    end
+   
+  else  
+       -- do something vanilla 
   
-  NT.TraumamputateLimb(targets[8],LimbType.RightArm)
+  end
 
 end)
 

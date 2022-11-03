@@ -6093,10 +6093,7 @@
       <!-- Don't stick your arm in a turbine when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gte 0.5" targetitemcomponent="RelayComponent"/>
-          <LuaHook name="mechtraumaAmputation.OnFailure" /> <!-- I WILL HAVE MY AMPUTATIONS! -->
-        <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
-        <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
+          <LuaHook name="mechtraumaAmputation.OnFailure" /> <!-- I WILL HAVE MY AMPUTATIONS! -->      
 
       </StatusEffect>
     
@@ -6252,10 +6249,7 @@
       <!-- Don't stick your arm in a turbine when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character,Limb" targetlimbs="LeftHand,RightHand" >
         <Conditional Voltage="gte 0.5" targetitemcomponent="RelayComponent"/>
-          <LuaHook name="mechtraumaAmputation.OnFailure" /> <!-- I WILL HAVE MY AMPUTATIONS! -->
-        <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
-        <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
+          <LuaHook name="mechtraumaAmputation.OnFailure" /> <!-- I WILL HAVE MY AMPUTATIONS! -->     
 
       </StatusEffect>
     
