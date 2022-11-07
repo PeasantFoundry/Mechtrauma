@@ -4387,7 +4387,7 @@
   </Item>
 
   <!-- GUNNERS CHAIR: -->
-  <Item name="Gunners Chair" description="" identifier="gunners_chair" tags="periscope" category="Machine,Weapon" type="Controller" linkable="true" allowedlinks="sonarmonitor" disableitemusagewhenselected="true" scale="0.5" isshootable="true" requireaimtouse="false" requireaimtosecondaryuse="false">
+  <Item name="" description="" identifier="gunners_chair" tags="periscope" category="Machine,Weapon" type="Controller" linkable="true" allowedlinks="sonarmonitor" disableitemusagewhenselected="true" scale="0.5" isshootable="true" requireaimtouse="false" requireaimtosecondaryuse="false">
       <SwappableItem canbebought="false" origin="67,0"/>
       <Sprite texture="%ModDir%/images/mechtrauma_weapons.png" sourcerect="576,0,322,322" depth="0.1" origin="0.5,0.5" />
   
