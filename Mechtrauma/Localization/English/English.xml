@@ -1,13 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
 
- <!-- =============< DECORATIVE >=============  -->
-
-  <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
-  <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
-
-<!-- =============< BIOTRAUMA >=============  -->
-
+   
+  <!-- =============< BIOTRAUMA >=============  -->
   <entityname.bacteria_analyzer>Microscopic Analyzer</entityname.bacteria_analyzer>
   <entitydescription.bacteria_analyzer>Biotrauma: Microscopic Analyzer for bacteria, mold, fungus, etc.</entitydescription.bacteria_analyzer>
 
@@ -20,26 +15,85 @@
   <entityname.spore_fungus>Fungus</entityname.spore_fungus>
   <entitydescription.spore_fungus>An unknown fungus.</entitydescription.spore_fungus>
 
- <!-- =============< ELECTRICAL >=============  -->
+   <!-- =============< DECORATIVE >=============  -->
+  <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
+  <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
 
+  <entityname.cargo_crane>Cargo Crane.</entityname.cargo_crane>
+  <entitydescription.cargo_crane>Hoist the cargo men!</entitydescription.cargo_crane>
+  
+  <entityname.lcd>LCD TV</entityname.lcd>
+  <entitydescription.lcd>LCD TV</entitydescription.lcd>
+
+  <!-- =============< MAP ITEMS >=============  -->
+  <entityname.cargo_hatch>Cargo Hatch.</entityname.cargo_hatch>
+  <entitydescription.cargo_hatch>Sometimes, you need to move big things.</entitydescription.cargo_hatch>
+
+  <!-- =============< ELECTRICAL >=============  -->
   <entityname.textdisplaylarge>textdisplaylarge</entityname.textdisplaylarge>
   <entitydescription.textdisplaylarge>textdisplaylarge</entitydescription.textdisplaylarge>
 
   <entityname.textdisplay_short_tight>textdisplay_short_tight</entityname.textdisplay_short_tight>
   <entitydescription.textdisplay_short_tight>Designed for short number such as 3 digit condition.</entitydescription.textdisplay_short_tight>
 
-  <entityname.lcd>LCD TV</entityname.lcd>
-  <entitydescription.lcd>LCD TV</entitydescription.lcd>
-
   <entityname.average_component>Average Component</entityname.average_component>
   <entitydescription.average_component>Outputs the average of the combined input signals. Requires Lua.</entitydescription.average_component>
+  
+  <entityname.fuse>Fuse</entityname.fuse>
+  <entitydescription.fuse>Fuse</entitydescription.fuse>
+  
+  <entityname.fuse_panel>Fuse Panel</entityname.fuse_panel>
+  <entitydescription.fuse_panel>An electrical relay panel with a sacrificial fuse for overvoltage.</entitydescription.fuse_panel>
+
+  <entityname.electrical_panel>Electrical Panel</entityname.electrical_panel>
+  <entitydescription.electrical_panel>Electrical Panel.</entitydescription.electrical_panel>
+
+  <entityname.battery_bank>battery_bank</entityname.battery_bank>
+  <entitydescription.battery_bank>battery_bank.</entitydescription.battery_bank>
 
  <!-- =============< ITEMS >=============  -->
+
+  <entityname.keys>Keys</entityname.keys>
+  <entitydescription.keys>Don't leave home without them.</entitydescription.keys>
+
   <entityname.peasantprime>PeasantPrime Box</entityname.peasantprime>
   <entitydescription.peasantprime>PeasantPrime Box</entitydescription.peasantprime>
+   
+  <entityname.oxygen_transfer_tank>Oxygen Transfer Tank</entityname.oxygen_transfer_tank>
+  <entitydescription.oxygen_transfer_tank>A large portable oxygen tank, useful for providing backup oxygen to combustion engines. </entitydescription.oxygen_transfer_tank>
 
+  <entityname.oxygentank_fr>Fire Resistant Oxygen Tank</entityname.oxygentank_fr>
+  <entitydescription.oxygentank_fr>Fire Resistant Oxygen Tank</entitydescription.oxygentank_fr>
+
+  <entityname.oxygentank_large>Oxygen tank large</entityname.oxygentank_large>
+  <entitydescription.oxygentank_large>Large Oxygen Tank, only for use in OXygen Stations. </entitydescription.oxygentank_large>
+
+  <entityname.handtruck>Hand Truck</entityname.handtruck>
+  <entitydescription.handtruck>Use this to move heavy things. Don't hurt your back.</entitydescription.handtruck>
+
+  <entityname.diesel_transfer_truck>Diesel Transfer Truck</entityname.diesel_transfer_truck>
+  <entitydescription.diesel_transfer_truck>Mobile diesel transfer station.</entitydescription.diesel_transfer_truck>
   
-<!-- =============< WEAPONS >=============  -->
+  <entityname.oil_transfer_truck>Oil Transfer Truck</entityname.oil_transfer_truck>
+  <entitydescription.oil_transfer_truck>Mobile oil transfer station.</entitydescription.oil_transfer_truck>
+
+  <entityname.argon_tank>Argon Tank</entityname.argon_tank>
+  <entitydescription.argon_tank>Refill.</entitydescription.argon_tank>
+
+  <entityname.mechweldingtool>Welder</entityname.mechweldingtool>
+  <entitydescription.mechweldingtool>An electric welder that uses Argon gas.</entitydescription.mechweldingtool>
+
+  <entityname.extinguisher_tank>ExtinguisherTank</entityname.extinguisher_tank>
+  <entitydescription.extinguisher_tank>Refill.</entitydescription.extinguisher_tank>
+
+  <entityname.S5_Extinguisher>S5_Extinguisher</entityname.S5_Extinguisher>
+  <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
+  
+  <entityname.l100_extinguisher>L100-Extinguisher</entityname.l100_extinguisher>
+  <entitydescription.l100_extinguisher>A large extinguisher for use in turnour gear.</entitydescription.l100_extinguisher>
+  
+  
+  <!-- =============< WEAPONS >=============  -->
   <entityname.airrifle>Air Rifle </entityname.airrifle>
   <entitydescription.airrifle>A low power, highly accessible and easily replentished weapon.</entitydescription.airrifle>
   
@@ -64,25 +118,19 @@
   <entityname.50cal_bolt>50 cal bolt</entityname.50cal_bolt>
   <entitydescription.50cal_bolt>50 cal bolt</entitydescription.50cal_bolt>
 
-
-  <entityname.fuse_panel>Fuse Panel</entityname.fuse_panel>
-  <entitydescription.fuse_panel>An electrical relay panel with a sacrificial fuse for overvoltage.</entitydescription.fuse_panel>
-
-  <entityname.electrical_panel>Electrical Panel</entityname.electrical_panel>
-  <entitydescription.electrical_panel>Electrical Panel.</entitydescription.electrical_panel>
   
-  <entityname.key_button>Key Button</entityname.key_button>
-  <entitydescription.key_button>Key Button.</entitydescription.key_button>
+  <!-- =============< MATERIALS >=============  -->
+  <entityname.scrap_steel>Scrap Steel</entityname.scrap_steel>
+  <entitydescription.scrap_steel>Don't forget to recycle!.</entitydescription.scrap_steel>
 
-  <entityname.battery_bank>battery_bank</entityname.battery_bank>
-  <entitydescription.battery_bank>battery_bank.</entitydescription.battery_bank>
+  <entityname.scrap_aluminium>Scrap aluminium</entityname.scrap_aluminium>
+  <entitydescription.scrap_aluminium>Don't forget to recycle!.</entitydescription.scrap_aluminium>
 
-  <entityname.fuse>Fuse</entityname.fuse>
-  <entitydescription.fuse>Fuse</entitydescription.fuse>
+  <entityname.scrap_copper>Scrap Copper</entityname.scrap_copper>
+  <entitydescription.scrap_copper>Don't forget to recycle!.</entitydescription.scrap_copper>
 
-<!-- =============< COMPONENTS >=============  -->
 
- 
+  <!-- =============< PART COMPONENTS >=============  --> 
   
   <entityname.sealed_bearing>Sealed Bearing</entityname.sealed_bearing>
   <entitydescription.sealed_bearing>Mechanical component for part fabrication.</entitydescription.sealed_bearing>
@@ -99,7 +147,7 @@
   <entityname.copper_windings>Copper Windings</entityname.copper_windings>
   <entitydescription.copper_windings>Copper windings for reparing electric motors.</entitydescription.copper_windings>
 
-<!-- =============< PARTS >=============  -->
+  <!-- =============< MACHINE PARTS >=============  -->
   <entityname.oil_filter>Oil filter</entityname.oil_filter>
   <entitydescription.oil_filter>Saves black gold.</entitydescription.oil_filter>
 
@@ -118,35 +166,34 @@
   <entityname.turbine_blade>Turbine Blade</entityname.turbine_blade>
   <entitydescription.turbine_blade>For use in machines such as steam turbine.</entitydescription.turbine_blade>
   
+  <entityname.co2_cartridge>Co2 Filter</entityname.co2_cartridge>
+  <entitydescription.co2_cartridge>For filtering Co2 from the atmosphere.</entitydescription.co2_cartridge>
 
+  <!-- =============< MACHINE FUELS >=============  -->
+  <entityname.oil_can>Oil Can</entityname.oil_can>
+  <entitydescription.oil_can>Black gold.</entitydescription.oil_can>
 
+  <entityname.oil_barrel>Oil Barrel</entityname.oil_barrel>
+  <entitydescription.oil_barrel>Black gold.</entitydescription.oil_barrel>
 
-<!-- =============< MATERIALS >=============  -->
+  <entityname.diesel_fuel_can>Diesel Fuel Can</entityname.diesel_fuel_can>
+  <entitydescription.diesel_fuel_can>A 5gallon can of Diesel Fuel.</entitydescription.diesel_fuel_can>
 
-  <entityname.scrap_steel>Scrap Steel</entityname.scrap_steel>
-  <entitydescription.scrap_steel>Don't forget to recycle!.</entitydescription.scrap_steel>
+  <entityname.diesel_fuel_barrel>Diesel Fuel Barrel</entityname.diesel_fuel_barrel>
+  <entitydescription.diesel_fuel_barrel>A 50gallon barrel of Diesel Fuel.</entitydescription.diesel_fuel_barrel>
 
-  <entityname.scrap_aluminium>Scrap aluminium</entityname.scrap_aluminium>
-  <entitydescription.scrap_aluminium>Don't forget to recycle!.</entitydescription.scrap_aluminium>
-
-  <entityname.scrap_copper>Scrap Copper</entityname.scrap_copper>
-  <entitydescription.scrap_copper>Don't forget to recycle!.</entitydescription.scrap_copper>
-
+  <!-- =============< MACHINES >=============  -->
   <entityname.water_pump_small>Small Water Pump</entityname.water_pump_small>
   <entitydescription.water_pump_small>For moving water.</entitydescription.water_pump_small>
+
   <entityname.water_pump>Water Pump</entityname.water_pump>
   <entitydescription.water_pump>For moving water.</entitydescription.water_pump>
+
   <entityname.water_pump_gate>Water Pump Gate</entityname.water_pump_gate>
   <entitydescription.water_pump_gate>Requires moving water.</entitydescription.water_pump_gate>
 
   <entityname.oxygentank_compressor>Oxygen Tank Compressor</entityname.oxygentank_compressor>
   <entitydescription.oxygentank_compressor>Compresses hull oxygen into tanks for use. </entitydescription.oxygentank_compressor>
-
-  <entityname.oxygentank_fr>Fire Resistant Oxygen Tank</entityname.oxygentank_fr>
-  <entitydescription.oxygentank_fr>Fire Resistant Oxygen Tank</entitydescription.oxygentank_fr>
-
-  <entityname.oxygentank_large>Oxygen tank large</entityname.oxygentank_large>
-  <entitydescription.oxygentank_large>Large Oxygen Tank, only for use in OXygen Stations. </entitydescription.oxygentank_large>
 
   <entityname.oxygen_station>Oxygen tank station</entityname.oxygen_station>
   <entitydescription.oxygen_station>For quickly refilling oxygen tanks and releasing oxygen in an emergency.</entitydescription.oxygen_station>
@@ -154,47 +201,11 @@
   <entityname.oxygen_vent>Oxygen Vent</entityname.oxygen_vent>
   <entitydescription.oxygen_vent>Clean regularly. Repalce Co2 filter regularly.</entitydescription.oxygen_vent>
 
-  <entityname.co2_cartridge>Co2 Filter</entityname.co2_cartridge>
-  <entitydescription.co2_cartridge>For filtering Co2 from the atmosphere.</entitydescription.co2_cartridge>
-
   <entityname.oxygen_supply>Oxygen supply</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply>
 
-  <entityname.oil_can>Oil Can</entityname.oil_can>
-  <entitydescription.oil_can>Black gold.</entitydescription.oil_can>
-
-  <entityname.oil_barrel>Oil Barrel</entityname.oil_barrel>
-  <entitydescription.oil_barrel>Black gold.</entitydescription.oil_barrel>
-
   <entityname.oil_station>Oil Station</entityname.oil_station>
-  <entitydescription.oil_station>Black gold.</entitydescription.oil_station>
-
-  <entityname.mechweldingtool>Welder</entityname.mechweldingtool>
-  <entitydescription.mechweldingtool>An electric welder that uses Argon gas.</entitydescription.mechweldingtool>
-
-  <entityname.handtruck>Hand Truck</entityname.handtruck>
-  <entitydescription.handtruck>Use this to move heavy things. Don't hurt your back.</entitydescription.handtruck>
-  
-  <entityname.closet>Storage Closet</entityname.closet>
-  <entitydescription.closet>Clean up after yourself! This is a space for storing large, bulky items.</entitydescription.closet>
-
-  <entityname.storage_container_single>Storage Container</entityname.storage_container_single>
-  <entitydescription.storage_container_single>Storage container, larger than a cabinet. </entitydescription.storage_container_single>
-
-  <entityname.shipping_container_open>Cargo Container Open.</entityname.shipping_container_open>
-  <entitydescription.shipping_container_open>Clean up after yourself!.</entitydescription.shipping_container_open>
-
-  <entityname.shipping_container_closed>Cargo Container Closed.</entityname.shipping_container_closed>
-  <entitydescription.shipping_container_closed>Clean up after yourself!.</entitydescription.shipping_container_closed>
-
-  <entityname.cargo_crane>Cargo Crane.</entityname.cargo_crane>
-  <entitydescription.cargo_crane>Hoist the cargo men!</entitydescription.cargo_crane>
-
-  <entityname.cargo_hatch>Cargo Hatch.</entityname.cargo_hatch>
-  <entitydescription.cargo_hatch>Sometimes, you need to move big things.</entitydescription.cargo_hatch>
-
-  <entityname.mechcab>Quick Cabinet</entityname.mechcab>
-  <entitydescription.mechcab>Quick access for emergencies.</entitydescription.mechcab>
+  <entitydescription.oil_station>Black gold.</entitydescription.oil_station> 
 
   <entityname.cncfab>CNC Mechanical Fabricator</entityname.cncfab>
   <entitydescription.cncfab>Mech your dream reality!.</entitydescription.cncfab>
@@ -202,24 +213,13 @@
   <entityname.repairtable>Repair Table</entityname.repairtable>
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
 
-  <entityname.argon_tank>Argon Tank</entityname.argon_tank>
-  <entitydescription.argon_tank>Refill.</entitydescription.argon_tank>
-
   <entityname.extinguisher_station>Extinguisher Station</entityname.extinguisher_station>
   <entitydescription.extinguisher_station>Refill.</entitydescription.extinguisher_station>
-
-  <entityname.extinguisher_tank>ExtinguisherTank</entityname.extinguisher_tank>
-  <entitydescription.extinguisher_tank>Refill.</entitydescription.extinguisher_tank>
-
-  <entityname.S5_Extinguisher>S5_Extinguisher</entityname.S5_Extinguisher>
-  <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
-  
-  <entityname.l100_extinguisher>L100-Extinguisher</entityname.l100_extinguisher>
-  <entitydescription.l100_extinguisher>A large extinguisher for use in turnour gear.</entitydescription.l100_extinguisher>
 
   <entityname.argon_station>Argon Station</entityname.argon_station>
   <entitydescription.argon_station>Refill.</entitydescription.argon_station>
 
+  <!-- Powertrain -->
   <entityname.boiler>Steam Boiler</entityname.boiler>
   <entitydescription.boiler>Generates steam.</entitydescription.boiler>
 
@@ -229,51 +229,20 @@
   <entityname.reduction_gear>Reduction Gear</entityname.reduction_gear>
   <entitydescription.reduction_gear>Generates torque from steam turbine.</entitydescription.reduction_gear>
 
-  <entityname.gear_locker>Gear Locker</entityname.gear_locker>
-  <entitydescription.gear_locker>For storing gear.</entitydescription.gear_locker>
+  <!-- Powertrain for easy mode  -->
+  <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
+  <entitydescription.boiler_p>Generates steam.</entitydescription.boiler_p>
 
-  <entityname.plague_doctor_mask>Plague Doctor Mask</entityname.plague_doctor_mask>
-  <entitydescription.plague_doctor_mask>Plague Doctor Mask</entitydescription.plague_doctor_mask>
+  <entityname.steam_turbine_p>Steam Turbine for Peasants</entityname.steam_turbine_p>
+  <entitydescription.steam_turbine_p>Converts steam energy into kinetic engery.</entitydescription.steam_turbine_p>
 
-  <entityname.radiation_suit2>Radiation Suit</entityname.radiation_suit2>
-  <entitydescription.radiation_suit2>The best protection for radiation.</entitydescription.radiation_suit2>
-
-  <entityname.radiation_suit>Radiation Suit</entityname.radiation_suit>
-  <entitydescription.radiation_suit>Radiation Suit</entitydescription.radiation_suit>
-
-  <entityname.turnout_gear2>Turnout Gear</entityname.turnout_gear2>
-  <entitydescription.turnout_gear2>Equip with a fire resistant oxygen tank and an L100 Extinguisher.</entitydescription.turnout_gear2>
-
-  <entityname.dry_suit>Dry Suit</entityname.dry_suit>
-  <entitydescription.dry_suit>Low pressure suit. Useful for making repairs in the sub and reducing wear and tear on diving suits.</entitydescription.dry_suit>
-
-  <entityname.expedition_divingsuit>Expedition Diving Suit</entityname.expedition_divingsuit>
-  <entitydescription.expedition_divingsuit>Expedition Diving Suit</entitydescription.expedition_divingsuit>
-
-  <entityname.armored_divingsuit>Armored Diving Suit</entityname.armored_divingsuit>
-  <entitydescription.armored_divingsuit>Designed for combat, fuction over form. </entitydescription.armored_divingsuit>
-
-  <entityname.armored_suit>Suit of Armor</entityname.armored_suit>
-  <entitydescription.armored_suit>A mid 15th century relic from earth. This is a piece of art! </entitydescription.armored_suit>
-
-  <entityname.plague_doctor_kit>Plague Doctor Kit</entityname.plague_doctor_kit>
-  <entitydescription.plague_doctor_kit>Plague Doctor Kit</entitydescription.plague_doctor_kit>
-
-  <entityname.kit_utility>Utility Kit</entityname.kit_utility>
-  <entitydescription.kit_utility>Utility Kit.</entitydescription.kit_utility>
-
-  <entityname.captains_kit>Captains Kit</entityname.captains_kit>
-  <entitydescription.captains_kit>It is good to be the captain.</entitydescription.captains_kit>
-
-  <entityname.diesel_fuel_can>Diesel Fuel Can</entityname.diesel_fuel_can>
-  <entitydescription.diesel_fuel_can>A 5gallon can of Diesel Fuel.</entitydescription.diesel_fuel_can>
-
-  <entityname.diesel_fuel_barrel>Diesel Fuel Barrel</entityname.diesel_fuel_barrel>
-  <entitydescription.diesel_fuel_barrel>A 50gallon barrel of Diesel Fuel.</entitydescription.diesel_fuel_barrel>
-
+  <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
+  <entitydescription.reduction_gear_p>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear_p>
+  
   <entityname.diesel_fuel_tank>Diesel Fuel Tank</entityname.diesel_fuel_tank>
   <entitydescription.diesel_fuel_tank>Ship's Diesel Fuel tank. Refills cans from barrels. </entitydescription.diesel_fuel_tank>
 
+  <!-- Diesel Generators -->
   <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
   <entitydescription.s1500D>Emergency backup diesel generator rated for 1500kw.</entitydescription.s1500D>
 
@@ -283,26 +252,72 @@
   <entityname.pdg500>PDG500 Diesel Generator</entityname.pdg500>
   <entitydescription.pdg500>Portable diesel generator rated for 500kw.</entitydescription.pdg500>
 
-  <entityname.keys>Keys</entityname.keys>
-  <entitydescription.keys>Don't leave home without them.</entitydescription.keys>
-
-  <entityname.trash_can>Trash Can</entityname.trash_can>
-  <entitydescription.trash_can>Goodbye ID cards!</entitydescription.trash_can>
-
   <entityname.incinerator>Incinerator</entityname.incinerator>
   <entitydescription.incinerator>Dispose of unwanted items midround.</entitydescription.incinerator>
 
   <entityname.trashcan>Mechtrauma Trash Can</entityname.trashcan>
   <entitydescription.trashcan>Dispose of unwanted items midround.</entitydescription.trashcan>
 
-<!-- =============< GEAR >=============  -->
+  <!-- =============< CONTAINERS >=============  -->
+  <entityname.closet>Storage Closet</entityname.closet>
+  <entitydescription.closet>For storing large items.</entitydescription.closet>
+
+  <entityname.storage_container_single>Storage Container</entityname.storage_container_single>
+  <entitydescription.storage_container_single>Storage container, larger than a cabinet. </entitydescription.storage_container_single>
+
+  <entityname.shipping_container_open>Cargo Container Open.</entityname.shipping_container_open>
+  <entitydescription.shipping_container_open>Non-waterpoof continer for storing large items and materials.</entitydescription.shipping_container_open>
+
+  <entityname.shipping_container_closed>Cargo Container Closed.</entityname.shipping_container_closed>
+  <entitydescription.shipping_container_closed>Waterproof cargo container for transporting goods.</entitydescription.shipping_container_closed>
+
+  <entityname.mechcab>Quick Cabinet</entityname.mechcab>
+  <entitydescription.mechcab>Quick access for emergencies.</entitydescription.mechcab>
+  
+  <entityname.gear_locker>Gear Locker</entityname.gear_locker>
+  <entitydescription.gear_locker>Powerless gear storage.</entitydescription.gear_locker>
+
+  <!-- =============< GEAR >=============  -->
   <entityname.mechanic_toolkit>Mechanic Tool Vest</entityname.mechanic_toolkit>
   <entitydescription.mechanic_toolkit>A Mechanic carries a lot of tools and parts.</entitydescription.mechanic_toolkit> 
   
   <entityname.engineer_toolkit>Engineering Backpack</entityname.engineer_toolkit>
   <entitydescription.engineer_toolkit>A Engineer carries a lot of tools and parts.</entitydescription.engineer_toolkit>
+  
+  <entityname.plague_doctor_mask>Plague Doctor Mask</entityname.plague_doctor_mask>
+  <entitydescription.plague_doctor_mask>Plague Doctor Mask</entitydescription.plague_doctor_mask>
 
+  <!-- Suits -->
+  <entityname.pucs>FatBoy</entityname.pucs>
+  <entitydescription.pucs>Heavily shielded pressure suit for Hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.pucs>
 
+  <entityname.radiation_suit2>Radiation Suit</entityname.radiation_suit2>
+  <entitydescription.radiation_suit2>Protects against radiation.</entitydescription.radiation_suit2>
+
+  <entityname.turnout_gear2>Turnout Gear</entityname.turnout_gear2>
+  <entitydescription.turnout_gear2>Fire Protection: Equip with a fire resistant oxygen tank and an L100 Extinguisher.</entitydescription.turnout_gear2>
+
+  <entityname.dry_suit>Dry Suit</entityname.dry_suit>
+  <entitydescription.dry_suit>Low pressure suit: Rated for 5,000m.</entitydescription.dry_suit>
+
+  <entityname.expedition_divingsuit>Expedition Diving Suit</entityname.expedition_divingsuit>
+  <entitydescription.expedition_divingsuit>Expedition suit: Rated for 5,000m dual oxygen bottles.</entitydescription.expedition_divingsuit>
+
+  <entityname.armored_divingsuit>Armored Diving Suit</entityname.armored_divingsuit>
+  <entitydescription.armored_divingsuit>Combat suit: Rated for 5,000m. </entitydescription.armored_divingsuit>
+
+  <entityname.armored_suit>Antique Armor</entityname.armored_suit>
+  <entitydescription.armored_suit>A mid 15th century relic from earth. This is a piece of art! </entitydescription.armored_suit>
+
+  <!-- Kits -->
+  <entityname.plague_doctor_kit>Plague Doctor Kit</entityname.plague_doctor_kit>
+  <entitydescription.plague_doctor_kit>Medical Officer Kit.</entitydescription.plague_doctor_kit>
+
+  <entityname.kit_utility>Utility Kit</entityname.kit_utility>
+  <entitydescription.kit_utility>Mechanic Kit.</entitydescription.kit_utility>
+
+  <entityname.captains_kit>Captains Kit</entityname.captains_kit>
+  <entitydescription.captains_kit>It is good to be the captain.</entitydescription.captains_kit>
 
   <!-- =============< MISSIONS >=============  -->
   <missionname.cargopeasantprime>PeasantPrime Shipment</missionname.cargopeasantprime>
@@ -310,18 +325,9 @@
   <missionsuccess.cargopeasantprime>The PeasantPrime boxes have been successfully delivered! You've done your part to enable rampant consumerism. </missionsuccess.cargopeasantprime>
 
 
- <!-- =============< NEW ITEMS (I hope this makes it easier to find changes) >=============  -->
-  <!-- 10/27/22 -->
-  <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
-  <entitydescription.boiler_p>Generates steam.</entitydescription.boiler_p>
-  <entityname.steam_turbine_p>Steam Turbine for Peasants</entityname.steam_turbine_p>
-  <entitydescription.steam_turbine_p>Converts steam into torque.</entitydescription.steam_turbine_p>
-  <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
-  <entitydescription.reduction_gear_p>Generates torque from steam turbine.</entitydescription.reduction_gear_p>
-  
-  <!-- 10/29/22 -->  
-  <entityname.fatboy>FatBoy</entityname.fatboy>
-  <entitydescription.fatboy>Heavily shielded pressure suit for Hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.fatboy>
+ <!-- =============< NEW ITEMS >=============  -->
+ 
+
 
 
 

@@ -3,7 +3,7 @@
 local buffer = {}
 
 
-Hook.Add("signalReceived.water_pump", "scripts.Mechtrauma", function(signal, connection, item)
+Hook.Add("signalReceived.water_pump", "MT.waterpumpGate", function(signal, connection, item)
     -- If the buffer is empty, populate it with connection.item
     if buffer[connection.Item] == nil then buffer[connection.Item] = {} end
     
@@ -29,7 +29,7 @@ Hook.Add("signalReceived.water_pump", "scripts.Mechtrauma", function(signal, con
 end)
 
 
-Hook.Add("mechtraumaAmputation.OnFailure", "scripts.Mechtrauma", function(effect, deltaTime, item, targets, worldPosition)
+Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, deltaTime, item, targets, worldPosition)
   -- Check to see if NT is enabled
   if NT then 
 
@@ -52,7 +52,7 @@ Hook.Add("mechtraumaAmputation.OnFailure", "scripts.Mechtrauma", function(effect
 end)
 
 -- Average Component hook
-Hook.Add("signalReceived.average_component", "scripts.Mechtrauma", function(signal, connection)
+Hook.Add("signalReceived.average_component", "MT.averageComponent", function(signal, connection)
     if buffer[connection.Item] == nil then buffer[connection.Item] = {} end
 
     local itemBuffer = buffer[connection.Item]
