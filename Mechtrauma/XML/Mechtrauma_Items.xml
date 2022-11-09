@@ -262,7 +262,7 @@
     </Fabricate>
     <!-- physics body -->
     <Body width="150" height="60" density="40" />
-    <!-- the character will hold the item 50 pixels in front of him, with his hands at the handle1 and handle2 positions -->
+    <!-- the character will hold the item 50 pixels in front of him, with his hands at the handle1 and handle2 positions -->     
     <Holdable slots="Any,RightHand+LeftHand" controlpose="true" aimpos="60,0" handle1="-62,-16" handle2="-10,-6" msg="ItemMsgPickUpSelect" />
         <Propulsion force="0" usablein="water" particles="bubbles">
           <RequiredItems items="mobilebattery" type="Contained" />
@@ -643,10 +643,19 @@
     </Quality>
   </Item>
   
+ <!-- STORAGE CABINET: -->
+  <Item name="Storage Cabinet" identifier="storage_cabinet" Aliases="steelcabinet" category="Misc" tags="locker,container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
+    <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="0,896,256,320"/>
+    <trigger x="0" y="0" width="256" height="320" />
+    <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
+      <Containable identifiers="smallitem"/>
+    </ItemContainer>
+  </Item>
 
  <!-- STORAGE CLOSET: -->
  <Item name="Storage Closet" identifier="closet" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.6">
-     <Sprite texture="%ModDir%/images/shipping_container.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />   
+     <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />   
     <ItemContainer capacity="12" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" />
       
@@ -655,8 +664,8 @@
 
  <!-- SHIPPING CONTAINER: Open. -->
  <Item name="Shipping Container Open" identifier="shipping_container_open" tags="container,locker,suppliescontainer" depth="0.84" linkable="true" pickdistance="150" waterproof="false" scale="0.6">
-    <Sprite texture="%ModDir%/images/shipping_container.png" depth="0.84" sourcerect="1028,0,256,396" origin="0.5,0.5" />
-    <DecorativeSprite texture="%ModDir%/images/shipping_container.png" sourcerect="0,0,1024,436" depth="0.841" origin="0.0,0.5" offset="-128,0" />
+    <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="1028,0,256,396" origin="0.5,0.5" />
+    <DecorativeSprite texture="%ModDir%/images/mechtrauma_containers.png" sourcerect="0,0,1024,436" depth="0.841" origin="0.0,0.5" offset="-128,0" />
     <ItemContainer capacity="32" slotsperrow="8" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
     </ItemContainer>
@@ -664,7 +673,7 @@
 
  <!-- SHIPPING CONTAINER: Closed. -->
  <Item name="Shipping Container Closed" identifier="shipping_container_closed" tags="container,suppliescontainer,locker,cargocontainer" allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
-    <Sprite texture="%ModDir%/images/shipping_container.png" depth="0.84" sourcerect="0,0,1024,436" origin="0.5,0.5" />    
+    <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="0,0,1024,436" origin="0.5,0.5" />    
     <ItemContainer capacity="32" slotsperrow="10" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
     </ItemContainer>
@@ -672,7 +681,7 @@
 
  <!-- STORAGE CONTAINER: Single. -->
  <Item name="Storage Container" identifier="storage_container_single" tags="container,suppliescontainer,locker" allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed,fabricator,cncfab" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
-    <Sprite texture="%ModDir%/images/shipping_container.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />    
+    <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />    
     <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.45" anchor="Center" relativeoffset="-0.01,0.0" style="ItemUI" /> 
       <Containable identifiers="smallitem"/>
@@ -1377,7 +1386,7 @@
   </Item>
 
   <!-- OXYGEN TANK LARGE: TO DO: Make a tank spawn in the oxygen station is there isn't one. -->
-  <Item name="Oxygentank Large" identifier="oxygentank_large" Category="Fuel" Tags="largeitem,oxygen,handtruck" hiddeningame="True" spritecolor="255,255,255,5" maxstacksize="1" cargocontaineridentifier="handtruck" health="5000" scale="0.5">
+  <Item name="Oxygentank Large" identifier="oxygentank_large" Category="Equipment" Tags="largeitem,oxygen,handtruck" hiddeningame="True" spritecolor="255,255,255,255" maxstacksize="1" cargocontaineridentifier="handtruck" health="5000" scale="0.5">
     <PreferredContainer primary="oxygen_station"/>     
     <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="768,0,128,128" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="768,0,128,128" />
@@ -1666,7 +1675,7 @@
   </Item>
 
 <!-- OXYGEN STATION: Compresses oxygen and uses it to fill smaller tanks or releases it in the event of an O2 shortage. --> 
-  <Item name="Oxygen Station" identifier="oxygen_station" tags="oxygengenerator,oxygentankrefiller" category="Machine" linkable="true" allowedlinks="vent" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+  <Item name="Oxygen Station" identifier="oxygen_station" tags="oxygengenerator,oxygentankrefiller" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
     <Sprite texture="%ModDir%/images/oxygen.png" sourcerect="0,512,384,404 " depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/oxygen.png" sourcerect="384,512,384,404 " origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/oxygen.png" sourcerect="384,512,384,404 " origin="0.5,0.5" depth="0.8" maxcondition="0" />
@@ -1944,6 +1953,62 @@
   </Item>
 
   <!-- =============< ELECTRICAL >=============  -->
+
+<Item name="Emergency Disconnect" identifier="emergency_disconnect" category="Electrical" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+    <Price baseprice="125" minavailable="4">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" sold="false" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="10"/>
+    </Price>
+    <Sprite texture="Content/Items/Button/button.png" sourcerect="64,1,63,62" depth="0.79" origin="0.5,0.5" />
+    <Deconstruct time="10">
+      <Item identifier="plastic" amount="2" />
+      <Item identifier="copper" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="25" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    <Body width="18" height="31" density="20" />
+    <Controller direction="None" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+      <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
+      <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
+    </Controller>
+    <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="185,129,70,97" depth="0.795" origin="0.5,0.6"/>
+    <DecorativeSprite texture="Content/Items/Button/button.png" sourcerect="64,63,63,62" depth="0.78" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq True" />
+    </DecorativeSprite>
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+      <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
+    
+     
+      <!-- ON: -->
+      <StatusEffect type="Always" targettype="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="ON" checkconditionalways="true" IsOn="True" Comparison="And">
+         <Conditional State="eq False" targetitemcomponent="Controller" />       
+      </StatusEffect> 
+
+      <!-- OFF: -->
+      <StatusEffect type="Always" targettype="This" delay="1" stackable="false" IsOn="False">
+        <Conditional HasStatusTag="neq ON" />        
+      </StatusEffect>      
+
+    </RelayComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="power_out" displayname="connection.powerout" />
+        <input name="power_in" displayname="connection.powerin" />
+        <input name="signal_in" displayname="connection.singalin" />
+      <output name="signal_out" displayname="connection.signalout" />
+    </ConnectionPanel>
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+      <requireditem identifier="wrench" type="Equipped" />
+    </Holdable>
+  </Item>
 
    <Item name="Average Component" identifier="average_component" category="Electrical" tags="command" scale="0.6" impactsoundtag="impact_metal_light" isshootable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
         <Sprite texture="%ModDir%/Images/Mechtrauma.png" sourcerect="332,192,30,26" depth="0.7" origin="0.5,0.5" />
@@ -4066,7 +4131,7 @@
     <InventoryIcon name="Utility Kit Icon" texture="%ModDir%/images/gear/kit_utility.png" sourcerect="406,8,98,86" origin="0.5,0.5" />
     <Sprite name="Utility Kit" texture="%ModDir%/images/gear/kit_utility.png" sourcerect="406,8,98,86" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
-    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">       
       <sprite name="Utility Kit Torso" texture="%ModDir%/images/gear/kit_utility.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Utility Kit Right Hand" texture="%ModDir%/images/gear/kit_utility.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Utility Kit Left Hand" texture="%ModDir%/images/gear/kit_utility.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
@@ -5295,7 +5360,7 @@
           <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" Comparison="And">
             <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="1.0" />
             <Conditional HullOxygenPercentage="lt 50" />    
-            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
+            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/> <!-- we are not checking for oxygen here, we are just checking if there is diesel and telling it to burn oxygen? A: yes we are but badly - On Conatining with exclude broken.-->
             <Conditional InWater="false" />
           </StatusEffect>        
 
@@ -5467,7 +5532,7 @@
         <StatusEffect type="OnContaining" targettype="Contained" targets="oil" Condition="-1.0" Comparison="And">
          <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
          <Conditional HasStatusTag="diesel_fuel_barrel" targetcontainer="true" />
-         <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+         <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
          <Conditional HullOxygenPercentage="lt 50" />
          <Conditional InWater="false" />
         </StatusEffect>
@@ -5476,7 +5541,7 @@
         <StatusEffect type="OnContaining" targettype="Contained" targets="oil" Condition="-1.0" Comparison="And">
          <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
          <Conditional HasStatusTag="diesel_fuel_barrel" targetcontainer="true" />
-         <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+         <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
          <Conditional InWater="true" />
         </StatusEffect>
 
@@ -5491,7 +5556,7 @@
 
         <!-- Clean the oil! (Oxygen Tank)-->
         <StatusEffect type="OnContaining" targettype="Contained" Condition="0.25" Comparison="And">
-         <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+         <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" /> <!-- Is this an abberation?!? Usually two required items DOES NOT WORK-->
            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
             <Conditional HullOxygenPercentage="lt 50" />
@@ -5500,7 +5565,7 @@
 
         <!-- Clean the oil! (Underwater)-->
         <StatusEffect type="OnContaining" targettype="Contained" Condition="0.25" Comparison="And">
-         <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+         <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" /> <!-- Is this an abberation?!? Usually two required items DOES NOT WORK-->
            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
             <Conditional InWater="true" />
@@ -5523,7 +5588,7 @@
 
         <!-- Dirty the filter! (Low Atmosphere Oxygen) -->
         <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" Comparison="And">
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
           <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>       
           <Conditional HullOxygenPercentage="lt 50" />
@@ -5532,7 +5597,7 @@
 
         <!-- Dirty the filter! (Underwater) -->
         <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" Comparison="And">
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
             <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
               <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>       
                <Conditional InWater="true" />
@@ -5555,7 +5620,7 @@
 
          <!-- Burn the fuel! (Low Atmosphere Oxygen)-->
         <StatusEffect type="OnContaining" targettype="Contained" tags="diesel_fuel_barrel" Condition="-2" checkconditionalalways="true" Comparison="And">
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <Sound file="%ModDir%/sound/diesel_sound_deep.ogg" range="800" loop="true" />
           <Conditional HullOxygenPercentage="lt 50" />
           <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>    
@@ -5564,7 +5629,7 @@
 
         <!-- Burn the fuel! (Underwater)-->
         <StatusEffect type="OnContaining" targettype="Contained" tags="diesel_fuel_barrel" Condition="-2" checkconditionalalways="true" Comparison="And">
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <Sound file="%ModDir%/sound/diesel_sound_deep.ogg" range="800" loop="true" />
           <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
           <Conditional InWater="true" />
@@ -5576,15 +5641,15 @@
           <ParticleEmitter particle="extinguisher" particlespersecond="3" anglemin="350" anglemax="359" distancemin="0" distancemax="1" velocitymin="700" velocitymax="800" underwaterbubble="True" alpha="1.0" /> 
           <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
           <Conditional HullOxygenPercentage="gte 50" />
-          <Conditional Condition="gt 50.0" targetcontainer="true" />
+          <Conditional Condition="lt 50.0" targetcontainer="true" />
         </StatusEffect>
          <!-- "Clean" Exhaust (Oxygentank)-->
         <StatusEffect type="OnContaining" targettype="Contained" Comparison="And">
           <ParticleEmitter particle="extinguisher" particlespersecond="3" anglemin="350" anglemax="359" distancemin="0" distancemax="1" velocitymin="700" velocitymax="800" underwaterbubble="True" alpha="1.0" /> 
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
           <Conditional HullOxygenPercentage="lt 50" />
-          <Conditional Condition="gt 50.0" targetcontainer="true" />
+          <Conditional Condition="lt 50.0" targetcontainer="true" />
         </StatusEffect>
 
         <!-- Charge the buffer battery (Atmosphere) -->
@@ -5598,7 +5663,7 @@
         <!-- Charge the buffer battery (Low Atmosphere Oxygen) -->
         <StatusEffect type="OnContaining" targettype="Contained" target="This" charge="5.0" checkconditionalalways="true" Comparison="And">
           <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <Conditional HullOxygenPercentage="lt 50" />
           <Conditional IsOn="true" targetcontainer="false" targetitemcomponent="RelayComponent"/>
           <Conditional InWater="false" />
@@ -5607,7 +5672,7 @@
          <!-- Charge the buffer battery (Underwater) -->
         <StatusEffect type="OnContaining" targettype="Contained" target="This" charge="5.0" checkconditionalalways="true" Comparison="And">
           <RequiredItem items="diesel_fuel_barrel" type="Contained" mincondition="5.0" />
-          <RequiredItem items="oxygentank" type="Contained" mincondition="5.0" />
+          <RequiredItem items="oxygentank,oxygentank_fr,oxygen_transfer_tank" type="Contained" mincondition="5.0" />
           <Conditional IsOn="true" targetcontainer="false" targetitemcomponent="RelayComponent"/>
           <Conditional InWater="true" />
         </StatusEffect>
@@ -5618,7 +5683,7 @@
 
     <!-- SLOT 10 -->  
     <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-       <Containable items="oxygentank" excludebroken="true" excludefullcondition="false">
+       <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false">
                  
         <!-- Burn oxygen tank in slot (Low Atmosphere Oxygen) -->
         <StatusEffect type="OnContaining" targettype="Contained" Condition="-3.0" Comparison="And">
@@ -5945,8 +6010,183 @@
     </Repairable>
   </Item>
 
+
+  <!-- ROCKET ENGINE GEAR: -->
+  <Item name="s1000R" identifier="s1000R" tags="engine" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+    <Sprite texture="%ModDir%/images/mechtrauma_rocket.png" sourcerect="0,0,320,150" depth="0.8" canflipx="true" origin="0.5,0.5" />
+    <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
+      <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
+    </DecorativeSprite> -->
+    <BrokenSprite texture="%ModDir%/images/mechtrauma_rocket.png" sourcerect="0,0,320,150" depth="0.8" maxcondition="80" offset="200,0" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/mechtrauma_rocket.png" sourcerect="0,0,320,150" depth="0.8" maxcondition="1" offset="0,30" fadein="true" />
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
+    <trigger x="0" y="0" width="320" height="150" />
+    <aitarget sightrange="500" soundrange="7000" staticsight="true" fadeouttime="5"/>
+    <Engine minvoltage="0.5" powerconsumption="0.0" maxforce="1000" canbeselected="true" propellerpos="-760,0" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.18" minsize="450,200" anchor="Center" style="ItemUI" />
+      <StatusEffect type="InWater" target="This" condition="-1.0" />
+      <sound file="Content/Items/Engine/Engine.ogg" type="OnActive" range="7500.0" volumeproperty="CurrentVolume" loop="true" />
+      <sound file="Content/Items/Engine/EngineBroken.ogg" type="Always" range="15000.0" volumeproperty="CurrentBrokenVolume" loop="true" />
+      <poweronsound file="Content/Items/PowerOnHeavy1.ogg" range="3000" loop="false" />
+      <!-- This is a spinning propellor people... Stay out of it!-->
+      <propellerdamage damagerange="100" targetforce="750" severlimbsprobability="90.0">
+        <Affliction identifier="lacerations" strength="20" />
+        <Affliction identifier="bleeding" strength="30" />
+      </propellerdamage>
+       <!-- Gear Friction.  -->
+        <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
+         <Conditional Voltage="gt 0.1" />        
+        </StatusEffect>
+
+      <!-- Check for turbine blades (Statuseffect tags need to have a duration applied) -->
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" tags="turbine_blades" duration="0.5" stackable="false" Comparison="And">
+        <RequiredItem items="turbine_blade" type="Contained" targetslot="0" mincondition="0.0" />    
+        <RequiredItem items="turbine_blade" type="Contained" targetslot="1" mincondition="0.0" />           
+      </StatusEffect>  
+
+      <!-- DISABLE: Cannot produce thrust without without turbine blades -->
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" setvalue="true" Force="0" Comparison="And">
+        <Conditional HasStatusTag="neq turbine_blades"/>
+      </StatusEffect>  
+
+      <!-- ROCKET POWER: -->
+      <StatusEffect type="Always" target="This" targetitemcomponent="Engine" Condition="2" Comparison="And">             
+        <ParticleEmitter particle="weld" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
+        <Sound file="%ModDir%/sound/pressure_relief2.ogg" range="100" loop="true" />
+        <Conditional force="neq 0" />        
+      </StatusEffect>          
+                 
+         
+    </Engine>
+
+    <ItemContainer capacity="0" maxstacksize="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="RocketEngine">
+      <GuiFrame relativesize="0.2,0.6" minsize="450,450" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+
+       <!-- TURBINE BLADES: Slots, 0,1 -->
+       <SubContainer capacity="2" maxstacksize="1" >
+        <Containable items="turbine_blade" excludebroken="true" excludefullcondition="false">
+  
+        </Containable>
+      </SubContainer>
+      
+      <!-- OIL: Slots 2,3,4,5 -->
+      <SubContainer capacity="4" maxstacksize="1" >
+      <Containable items="oil" excludebroken="false" excludefullcondition="false">
+      
+        <!-- Burn oil in all slots! NOTE: Just kidding. -->
+        <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" delay="1" duration="1" stackable="false" Comparison="And">
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Engine"/>
+        </StatusEffect>
+
+        <!-- Filter1 Clean oil slots 2-5!  -->
+        <StatusEffect type="OnContaining" targettype="Contained" Condition="0.25" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil_filter" type="Contained" targetslot="6" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Engine"/>
+        </StatusEffect>
+
+        <!-- Filter2 Clean oil slots 2-5!   -->
+         <StatusEffect type="OnContaining" targettype="Contained" Condition="0.25" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil_filter" type="Contained" targetslot="7" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Engine"/>
+        </StatusEffect>
+    
+      <!-- Lubricate the gears! (This device will not destroy itself if it has clean oil in it.) -->
+      <!-- OIL: SLOT2-->
+      <StatusEffect type="OnContaining" target="This" Condition="0.5" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil" type="Contained" targetslot="2" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="Engine"/>
+      </StatusEffect>
+
+      <!-- OIL: SLOT3-->
+      <StatusEffect type="OnContaining" target="This" Condition="0.5" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil" type="Contained" targetslot="3" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="Engine"/>
+      </StatusEffect>
+            
+      <!-- OIL: SLOT3-->
+      <StatusEffect type="OnContaining" target="This" Condition="0.5" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil" type="Contained" targetslot="4" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="Engine"/>
+      </StatusEffect>
+
+      <!-- OIL: SLOT4-->
+      <StatusEffect type="OnContaining" target="This" Condition="0.5" delay="1" duration="1" stackable="false" Comparison="And">
+         <RequiredItem items="oil" type="Contained" targetslot="5" mincondition="5.0" />
+         <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="Engine"/>
+      </StatusEffect>
+
+      </Containable>       
+      </SubContainer>
+
+
+      <!-- FILTERS: Slots 6,7 -->
+      <SubContainer capacity="2" maxstacksize="1" >
+        <Containable items="Oil_filter" excludebroken="false" excludefullcondition="false">
+          <!-- Dirty the filter! NOTE: Reduced condtion from -1.0 to -0.5 on 9-24-22-->
+          <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" delay="1" duration="1" stackable="false" Comparison="And">
+            <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Engine"/>
+          </StatusEffect>
+        
+        </Containable>
+      </SubContainer>
+
+     
+    </ItemContainer>
+
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="power_in" displayname="connection.powerin" />
+      <input name="set_force" displayname="connection.setforce" />
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="90" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,200" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="DarkSmoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="8" scalemin="1.8" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- SAFETY PROCEDURE: Repair reduction gear when powered off. -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional Voltage="lte 0.1" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+
+      <!-- Don't stick your arm in a gearbox when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
+    
+        <Affliction identifier="bleeding" strength="35" /> 
+        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
+
+      </StatusEffect>
+
+    </Repairable>
+  </Item>
+
   <!-- The Beloved Steam Turbine! -->
- <Item name="Steam Turbine" identifier="steam_turbine" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <Item name="Steam Turbine" identifier="steam_turbine" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
@@ -6101,7 +6341,7 @@
 
 
   <!-- The Beloved Steam Turbine! (1/2 deterioration for Peasants)-->
- <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
@@ -6257,7 +6497,7 @@
 
 
   <!-- STEAM BOILER: -->
-  <Item name="Boiler" identifier="boiler" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="0.5">
+  <Item name="Boiler" identifier="boiler" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
     <Sprite name="Boiler" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" depth="0.8" origin="0.5,0.5" />
     <DecorativeSprite name="BoilerTop" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,220" depth="-0.4" origin="0.5,0.5" offset="0,90" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -6300,7 +6540,7 @@
 
       <!-- It's bad when a boiler blows up, right? -->
       <StatusEffect type="OnBroken" targettype="This" Comparison="or" isOn="false" comparaison="and">
-        <Conditional voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
+        <Conditional voltage="gt 0.9" targetitemcomponent="RelayComponent"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="steam_burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
@@ -6380,7 +6620,7 @@
 
 
   <!-- STEAM BOILER: (1/2 deterioration & 1/2 leak threshhold for peasants.) -->
-  <Item name="Boiler" identifier="boiler_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="0.5">
+  <Item name="Boiler" identifier="boiler_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
     <Sprite name="Boiler" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" depth="0.8" origin="0.5,0.5" />
     <DecorativeSprite name="BoilerTop" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,220" depth="-0.4" origin="0.5,0.5" offset="0,90" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -6504,7 +6744,7 @@
 
   <!-- REDUCTION GEAR: -->
   <Item name="Reduction Gear" identifier="reduction_gear" tags="engine" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
-    <Sprite texture="%ModDir%/images/reduction_gear.png" depth="0.8" sourcerect="0,0,1024,700" canflipx="true" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,0,1024,700" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25"/>
     <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
       <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
     </DecorativeSprite> -->
@@ -6687,7 +6927,7 @@
 
   <!-- REDUCTION GEAR: (reduced deterioration - for Peasants) --> 
   <Item name="Reduction Gear" identifier="reduction_gear_p" tags="engine" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
-    <Sprite texture="%ModDir%/images/reduction_gear.png" depth="0.8" sourcerect="0,0,1024,700" canflipx="true" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,0,1024,700" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25" />
     <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
       <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
     </DecorativeSprite> -->

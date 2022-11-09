@@ -1,9 +1,8 @@
 
 MT = {} -- Mechtrauma
 MT.Name="Mechtrauma"
-MT.Version = "1.1.2.0" 
-MT.VersionNum = 01010200 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
--- i dont know if you ever plan to have more than 99 in your version, but if yes then this format will cause problems.
+MT.Version = "1.1.2.1" 
+MT.VersionNum = 01010201 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
 -- register mechtrauma as a neurotrauma "expansion"

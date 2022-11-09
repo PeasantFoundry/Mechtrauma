@@ -288,9 +288,11 @@
   <entitydescription.plague_doctor_mask>Plague Doctor Mask</entitydescription.plague_doctor_mask>
 
   <!-- Suits -->
+ <Override>
   <entityname.pucs>FatBoy</entityname.pucs>
   <entitydescription.pucs>Heavily shielded pressure suit for Hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.pucs>
-
+ </Override>
+ 
   <entityname.radiation_suit2>Radiation Suit</entityname.radiation_suit2>
   <entitydescription.radiation_suit2>Protects against radiation.</entitydescription.radiation_suit2>
 
@@ -326,7 +328,11 @@
 
 
  <!-- =============< NEW ITEMS >=============  -->
- 
+  <entityname.storage_cabinet>Storage Cabinet</entityname.storage_cabinet>
+  <entitydescription.storage_cabinet>For storing small items.</entitydescription.storage_cabinet>
+
+  <entityname.emergency_disconnect>Emergency Disconnect</entityname.emergency_disconnect>
+  <entitydescription.emergency_disconnect>Emergency Power Disconnect.</entitydescription.emergency_disconnect>
 
 
 
