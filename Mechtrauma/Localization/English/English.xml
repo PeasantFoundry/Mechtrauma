@@ -334,6 +334,12 @@
   <entityname.emergency_disconnect>Emergency Disconnect</entityname.emergency_disconnect>
   <entitydescription.emergency_disconnect>Emergency Power Disconnect.</entitydescription.emergency_disconnect>
 
+  <!-- =============< Connections >============  -->
+<connection.steamin1>Steam_Inlet</connection.steamin1>
+<connection.steamout>Steam_Out</connection.steamout>
+
+<connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
+<connection.kineticout>Kinetic_Out</connection.kineticout>
 
 
 
