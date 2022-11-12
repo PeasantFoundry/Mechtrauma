@@ -1,3 +1,8 @@
+/***
+Main class for Mechtrauma
+Initialises the necessary functions and helps make the mod files more managable.
+Ensures only specific functions are called if its a client or server
+***/
 using System;
 using Barotrauma;
 using System.Reflection;
@@ -9,6 +14,7 @@ namespace Mechtrauma {
         public Mechtrauma() {
             //LuaCsSetup.PrintCsMessage("Started Mechtrauma");
             
+            // Change the power connection rules to isolate the steam, power and kinetic networks.
             changePowerRules();
 
             #if SERVER
@@ -20,6 +26,7 @@ namespace Mechtrauma {
             #endif
         }
  
+        // Place holder
         public override void Stop() {
             // stopping code, e.g. save custom data
              #if SERVER

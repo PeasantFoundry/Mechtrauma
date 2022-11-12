@@ -1,3 +1,7 @@
+/***
+Modifies the rules of power connections to allow for there to be steam and kinetic grids.
+Lots of other functions have to be tampered with to allow for proper implementation of this.
+***/
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -9,6 +13,8 @@ using System.Linq;
  
 namespace Mechtrauma {
     partial class Mechtrauma: ACsMod {
+
+        // Change the power connection rules to isolate the steam, power and kinetic networks.
         private void changePowerRules() {
             // Changes the power connections limits to create steam and kinetic grids as well as the power grid.
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered", 
@@ -25,6 +31,7 @@ namespace Mechtrauma {
                     return false;
                 } 
 
+                // Check if its a steam connection, if so, only connect steam connections
                 if (conn1.Name.StartsWith("steam") || conn2.Name.StartsWith("steam")) {
                     return conn1.Name.StartsWith("steam") && conn2.Name.StartsWith("steam") && (
                         conn1.IsOutput != conn2.IsOutput || 
@@ -34,6 +41,7 @@ namespace Mechtrauma {
                         conn2.Item.HasTag("steamjb")
                     );
                 } else if (conn1.Name.StartsWith("kinetic") || conn2.Name.StartsWith("kinetic")) {
+                    // Check if its a kinetic connection, if so, only connect kinetic connections
                     return conn1.Name.StartsWith("kinetic") && conn2.Name.StartsWith("kinetic") && (
                         conn1.IsOutput != conn2.IsOutput || 
                         conn1.Name == "kinetic" || 
@@ -48,9 +56,11 @@ namespace Mechtrauma {
                 return args;
             }, LuaCsHook.HookMethodType.Before, this);
  
+            // Grab the isPower property 
             PropertyInfo isPowerField = typeof(Barotrauma.Items.Components.Connection).GetProperty("IsPower", BindingFlags.Instance | BindingFlags.Public);
 
             // Change the item connection loading to allow for steam and kinetic networks
+            // After the constructor correctly set the isPower property, for the steam and kinetic networks
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection", 
             typeof(Barotrauma.Items.Components.Connection).GetConstructor(new[] { typeof(ContentXElement), typeof(ConnectionPanel), typeof(IdRemap) }),
             (object self, Dictionary<string, object> args) => {
@@ -70,21 +80,46 @@ namespace Mechtrauma {
                 return args;
             }, LuaCsHook.HookMethodType.After, this);
 
+            // Make powerIn and powerOut fields publically accessible 
             FieldInfo powerOutField = typeof(Barotrauma.Items.Components.Powered).GetField("powerOut", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo powerInField = typeof(Barotrauma.Items.Components.Powered).GetField("powerIn", BindingFlags.Instance | BindingFlags.NonPublic);
 
+            // Correctly assign the powerIn and powerOut for the steam and kinetic networks
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered", 
             typeof(Barotrauma.Items.Components.Powered).GetMethod("OnItemLoaded", BindingFlags.Instance | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
                 Item item = (self as Barotrauma.Items.Components.Powered).Item;
+                
 
                 if (item.Connections == null) { return args; }
+
+                // Get the highest priority device for this item
+                PowerPriority priority = PowerPriority.Default;;
+                foreach (var dev in item.GetComponents<Powered>()) {
+                    PowerPriority currPrior = PowerPriority.Default;
+                    if (dev is RelayComponent) {
+                        currPrior = PowerPriority.Relay;
+                    } else if (dev is PowerContainer) {
+                        currPrior = PowerPriority.Battery;
+                    } else if (dev is Reactor) {
+                        currPrior = PowerPriority.Reactor;
+                    }
+
+                    if (currPrior > priority) {
+                        priority = currPrior;
+                    }
+                }
+
+                // Find the powerIn and powerOut connections and assign them
                 foreach (Connection c in item.Connections)
                 {
                     if (!c.IsPower) { continue; }
+
+                    // Apply the device priority to all output connections and assign pins
                     switch (c.Name) {
                         case "steam_out":
                         case "kinetic_out":
+                            c.Priority = priority;
                             powerOutField.SetValue(self, c);
                             break;
                         case "kinetic_in":
@@ -94,6 +129,7 @@ namespace Mechtrauma {
                         case "steam":
                         case "kinetic":
                             if (c.IsOutput) {
+                                c.Priority = priority;
                                 powerOutField.SetValue(self, c);
                             } else {
                                 powerInField.SetValue(self, c);
