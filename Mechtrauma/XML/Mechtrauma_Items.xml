@@ -6538,8 +6538,8 @@
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
-      <input name="power_in" displayname="connection.powerin1"/>
-      <output name="power_out" displayname="connection.powerout" />
+      <input name="steam_in" displayname="connection.steamin1"/>
+      <output name="kinetic_out" displayname="connection.kineticout" />
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
     </ConnectionPanel>-->
@@ -6703,8 +6703,8 @@
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
-      <input name="power_in" displayname="connection.powerin1"/>
-      <output name="power_out" displayname="connection.powerout" />
+      <input name="steam_in" displayname="connection.steamin1"/>
+      <output name="kinetic_out" displayname="connection.kineticout" />
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
     </ConnectionPanel>
@@ -6828,7 +6828,7 @@
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="power_in" displayname="connection.powerin1"/>
-      <output name="power_out" displayname="connection.powerout" />
+      <output name="steam_out" displayname="connection.steamout" />
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
     </ConnectionPanel>-->
@@ -6961,7 +6961,7 @@
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="power_in" displayname="connection.powerin1"/>
-      <output name="power_out" displayname="connection.powerout" />
+      <output name="steam_out" displayname="connection.steamout" />
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
     </ConnectionPanel>
@@ -7139,7 +7139,7 @@
         <Affliction identifier="burn" strength="5" />
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
-      <input name="power_in" displayname="connection.powerin" />
+      <input name="kinetic_in" displayname="connection.kineticin" />
       <input name="set_force" displayname="connection.setforce" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel> -->
@@ -7338,7 +7338,7 @@
         <Affliction identifier="burn" strength="5" />
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
-      <input name="power_in" displayname="connection.powerin" />
+      <input name="kinetic_in" displayname="connection.kineticin" />
       <input name="set_force" displayname="connection.setforce" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
