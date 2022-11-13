@@ -55,6 +55,7 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     -- this is where we run all the other lua files
     -- (jamming them all in autorun is bad for organization and surrenders control of what is to be executed)
     dofile(MT.Path.."/Lua/Scripts/Server/humanupdate.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/mechtraumaupdate.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/bacteria_analyzer.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")

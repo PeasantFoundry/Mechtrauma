@@ -28,6 +28,7 @@ local function DetermineDifficulty()
     -- default difficulty: 5
     difficulty=difficulty
         + MT.HF.Clamp(config.dieselDrainRate*5,0,20)
+        + MT.HF.Clamp(config.pumpGateDeteriorateRate*5,0,20)
 
     -- normalize to 10
     difficulty = difficulty / 5 * 10
@@ -87,9 +88,6 @@ MT.ShowGUI = function ()
         File.Write(MT.Path .. "/config.json", json.serialize(MT.Config))
     end
 
-
-    
-
     GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), config.Content.RectTransform), "Diesel consumption rate multiplier (NYI)", nil, nil, GUI.Alignment.Center, true)
     local dieselDrainRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), NumberType.Float)
     dieselDrainRate.valueStep = 0.1
@@ -98,6 +96,18 @@ MT.ShowGUI = function ()
     dieselDrainRate.FloatValue = MT.Config.dieselDrainRate
     dieselDrainRate.OnValueChanged = function ()
         MT.Config.dieselDrainRate = dieselDrainRate.FloatValue
+        OnChanged()
+    end
+
+  
+    GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), config.Content.RectTransform), "Pump Gate deterioration rate multiplier", nil, nil, GUI.Alignment.Center, true)
+    local pumpGateDeteriorateRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), NumberType.Float)
+    pumpGateDeteriorateRate.valueStep = 0.1
+    pumpGateDeteriorateRate.MinValueFloat = 0
+    pumpGateDeteriorateRate.MaxValueFloat = 100
+    pumpGateDeteriorateRate.FloatValue = MT.Config.pumpGateDeteriorateRate
+    pumpGateDeteriorateRate.OnValueChanged = function ()
+        MT.Config.pumpGateDeteriorateRate = pumpGateDeteriorateRate.FloatValue
         OnChanged()
     end
 

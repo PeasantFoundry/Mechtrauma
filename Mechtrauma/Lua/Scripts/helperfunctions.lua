@@ -346,6 +346,15 @@ function MT.HF.GameIsPaused()
     return Game.Paused
 end
 
+function MT.HF.GameIsRunning()
+    if SERVER then return false end
+
+    if Game.Paused or not Game.RoundStarted then return false end
+
+    return true
+    
+end
+
 function MT.HF.TableContains(table, value)
     for i, v in ipairs(table) do
         if v == value then
@@ -486,3 +495,12 @@ function MT.HF.Explode(entity,range,force,damage,structureDamage,itemDamage,empS
 
     MT.HF.SpawnItemAt("ntvfx_explosion",entity.WorldPosition)
 end
+
+-- unfucked by Mannatu on 11/13/22
+function MT.HF.ItemIsWornInOuterClothesSlot(item)
+    if item.ParentInventory == nil then return false end 
+    if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
+    if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
+
+  return true
+  end
