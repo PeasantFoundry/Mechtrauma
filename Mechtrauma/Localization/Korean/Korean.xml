@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Korean" nowhitespace="true" translatedname="한국어">
+<entityname.copper_pipe_h>구리 파이프 수평</entityname.copper_pipe_h>
+<entitydescription.copper_pipe_h>수평 구리 파이프.</entitydescription.copper_pipe_h>
+<entityname.bacteria_analyzer>현미경 분석기</entityname.bacteria_analyzer>
+<entitydescription.bacteria_analyzer>Biotrauma : 박테리아, 곰팡이, 곰팡이 등을위한 현미경 분석기</entitydescription.bacteria_analyzer>
+<entityname.bacterial_sample_a4>박테리아 샘플 A4</entityname.bacterial_sample_a4>
+<entitydescription.bacterial_sample_a4>A4의 정제 된 박테리아 샘플.</entitydescription.bacterial_sample_a4>
+<entityname.antibacterial_a4>A4 항균</entityname.antibacterial_a4>
+<entitydescription.antibacterial_a4>A4 박테리아의 항균.</entitydescription.antibacterial_a4>
+<entityname.spore_fungus>진균류</entityname.spore_fungus>
+<entitydescription.spore_fungus>알 수없는 곰팡이.</entitydescription.spore_fungus>
+<entityname.textdisplaylarge>TextDisplayLarge</entityname.textdisplaylarge>
+<entitydescription.textdisplaylarge>TextDisplayLarge</entitydescription.textdisplaylarge>
+<entityname.textdisplay_short_tight>TextDisplay_short_tight</entityname.textdisplay_short_tight>
+<entitydescription.textdisplay_short_tight>3 자리 조건과 같은 짧은 숫자로 설계되었습니다.</entitydescription.textdisplay_short_tight>
+<entityname.lcd>LCD TV</entityname.lcd>
+<entitydescription.lcd>LCD TV</entitydescription.lcd>
+<entityname.average_component>평균 구성 요소</entityname.average_component>
+<entitydescription.average_component>결합 된 입력 신호의 평균을 출력합니다. LUA가 필요합니다.</entitydescription.average_component>
+<entityname.peasantprime>PEANTORPRIME BOX</entityname.peasantprime>
+<entitydescription.peasantprime>PEANTORPRIME BOX</entitydescription.peasantprime>
+<entityname.airrifle>항공 소총</entityname.airrifle>
+<entitydescription.airrifle>저전력, 접근성이 뛰어나고 쉽게 배달되는 무기.</entitydescription.airrifle>
+<entityname.leadpellet>리드 펠렛</entityname.leadpellet>
+<entitydescription.leadpellet>항공 소총 탄약.</entitydescription.leadpellet>
+<entityname.gunners_chair>Gonners 의자</entityname.gunners_chair>
+<entitydescription.gunners_chair>앉아 있습니다.</entitydescription.gunners_chair>
+<entityname.mt_coilgun>MT 코일건</entityname.mt_coilgun>
+<entitydescription.mt_coilgun>코일 총의 대체 색상.</entitydescription.mt_coilgun>
+<entityname.50cal_turret>50 CAL 포탑</entityname.50cal_turret>
+<entitydescription.50cal_turret>코일건에 대한 비용이 많이 드는 대안이지만 발사 할 힘이 없습니다.</entitydescription.50cal_turret>
+<entityname.50cal_loader>50 CAL 로더</entityname.50cal_loader>
+<entitydescription.50cal_loader>50 CAL 포탑의 탄약 로더.</entitydescription.50cal_loader>
+<entityname.50cal_ammobox>50 Cal Ammobox</entityname.50cal_ammobox>
+<entitydescription.50cal_ammobox>50 CAL 포탑의 탄약 로더.</entitydescription.50cal_ammobox>
+<entityname.50cal_bolt>50 cal 볼트</entityname.50cal_bolt>
+<entitydescription.50cal_bolt>50 cal 볼트</entitydescription.50cal_bolt>
+<entityname.fuse_panel>퓨즈 패널</entityname.fuse_panel>
+<entitydescription.fuse_panel>과전압에 대한 희생 퓨즈가있는 전기 릴레이 패널.</entitydescription.fuse_panel>
+<entityname.electrical_panel>전기 패널</entityname.electrical_panel>
+<entitydescription.electrical_panel>전기 패널.</entitydescription.electrical_panel>
+<entityname.key_button>키 버튼</entityname.key_button>
+<entitydescription.key_button>키 버튼.</entitydescription.key_button>
+<entityname.battery_bank>배터리 뱅크</entityname.battery_bank>
+<entitydescription.battery_bank>5000kW 최대 출력의 광대 한 스토리지 용량 (편집기에서는 변경할 수 없습니다). 침수시 작동하지 않습니다.</entitydescription.battery_bank>
+<entityname.battery_bank_wr>배터리 뱅크</entityname.battery_bank_wr>
+<entitydescription.battery_bank_wr>5000kW 최대 출력의 광대 한 스토리지 용량 (편집기에서는 변경할 수 없습니다). 침수시 작동하지 않습니다.</entitydescription.battery_bank_wr>
+<entityname.fuse>퓨즈</entityname.fuse>
+<entitydescription.fuse>퓨즈</entitydescription.fuse>
+<entityname.sealed_bearing>밀봉 된 베어링</entityname.sealed_bearing>
+<entitydescription.sealed_bearing>부품 제조를위한 기계적 구성 요소.</entitydescription.sealed_bearing>
+<entityname.bearing_sleeve>베어링 슬리브</entityname.bearing_sleeve>
+<entitydescription.bearing_sleeve>중고 베어링을 개조하기 위해.</entitydescription.bearing_sleeve>
+<entityname.grease_can>그리스 할 수 있습니다</entityname.grease_can>
+<entitydescription.grease_can>그리스 캔. 개별 그리스 패킷으로 제작하십시오.</entitydescription.grease_can>
+<entityname.grease_packet>그리스 패킷</entityname.grease_packet>
+<entitydescription.grease_packet>기계적 수리 및 제조를위한 그리스 패킷.</entitydescription.grease_packet>
+<entityname.copper_windings>구리 권선</entityname.copper_windings>
+<entitydescription.copper_windings>전기 모터를 재구성하기위한 구리 권선.</entitydescription.copper_windings>
+<entityname.oil_filter>오일 필터</entityname.oil_filter>
+<entitydescription.oil_filter>블랙 골드를 절약합니다.</entitydescription.oil_filter>
+<entityname.bearing>베어링</entityname.bearing>
+<entitydescription.bearing>기계 수리를위한 베어링.</entitydescription.bearing>
+<entityname.electric_motor>전기 모터</entityname.electric_motor>
+<entitydescription.electric_motor>기계 수리를위한 기계적 부분.</entitydescription.electric_motor>
+<entityname.circulator_pump>순환기 펌프</entityname.circulator_pump>
+<entitydescription.circulator_pump>기계 용 원형 펌프.</entitydescription.circulator_pump>
+<entityname.drive_gear>드라이브 기어</entityname.drive_gear>
+<entitydescription.drive_gear>감소 기어와 같은 기계에서 사용합니다.</entitydescription.drive_gear>
+<entityname.turbine_blade>터빈 블레이드</entityname.turbine_blade>
+<entitydescription.turbine_blade>증기 터빈과 같은 기계에서 사용합니다.</entitydescription.turbine_blade>
+<entityname.scrap_steel>스크랩 스틸</entityname.scrap_steel>
+<entitydescription.scrap_steel>재활용하는 것을 잊지 마십시오!.</entitydescription.scrap_steel>
+<entityname.scrap_aluminium>스크랩 알루미늄</entityname.scrap_aluminium>
+<entitydescription.scrap_aluminium>재활용하는 것을 잊지 마십시오!.</entitydescription.scrap_aluminium>
+<entityname.scrap_copper>스크랩 구리</entityname.scrap_copper>
+<entitydescription.scrap_copper>재활용하는 것을 잊지 마십시오!.</entitydescription.scrap_copper>
+<entityname.water_pump_small>작은 워터 펌프</entityname.water_pump_small>
+<entitydescription.water_pump_small>움직이는 물을 위해.</entitydescription.water_pump_small>
+<entityname.water_pump>물 펌프</entityname.water_pump>
+<entitydescription.water_pump>움직이는 물을 위해.</entitydescription.water_pump>
+<entityname.water_pump_gate>워터 펌프 게이트</entityname.water_pump_gate>
+<entitydescription.water_pump_gate>움직이는 물이 필요합니다.</entitydescription.water_pump_gate>
+<entityname.oxygentank_compressor>산소 탱크 압축기</entityname.oxygentank_compressor>
+<entitydescription.oxygentank_compressor>선체 산소를 사용하기 위해 탱크로 압축합니다.</entitydescription.oxygentank_compressor>
+<entityname.oxygentank_fr>내화성 산소 탱크</entityname.oxygentank_fr>
+<entitydescription.oxygentank_fr>내화성 산소 탱크</entitydescription.oxygentank_fr>
+<entityname.oxygentank_large>산소 탱크가 큽니다</entityname.oxygentank_large>
+<entitydescription.oxygentank_large>산소 스테이션에서만 사용하기 위해서만 큰 산소 탱크.</entitydescription.oxygentank_large>
+<entityname.oxygen_station>산소 탱크 스테이션</entityname.oxygen_station>
+<entitydescription.oxygen_station>산소 탱크를 신속하게 보충하고 응급 상황에서 산소를 방출합니다.</entitydescription.oxygen_station>
+<entityname.oxygen_vent>산소 통풍구</entityname.oxygen_vent>
+<entitydescription.oxygen_vent>정기적으로 청소하십시오. Repalce CO2 필터 정기적으로 필터.</entitydescription.oxygen_vent>
+<entityname.co2_cartridge>CO2 필터</entityname.co2_cartridge>
+<entitydescription.co2_cartridge>대기에서 CO2를 필터링하기 위해.</entitydescription.co2_cartridge>
+<entityname.oxygen_supply>산소 공급</entityname.oxygen_supply>
+<entitydescription.oxygen_supply>산소 발생기에 대한 대안.</entitydescription.oxygen_supply>
+<entityname.oil_can>오일 캔</entityname.oil_can>
+<entitydescription.oil_can>블랙 골드.</entitydescription.oil_can>
+<entityname.oil_barrel>오일 배럴</entityname.oil_barrel>
+<entitydescription.oil_barrel>블랙 골드.</entitydescription.oil_barrel>
+<entityname.oil_station>석유소</entityname.oil_station>
+<entitydescription.oil_station>블랙 골드.</entitydescription.oil_station>
+<entityname.mechweldingtool>용접공</entityname.mechweldingtool>
+<entitydescription.mechweldingtool>아르곤 가스를 사용하는 전기 용접기.</entitydescription.mechweldingtool>
+<entityname.handtruck>손수레</entityname.handtruck>
+<entitydescription.handtruck>이것을 사용하여 무거운 물건을 움직입니다. 등을 다치게하지 마십시오.</entitydescription.handtruck>
+<entityname.closet>스토리지 옷장</entityname.closet>
+<entitydescription.closet>직접 청소하십시오! 이것은 크고 부피가 큰 품목을 저장하기위한 공간입니다.</entitydescription.closet>
+<entityname.storage_container_single>스토리지 컨테이너</entityname.storage_container_single>
+<entitydescription.storage_container_single>캐비닛보다 큰 저장 용기.</entitydescription.storage_container_single>
+<entityname.shipping_container_open>화물 컨테이너가 열립니다.</entityname.shipping_container_open>
+<entitydescription.shipping_container_open>직접 청소하십시오!.</entitydescription.shipping_container_open>
+<entityname.shipping_container_closed>화물 컨테이너가 닫혔습니다.</entityname.shipping_container_closed>
+<entitydescription.shipping_container_closed>직접 청소하십시오!.</entitydescription.shipping_container_closed>
+<entityname.cargo_crane>화물 크레인.</entityname.cargo_crane>
+<entitydescription.cargo_crane>화물 남자를 들어 올리십시오!</entitydescription.cargo_crane>
+<entityname.cargo_hatch>화물 해치.</entityname.cargo_hatch>
+<entitydescription.cargo_hatch>때로는 큰 일을 움직여야합니다.</entitydescription.cargo_hatch>
+<entityname.mechcab>빠른 캐비닛</entityname.mechcab>
+<entitydescription.mechcab>비상 사태에 대한 빠른 액세스.</entitydescription.mechcab>
+<entityname.cncfab>CNC 기계식 제작자</entityname.cncfab>
+<entitydescription.cncfab>당신의 꿈의 현실을 me습니다!.</entitydescription.cncfab>
+<entityname.repairtable>수리 테이블</entityname.repairtable>
+<entitydescription.repairtable>다이빙 슈트와 장비를 기본하기위한 전용 제작자.</entitydescription.repairtable>
+<entityname.argon_tank>아르곤 탱크</entityname.argon_tank>
+<entitydescription.argon_tank>다시 채우다.</entitydescription.argon_tank>
+<entityname.extinguisher_station>소화기 스테이션</entityname.extinguisher_station>
+<entitydescription.extinguisher_station>다시 채우다.</entitydescription.extinguisher_station>
+<entityname.extinguisher_tank>Extinguishertank</entityname.extinguisher_tank>
+<entitydescription.extinguisher_tank>다시 채우다.</entitydescription.extinguisher_tank>
+<entityname.S5_Extinguisher>S5_ExtingUisher</entityname.S5_Extinguisher>
+<entitydescription.S5_Extinguisher>벨트에 착용 할 수있는 작은 5 초 소화기.</entitydescription.S5_Extinguisher>
+<entityname.l100_extinguisher>L100-extinguisher</entityname.l100_extinguisher>
+<entitydescription.l100_extinguisher>Turnour 장비에 사용하기위한 대규모 소화기.</entitydescription.l100_extinguisher>
+<entityname.argon_station>아르곤 스테이션</entityname.argon_station>
+<entitydescription.argon_station>다시 채우다.</entitydescription.argon_station>
+<entityname.boiler>스팀 보일러</entityname.boiler>
+<entitydescription.boiler>증기를 생성합니다.</entitydescription.boiler>
+<entityname.steam_turbine>증기 터빈</entityname.steam_turbine>
+<entitydescription.steam_turbine>증기 에너지를 운동 에너지로 변환합니다.</entitydescription.steam_turbine>
+<entityname.reduction_gear>감소 기어</entityname.reduction_gear>
+<entitydescription.reduction_gear>고속 저 토크를 저속 고 토크로 변환합니다.</entitydescription.reduction_gear>
+<entityname.gear_locker>기어 로커</entityname.gear_locker>
+<entitydescription.gear_locker>장비 저장 용.</entitydescription.gear_locker>
+<entityname.plague_doctor_mask>전염병 의사 마스크</entityname.plague_doctor_mask>
+<entitydescription.plague_doctor_mask>전염병 의사 마스크</entitydescription.plague_doctor_mask>
+<entityname.radiation_suit2>방사 정장</entityname.radiation_suit2>
+<entitydescription.radiation_suit2>방사선에 대한 최상의 보호.</entitydescription.radiation_suit2>
+<entityname.radiation_suit>방사 정장</entityname.radiation_suit>
+<entitydescription.radiation_suit>방사 정장</entitydescription.radiation_suit>
+<entityname.turnout_gear2>투표율 기어</entityname.turnout_gear2>
+<entitydescription.turnout_gear2>내화성 산소 탱크와 L100 소화기가 장착됩니다.</entitydescription.turnout_gear2>
+<entityname.dry_suit>마른 정장</entityname.dry_suit>
+<entitydescription.dry_suit>저압복. 서브에서 수리하고 다이빙 슈트의 마모를 줄이는 데 유용합니다.</entitydescription.dry_suit>
+<entityname.expedition_divingsuit>원정 다이빙복</entityname.expedition_divingsuit>
+<entitydescription.expedition_divingsuit>원정 다이빙복</entitydescription.expedition_divingsuit>
+<entityname.armored_divingsuit>장갑 다이빙복</entityname.armored_divingsuit>
+<entitydescription.armored_divingsuit>전투를 위해 설계되었습니다.</entitydescription.armored_divingsuit>
+<entityname.armored_suit>갑옷의 양복</entityname.armored_suit>
+<entitydescription.armored_suit>지구에서 15 세기 중반 유물. 이것은 예술 작품입니다!</entitydescription.armored_suit>
+<entityname.plague_doctor_kit>전염병 닥터 키트</entityname.plague_doctor_kit>
+<entitydescription.plague_doctor_kit>전염병 닥터 키트</entitydescription.plague_doctor_kit>
+<entityname.kit_utility>유틸리티 키트</entityname.kit_utility>
+<entitydescription.kit_utility>유틸리티 키트.</entitydescription.kit_utility>
+<entityname.captains_kit>선장 키트</entityname.captains_kit>
+<entitydescription.captains_kit>선장이되는 것이 좋습니다.</entitydescription.captains_kit>
+<entityname.diesel_fuel_can>디젤 연료는 할 수 있습니다</entityname.diesel_fuel_can>
+<entitydescription.diesel_fuel_can>디젤 연료의 5Gallon 캔.</entitydescription.diesel_fuel_can>
+<entityname.diesel_fuel_barrel>디젤 연료 배럴</entityname.diesel_fuel_barrel>
+<entitydescription.diesel_fuel_barrel>디젤 연료의 50gallon 배럴.</entitydescription.diesel_fuel_barrel>
+<entityname.diesel_fuel_tank>디젤 연료 탱크</entityname.diesel_fuel_tank>
+<entitydescription.diesel_fuel_tank>선박의 디젤 연료 탱크. 배럴에서 캔을 리필합니다.</entitydescription.diesel_fuel_tank>
+<entityname.s1500D>디젤 생성기</entityname.s1500D>
+<entitydescription.s1500D>탄소, 전력에서. 1500kW</entitydescription.s1500D>
+<entityname.S5000D>S5000D</entityname.S5000D>
+<entitydescription.S5000D>탄소, 전력에서.</entitydescription.S5000D>
+<entityname.pdg500>휴대용 디젤 발전기</entityname.pdg500>
+<entitydescription.pdg500>이동 중에 전원!</entitydescription.pdg500>
+<entityname.keys>열쇠</entityname.keys>
+<entitydescription.keys>그들없이 집을 떠나지 마십시오.</entitydescription.keys>
+<entityname.trash_can>쓰레기통</entityname.trash_can>
+<entitydescription.trash_can>안녕 ID 카드!</entitydescription.trash_can>
+<entityname.incinerator>소각로</entityname.incinerator>
+<entitydescription.incinerator>원치 않는 항목을 중간에 폐기하십시오.</entitydescription.incinerator>
+<entityname.trashcan>Mechtrauma Trash Can</entityname.trashcan>
+<entitydescription.trashcan>원치 않는 항목을 중간에 폐기하십시오.</entitydescription.trashcan>
+<entityname.mechanic_toolkit>기계 공구 조끼</entityname.mechanic_toolkit>
+<entitydescription.mechanic_toolkit>기계공은 많은 도구와 부품을 가지고 있습니다.</entitydescription.mechanic_toolkit>
+<entityname.engineer_toolkit>엔지니어링 배낭</entityname.engineer_toolkit>
+<entitydescription.engineer_toolkit>엔지니어는 많은 도구와 부품을 운반합니다.</entitydescription.engineer_toolkit>
+<missionname.cargopeasantprime>PEANTORPRIME SHIPMENT</missionname.cargopeasantprime>
+<missiondescription.peasantprime>교통편에 여분의 공간이 있다면, 우리는 누군가가 [보상] 마크의 보상을 위해 [location2]에로드 농민 프라이움 상자를 배달하기를 찾고 있습니다.</missiondescription.peasantprime>
+<missionsuccess.cargopeasantprime>PEANTORPRIME 상자가 성공적으로 전달되었습니다! 당신은 만연한 소비주의를 가능하게하기 위해 당신의 역할을 수행했습니다.</missionsuccess.cargopeasantprime>
+<entityname.boiler_p>농민을위한 증기 보일러</entityname.boiler_p>
+<entitydescription.boiler_p>증기를 생성합니다. -50% 부품 악화 속도.</entitydescription.boiler_p>
+<entityname.steam_turbine_p>농민을위한 증기 터빈</entityname.steam_turbine_p>
+<entitydescription.steam_turbine_p>증기 에너지를 운동 에너지로 변환합니다. -50% 부품 악화 속도.</entitydescription.steam_turbine_p>
+<entityname.reduction_gear_p>농민을위한 감소 장비</entityname.reduction_gear_p>
+<entitydescription.reduction_gear_p>고속 저 토크를 저속 고 토크로 변환합니다. -50% 부품 악화 속도.</entitydescription.reduction_gear_p>
+<entityname.fatboy>뚱보 소년</entityname.fatboy>
+<entitydescription.fatboy>위험한 일자리를위한 압력 소송이 많이 보호됩니다. 정격 깊이 : 4,500. 화재, 방사선 및 살 상처에 저항합니다.</entitydescription.fatboy>
+<entityname.storage_cabinet>스토리지 캐비닛</entityname.storage_cabinet>
+<entitydescription.storage_cabinet>작은 품목을 저장합니다.</entitydescription.storage_cabinet>
+<entityname.emergency_disconnect>비상 분리</entityname.emergency_disconnect>
+<entitydescription.emergency_disconnect>비상 전력 분리.</entitydescription.emergency_disconnect>
+<entityname.oxygen_transfer_tank>산소 전달 탱크</entityname.oxygen_transfer_tank>
+<entitydescription.oxygen_transfer_tank>연소 엔진에 백업 산소를 제공하는 데 유용한 대형 휴대용 산소 탱크.</entitydescription.oxygen_transfer_tank>
+<entityname.diesel_transfer_truck>디젤 이송 트럭</entityname.diesel_transfer_truck>
+<entitydescription.diesel_transfer_truck>모바일 디젤 전송 스테이션.</entitydescription.diesel_transfer_truck>
+<entityname.oil_transfer_truck>석유 이송 트럭</entityname.oil_transfer_truck>
+<entitydescription.oil_transfer_truck>모바일 오일 이송 스테이션.</entitydescription.oil_transfer_truck>
+<Override>
+<entityname.pucs>뚱보 소년</entityname.pucs>
+<entitydescription.pucs>위험한 일자리를위한 압력 소송이 많이 보호됩니다. 정격 깊이 : 4,500. 화재, 방사선 및 살 상처에 저항합니다.</entitydescription.pucs>
+</Override>
+<connection.steamin1>Steam_Inlet</connection.steamin1>
+<connection.steamout>Steam_Out</connection.steamout>
+<connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
+<connection.kineticout>Kinetic_Out</connection.kineticout>
+
+</infotexts>
