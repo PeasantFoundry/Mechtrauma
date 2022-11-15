@@ -1,214 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
 <infotexts language="Simplified Chinese" nowhitespace="false" translatedname="中文(简体)">
-  <!-- =============< DECORATIVE >=============  -->
-  <entityname.copper_pipe_h>铜管（水平）</entityname.copper_pipe_h>
-  <entitydescription.copper_pipe_h>可调整长短的水平铜管。</entitydescription.copper_pipe_h>
-  <!-- =============< BIOTRAUMA >=============  -->
-  <entityname.bacteria_analyzer>显微分析仪</entityname.bacteria_analyzer>
-  <entitydescription.bacteria_analyzer>生化创伤：用于分析细菌、霉菌、真菌等微生物的显微分析仪。</entitydescription.bacteria_analyzer>
-  <entityname.bacterial_sample_a4>细菌样本A4</entityname.bacterial_sample_a4>
-  <entitydescription.bacterial_sample_a4>经过提纯的A4细菌样本。</entitydescription.bacterial_sample_a4>
-  <entityname.antibacterial_a4>A4抗菌药</entityname.antibacterial_a4>
-  <entitydescription.antibacterial_a4>针对A4细菌的抗菌药。</entitydescription.antibacterial_a4>
-  <entityname.spore_fungus>霉菌</entityname.spore_fungus>
-  <entitydescription.spore_fungus>一种不明真菌。</entitydescription.spore_fungus>
-  <!-- =============< ELECTRICAL >=============  -->
-  <entityname.textdisplaylarge>文字显示器（大）</entityname.textdisplaylarge>
-  <entitydescription.textdisplaylarge>大号文字显示器</entitydescription.textdisplaylarge>
-  <entityname.textdisplay_short_tight>文字显示器（小）</entityname.textdisplay_short_tight>
-  <entitydescription.textdisplay_short_tight>设计用于最多显示三位数的场景。</entitydescription.textdisplay_short_tight>
-  <entityname.lcd>液晶显示屏电视</entityname.lcd>
-  <entitydescription.lcd>液晶显示屏电视</entitydescription.lcd>
-  <entityname.average_component>均值组件</entityname.average_component>
-  <entitydescription.average_component>输出收到的输入信号的平均值。需要lua。</entitydescription.average_component>
-  <!-- =============< ITEMS >=============  -->
-  <entityname.peasantprime>PeasantPrime箱</entityname.peasantprime>
-  <entitydescription.peasantprime>PeasantPrime箱</entitydescription.peasantprime>
-  <!-- =============< WEAPONS >=============  -->
-  <entityname.airrifle>气枪</entityname.airrifle>
-  <entitydescription.airrifle>威力低，但是容易获取和补充的武器。</entitydescription.airrifle>
-  <entityname.leadpellet>铅弹</entityname.leadpellet>
-  <entitydescription.leadpellet>气枪弹药。</entitydescription.leadpellet>
-  <entityname.gunners_chair>炮手椅</entityname.gunners_chair>
-  <entitydescription.gunners_chair>坐好再操炮。</entitydescription.gunners_chair>
-  <entityname.mt_coilgun>电磁枪（MT）</entityname.mt_coilgun>
-  <entitydescription.mt_coilgun>另一种颜色的电磁枪。</entitydescription.mt_coilgun>
-  <entityname.50cal_turret>.50口径炮塔</entityname.50cal_turret>
-  <entitydescription.50cal_turret>电磁枪的昂贵替代品，好处在于其不需要电力就能开火。</entitydescription.50cal_turret>
-  <entityname.50cal_loader>.50口径炮塔装弹器</entityname.50cal_loader>
-  <entitydescription.50cal_loader>.50口径炮塔对应的装弹器。</entitydescription.50cal_loader>
-  <entityname.50cal_ammobox>.50口径弹药箱</entityname.50cal_ammobox>
-  <entitydescription.50cal_ammobox>.50口径炮塔对应的弹药。</entitydescription.50cal_ammobox>
-  <entityname.50cal_bolt>50 cal bolt</entityname.50cal_bolt>
-  <entitydescription.50cal_bolt>50 cal bolt</entitydescription.50cal_bolt>
-  <entityname.fuse_panel>熔断器板</entityname.fuse_panel>
-  <entitydescription.fuse_panel>装有保险丝的继电器面板，适时熔断以防止电流过高。</entitydescription.fuse_panel>
-  <entityname.electrical_panel>电器面板</entityname.electrical_panel>
-  <entitydescription.electrical_panel>电器面板。</entitydescription.electrical_panel>
-  <entityname.key_button>钥匙按钮</entityname.key_button>
-  <entitydescription.key_button>需要放入钥匙才能工作的按钮。</entitydescription.key_button>
-  <entityname.battery_bank>电池组</entityname.battery_bank>
-  <entitydescription.battery_bank>电池组。</entitydescription.battery_bank>
-  <entityname.fuse>保险丝</entityname.fuse>
-  <entitydescription.fuse>保险丝。</entitydescription.fuse>
-  <!-- =============< COMPONENTS >=============  -->
-  <entityname.sealed_bearing>封闭式轴承</entityname.sealed_bearing>
-  <entitydescription.sealed_bearing>用于零件制造的机械部件。</entitydescription.sealed_bearing>
-  <entityname.bearing_sleeve>轴承套</entityname.bearing_sleeve>
-  <entitydescription.bearing_sleeve>用于整修磨损的轴承。</entitydescription.bearing_sleeve>
-  <entityname.grease_can>润滑油罐</entityname.grease_can>
-  <entitydescription.grease_can>一罐润滑油。能加工成独立的润滑油包。</entitydescription.grease_can>
-  <entityname.grease_packet>润滑油包</entityname.grease_packet>
-  <entitydescription.grease_packet>用于机械维修的润滑油包。</entitydescription.grease_packet>
-  <entityname.copper_windings>铜质绕组</entityname.copper_windings>
-  <entitydescription.copper_windings>用于维修电机的铜质绕组。</entitydescription.copper_windings>
-  <!-- =============< PARTS >=============  -->
-  <entityname.oil_filter>滤油器</entityname.oil_filter>
-  <entitydescription.oil_filter>能过滤杂质，延长机油使用寿命。</entitydescription.oil_filter>
-  <entityname.bearing>轴承</entityname.bearing>
-  <entitydescription.bearing>用于机械维修的轴承。</entitydescription.bearing>
-  <entityname.electric_motor>电机</entityname.electric_motor>
-  <entitydescription.electric_motor>机械设备使用的电动机，俗称马达。</entitydescription.electric_motor>
-  <entityname.circulator_pump>循环泵</entityname.circulator_pump>
-  <entitydescription.circulator_pump>机械设备使用的循环泵。</entitydescription.circulator_pump>
-  <entityname.drive_gear>传动齿轮</entityname.drive_gear>
-  <entitydescription.drive_gear>机械部件，用于减速机。</entitydescription.drive_gear>
-  <entityname.turbine_blade>涡轮叶片</entityname.turbine_blade>
-  <entitydescription.turbine_blade>机械部件，用于蒸汽轮机。</entitydescription.turbine_blade>
-  <!-- =============< MATERIALS >=============  -->
-  <entityname.scrap_steel>铁废料</entityname.scrap_steel>
-  <entitydescription.scrap_steel>记得回收！</entitydescription.scrap_steel>
-  <entityname.scrap_aluminum>铝废料</entityname.scrap_aluminum>
-  <entitydescription.scrap_aluminum>记得回收！</entitydescription.scrap_aluminum>
-  <entityname.scrap_copper>铜废料</entityname.scrap_copper>
-  <entitydescription.scrap_copper>记得回收！</entitydescription.scrap_copper>
-  <entityname.water_pump_small>小水泵</entityname.water_pump_small>
-  <entitydescription.water_pump_small>用于进/排水。</entitydescription.water_pump_small>
-  <entityname.water_pump>水泵</entityname.water_pump>
-  <entitydescription.water_pump>用于进/排水。</entitydescription.water_pump>
-  <entityname.water_pump_gate>水泵阀门</entityname.water_pump_gate>
-  <entitydescription.water_pump_gate>装在潜艇外壳上用于进/排水的阀门。</entitydescription.water_pump_gate>
-  <entityname.oxygentank_compressor>氧气灌装压缩机</entityname.oxygentank_compressor>
-  <entitydescription.oxygentank_compressor>将船舱内的氧气压入氧气罐以供使用。</entitydescription.oxygentank_compressor>
-  <entityname.oxygentank_fr>防火氧气罐</entityname.oxygentank_fr>
-  <entitydescription.oxygentank_fr>防火氧气罐。</entitydescription.oxygentank_fr>
-  <entityname.oxygentank_large>氧气罐（大）</entityname.oxygentank_large>
-  <entitydescription.oxygentank_large>大号氧气罐，只能用于充氧站。</entitydescription.oxygentank_large>
-  <entityname.oxygen_station>充氧站</entityname.oxygen_station>
-  <entitydescription.oxygen_station>用于在紧急情况下快速加注或放空氧气罐。</entitydescription.oxygen_station>
-  <entityname.oxygen_vent>氧气排放口</entityname.oxygen_vent>
-  <entitydescription.oxygen_vent>记得定期清洁，并定期更换CO2滤罐。</entitydescription.oxygen_vent>
-  <entityname.co2_cartridge>CO2滤罐</entityname.co2_cartridge>
-  <entitydescription.co2_cartridge>装于氧气排放口，用于从空气中过滤二氧化碳。</entitydescription.co2_cartridge>
-  <entityname.oxygen_supply>制氧机</entityname.oxygen_supply>
-  <entitydescription.oxygen_supply>机械创伤版本的制氧机。</entitydescription.oxygen_supply>
-  <entityname.oil_can>罐装机油</entityname.oil_can>
-  <entitydescription.oil_can>里面装着昂贵的发动机润滑油。</entitydescription.oil_can>
-  <entityname.oil_barrel>桶装机油</entityname.oil_barrel>
-  <entitydescription.oil_barrel>里面装着昂贵的发动机润滑油。</entitydescription.oil_barrel>
-  <entityname.oil_station>加油站</entityname.oil_station>
-  <entitydescription.oil_station>里面装着昂贵的发动机润滑油。</entitydescription.oil_station>
-  <entityname.mechweldingtool>焊枪</entityname.mechweldingtool>
-  <entitydescription.mechweldingtool>使用氩气的电焊枪。</entitydescription.mechweldingtool>
-  <entityname.handtruck>手推车</entityname.handtruck>
-  <entitydescription.handtruck>用它来搬运重物，别把背伤了。</entitydescription.handtruck>
-  <entityname.closet>储物柜</entityname.closet>
-  <entitydescription.closet>整理好你自己的东西！能装大又重的物品。</entitydescription.closet>
-  <entityname.storage_container_single>储物箱</entityname.storage_container_single>
-  <entitydescription.storage_container_single>用来储存物品，比储物柜容量更大。</entitydescription.storage_container_single>
-  <entityname.shipping_container_open>货柜（开启）</entityname.shipping_container_open>
-  <entitydescription.shipping_container_open>整理好你自己的东西！</entitydescription.shipping_container_open>
-  <entityname.shipping_container_closed>货柜（关闭）</entityname.shipping_container_closed>
-  <entitydescription.shipping_container_closed>整理好你自己的东西！</entitydescription.shipping_container_closed>
-  <entityname.cargo_crane>货物起重机</entityname.cargo_crane>
-  <entitydescription.cargo_crane>快把货吊起来！</entitydescription.cargo_crane>
-  <entityname.cargo_hatch>货物舱门</entityname.cargo_hatch>
-  <entitydescription.cargo_hatch>需要运输尺寸超大的货物时你会需要这玩意。</entitydescription.cargo_hatch>
-  <entityname.mechcab>便捷储柜</entityname.mechcab>
-  <entitydescription.mechcab>便于紧急情况快速取用。</entitydescription.mechcab>
-  <entityname.cncfab>CNC机械加工台</entityname.cncfab>
-  <entitydescription.cncfab>机械，成就梦想！</entitydescription.cncfab>
-  <entityname.repairtable>维修台</entityname.repairtable>
-  <entitydescription.repairtable>维修潜水服和装备的专用加工台。</entitydescription.repairtable>
-  <entityname.argon_tank>氩气罐</entityname.argon_tank>
-  <entitydescription.argon_tank>用于灌装。</entitydescription.argon_tank>
-  <entityname.extinguisher_station>灭火器灌装站</entityname.extinguisher_station>
-  <entitydescription.extinguisher_station>用于灌装。</entitydescription.extinguisher_station>
-  <entityname.extinguisher_tank>灭火器干粉罐</entityname.extinguisher_tank>
-  <entitydescription.extinguisher_tank>用于灌装。</entitydescription.extinguisher_tank>
-  <entityname.S5_Extinguisher>S5灭火器</entityname.S5_Extinguisher>
-  <entitydescription.S5_Extinguisher>只能持续5秒的小型灭火器，可以装在工具带里。</entitydescription.S5_Extinguisher>
-  <entityname.l100_extinguisher>L100灭火器</entityname.l100_extinguisher>
-  <entitydescription.l100_extinguisher>大号灭火器，能装在消防战斗服里。</entitydescription.l100_extinguisher>
-  <entityname.argon_station>氩气灌装站</entityname.argon_station>
-  <entitydescription.argon_station>用于灌装。</entitydescription.argon_station>
-  <entityname.boiler>蒸汽锅炉</entityname.boiler>
-  <entitydescription.boiler>通过电力加热水产生蒸汽。</entitydescription.boiler>
-  <entityname.steam_turbine>蒸汽轮机</entityname.steam_turbine>
-  <entitydescription.steam_turbine>蒸汽推动涡轮叶片输出扭矩。</entitydescription.steam_turbine>
-  <entityname.reduction_gear>减速机</entityname.reduction_gear>
-  <entitydescription.reduction_gear>将蒸汽轮机产生的扭矩转化为水平推力。</entitydescription.reduction_gear>
-  <entityname.gear_locker>作业服柜</entityname.gear_locker>
-  <entitydescription.gear_locker>用于存放各式作业服。</entitydescription.gear_locker>
-  <entityname.plague_doctor_mask>瘟疫医生面具</entityname.plague_doctor_mask>
-  <entitydescription.plague_doctor_mask>瘟疫医生面具</entitydescription.plague_doctor_mask>
-  <entityname.radiation_suit2>辐射防护服</entityname.radiation_suit2>
-  <entitydescription.radiation_suit2>提供最佳的对辐射保护效果。</entitydescription.radiation_suit2>
-  <entityname.radiation_suit>辐射防护服</entityname.radiation_suit>
-  <entitydescription.radiation_suit>辐射防护服。</entitydescription.radiation_suit>
-  <entityname.turnout_gear2>消防战斗服</entityname.turnout_gear2>
-  <entitydescription.turnout_gear2>能装备防火氧气罐和L100灭火器。</entitydescription.turnout_gear2>
-  <entityname.dry_suit>干式潜水服</entityname.dry_suit>
-  <entitydescription.dry_suit>低压作业服。主要用于潜水艇内部的维修工作，这能减少潜水服的磨损。</entitydescription.dry_suit>
-  <entityname.expedition_divingsuit>探险潜水服</entityname.expedition_divingsuit>
-  <entitydescription.expedition_divingsuit>探险潜水服。</entitydescription.expedition_divingsuit>
-  <entityname.armored_divingsuit>装甲潜水服</entityname.armored_divingsuit>
-  <entitydescription.armored_divingsuit>专为战斗设计，功能强于外观。</entitydescription.armored_divingsuit>
-  <entityname.armored_suit>中世纪盔甲</entityname.armored_suit>
-  <entitydescription.armored_suit>来自地球15世纪中期的遗物。绝美的艺术品！</entitydescription.armored_suit>
-  <entityname.plague_doctor_kit>瘟疫医生服</entityname.plague_doctor_kit>
-  <entitydescription.plague_doctor_kit>瘟疫医生服</entitydescription.plague_doctor_kit>
-  <entityname.kit_utility>实用工作服</entityname.kit_utility>
-  <entitydescription.kit_utility>实用工作服。</entitydescription.kit_utility>
-  <entityname.captains_kit>船长服</entityname.captains_kit>
-  <entitydescription.captains_kit>做船长真好。</entitydescription.captains_kit>
-  <entityname.diesel_fuel_can>柴油燃料罐</entityname.diesel_fuel_can>
-  <entitydescription.diesel_fuel_can>一罐5加仑的柴油。</entitydescription.diesel_fuel_can>
-  <entityname.diesel_fuel_barrel>柴油燃料桶</entityname.diesel_fuel_barrel>
-  <entitydescription.diesel_fuel_barrel>一桶50加仑的柴油。</entitydescription.diesel_fuel_barrel>
-  <entityname.diesel_fuel_tank>柴油燃料箱</entityname.diesel_fuel_tank>
-  <entitydescription.diesel_fuel_tank>船用柴油燃料箱。能用燃料桶灌装燃料罐。</entitydescription.diesel_fuel_tank>
-  <entityname.s1500D>柴油发电机</entityname.s1500D>
-  <entitydescription.s1500D>默认功率1500kW。</entitydescription.s1500D>
-  <entityname.S5000D>S5000D</entityname.S5000D>
-  <entitydescription.S5000D>默认功率10000kW。</entitydescription.S5000D>
-  <entityname.pdg500>便携式柴油发电机</entityname.pdg500>
-  <entitydescription.pdg500>移动能源！</entitydescription.pdg500>
-  <entityname.keys>钥匙</entityname.keys>
-  <entitydescription.keys>出门记得带钥匙。</entitydescription.keys>
-  <entityname.trash_can>垃圾桶</entityname.trash_can>
-  <entitydescription.trash_can>ID卡拜拜了您嘞！</entitydescription.trash_can>
-  <entityname.incinerator>焚化炉</entityname.incinerator>
-  <entitydescription.incinerator>能让你在巡回中处理掉不想要的物品。</entitydescription.incinerator>
-  <entityname.trashcan>垃圾桶（MT）</entityname.trashcan>
-  <entitydescription.trashcan>能让你在巡回中处理掉不想要的物品。</entitydescription.trashcan>
-  <!-- =============< GEAR >=============  -->
-  <entityname.mechanic_toolkit>机修工具背心</entityname.mechanic_toolkit>
-  <entitydescription.mechanic_toolkit>机械工需要携带大量的工具和机械组件。</entitydescription.mechanic_toolkit>
-  <entityname.engineer_toolkit>工程背包</entityname.engineer_toolkit>
-  <entitydescription.engineer_toolkit>工程师需要携带大量的工具和机械组件。</entitydescription.engineer_toolkit>
-  <!-- =============< MISSIONS >=============  -->
-  <missionname.cargopeasantprime>PeasantPrime运输任务</missionname.cargopeasantprime>
-  <missiondescription.peasantprime>如果你的潜艇上还有空位，我们正在找人运输一堆PeasantPrime箱到[location2]，运费[reward]马克。</missiondescription.peasantprime>
-  <missionsuccess.cargopeasantprime>PeasantPrime箱已成功运抵目的地！ 你为推动猖獗的消费主义做出了自己的贡献。</missionsuccess.cargopeasantprime>
-  <!-- =============< NEW ITEMS (I hope this makes it easier to find changes) >=============  -->
-  <entityname.boiler_p>蒸汽锅炉（节能版）</entityname.boiler_p>
-  <entitydescription.boiler_p>通过电力加热水产生蒸汽。组件损耗速度降低50%。</entitydescription.boiler_p>
-  <entityname.steam_turbine_p>蒸汽轮机（节能版）</entityname.steam_turbine_p>
-  <entitydescription.steam_turbine_p>蒸汽推动涡轮叶片输出扭矩。组件损耗速度降低50%。</entitydescription.steam_turbine_p>
-  <entityname.reduction_gear_p>减速机（节能版）</entityname.reduction_gear_p>
-  <entitydescription.reduction_gear_p>将蒸汽轮机产生的扭矩转化为水平推力。组件损耗速度降低50%。</entitydescription.reduction_gear_p>
-  <!-- 10/29/22 --> 
-  <entityname.fatboy>重装防化服</entityname.fatboy>
-  <entitydescription.fatboy>用于进行危险操作的重度防护压力服。额定深度：4500米。抗火，抗辐射，抗外伤。 </entitydescription.fatboy>
+<entityname.copper_pipe_h>铜管水平</entityname.copper_pipe_h>
+<entitydescription.copper_pipe_h>可重新分辨的水平铜管。</entitydescription.copper_pipe_h>
+<entityname.bacteria_analyzer>微观分析仪</entityname.bacteria_analyzer>
+<entitydescription.bacteria_analyzer>Biotrauma：细菌，霉菌，真菌等的微观分析仪。</entitydescription.bacteria_analyzer>
+<entityname.bacterial_sample_a4>细菌样品A4</entityname.bacterial_sample_a4>
+<entitydescription.bacterial_sample_a4>A4的精制细菌样品。</entitydescription.bacterial_sample_a4>
+<entityname.antibacterial_a4>A4抗菌</entityname.antibacterial_a4>
+<entitydescription.antibacterial_a4>A4细菌的抗菌。</entitydescription.antibacterial_a4>
+<entityname.spore_fungus>菌</entityname.spore_fungus>
+<entitydescription.spore_fungus>一个未知的真菌。</entitydescription.spore_fungus>
+<entityname.textdisplaylarge>textdisplaylarge</entityname.textdisplaylarge>
+<entitydescription.textdisplaylarge>textdisplaylarge</entitydescription.textdisplaylarge>
+<entityname.textdisplay_short_tight>textdisplay_short_tight</entityname.textdisplay_short_tight>
+<entitydescription.textdisplay_short_tight>专为短数字（例如3位数条件）而设计。</entitydescription.textdisplay_short_tight>
+<entityname.lcd>液晶电视</entityname.lcd>
+<entitydescription.lcd>液晶电视</entitydescription.lcd>
+<entityname.average_component>平均组件</entityname.average_component>
+<entitydescription.average_component>输出组合输入信号的平均值。需要lua。</entitydescription.average_component>
+<entityname.peasantprime>农民盒</entityname.peasantprime>
+<entitydescription.peasantprime>农民盒</entitydescription.peasantprime>
+<entityname.airrifle>气枪</entityname.airrifle>
+<entitydescription.airrifle>低功率，高度可访问且易于验证的武器。</entitydescription.airrifle>
+<entityname.leadpellet>铅颗粒</entityname.leadpellet>
+<entitydescription.leadpellet>气步枪弹药。</entitydescription.leadpellet>
+<entityname.gunners_chair>Gonners主席</entityname.gunners_chair>
+<entitydescription.gunners_chair>保持坐着。</entitydescription.gunners_chair>
+<entityname.mt_coilgun>MT Coilgun</entityname.mt_coilgun>
+<entitydescription.mt_coilgun>线圈枪的替代颜色。</entitydescription.mt_coilgun>
+<entityname.50cal_turret>50 cal炮塔</entityname.50cal_turret>
+<entitydescription.50cal_turret>代价高昂的Coilgun替代品，但没有重新射击的力量。</entitydescription.50cal_turret>
+<entityname.50cal_loader>50加载器</entityname.50cal_loader>
+<entitydescription.50cal_loader>50 Cal炮塔的弹药装载机。</entitydescription.50cal_loader>
+<entityname.50cal_ammobox>50 Cal Ammobox</entityname.50cal_ammobox>
+<entitydescription.50cal_ammobox>50 Cal炮塔的弹药装载机。</entitydescription.50cal_ammobox>
+<entityname.50cal_bolt>50 cal螺栓</entityname.50cal_bolt>
+<entitydescription.50cal_bolt>50 cal螺栓</entitydescription.50cal_bolt>
+<entityname.fuse_panel>保险丝面板</entityname.fuse_panel>
+<entitydescription.fuse_panel>带有牺牲保险丝的电气继电器面板，用于过电压。</entitydescription.fuse_panel>
+<entityname.electrical_panel>电面板</entityname.electrical_panel>
+<entitydescription.electrical_panel>电面板。</entitydescription.electrical_panel>
+<entityname.key_button>钥匙按钮</entityname.key_button>
+<entitydescription.key_button>钥匙按钮。</entitydescription.key_button>
+<entityname.battery_bank>电池库</entityname.battery_bank>
+<entitydescription.battery_bank>最大输出5000kW的庞大存储容量（在编辑器中无法更改）。浸入淹没时不会起作用。</entitydescription.battery_bank>
+<entityname.battery_bank_wr>电池库</entityname.battery_bank_wr>
+<entitydescription.battery_bank_wr>最大输出5000kW的庞大存储容量（在编辑器中无法更改）。浸入淹没时不会起作用。</entitydescription.battery_bank_wr>
+<entityname.fuse>保险丝</entityname.fuse>
+<entitydescription.fuse>保险丝</entitydescription.fuse>
+<entityname.sealed_bearing>密封的轴承</entityname.sealed_bearing>
+<entitydescription.sealed_bearing>零件制造的机械组件。</entitydescription.sealed_bearing>
+<entityname.bearing_sleeve>轴承袖</entityname.bearing_sleeve>
+<entitydescription.bearing_sleeve>用于改装用过的轴承。</entitydescription.bearing_sleeve>
+<entityname.grease_can>油脂可以</entityname.grease_can>
+<entitydescription.grease_can>一罐油脂。制造成单独的油脂包。</entitydescription.grease_can>
+<entityname.grease_packet>油脂包</entityname.grease_packet>
+<entitydescription.grease_packet>用于机械维修和制造的油脂包。</entitydescription.grease_packet>
+<entityname.copper_windings>铜绕组</entityname.copper_windings>
+<entitydescription.copper_windings>用于偿还电动机的铜绕组。</entitydescription.copper_windings>
+<entityname.oil_filter>机油滤清器</entityname.oil_filter>
+<entitydescription.oil_filter>节省黑金。</entitydescription.oil_filter>
+<entityname.bearing>轴承</entityname.bearing>
+<entitydescription.bearing>轴承机械维修。</entitydescription.bearing>
+<entityname.electric_motor>电动马达</entityname.electric_motor>
+<entitydescription.electric_motor>机械维修的机械零件。</entitydescription.electric_motor>
+<entityname.circulator_pump>循环泵</entityname.circulator_pump>
+<entitydescription.circulator_pump>机器的循环泵。</entitydescription.circulator_pump>
+<entityname.drive_gear>驱动装备</entityname.drive_gear>
+<entitydescription.drive_gear>用于用于降低装备等机器。</entitydescription.drive_gear>
+<entityname.turbine_blade>涡轮刀片</entityname.turbine_blade>
+<entitydescription.turbine_blade>用于用于蒸汽涡轮机等机器。</entitydescription.turbine_blade>
+<entityname.scrap_steel>废钢</entityname.scrap_steel>
+<entitydescription.scrap_steel>别忘了回收！</entitydescription.scrap_steel>
+<entityname.scrap_aluminium>废铝</entityname.scrap_aluminium>
+<entitydescription.scrap_aluminium>别忘了回收！</entitydescription.scrap_aluminium>
+<entityname.scrap_copper>报废铜</entityname.scrap_copper>
+<entitydescription.scrap_copper>别忘了回收！</entitydescription.scrap_copper>
+<entityname.water_pump_small>小水泵</entityname.water_pump_small>
+<entitydescription.water_pump_small>用于移动水。</entitydescription.water_pump_small>
+<entityname.water_pump>水泵</entityname.water_pump>
+<entitydescription.water_pump>用于移动水。</entitydescription.water_pump>
+<entityname.water_pump_gate>水泵门</entityname.water_pump_gate>
+<entitydescription.water_pump_gate>需要移动水。</entitydescription.water_pump_gate>
+<entityname.oxygentank_compressor>氧气压缩机</entityname.oxygentank_compressor>
+<entitydescription.oxygentank_compressor>将船体氧气压入水箱中。</entitydescription.oxygentank_compressor>
+<entityname.oxygentank_fr>耐火氧气罐</entityname.oxygentank_fr>
+<entitydescription.oxygentank_fr>耐火氧气罐</entitydescription.oxygentank_fr>
+<entityname.oxygentank_large>氧气罐大</entityname.oxygentank_large>
+<entitydescription.oxygentank_large>大氧气罐，仅用于氧气站。</entitydescription.oxygentank_large>
+<entityname.oxygen_station>氧气罐站</entityname.oxygen_station>
+<entitydescription.oxygen_station>快速补充氧气罐并在紧急情况下释放氧气。</entitydescription.oxygen_station>
+<entityname.oxygen_vent>氧气通风口</entityname.oxygen_vent>
+<entitydescription.oxygen_vent>定期清洁。定期重复二氧化碳过滤器。</entitydescription.oxygen_vent>
+<entityname.co2_cartridge>二氧化碳过滤器</entityname.co2_cartridge>
+<entitydescription.co2_cartridge>用于从大气中过滤二氧化碳。</entitydescription.co2_cartridge>
+<entityname.oxygen_supply>氧气供应</entityname.oxygen_supply>
+<entitydescription.oxygen_supply>氧气发生器的替代机电杂志。</entitydescription.oxygen_supply>
+<entityname.oil_can>油壶</entityname.oil_can>
+<entitydescription.oil_can>黑金。</entitydescription.oil_can>
+<entityname.oil_barrel>油桶</entityname.oil_barrel>
+<entitydescription.oil_barrel>黑金。</entitydescription.oil_barrel>
+<entityname.oil_station>石油站</entityname.oil_station>
+<entitydescription.oil_station>黑金。</entitydescription.oil_station>
+<entityname.mechweldingtool>焊机</entityname.mechweldingtool>
+<entitydescription.mechweldingtool>使用氩气的电焊机。</entitydescription.mechweldingtool>
+<entityname.handtruck>手推车</entityname.handtruck>
+<entitydescription.handtruck>用它来移动沉重的东西。不要伤害你的背。</entitydescription.handtruck>
+<entityname.closet>储物壁橱</entityname.closet>
+<entitydescription.closet>清理自己！这是存储大型物品的空间。</entitydescription.closet>
+<entityname.storage_container_single>存储容器</entityname.storage_container_single>
+<entitydescription.storage_container_single>存储容器，比机柜大。</entitydescription.storage_container_single>
+<entityname.shipping_container_open>货物容器打开。</entityname.shipping_container_open>
+<entitydescription.shipping_container_open>清理自己！</entitydescription.shipping_container_open>
+<entityname.shipping_container_closed>货物容器关闭。</entityname.shipping_container_closed>
+<entitydescription.shipping_container_closed>清理自己！</entitydescription.shipping_container_closed>
+<entityname.cargo_crane>货舱。</entityname.cargo_crane>
+<entitydescription.cargo_crane>举起货物的人！</entitydescription.cargo_crane>
+<entityname.cargo_hatch>货物舱口。</entityname.cargo_hatch>
+<entitydescription.cargo_hatch>有时，您需要移动大事情。</entitydescription.cargo_hatch>
+<entityname.mechcab>快速机柜</entityname.mechcab>
+<entitydescription.mechcab>快速访问紧急情况。</entitydescription.mechcab>
+<entityname.cncfab>CNC机械制造商</entityname.cncfab>
+<entitydescription.cncfab>机器您的梦想现实！</entitydescription.cncfab>
+<entityname.repairtable>维修桌</entityname.repairtable>
+<entitydescription.repairtable>专门的制造商，用于修复潜水服和齿轮。</entitydescription.repairtable>
+<entityname.argon_tank>氩水箱</entityname.argon_tank>
+<entitydescription.argon_tank>补充。</entitydescription.argon_tank>
+<entityname.extinguisher_station>灭火器站</entityname.extinguisher_station>
+<entitydescription.extinguisher_station>补充。</entitydescription.extinguisher_station>
+<entityname.extinguisher_tank>灭火</entityname.extinguisher_tank>
+<entitydescription.extinguisher_tank>补充。</entitydescription.extinguisher_tank>
+<entityname.S5_Extinguisher>s5_extinguisher</entityname.S5_Extinguisher>
+<entitydescription.S5_Extinguisher>可以戴在皮带上的小5秒灭火器。</entitydescription.S5_Extinguisher>
+<entityname.l100_extinguisher>L100-外杀剂</entityname.l100_extinguisher>
+<entitydescription.l100_extinguisher>一个大型灭火器，可用于转盘装备。</entitydescription.l100_extinguisher>
+<entityname.argon_station>氩电台</entityname.argon_station>
+<entitydescription.argon_station>补充。</entitydescription.argon_station>
+<entityname.boiler>蒸汽锅炉</entityname.boiler>
+<entitydescription.boiler>产生蒸汽。</entitydescription.boiler>
+<entityname.steam_turbine>汽轮机</entityname.steam_turbine>
+<entitydescription.steam_turbine>将蒸汽能量转换为动力学烟雾。</entitydescription.steam_turbine>
+<entityname.reduction_gear>减速器</entityname.reduction_gear>
+<entitydescription.reduction_gear>将高速低速扭矩转换为低速高扭矩。</entitydescription.reduction_gear>
+<entityname.gear_locker>齿轮储物柜</entityname.gear_locker>
+<entitydescription.gear_locker>用于存放装备。</entitydescription.gear_locker>
+<entityname.plague_doctor_mask>瘟疫医生面具</entityname.plague_doctor_mask>
+<entitydescription.plague_doctor_mask>瘟疫医生面具</entitydescription.plague_doctor_mask>
+<entityname.radiation_suit2>辐射西服</entityname.radiation_suit2>
+<entitydescription.radiation_suit2>辐射的最佳保护。</entitydescription.radiation_suit2>
+<entityname.radiation_suit>辐射西服</entityname.radiation_suit>
+<entitydescription.radiation_suit>辐射西服</entitydescription.radiation_suit>
+<entityname.turnout_gear2>选票装备</entityname.turnout_gear2>
+<entitydescription.turnout_gear2>配备耐火的氧气罐和L100灭火器。</entitydescription.turnout_gear2>
+<entityname.dry_suit>干式西服</entityname.dry_suit>
+<entitydescription.dry_suit>低压西服。有助于在潜艇中进行维修和减少潜水服的磨损。</entitydescription.dry_suit>
+<entityname.expedition_divingsuit>探险潜水服</entityname.expedition_divingsuit>
+<entitydescription.expedition_divingsuit>探险潜水服</entitydescription.expedition_divingsuit>
+<entityname.armored_divingsuit>装甲潜水服</entityname.armored_divingsuit>
+<entitydescription.armored_divingsuit>专为战斗而设计，形式效果。</entitydescription.armored_divingsuit>
+<entityname.armored_suit>盔甲套装</entityname.armored_suit>
+<entitydescription.armored_suit>地球上的15世纪中叶。这是一件艺术品！</entitydescription.armored_suit>
+<entityname.plague_doctor_kit>瘟疫医生Kit</entityname.plague_doctor_kit>
+<entitydescription.plague_doctor_kit>瘟疫医生Kit</entitydescription.plague_doctor_kit>
+<entityname.kit_utility>实用工具包</entityname.kit_utility>
+<entitydescription.kit_utility>实用工具包。</entitydescription.kit_utility>
+<entityname.captains_kit>队长套件</entityname.captains_kit>
+<entitydescription.captains_kit>成为队长是一件好事。</entitydescription.captains_kit>
+<entityname.diesel_fuel_can>柴油燃料可以</entityname.diesel_fuel_can>
+<entitydescription.diesel_fuel_can>一罐5GALLON的柴油燃料。</entitydescription.diesel_fuel_can>
+<entityname.diesel_fuel_barrel>柴油燃料桶</entityname.diesel_fuel_barrel>
+<entitydescription.diesel_fuel_barrel>50加仑的柴油燃料。</entitydescription.diesel_fuel_barrel>
+<entityname.diesel_fuel_tank>柴油油箱</entityname.diesel_fuel_tank>
+<entitydescription.diesel_fuel_tank>船的柴油油箱。桶中的补充罐。</entitydescription.diesel_fuel_tank>
+<entityname.s1500D>柴油发电机</entityname.s1500D>
+<entitydescription.s1500D>来自碳，电力。 1500kW</entitydescription.s1500D>
+<entityname.S5000D>S5000D</entityname.S5000D>
+<entitydescription.S5000D>来自碳，电力。</entitydescription.S5000D>
+<entityname.pdg500>便携式柴油发电机</entityname.pdg500>
+<entitydescription.pdg500>在旅途中加电！</entitydescription.pdg500>
+<entityname.keys>钥匙</entityname.keys>
+<entitydescription.keys>不要没有他们离开家。</entitydescription.keys>
+<entityname.trash_can>垃圾箱</entityname.trash_can>
+<entitydescription.trash_can>再见ID卡！</entitydescription.trash_can>
+<entityname.incinerator>焚化炉</entityname.incinerator>
+<entitydescription.incinerator>中途处理不需要的物品。</entitydescription.incinerator>
+<entityname.trashcan>机电垃圾桶</entityname.trashcan>
+<entitydescription.trashcan>中途处理不需要的物品。</entitydescription.trashcan>
+<entityname.mechanic_toolkit>机械工具背心</entityname.mechanic_toolkit>
+<entitydescription.mechanic_toolkit>机械师携带许多工具和零件。</entitydescription.mechanic_toolkit>
+<entityname.engineer_toolkit>工程背包</entityname.engineer_toolkit>
+<entitydescription.engineer_toolkit>工程师携带许多工具和零件。</entitydescription.engineer_toolkit>
+<missionname.cargopeasantprime>peasantprime运输</missionname.cargopeasantprime>
+<missiondescription.peasantprime>如果您的运输中有额外的空间，我们正在寻找某人将peasantprime盒子运送到[location2]，以获得[奖励]标记的奖励。</missiondescription.peasantprime>
+<missionsuccess.cargopeasantprime>peasantprime盒已成功交付！您已经尽力使消费主义猖ramp。</missionsuccess.cargopeasantprime>
+<entityname.boiler_p>蒸锅</entityname.boiler_p>
+<entitydescription.boiler_p>产生蒸汽。 -50％的部分变质速度。</entitydescription.boiler_p>
+<entityname.steam_turbine_p>蒸汽涡轮机</entityname.steam_turbine_p>
+<entitydescription.steam_turbine_p>将蒸汽能量转换为动力学烟雾。 -50％的部分变质速度。</entitydescription.steam_turbine_p>
+<entityname.reduction_gear_p>农民的缩减装备</entityname.reduction_gear_p>
+<entitydescription.reduction_gear_p>将高速低速扭矩转换为低速高扭矩。 -50％的部分变质速度。</entitydescription.reduction_gear_p>
+<entityname.fatboy>肥仔</entityname.fatboy>
+<entitydescription.fatboy>严重的屏蔽压力套装，用于危险工作。额定深度：4,500。对火，辐射和肉伤的抗性。</entitydescription.fatboy>
+<entityname.storage_cabinet>储藏柜</entityname.storage_cabinet>
+<entitydescription.storage_cabinet>用于存储小物品。</entitydescription.storage_cabinet>
+<entityname.emergency_disconnect>紧急断开连接</entityname.emergency_disconnect>
+<entitydescription.emergency_disconnect>紧急电源断开连接。</entitydescription.emergency_disconnect>
+<entityname.oxygen_transfer_tank>氧气转移罐</entityname.oxygen_transfer_tank>
+<entitydescription.oxygen_transfer_tank>一个大型便携式氧气罐，可用于为燃烧发动机提供备用氧气。</entitydescription.oxygen_transfer_tank>
+<entityname.diesel_transfer_truck>柴油转移卡车</entityname.diesel_transfer_truck>
+<entitydescription.diesel_transfer_truck>移动柴油转移站。</entitydescription.diesel_transfer_truck>
+<entityname.oil_transfer_truck>机油转移卡车</entityname.oil_transfer_truck>
+<entitydescription.oil_transfer_truck>移动石油运输站。</entitydescription.oil_transfer_truck>
+<Override>
+<entityname.pucs>肥仔</entityname.pucs>
+<entitydescription.pucs>严重的屏蔽压力套装，用于危险工作。额定深度：4,500。对火，辐射和肉伤的抗性。</entitydescription.pucs>
+</Override>
+<connection.steamin1>Steam_Inlet</connection.steamin1>
+<connection.steamout>Steam_Out</connection.steamout>
+<connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
+<connection.kineticout>Kinetic_Out</connection.kineticout>
+
 </infotexts>
