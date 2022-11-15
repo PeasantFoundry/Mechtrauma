@@ -346,6 +346,7 @@ function MT.HF.GameIsPaused()
     return Game.Paused
 end
 
+--sadly, Game.RoundStarted does not work for singleplayer (sub editor)
 function MT.HF.GameIsRunning()
     if SERVER then return false end
 
@@ -495,7 +496,7 @@ function MT.HF.Explode(entity,range,force,damage,structureDamage,itemDamage,empS
 
     MT.HF.SpawnItemAt("ntvfx_explosion",entity.WorldPosition)
 end
-
+-- fucked by Hadrada on 11/12/22
 -- unfucked by Mannatu on 11/13/22
 function MT.HF.ItemIsWornInOuterClothesSlot(item)
     if item.ParentInventory == nil then return false end 
@@ -504,3 +505,15 @@ function MT.HF.ItemIsWornInOuterClothesSlot(item)
 
   return true
   end
+
+-- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
+-- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
+function MT.HF.GetItemDepth(item)
+  if SERVER then
+    -- use server method
+    return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
+    else
+    -- use client method
+    return item.WorldPosition.Y * 0.01  
+    end
+end

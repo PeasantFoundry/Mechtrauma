@@ -37,14 +37,13 @@ Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, del
     character = targets[8]
     rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
     leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
- 
+    
     -- Check the hands for an item with the tag "mechanicalrepairtool" in sequence to avoid cutting off both arms at once. We are merciful. 
     if rightHandItem.HasTag("mechanicalrepairtool") then
       NT.TraumamputateLimb(targets[8],LimbType.RightArm)
     elseif leftHandItem.HasTag("mechanicalrepairtool") then
       NT.TraumamputateLimb(targets[8],LimbType.LeftArm)    
     end
-   
   else  
        --No? do something vanilla   
   end

@@ -1,7 +1,7 @@
 
 MT = {} -- Mechtrauma
 MT.Name="Mechtrauma"
-MT.Version = "1.1.2.1" 
+MT.Version = "1.1.2-1" 
 MT.VersionNum = 01010201 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
@@ -33,6 +33,7 @@ end
 
 -- define global helper functions (they're used everywhere else!)
 dofile(MT.Path.."/Lua/Scripts/helperfunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/mechtraumafunctions.lua")
 
 -- server-side code (also run in singleplayer)
 if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
@@ -54,13 +55,13 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
 
     -- this is where we run all the other lua files
     -- (jamming them all in autorun is bad for organization and surrenders control of what is to be executed)
-    dofile(MT.Path.."/Lua/Scripts/Server/humanupdate.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/mechtraumaupdate.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/bacteria_analyzer.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/oxygen_vent.lua")
-    
+    dofile(MT.Path.."/Lua/Scripts/Server/oxygen_vent.lua")    
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 

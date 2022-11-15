@@ -29,6 +29,8 @@ local function DetermineDifficulty()
     difficulty=difficulty
         + MT.HF.Clamp(config.dieselDrainRate*5,0,20)
         + MT.HF.Clamp(config.pumpGateDeteriorateRate*5,0,20)
+        + MT.HF.Clamp(config.diveSuitDeteriorateRate*5,0,20)
+        
 
     -- normalize to 10
     difficulty = difficulty / 5 * 10
@@ -108,6 +110,18 @@ MT.ShowGUI = function ()
     pumpGateDeteriorateRate.FloatValue = MT.Config.pumpGateDeteriorateRate
     pumpGateDeteriorateRate.OnValueChanged = function ()
         MT.Config.pumpGateDeteriorateRate = pumpGateDeteriorateRate.FloatValue
+        OnChanged()
+    end
+
+    -- DivingSuit Deterioration: 0 = off, 0.1 = ~2.75hrs, 1.0 = ~16.5min, 2.0 = ~8.5min for 100 condition suits. 
+    GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), config.Content.RectTransform), "Diving Suit deterioration rate multiplier (YWM)", nil, nil, GUI.Alignment.Center, true)
+    local diveSuitDeteriorateRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), NumberType.Float)
+    diveSuitDeteriorateRate.valueStep = 0.1
+    diveSuitDeteriorateRate.MinValueFloat = 0.1
+    diveSuitDeteriorateRate.MaxValueFloat = 2
+    diveSuitDeteriorateRate.FloatValue = MT.Config.diveSuitDeteriorateRate
+    diveSuitDeteriorateRate.OnValueChanged = function ()
+        MT.Config.diveSuitDeteriorateRate = MT.HF.Round(diveSuitDeteriorateRate.FloatValue, 2)
         OnChanged()
     end
 
