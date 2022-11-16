@@ -2125,7 +2125,7 @@
   </Item>
 
 <!-- FUSE PANEL: RELAY -->
-<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags="signal,logic" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags="signal,logic, controllablejb" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="100" minleveldifficulty="15">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" sold="false"/>
@@ -2165,8 +2165,6 @@
       <StatusEffect type="Always" targettype="This" delay="1" stackable="false" IsOn="False">
         <Conditional HasStatusTag="neq goodfuse" />        
       </StatusEffect> 
-
-      
 
     </RelayComponent>
 
@@ -2240,9 +2238,7 @@
 
 
 <!-- ELECTRICAL PANEL: -->
-
-
-  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox, fusedJB" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
@@ -2253,46 +2249,42 @@
         <!-- POWER LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="RelayComponent" overload="eq False" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
     </LightComponent>
     <!-- OVERVOLTAGE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="RelayComponent" overload="eq True" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
     </LightComponent>
     <!-- FUSE LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />      
-      <RequiredItem items="fuse" type="Contained" mincondition="1.0" />        
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />   
+      <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
+        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />   
+      </StatusEffect>   
     </LightComponent>
 
     
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
      
-    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" >
+    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
       <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> <!--minsize="350,160" maxsize="420,190"-->
       <StatusEffect type="InWater" target="This" condition="-0.25">
-        <Conditional currPowerConsumption="lt -10" />
+        <Conditional Voltage="gt 0" />
       </StatusEffect>
     
     
    
       <!-- Check for a fuse -->
       <!-- ON: yesfuse -->
-      <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="yesfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
-         <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
-       
-      </StatusEffect> 
-
-      <!-- NO FUSE: allow overvoltage  -->
-      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="0.0" canbeoverloaded="true" Comparison="And">
-        <Conditional HasStatusTag="neq yesfuse" />           
+      <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="hasfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
+        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
       </StatusEffect> 
 
       <!-- NO FUSE: burn it down, burn it all down  -->
-      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="1.0" canbeoverloaded="true" Comparison="And">
-        <Conditional HasStatusTag="neq yesfuse" />           
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" checkconditionalways="true" FireProbability="1.0">
+        <Conditional HasStatusTag="neq hasfuse" />
       </StatusEffect>
 
     </PowerTransfer>
@@ -2310,8 +2302,7 @@
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
      
-      <output name="power" displayname="connection.power" />
-      <output name="power" displayname="connection.power" />
+      <output name="power" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10"/>
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="power_value_out" displayname="connection.powervalueout" />
       <output name="load_value_out" displayname="connection.loadvalueout" />
@@ -2335,6 +2326,57 @@
       </Containable>
       
     </ItemContainer>
+    <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="MistSmoke" particlespersecond="60" anglemin="0" anglemax="360" distancemin="0" distancemax="30" velocitymin="0" velocitymax="20" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
+      <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
+    </Repairable>
+  </Item>
+
+  <!-- Steam regulator: -->
+  <Item name="Steam regulator" identifier="steam_regulator" tags="powerabsorber" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
+    <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
+    <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
+    <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+
+    
+    <!-- LABEL-->
+    <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
+
+    <Powered canbeselected="true" msg="ItemMsgInteractSelect" PowerConsumption="2000.0" MinVoltage="0.3">
+
+    </Powered>
+     
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped" />
+     
+      <input name="power_in" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+   
+
+    </ConnectionPanel>
+    
     <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -6192,31 +6234,15 @@
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" origin="0.5,0.5" depth="0.8" maxcondition="0" />
-    
+
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
 
-    <Powered powerconsumption="1" currpowerconsumption="1" minvoltage="0.5" isactive="true">
-      <GuiFrame relativesize="0.18,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" />
-      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
-    </Powered>
-
-    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
+    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false">
       <GuiFrame relativesize="0.25,0.15" minsize="450,160" anchor="Center" style="ItemUI" /> 
-        
-      <!-- Am I on? -->
-      <StatusEffect type="Always" targettype="This" setvalue="true" isOn="true" maxPower="10000"  Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
-        <Conditional HasStatusTag="turbine_blades"/> 
-        <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
-      </StatusEffect>
-        
-        <!-- Am I off? -->
-      <StatusEffect type="Always" targettype="This" Comparison="And" isOn="false">
-        <Conditional Voltage="lte 0.1" targetitemcomponent="RelayComponent"/>
-      </StatusEffect>
+      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
 
       <!-- Shaft Friction.  -->
-        <StatusEffect type="Always" targettype="This" Condition="-4.0" delay="1" duration="1" stackable="false" Comparison="And">
+      <StatusEffect type="Always" targettype="This" Condition="-4.0" delay="1" duration="1" stackable="false" Comparison="And">
         <Conditional Voltage="gt 0.1" targetitemcomponent="LightComponent"/>         
       </StatusEffect>
 
@@ -6230,14 +6256,20 @@
       </StatusEffect>  
 
       <!-- DISABLE: Cannot transmit power without turbine blades, right? -->
-      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" setvalue="true" maxPower="0" Comparison="And">
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" setvalue="true" isOn="false" Comparison="And">
         <Conditional HasStatusTag="neq turbine_blades"/>        
+      </StatusEffect>
+
+      <!-- Am I on? -->
+      <StatusEffect type="Always" targettype="This" setvalue="true" isOn="true" Comparison="And">
+        <Conditional HasStatusTag="turbine_blades"/> 
+        <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
       </StatusEffect>
    
       <!-- It's bad when a turbine breaks and is still running, right? -->
       <StatusEffect type="OnBroken" targettype="This" isOn="false" Comparison="and">
         <Fire size="15" />
-        <Conditional voltage="gt 0.5" targetitemcomponent="LightComponent"/>
+        <Conditional voltage="gt 0.5" targetitemcomponent="this"/>
       </StatusEffect>
 
     </RelayComponent>
@@ -6350,28 +6382,12 @@
     
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
 
-    <Powered powerconsumption="1" currpowerconsumption="1" minvoltage="0.5" isactive="true">
-      <GuiFrame relativesize="0.18,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" />
-      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
-    </Powered>
-
-    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
+    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false">
       <GuiFrame relativesize="0.25,0.15" minsize="450,160" anchor="Center" style="ItemUI" /> 
-        
-      <!-- Am I on? -->
-      <StatusEffect type="Always" targettype="This" setvalue="true" isOn="true" maxPower="10000"  Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
-        <Conditional HasStatusTag="turbine_blades"/> 
-        <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
-      </StatusEffect>
-        
-        <!-- Am I off? -->
-      <StatusEffect type="Always" targettype="This" Comparison="And" isOn="false">
-        <Conditional Voltage="lte 0.1" targetitemcomponent="RelayComponent"/>
-      </StatusEffect>
+      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
 
       <!-- Shaft Friction.  -->
-        <StatusEffect type="Always" targettype="This" Condition="-4.0" delay="1" duration="1" stackable="false" Comparison="And">
+      <StatusEffect type="Always" targettype="This" Condition="-4.0" delay="1" duration="1" stackable="false" Comparison="And">
         <Conditional Voltage="gt 0.1" targetitemcomponent="LightComponent"/>         
       </StatusEffect>
 
@@ -6385,14 +6401,20 @@
       </StatusEffect>  
 
       <!-- DISABLE: Cannot transmit power without turbine blades, right? -->
-      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" setvalue="true" maxPower="0" Comparison="And">
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" setvalue="true" isOn="false" Comparison="And">
         <Conditional HasStatusTag="neq turbine_blades"/>        
+      </StatusEffect>
+
+      <!-- Am I on? -->
+      <StatusEffect type="Always" targettype="This" setvalue="true" isOn="true" Comparison="And">
+        <Conditional HasStatusTag="turbine_blades"/> 
+        <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
       </StatusEffect>
    
       <!-- It's bad when a turbine breaks and is still running, right? -->
       <StatusEffect type="OnBroken" targettype="This" isOn="false" Comparison="and">
         <Fire size="15" />
-        <Conditional voltage="gt 0.5" targetitemcomponent="LightComponent"/>
+        <Conditional voltage="gt 0.5" targetitemcomponent="this"/>
       </StatusEffect>
 
     </RelayComponent>
@@ -6497,32 +6519,25 @@
 
 
   <!-- STEAM BOILER: -->
-  <Item name="Boiler" identifier="boiler" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
+  <Item name="Boiler" identifier="boiler" tags="steam, MechtraumaBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
     <Sprite name="Boiler" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" depth="0.8" origin="0.5,0.5" />
     <DecorativeSprite name="BoilerTop" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,220" depth="-0.4" origin="0.5,0.5" offset="0,90" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
-    
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
 
-    <Powered powerconsumption="1" currpowerconsumption="1" minvoltage="0.5" isactive="true">
-      <!-- <GuiFrame relativesize="0.2,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
+    <PowerContainer vulnerabletoemp="false" capacity="500.0" maxrechargespeed="6000.0" maxoutput="6000.0" canbeselected="true" indicatorposition="166,110" indicatorsize="20,80" ishorizontal="false" msg="ItemMsgInteractSelect" efficiency="90">
+      <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
-    </Powered>
 
-    <RelayComponent canbeselected="true" powerconsumption="0.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
-      <GuiFrame relativesize="0.2,0.15" minsize="450,160" anchor="Center" style="ItemUI" />
-        
       <!-- Am I on? -->
-      <StatusEffect type="Always" targettype="This" Comparison="And" isOn="true">
-        <Conditional voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="Always" targettype="This" Comparison="And" tags="">
         <Conditional condition="gt 10" />
+        <Conditional RechargeSpeed="gt 0.0" targetitemcomponent="PowerContainer"/>
         <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
       </StatusEffect>
         
       <!-- Am I off? -->
-      <StatusEffect type="Always" targettype="This" Comparison="or" isOn="false">
-        <Conditional voltage="lt 0.1" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="Always" targettype="This" Comparison="or" tags="batterydisabled">
         <Conditional condition="lte 10" />
       </StatusEffect>
 
@@ -6535,12 +6550,11 @@
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="25" />          
         </Explosion>
-
       </StatusEffect>
 
       <!-- It's bad when a boiler blows up, right? -->
-      <StatusEffect type="OnBroken" targettype="This" Comparison="or" isOn="false" comparaison="and">
-        <Conditional voltage="gt 0.9" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="OnBroken" targettype="This" Comparison="or" tags="batterydisabled" comparaison="and">
+        <Conditional voltage="gt 0.9" targetitemcomponent="PowerContainer"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="steam_burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
@@ -6550,12 +6564,19 @@
    
       <!-- OVERHEAT: Without circulator pumps, this device will overheat and build up too much pressure.  -->
       <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>         
+        <Conditional Voltage="gt 0.1" targetitemcomponent="PowerContainer"/>         
       </StatusEffect>
 
-    </RelayComponent>
+    </PowerContainer>
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
+      <StatusEffect type="Always" targettype="This" IsOn="false" Comparison="Or">
+        <Conditional RechargeSpeed="lte 0.0" targetitemcomponent="PowerContainer"/>      
+        <Conditional HasStatusTag="batterydisabled" />
+      </StatusEffect>
+    </LightComponent>
  
-  <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
+    <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
       <GuiFrame relativesize="0.2,0.2" minsize="450,160" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
       <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
       <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
@@ -6563,7 +6584,7 @@
        <!-- Deteriorate the circulator_pumps -->
       <Containable items="circulator_pump" excludebroken="false" excludefullcondition="false">
         <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.4" Comparison="And">
-         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="RelayComponent"/>
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
          
       
@@ -6572,13 +6593,13 @@
         <!--SLOT0-->
         <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
           <RequiredItem items="circulator_pump" type="Contained" targetslot="0" mincondition="5.0" />
-          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="RelayComponent"/>
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
 
         <!--SLOT1-->
         <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
           <RequiredItem items="circulator_pump" type="Contained" targetslot="1" mincondition="5.0" />
-          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="RelayComponent"/>
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
             
       </Containable>
@@ -6590,8 +6611,13 @@
       <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="power_in" displayname="connection.powerin1"/>
       <output name="steam_out" displayname="connection.steamout" />
+      <input name="set_rate" displayname="connection.batterysetrechargespeed" />
+      <output name="charge" displayname="connection.batterychargestatusout" />
+      <output name="charge_%" displayname="connection.batterychargepercentage" />
+      <output name="charge_rate" displayname="connection.batteryrechargespeedout" />
       <output name="condition_out" displayname="connection.conditionout" />
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
     </ConnectionPanel>
 
    
@@ -6606,7 +6632,7 @@
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional Voltage="lte 0.1" targetitemcomponent="RelayComponent"/>
+        <Conditional Voltage="lte 0.1" targetitemcomponent="PowerContainer"/>
       </StatusEffect>
 
       <!-- Don't repair if on -->
@@ -6626,46 +6652,38 @@
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
     
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
-
-    <Powered powerconsumption="1" currpowerconsumption="1" minvoltage="0.5" isactive="true">
-      <!-- <GuiFrame relativesize="0.2,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
+    <PowerContainer vulnerabletoemp="false" capacity="500.0" maxrechargespeed="6000.0" maxoutput="6000.0" canbeselected="true" indicatorposition="166,110" indicatorsize="20,80" ishorizontal="false" msg="ItemMsgInteractSelect" efficiency="90">
+      <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
-    </Powered>
 
-    <RelayComponent canbeselected="true" powerconsumption="0.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
-      <GuiFrame relativesize="0.2,0.15" minsize="450,160" anchor="Center" style="ItemUI" />
-        
       <!-- Am I on? -->
-      <StatusEffect type="Always" targettype="This" Comparison="And" isOn="true">
-        <Conditional voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="Always" targettype="This" Comparison="And" tags="">
         <Conditional condition="gt 10" />
+        <Conditional RechargeSpeed="gt 0.0" targetitemcomponent="PowerContainer"/>
         <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
       </StatusEffect>
         
       <!-- Am I off? -->
-      <StatusEffect type="Always" targettype="This" Comparison="or" isOn="false">
-        <Conditional voltage="lt 0.1" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="Always" targettype="This" Comparison="or" tags="batterydisabled">
         <Conditional condition="lte 10" />
       </StatusEffect>
 
       <!-- Pressure vessel failing, your boiler has leak. -->
       <StatusEffect type="Always" targettype="This" delay="1.0" duration="5.0" stackable="false" Comparison="And">
-        <Conditional condition="lte 25" />              
+        <Conditional condition="lte 50" />              
         <Conditional InWater="false" />  
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
         <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="25" />          
         </Explosion>
-
       </StatusEffect>
 
       <!-- It's bad when a boiler blows up, right? -->
-      <StatusEffect type="OnBroken" targettype="This" Comparison="or" isOn="false" comparaison="and">
-        <Conditional voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
+      <StatusEffect type="OnBroken" targettype="This" Comparison="or" tags="batterydisabled" comparaison="and">
+        <Conditional voltage="gt 0.9" targetitemcomponent="PowerContainer"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
-          <Affliction identifier="burn" strength="200" />
+          <Affliction identifier="steam_burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
           <Affliction identifier="stun" strength="5" />
         </Explosion>
@@ -6673,12 +6691,19 @@
    
       <!-- OVERHEAT: Without circulator pumps, this device will overheat and build up too much pressure.  -->
       <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>         
+        <Conditional Voltage="gt 0.1" targetitemcomponent="PowerContainer"/>         
       </StatusEffect>
 
-    </RelayComponent>
+    </PowerContainer>
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
+      <StatusEffect type="Always" targettype="This" IsOn="false" Comparison="Or">
+        <Conditional RechargeSpeed="lte 0.0" targetitemcomponent="PowerContainer"/>      
+        <Conditional HasStatusTag="batterydisabled" />
+      </StatusEffect>
+    </LightComponent>
  
-  <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
+    <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
       <GuiFrame relativesize="0.2,0.2" minsize="450,160" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
       <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
       <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
@@ -6687,7 +6712,7 @@
        <!-- Deteriorate the circulator_pumps -->
       <Containable items="circulator_pump" excludebroken="false" excludefullcondition="false">
         <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.2" Comparison="And">
-         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="RelayComponent"/>
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
          
       
@@ -6696,13 +6721,13 @@
         <!--SLOT0-->
         <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
           <RequiredItem items="circulator_pump" type="Contained" targetslot="0" mincondition="5.0" />
-          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="RelayComponent"/>
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
 
         <!--SLOT1-->
         <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
           <RequiredItem items="circulator_pump" type="Contained" targetslot="1" mincondition="5.0" />
-          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="RelayComponent"/>
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
         </StatusEffect>
             
       </Containable>
@@ -6714,12 +6739,17 @@
       <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="power_in" displayname="connection.powerin1"/>
       <output name="steam_out" displayname="connection.steamout" />
+      <input name="set_rate" displayname="connection.batterysetrechargespeed" />
+      <output name="charge" displayname="connection.batterychargestatusout" />
+      <output name="charge_%" displayname="connection.batterychargepercentage" />
+      <output name="charge_rate" displayname="connection.batteryrechargespeedout" />
       <output name="condition_out" displayname="connection.conditionout" />
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
     </ConnectionPanel>
 
    
-    <Repairable selectkey="Action" header="mechanicalrepairsheader" targetitemcomponent="RelayComponent" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" targetitemcomponent="PowerContainer" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
       <RequiredItem items="wrench" type="equipped"/>
@@ -6730,7 +6760,7 @@
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional Voltage="lte 0.1" targetitemcomponent="RelayComponent"/>
+        <Conditional Voltage="lte 0.1" targetitemcomponent="PowerContainer"/>
       </StatusEffect>
 
       <!-- Don't repair if on -->

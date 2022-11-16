@@ -20,7 +20,6 @@ namespace Mechtrauma {
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered", 
             typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
-                args.Add("PreventExecution", true);
 
                 Connection conn1 = (Connection)args["conn1"];
                 Connection conn2 = (Connection)args["conn2"];
@@ -51,9 +50,8 @@ namespace Mechtrauma {
                     );
                 }
 
-                // Prevent the original method from running
-                args.Add("PreventExecution", false);
-                return args;
+                // let the original function handle the rest
+                return null;
             }, LuaCsHook.HookMethodType.Before, this);
  
             // Grab the isPower property 
@@ -103,6 +101,8 @@ namespace Mechtrauma {
                         currPrior = PowerPriority.Battery;
                     } else if (dev is Reactor) {
                         currPrior = PowerPriority.Reactor;
+                    } else if (dev.Item.HasTag("powerabsorber")) {
+                        currPrior = (PowerPriority)10;
                     }
 
                     if (currPrior > priority) {
@@ -115,11 +115,10 @@ namespace Mechtrauma {
                 {
                     if (!c.IsPower) { continue; }
 
-                    // Apply the device priority to all output connections and assign pins
+                    c.Priority = priority;
                     switch (c.Name) {
                         case "steam_out":
                         case "kinetic_out":
-                            c.Priority = priority;
                             powerOutField.SetValue(self, c);
                             break;
                         case "kinetic_in":
@@ -129,7 +128,6 @@ namespace Mechtrauma {
                         case "steam":
                         case "kinetic":
                             if (c.IsOutput) {
-                                c.Priority = priority;
                                 powerOutField.SetValue(self, c);
                             } else {
                                 powerInField.SetValue(self, c);

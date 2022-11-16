@@ -66,7 +66,6 @@ namespace Mechtrauma {
                     connectionSprite.Draw(spriteBatch, position, scale: connectorSpriteScale);
 
                     // Prevent the original method from running
-                    args.Add("PreventExecution", true);
                     return args;
                 }, LuaCsHook.HookMethodType.Before, this);
         }

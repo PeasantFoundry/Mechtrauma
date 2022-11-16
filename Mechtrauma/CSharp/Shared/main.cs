@@ -17,6 +17,13 @@ namespace Mechtrauma {
             // Change the power connection rules to isolate the steam, power and kinetic networks.
             changePowerRules();
 
+            // Change the power container to disable output if not active
+            modifyPowerContainers();
+
+            modifyJunctionBoxes();
+
+            addPowerAbsorber();
+
             #if SERVER
                 //GameMain.Server?.SendChatMessage("Started Mechtrauma");
 
