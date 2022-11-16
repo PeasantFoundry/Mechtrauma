@@ -6,6 +6,15 @@
   <Text file="%ModDir%/Localization/English/English.xml" />
   <Text file="%ModDir%/Localization/Russian/Russian.xml" />
   <Text file="%ModDir%/Localization/Chinese/MechtraumaSCtext.xml" />
+  <Text file="%ModDir%/Localization/BrazilianPortuguese/BrazilianPortuguese.xml" />
+  <Text file="%ModDir%/Localization/CastilianSpanish/CastilianSpanish.xml" />
+  <Text file="%ModDir%/Localization/French/French.xml" />
+  <Text file="%ModDir%/Localization/German/German.xml" />
+  <Text file="%ModDir%/Localization/Japanese/Japanese.xml" />
+  <Text file="%ModDir%/Localization/Korean/Korean.xml" />
+  <Text file="%ModDir%/Localization/LatinamericanSpanish/LatinamericanSpanish.xml" />
+  <Text file="%ModDir%/Localization/Polish/Polish.xml" />
+  <Text file="%ModDir%/Localization/Turkish/Turkish.xml" />
   <Other file="%ModDir%/images/lcd.png" />
   <Other file="%ModDir%/images/gunners_chair.png" />
   <Other file="%ModDir%/images/mt_turrets.png" />

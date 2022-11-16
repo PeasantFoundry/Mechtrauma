@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Turkish" nowhitespace="false" translatedname="Türkçe">
+<entityname.copper_pipe_h>Bakır boru yatay</entityname.copper_pipe_h>
+<entitydescription.copper_pipe_h>Yeniden boyutlandırılabilir yatay bakır boru.</entitydescription.copper_pipe_h>
+<entityname.bacteria_analyzer>Mikroskobik analizör</entityname.bacteria_analyzer>
+<entitydescription.bacteria_analyzer>Biotrauma: Bakteri, küf, mantar vb. İçin mikroskobik analizör</entitydescription.bacteria_analyzer>
+<entityname.bacterial_sample_a4>Bakteriyel Örnek A4</entityname.bacterial_sample_a4>
+<entitydescription.bacterial_sample_a4>A4'ün rafine bir bakteriyel örneği.</entitydescription.bacterial_sample_a4>
+<entityname.antibacterial_a4>A4 antibakteriyel</entityname.antibacterial_a4>
+<entitydescription.antibacterial_a4>A4 bakterileri için bir antibakteriyel.</entitydescription.antibacterial_a4>
+<entityname.spore_fungus>Mantar</entityname.spore_fungus>
+<entitydescription.spore_fungus>Bilinmeyen bir mantar.</entitydescription.spore_fungus>
+<entityname.textdisplaylarge>textdisplaylarge</entityname.textdisplaylarge>
+<entitydescription.textdisplaylarge>textdisplaylarge</entitydescription.textdisplaylarge>
+<entityname.textdisplay_short_tight>textdisplay_short_tight</entityname.textdisplay_short_tight>
+<entitydescription.textdisplay_short_tight>3 haneli koşulu gibi kısa sayı için tasarlanmıştır.</entitydescription.textdisplay_short_tight>
+<entityname.lcd>LCD televizyon</entityname.lcd>
+<entitydescription.lcd>LCD televizyon</entitydescription.lcd>
+<entityname.average_component>Ortalama bileşen</entityname.average_component>
+<entitydescription.average_component>Birleştirilmiş giriş sinyallerinin ortalamasını çıkarır. Lua gerektirir.</entitydescription.average_component>
+<entityname.peasantprime>Köylü kutusu</entityname.peasantprime>
+<entitydescription.peasantprime>Köylü kutusu</entitydescription.peasantprime>
+<entityname.airrifle>Hava tüfeği</entityname.airrifle>
+<entitydescription.airrifle>Düşük güç, son derece erişilebilir ve kolayca tekrarlanan bir silah.</entitydescription.airrifle>
+<entityname.leadpellet>Kurşun peleti</entityname.leadpellet>
+<entitydescription.leadpellet>Hava tüfeği mühimmat.</entitydescription.leadpellet>
+<entityname.gunners_chair>Gonners Sandalyesi</entityname.gunners_chair>
+<entitydescription.gunners_chair>Yerinizden kalkmayın.</entitydescription.gunners_chair>
+<entityname.mt_coilgun>Mt Coilgun</entityname.mt_coilgun>
+<entitydescription.mt_coilgun>Bobin tabancaları için alternatif bir renk.</entitydescription.mt_coilgun>
+<entityname.50cal_turret>50 cal taret</entityname.50cal_turret>
+<entitydescription.50cal_turret>Coilgun'a pahalı bir alternatif ama ateş etme gücünü yok etmiyor.</entitydescription.50cal_turret>
+<entityname.50cal_loader>50 Cal Loader</entityname.50cal_loader>
+<entitydescription.50cal_loader>50 cal taret için mühimmat yükleyici.</entitydescription.50cal_loader>
+<entityname.50cal_ammobox>50 Cal Ammobox</entityname.50cal_ammobox>
+<entitydescription.50cal_ammobox>50 cal taret için mühimmat yükleyici.</entitydescription.50cal_ammobox>
+<entityname.50cal_bolt>50 Cal Bolt</entityname.50cal_bolt>
+<entitydescription.50cal_bolt>50 Cal Bolt</entitydescription.50cal_bolt>
+<entityname.fuse_panel>Sigorta paneli</entityname.fuse_panel>
+<entitydescription.fuse_panel>Aşırı gerilim için kurban sigortalı bir elektrik röle paneli.</entitydescription.fuse_panel>
+<entityname.electrical_panel>Elektrik paneli</entityname.electrical_panel>
+<entitydescription.electrical_panel>Elektrik paneli.</entitydescription.electrical_panel>
+<entityname.key_button>Anahtar Düğmesi</entityname.key_button>
+<entitydescription.key_button>Anahtar düğmesi.</entitydescription.key_button>
+<entityname.battery_bank>Şarj Bankası</entityname.battery_bank>
+<entitydescription.battery_bank>5000kW maksimum çıkışla geniş depolama kapasitesi (editörde değiştirilemez). Batırıldığında çalışmaz.</entitydescription.battery_bank>
+<entityname.battery_bank_wr>Şarj Bankası</entityname.battery_bank_wr>
+<entitydescription.battery_bank_wr>5000kW maksimum çıkışla geniş depolama kapasitesi (editörde değiştirilemez). Batırıldığında çalışmaz.</entitydescription.battery_bank_wr>
+<entityname.fuse>Sigorta</entityname.fuse>
+<entitydescription.fuse>Sigorta</entitydescription.fuse>
+<entityname.sealed_bearing>Kapalı yatak</entityname.sealed_bearing>
+<entitydescription.sealed_bearing>Parça imalatı için mekanik bileşen.</entitydescription.sealed_bearing>
+<entityname.bearing_sleeve>Yatak kolu</entityname.bearing_sleeve>
+<entitydescription.bearing_sleeve>Kullanılmış rulmanları yeniden oluşturmak için.</entitydescription.bearing_sleeve>
+<entityname.grease_can>Gres olabilir</entityname.grease_can>
+<entitydescription.grease_can>Bir kutu gres. Ayrı gres paketlerine imal edin.</entitydescription.grease_can>
+<entityname.grease_packet>Gres paketi</entityname.grease_packet>
+<entitydescription.grease_packet>Mekanik onarım ve imalat için gres paketi.</entitydescription.grease_packet>
+<entityname.copper_windings>Bakır sargılar</entityname.copper_windings>
+<entitydescription.copper_windings>Elektrikli motorları yeniden canlandırmak için bakır sargılar.</entitydescription.copper_windings>
+<entityname.oil_filter>Yağ filtresi</entityname.oil_filter>
+<entitydescription.oil_filter>Siyah altın tasarrufu sağlar.</entitydescription.oil_filter>
+<entityname.bearing>Rulman</entityname.bearing>
+<entitydescription.bearing>Mekanik onarımlar için rulman.</entitydescription.bearing>
+<entityname.electric_motor>Elektrik motoru</entityname.electric_motor>
+<entitydescription.electric_motor>Makine onarımları için mekanik parça.</entitydescription.electric_motor>
+<entityname.circulator_pump>Sirkülatör pompası</entityname.circulator_pump>
+<entitydescription.circulator_pump>Makineler için sirkülatör pompası.</entitydescription.circulator_pump>
+<entityname.drive_gear>Sürücü dişlisi</entityname.drive_gear>
+<entitydescription.drive_gear>Azaltma dişlisi gibi makinelerde kullanım için.</entitydescription.drive_gear>
+<entityname.turbine_blade>Türbin bıçağı</entityname.turbine_blade>
+<entitydescription.turbine_blade>Buhar türbini gibi makinelerde kullanım için.</entitydescription.turbine_blade>
+<entityname.scrap_steel>Hurda çelik</entityname.scrap_steel>
+<entitydescription.scrap_steel>Geri dönüştürmeyi unutma!.</entitydescription.scrap_steel>
+<entityname.scrap_aluminium>Hurda alüminyum</entityname.scrap_aluminium>
+<entitydescription.scrap_aluminium>Geri dönüştürmeyi unutma!.</entitydescription.scrap_aluminium>
+<entityname.scrap_copper>Hurda bakır</entityname.scrap_copper>
+<entitydescription.scrap_copper>Geri dönüştürmeyi unutma!.</entitydescription.scrap_copper>
+<entityname.water_pump_small>Küçük su pompası</entityname.water_pump_small>
+<entitydescription.water_pump_small>Hareketli su için.</entitydescription.water_pump_small>
+<entityname.water_pump>Su Pompası</entityname.water_pump>
+<entitydescription.water_pump>Hareketli su için.</entitydescription.water_pump>
+<entityname.water_pump_gate>Su pompası kapısı</entityname.water_pump_gate>
+<entitydescription.water_pump_gate>Hareketli su gerektirir.</entitydescription.water_pump_gate>
+<entityname.oxygentank_compressor>Oksijen tankı kompresörü</entityname.oxygentank_compressor>
+<entitydescription.oxygentank_compressor>Gövde oksijenini kullanım için tanklara sıkıştırır.</entitydescription.oxygentank_compressor>
+<entityname.oxygentank_fr>Yangına dayanıklı oksijen tankı</entityname.oxygentank_fr>
+<entitydescription.oxygentank_fr>Yangına dayanıklı oksijen tankı</entitydescription.oxygentank_fr>
+<entityname.oxygentank_large>Oksijen tankı büyük</entityname.oxygentank_large>
+<entitydescription.oxygentank_large>Büyük oksijen tankı, sadece oksijen istasyonlarında kullanım için.</entitydescription.oxygentank_large>
+<entityname.oxygen_station>Oksijen tank istasyonu</entityname.oxygen_station>
+<entitydescription.oxygen_station>Oksijen tanklarını hızlı bir şekilde yeniden doldurmak ve acil bir durumda oksijeni serbest bırakmak için.</entitydescription.oxygen_station>
+<entityname.oxygen_vent>Oksijen havalandırma</entityname.oxygen_vent>
+<entitydescription.oxygen_vent>Düzenli olarak temizleyin. Düzenli olarak CO2 filtresi.</entitydescription.oxygen_vent>
+<entityname.co2_cartridge>CO2 Filtresi</entityname.co2_cartridge>
+<entitydescription.co2_cartridge>CO2'yi atmosferden filtrelemek için.</entitydescription.co2_cartridge>
+<entityname.oxygen_supply>Oksijen kaynağı</entityname.oxygen_supply>
+<entitydescription.oxygen_supply>Mechtrauma oksijen jeneratörüne alternatif.</entitydescription.oxygen_supply>
+<entityname.oil_can>Yağ tenekesi</entityname.oil_can>
+<entitydescription.oil_can>Siyah altın.</entitydescription.oil_can>
+<entityname.oil_barrel>Petrol namlusu</entityname.oil_barrel>
+<entitydescription.oil_barrel>Siyah altın.</entitydescription.oil_barrel>
+<entityname.oil_station>Petrol istasyonu</entityname.oil_station>
+<entitydescription.oil_station>Siyah altın.</entitydescription.oil_station>
+<entityname.mechweldingtool>Kaynakçı</entityname.mechweldingtool>
+<entitydescription.mechweldingtool>Argon gazı kullanan bir elektrikli kaynakçı.</entitydescription.mechweldingtool>
+<entityname.handtruck>El arabası</entityname.handtruck>
+<entitydescription.handtruck>Bunu ağır şeyleri hareket ettirmek için kullanın. Sırtını incitme.</entitydescription.handtruck>
+<entityname.closet>Depo dolabı</entityname.closet>
+<entitydescription.closet>Kendinizden sonra temizleyin! Bu, büyük, hantal eşyaları depolamak için bir alandır.</entitydescription.closet>
+<entityname.storage_container_single>Saklama kabı</entityname.storage_container_single>
+<entitydescription.storage_container_single>Depolama kabı, bir dolaptan daha büyük.</entitydescription.storage_container_single>
+<entityname.shipping_container_open>Kargo konteyneri açık.</entityname.shipping_container_open>
+<entitydescription.shipping_container_open>Kendinizden sonra temizleyin!.</entitydescription.shipping_container_open>
+<entityname.shipping_container_closed>Kargo kabı kapalı.</entityname.shipping_container_closed>
+<entitydescription.shipping_container_closed>Kendinizden sonra temizleyin!.</entitydescription.shipping_container_closed>
+<entityname.cargo_crane>Kargo vinç.</entityname.cargo_crane>
+<entitydescription.cargo_crane>Kargo adamlarını kaldırın!</entitydescription.cargo_crane>
+<entityname.cargo_hatch>Kargo kapağı.</entityname.cargo_hatch>
+<entitydescription.cargo_hatch>Bazen büyük şeyleri hareket ettirmeniz gerekir.</entitydescription.cargo_hatch>
+<entityname.mechcab>Hızlı dolap</entityname.mechcab>
+<entitydescription.mechcab>Acil durumlar için hızlı erişim.</entitydescription.mechcab>
+<entityname.cncfab>CNC mekanik imalatçısı</entityname.cncfab>
+<entitydescription.cncfab>Hayalinizdeki gerçeklik!.</entitydescription.cncfab>
+<entityname.repairtable>Onarım masası</entityname.repairtable>
+<entitydescription.repairtable>Dalış kıyafetleri ve dişlileri yeniden düzenlemek için özel imalatçı.</entitydescription.repairtable>
+<entityname.argon_tank>Argon tankı</entityname.argon_tank>
+<entitydescription.argon_tank>Yeniden doldurma.</entitydescription.argon_tank>
+<entityname.extinguisher_station>Söndürücü istasyonu</entityname.extinguisher_station>
+<entitydescription.extinguisher_station>Yeniden doldurma.</entitydescription.extinguisher_station>
+<entityname.extinguisher_tank>Söndürme</entityname.extinguisher_tank>
+<entitydescription.extinguisher_tank>Yeniden doldurma.</entitydescription.extinguisher_tank>
+<entityname.S5_Extinguisher>S5_extinguisher</entityname.S5_Extinguisher>
+<entitydescription.S5_Extinguisher>Kemerinizde giyilebilen küçük bir 5 saniyelik söndürücü.</entitydescription.S5_Extinguisher>
+<entityname.l100_extinguisher>L100-Extinguisher</entityname.l100_extinguisher>
+<entitydescription.l100_extinguisher>Turnour teçhizatında kullanım için büyük bir söndürücü.</entitydescription.l100_extinguisher>
+<entityname.argon_station>Argon istasyonu</entityname.argon_station>
+<entitydescription.argon_station>Yeniden doldurma.</entitydescription.argon_station>
+<entityname.boiler>Buhar kazanı</entityname.boiler>
+<entitydescription.boiler>Buhar üretir.</entitydescription.boiler>
+<entityname.steam_turbine>Buhar türbünü</entityname.steam_turbine>
+<entitydescription.steam_turbine>Buhar enerjisini kinetik büyütmeye dönüştürür.</entitydescription.steam_turbine>
+<entityname.reduction_gear>Azaltma dişlisi</entityname.reduction_gear>
+<entitydescription.reduction_gear>Yüksek hızlı düşük torku düşük hızlı yüksek torka dönüştürür.</entitydescription.reduction_gear>
+<entityname.gear_locker>Vites şeridi</entityname.gear_locker>
+<entitydescription.gear_locker>Dişli depolamak için.</entitydescription.gear_locker>
+<entityname.plague_doctor_mask>Veba Doktor Maskesi</entityname.plague_doctor_mask>
+<entitydescription.plague_doctor_mask>Veba Doktor Maskesi</entitydescription.plague_doctor_mask>
+<entityname.radiation_suit2>Radyasyon kıyafeti</entityname.radiation_suit2>
+<entitydescription.radiation_suit2>Radyasyon için en iyi koruma.</entitydescription.radiation_suit2>
+<entityname.radiation_suit>Radyasyon kıyafeti</entityname.radiation_suit>
+<entitydescription.radiation_suit>Radyasyon kıyafeti</entitydescription.radiation_suit>
+<entityname.turnout_gear2>Katılım teçhizatı</entityname.turnout_gear2>
+<entitydescription.turnout_gear2>Yangına dayanıklı bir oksijen tankı ve bir L100 söndürücü ile donatın.</entitydescription.turnout_gear2>
+<entityname.dry_suit>Kuru takım elbise</entityname.dry_suit>
+<entitydescription.dry_suit>Düşük basınçlı takım. Altta onarım yapmak ve dalış kıyafetlerinde aşınma ve yıpranma azaltmak için kullanışlıdır.</entitydescription.dry_suit>
+<entityname.expedition_divingsuit>Keşif Dalış Takımı</entityname.expedition_divingsuit>
+<entitydescription.expedition_divingsuit>Keşif Dalış Takımı</entitydescription.expedition_divingsuit>
+<entityname.armored_divingsuit>Zırhlı dalış kıyafeti</entityname.armored_divingsuit>
+<entitydescription.armored_divingsuit>Savaş için tasarlanmış, form üzerinde firma.</entitydescription.armored_divingsuit>
+<entityname.armored_suit>Koruyucu zırh</entityname.armored_suit>
+<entitydescription.armored_suit>Dünya'dan 15. yüzyılın ortalarında kalıntı. Bu bir sanat eseri!</entitydescription.armored_suit>
+<entityname.plague_doctor_kit>Veba Doktor Kiti</entityname.plague_doctor_kit>
+<entitydescription.plague_doctor_kit>Veba Doktor Kiti</entitydescription.plague_doctor_kit>
+<entityname.kit_utility>Kamu hizmeti kiti</entityname.kit_utility>
+<entitydescription.kit_utility>Fayda kiti.</entitydescription.kit_utility>
+<entityname.captains_kit>Kaptanlar Kiti</entityname.captains_kit>
+<entitydescription.captains_kit>Kaptan olmak güzel.</entitydescription.captains_kit>
+<entityname.diesel_fuel_can>Dizel yakıt kutusu</entityname.diesel_fuel_can>
+<entitydescription.diesel_fuel_can>5gallon kutu dizel yakıt.</entitydescription.diesel_fuel_can>
+<entityname.diesel_fuel_barrel>Dizel yakıt namlu</entityname.diesel_fuel_barrel>
+<entitydescription.diesel_fuel_barrel>50 gallon namlu dizel yakıt.</entitydescription.diesel_fuel_barrel>
+<entityname.diesel_fuel_tank>Dizel yakıt deposu</entityname.diesel_fuel_tank>
+<entitydescription.diesel_fuel_tank>Geminin dizel yakıt deposu. Barellardan kutuları doldurur.</entitydescription.diesel_fuel_tank>
+<entityname.s1500D>Dizel jeneratör</entityname.s1500D>
+<entitydescription.s1500D>Karbondan, güç. 1500kw</entitydescription.s1500D>
+<entityname.S5000D>S5000D</entityname.S5000D>
+<entitydescription.S5000D>Karbondan, güç.</entitydescription.S5000D>
+<entityname.pdg500>Taşınabilir dizel jeneratör</entityname.pdg500>
+<entitydescription.pdg500>Hareket halindeyken güç!</entitydescription.pdg500>
+<entityname.keys>Anahtarlar</entityname.keys>
+<entitydescription.keys>Onlarsız evden ayrılmayın.</entitydescription.keys>
+<entityname.trash_can>Çöp tenekesi</entityname.trash_can>
+<entitydescription.trash_can>Hoşçakal Kimlik Kartları!</entitydescription.trash_can>
+<entityname.incinerator>Yakma fırını</entityname.incinerator>
+<entitydescription.incinerator>İstenmeyen eşyaların orta aşınması.</entitydescription.incinerator>
+<entityname.trashcan>Mechtrauma çöp kutusu</entityname.trashcan>
+<entitydescription.trashcan>İstenmeyen eşyaların orta aşınması.</entitydescription.trashcan>
+<entityname.mechanic_toolkit>Mekanik Takım Yeleği</entityname.mechanic_toolkit>
+<entitydescription.mechanic_toolkit>Bir tamirci birçok araç ve parça taşır.</entitydescription.mechanic_toolkit>
+<entityname.engineer_toolkit>Mühendislik sırt çantası</entityname.engineer_toolkit>
+<entitydescription.engineer_toolkit>Bir mühendis birçok araç ve parça taşır.</entitydescription.engineer_toolkit>
+<missionname.cargopeasantprime>Köylü sevkiyatı</missionname.cargopeasantprime>
+<missiondescription.peasantprime>Taşımanızda ekstra alanınız varsa, [Location2] 'e [ödül] işaretlerinin bir ödülü için bir yük köylü kutuları teslim etmeyi arıyoruz.</missiondescription.peasantprime>
+<missionsuccess.cargopeasantprime>Köylü kutuları başarıyla teslim edildi! Yaygın tüketiciliği sağlamak için üzerinize düşeni yaptınız.</missionsuccess.cargopeasantprime>
+<entityname.boiler_p>Köylüler için buhar kazan</entityname.boiler_p>
+<entitydescription.boiler_p>Buhar üretir. % -50 parça bozulma hızı.</entitydescription.boiler_p>
+<entityname.steam_turbine_p>Köylüler için buhar türbini</entityname.steam_turbine_p>
+<entitydescription.steam_turbine_p>Buhar enerjisini kinetik büyütmeye dönüştürür. % -50 parça bozulma hızı.</entitydescription.steam_turbine_p>
+<entityname.reduction_gear_p>Köylüler için indirgeme dişlisi</entityname.reduction_gear_p>
+<entitydescription.reduction_gear_p>Yüksek hızlı düşük torku düşük hızlı yüksek torka dönüştürür. % -50 parça bozulma hızı.</entitydescription.reduction_gear_p>
+<entityname.fatboy>Şişko</entityname.fatboy>
+<entitydescription.fatboy>Tehlikeli işler için ağır korumalı basınç kıyafeti. Nominal Derinlik: 4.500. Ateşe, radyasyona ve et yaralarına dirençli.</entitydescription.fatboy>
+<entityname.storage_cabinet>Saklama kabini</entityname.storage_cabinet>
+<entitydescription.storage_cabinet>Küçük öğeleri saklamak için.</entitydescription.storage_cabinet>
+<entityname.emergency_disconnect>Acil durum bağlantısı</entityname.emergency_disconnect>
+<entitydescription.emergency_disconnect>Acil Durum Gücü Bağlantısı.</entitydescription.emergency_disconnect>
+<entityname.oxygen_transfer_tank>Oksijen transfer tankı</entityname.oxygen_transfer_tank>
+<entitydescription.oxygen_transfer_tank>Yanma motorlarına yedek oksijen sağlamak için yararlı olan büyük bir portatif oksijen tankı.</entitydescription.oxygen_transfer_tank>
+<entityname.diesel_transfer_truck>Dizel transfer kamyonu</entityname.diesel_transfer_truck>
+<entitydescription.diesel_transfer_truck>Mobil dizel transfer istasyonu.</entitydescription.diesel_transfer_truck>
+<entityname.oil_transfer_truck>Petrol transfer kamyonu</entityname.oil_transfer_truck>
+<entitydescription.oil_transfer_truck>Mobil Yağ Transfer İstasyonu.</entitydescription.oil_transfer_truck>
+<Override>
+<entityname.pucs>Şişko</entityname.pucs>
+<entitydescription.pucs>Tehlikeli işler için ağır korumalı basınç kıyafeti. Nominal Derinlik: 4.500. Ateşe, radyasyona ve et yaralarına dirençli.</entitydescription.pucs>
+</Override>
+<connection.steamin1>Steam_Inlet</connection.steamin1>
+<connection.steamout>Steam_Out</connection.steamout>
+<connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
+<connection.kineticout>Kinetic_Out</connection.kineticout>
+</infotexts>

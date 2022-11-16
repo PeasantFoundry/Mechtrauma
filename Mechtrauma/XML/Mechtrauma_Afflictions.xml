@@ -21,10 +21,14 @@
 
 <!-- THE BELOVED SPORE INFECTION! -->
 <!-- smyptoms have been moved to humanupdate.lua -->
-    <Affliction name="Spore Infection" identifier="spore_infection" description="A spore infection from a fungus or mold." type="poison" activationthreshold="0" causeofdeathdescription="Died from a spore infection." selfcauseofdeathdescription="You have died from a spore infection." limbspecific="false" indicatorlimb="Torso" showiconthreshold="225" showinhealthscannerthreshold="50" maxstrength="400">
+    <Affliction name="Spore Infection" identifier="spore_infection" description="A spore infection from a fungus or mold." type="poison" activationthreshold="25" causeofdeathdescription="Died from a spore infection." selfcauseofdeathdescription="You have died from a spore infection." limbspecific="false" indicatorlimb="Torso" showiconthreshold="225" showinhealthscannerthreshold="50" maxstrength="400">
      
+      <!-- We have not passed the point of no reqturn -->
+      <Effect minstrength="1" maxstrength="25" strengthchange="-0.1">
+      </Effect>
+
       <!-- Starts out with minimal effects -->
-      <Effect minstrength="0" maxstrength="100" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
+      <Effect minstrength="25" maxstrength="100" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
       </Effect>
 
       <!-- Starts to become serious when strength is above 100 -->
@@ -83,8 +87,6 @@
      
       
    </Affliction>
-     
-
 
     <!-- =============< RESISTANCE >=============  -->
     <Affliction name="Spore Infection Resistance" identifier="spore_infection_resistance" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
@@ -97,7 +99,8 @@
 
     <Affliction name="SCBA" identifier="scba" healableinmedicalclinic="false" targets="human" description="SCBA gives resistance against airborne afflictions such as carbon dioxide poisoning and spore infections. " type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
       <!-- Prevents airborn poisons -->
-      <Effect minstrength="0" maxstrength="600" strengthchange="-100" resistancefor="spore_infection,co2_poisoning" minresistance="1" maxresistance="1"/>
+      <Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="spore_infection,co2_poisoning" minresistance="1" maxresistance="1"/>
+      <Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="contamination" minresistance="1" maxresistance="150"/>
       <icon texture="Content/UI/CommandUIBackground.png" sourcerect="384,896,128,128" color="0,65,50,255" origin="0,0"/>
     </Affliction>
 
