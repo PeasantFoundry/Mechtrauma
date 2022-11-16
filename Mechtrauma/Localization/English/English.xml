@@ -48,8 +48,11 @@
   <entityname.electrical_panel>Electrical Panel</entityname.electrical_panel>
   <entitydescription.electrical_panel>Electrical Panel.</entitydescription.electrical_panel>
 
-  <entityname.battery_bank>battery_bank</entityname.battery_bank>
-  <entitydescription.battery_bank>battery_bank.</entitydescription.battery_bank>
+  <entityname.battery_bank>Battery Bank</entityname.battery_bank>
+  <entitydescription.battery_bank>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank>
+
+  <entityname.battery_bank_wr>Battery Bank</entityname.battery_bank_wr>
+  <entitydescription.battery_bank_wr>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank_wr>
 
  <!-- =============< ITEMS >=============  -->
 
@@ -224,20 +227,20 @@
   <entitydescription.boiler>Generates steam.</entitydescription.boiler>
 
   <entityname.steam_turbine>Steam Turbine</entityname.steam_turbine>
-  <entitydescription.steam_turbine>Converts steam into torque.</entitydescription.steam_turbine>
+  <entitydescription.steam_turbine>Converts steam energy into kinetic engery.</entitydescription.steam_turbine>
 
   <entityname.reduction_gear>Reduction Gear</entityname.reduction_gear>
-  <entitydescription.reduction_gear>Generates torque from steam turbine.</entitydescription.reduction_gear>
+  <entitydescription.reduction_gear>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear>
 
   <!-- Powertrain for easy mode  -->
   <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
-  <entitydescription.boiler_p>Generates steam.</entitydescription.boiler_p>
+  <entitydescription.boiler_p>Generates steam. -50% part deterioration speed.</entitydescription.boiler_p>
 
   <entityname.steam_turbine_p>Steam Turbine for Peasants</entityname.steam_turbine_p>
-  <entitydescription.steam_turbine_p>Converts steam energy into kinetic engery.</entitydescription.steam_turbine_p>
+  <entitydescription.steam_turbine_p>Converts steam energy into kinetic engery. -50% part deterioration speed.</entitydescription.steam_turbine_p>
 
   <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
-  <entitydescription.reduction_gear_p>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear_p>
+  <entitydescription.reduction_gear_p>Converts high speed low torque into low speed high torque. -50% part deterioration speed.</entitydescription.reduction_gear_p>
   
   <entityname.diesel_fuel_tank>Diesel Fuel Tank</entityname.diesel_fuel_tank>
   <entitydescription.diesel_fuel_tank>Ship's Diesel Fuel tank. Refills cans from barrels. </entitydescription.diesel_fuel_tank>
@@ -340,6 +343,7 @@
 
 <connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
 <connection.kineticout>Kinetic_Out</connection.kineticout>
+
 
 
 
