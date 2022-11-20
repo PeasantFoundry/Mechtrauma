@@ -117,11 +117,25 @@ MT.ShowGUI = function ()
     GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), config.Content.RectTransform), "Diving Suit deterioration rate multiplier (YWM)", nil, nil, GUI.Alignment.Center, true)
     local diveSuitDeteriorateRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), NumberType.Float)
     diveSuitDeteriorateRate.valueStep = 0.1
-    diveSuitDeteriorateRate.MinValueFloat = 0.1
+    diveSuitDeteriorateRate.MinValueFloat = 0.0
     diveSuitDeteriorateRate.MaxValueFloat = 2
     diveSuitDeteriorateRate.FloatValue = MT.Config.diveSuitDeteriorateRate
     diveSuitDeteriorateRate.OnValueChanged = function ()
         MT.Config.diveSuitDeteriorateRate = MT.HF.Round(diveSuitDeteriorateRate.FloatValue, 2)
+        OnChanged()
+    end
+
+    GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), "Biotrauma Config", nil, nil, GUI.Alignment.Center)
+   
+    -- Fungus spawn rate. 
+    GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), config.Content.RectTransform), "Fungus Spawn Rate", nil, nil, GUI.Alignment.Center, true)
+    local ventSpawnRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), config.Content.RectTransform), NumberType.Float)
+    ventSpawnRate.valueStep = 0.1
+    ventSpawnRate.MinValueFloat = 0.0
+    ventSpawnRate.MaxValueFloat = 1.9
+    ventSpawnRate.FloatValue = MT.Config.ventSpawnRate
+    ventSpawnRate.OnValueChanged = function ()
+        MT.Config.ventSpawnRate = MT.HF.Round(ventSpawnRate.FloatValue, 2)
         OnChanged()
     end
 

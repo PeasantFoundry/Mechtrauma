@@ -1,4 +1,19 @@
+--[[
+Hook.Add("mechtraumaVentInterval.OnActive", "examples.Mechtrauma", function(effect, deltaTime, item, targets, worldPosition, client)
+        
+        local fungusPrefab = ItemPrefab.GetItemPrefab("spore_fungus")
+        local outcome = 666 math.random(100000)
 
+        if outcome == 666 then
+       -- print("sucess, spawning an item with an outcome of:", outcome)
+            Entity.Spawner.AddItemToSpawnQueue(fungusPrefab, item.OwnInventory, nil, nil, function(item) end)
+        else
+             
+       -- print("failure, not spawning an item with an outcome of:", outcome)
+       -- print(item.GetComponentString("ItemContainer"))      
+        end    
+        
+end)]]
 
 Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effect, deltaTime, item, targets, worldPosition, client)
         local fungusPrefab = ItemPrefab.GetItemPrefab("spore_fungus")
@@ -28,8 +43,8 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
             terminal.ShowMessage = "*******NEGATIVE*******"
             terminal.ShowMessage = "No known compound has been identified."    
 
-        print("failure, not spawning an item with an outcome of:", outcome)
-        print(item.GetComponentString("ItemContainer"))      
+        --print("failure, not spawning an item with an outcome of:", outcome)
+        --print(item.GetComponentString("ItemContainer"))      
         end    
   
 end)

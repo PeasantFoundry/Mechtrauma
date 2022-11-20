@@ -514,6 +514,6 @@ function MT.HF.GetItemDepth(item)
     return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
     else
     -- use client method
-    return item.WorldPosition.Y * 0.01  
+    return item.WorldPosition.Y * Physics.DisplayToRealWorldRatio
     end
 end
