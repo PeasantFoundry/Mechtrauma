@@ -1,17 +1,13 @@
-
--- define the cache table and counter
-local mtuItems = {}
-local mtuItemsCount = 0
-local mtRoundStarted = false
-
+local mtRoundStarted
 
 Hook.Add("roundStart", "MT.roundStart", function()
     mtRoundStarted = true
     print("MT ROUND STARTED:", mtRoundStarted)
     
-    -- this is how many mtuItems we found
-    print("There are: ",#mtuItems, " mtu items.") 
-    
+    -- this is how many items we found in the MT.itemCache
+    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.") 
+   
+    -- check how many oxygenvents there are so that we only do it once per round. 
     for k, item in pairs(Item.ItemList) do   
         if item.Prefab.Identifier.Value == "oxygen_vent" then 
             OxygenVentCount = OxygenVentCount + 1            
@@ -43,42 +39,29 @@ MT.tagfunctions = {
     }
   }
 
---[[Biotrauma expansion functions  b
-MT.BT.tagfunctions = {
-oxygenVentSpawn={
-        tags={"oxygenVentSpawn"},
-        update=MT.BT.F.oxygenVentSpawn
-    }
-}
- Add Biotrauma expansion functions to the Mechtrauma tagfunctions table
-print("This is happening")
-for tagfunctiondata in BT.tagfunctions do
-    table.insert(MT.tagfunctions, tagfunctiondata)
-    print("Adding:", tagfunctiondata, " to: MT.tagfucntions" )
-end]]
-
-
 -- gets run once every two seconds
-function MT.updateItems()  
-    if not mtRoundStarted or MT.HF.GameIsPaused() then return end
-    --print("--thinking--")
-
-    -- we spread the *items* out over the duration of an update so that the load isnt done all at once
-    for key, value in pairs(mtuItems) do
+function MT.updateItems()    
+    local updateItemsCounter = 0
+    if Game.GameSession == nil or MT.HF.GameIsPaused()then return end
+   
+   -- we spread the item updates out over the duration of an update so that the load isnt done all at once
+    for key, value in pairs(MT.itemCache) do
         -- make sure the items still exists 
-        if (value ~= nil and not value.Removed) then
+        if (key ~= nil and not key.Removed) then
             Timer.Wait(function ()
-                if (value ~= nil and not value.Removed) then
-                MT.UpdateItem(value) end
-            end, ((key + 1) / mtuItemsCount) * MT.Deltatime * 1000)
+                if (key ~= nil and not key.Removed) then 
+                    MT.UpdateItem(key) 
+                    updateItemsCounter = updateItemsCounter + 1
+                end
+
+            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)
         end
     end
 end
 
--- this function is called in a per item basis
+-- this function is called once for each item in MT.itemCache every two seconds
 function MT.UpdateItem(item)
-
-    -- loop through the tag functions to see if we have a matching function for the item tags
+    -- loop through the tag functions to see if we have a matching function for the item tag(s)
     for tagfunctiondata in MT.tagfunctions do
         -- see if all required tags are present on the item
         local hasalltags = true
@@ -89,73 +72,34 @@ function MT.UpdateItem(item)
             end
         end
         -- call the function if all required tags are present
-        if hasalltags then
-            --print("found a:", item)
+        if hasalltags then            
             tagfunctiondata.update(item)
         end
     end
---[[
 
-        -- CHECK centralComputer
-          if item.HasTag("centralcomputer") then            
-            --print("central computer found: ", item.name)
-            MT.F.centralComputer(item)   
-            return
-        end   
-        
-
-        -- CHECK centralComputerNeeded
-        if item.HasTag("ccn") then          
-            print("central computer needed by: ", item.name)        
-            MT.F.centralComputerNeeded(item)   
-            return
-        end
-            
-        -- CHECK steam turbine
-        if item.HasTag("steamturbine,steam") then            
-            --print("steam turbine found: ", item.name)
-            MT.F.steamTrubine(item)   
-            return
-        end
-
-        -- CHECK pump_gate
-        if item.HasTag("pumpgate") then            
-            --deteriorate the gate
-            --print(MT.Config.pumpGateDeteriorateRate)
-            item.condition = item.condition - MT.Config.pumpGateDeteriorateRate -- this works, but strangely -10 results in -4 every 2 seconds.            
-            return
-        end
-        -- DieselEngines
-        if item.HasTag("dieselengine") then            
-            MT.F.dieselEngine(item)
-            return
-        end
-
-         CHECK: Diving Suit
-        if item.HasTag("deepdiving") and MT.HF.ItemIsWornInOuterClothesSlot(item) then
-            MT.F.divingSuit(item)
-        return
-        end  ]]    
 end    
 
+-- check new items and add matches to the MT.itemCache
 Hook.add("item.created", "MT.newItem", function(item) 
-    -- loop through the item list and find mtu update items     
+      -- check if this item should be added to the item cache     
         if item.HasTag("mtu") then
-            table.insert(mtuItems, item)
-            mtuItemsCount = mtuItemsCount + 1
-        end      
-
-        if item.HasTag("diving") and item.HasTag("deepdiving") then
-            table.insert(mtuItems, item)
-            mtuItemsCount = mtuItemsCount + 1
-        end      
+            if not MT.itemCache[item] then 
+                MT.itemCache[item] = true
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end
+        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this
+            if not MT.itemCache[item] then 
+                MT.itemCache[item] = true 
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end                        
+        end  
 end)
 
+-- end of round housekeeping
 Hook.Add("roundEnd", "MT.roundEnd", function()
-    -- clear the update item cache so we don't carry anything over accidentallu
-    mtuItems = {}
-    mtuItemsCount = 0
+    -- clear the update item cache so we don't carry anything over accidentally
+    MT.itemCache = {}    
+    MT.itemCacheCount = 0
     -- track that the round is over
     mtRoundStarted = false
-
 end)

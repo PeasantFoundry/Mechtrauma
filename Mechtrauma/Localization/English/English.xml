@@ -303,7 +303,7 @@
   <entitydescription.turnout_gear2>Fire Protection: Equip with a fire resistant oxygen tank and an L100 Extinguisher.</entitydescription.turnout_gear2>
 
   <entityname.dry_suit>Dry Suit</entityname.dry_suit>
-  <entitydescription.dry_suit>Low pressure suit: Rated for 5,000m.</entitydescription.dry_suit>
+  <entitydescription.dry_suit>Low pressure suit: Rated for 2,500m.</entitydescription.dry_suit>
 
   <entityname.expedition_divingsuit>Expedition Diving Suit</entityname.expedition_divingsuit>
   <entitydescription.expedition_divingsuit>Expedition suit: Rated for 5,000m dual oxygen bottles.</entitydescription.expedition_divingsuit>
@@ -316,7 +316,7 @@
 
   <!-- Kits -->
   <entityname.plague_doctor_kit>Plague Doctor Kit</entityname.plague_doctor_kit>
-  <entitydescription.plague_doctor_kit>Medical Officer Kit.</entitydescription.plague_doctor_kit>
+  <entitydescription.plague_doctor_kit>This appears to be relic from the past, or pehaps a cultist item.</entitydescription.plague_doctor_kit>
 
   <entityname.kit_utility>Utility Kit</entityname.kit_utility>
   <entitydescription.kit_utility>Mechanic Kit.</entitydescription.kit_utility>
@@ -326,7 +326,7 @@
 
   <!-- =============< MISSIONS >=============  -->
   <missionname.cargopeasantprime>PeasantPrime Shipment</missionname.cargopeasantprime>
-  <missiondescription.peasantprime>If you have extra room on your transport, we are looking for someone deliver a load PeasantPrime boxes to [location2] for a reward of [reward] marks.</missiondescription.peasantprime>
+  <missiondescription.peasantprime>If you're running a proper cargo ship, we are looking for someone deliver a load PeasantPrime boxes to [location2] for a reward of [reward] marks.</missiondescription.peasantprime>
   <missionsuccess.cargopeasantprime>The PeasantPrime boxes have been successfully delivered! You've done your part to enable rampant consumerism. </missionsuccess.cargopeasantprime>
 
 

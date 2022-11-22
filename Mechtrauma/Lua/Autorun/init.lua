@@ -3,8 +3,8 @@ MT = {} -- Mechtrauma
 BT = {} -- Biotrauma
 
 MT.Name="Mechtrauma"
-MT.Version = "1.1.2-1" 
-MT.VersionNum = 01010201 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
+MT.Version = "1.1.3-0" 
+MT.VersionNum = 01010200 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
 -- register mechtrauma as a neurotrauma "expansion"
@@ -74,3 +74,23 @@ end
 if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
 end
+
+-- Establish Mechtrauma item cache
+MT.itemCache = {}
+MT.itemCacheCount = 0
+    --loop through the item list and find items for the cache
+    for k, item in pairs(Item.ItemList) do  
+        if item.HasTag("mtu") then   
+            -- CHECK: if the item is already in the cache, if not - add it.          
+            if not MT.itemCache[item] then
+                MT.itemCache[item] = true
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end        
+        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- if this happens again, move to table and loop.
+            -- CHECK: if the item is already in the cache, if not - add it.   
+            if not MT.itemCache[item] then 
+                MT.itemCache[item] = true
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end        
+        end  
+   end     

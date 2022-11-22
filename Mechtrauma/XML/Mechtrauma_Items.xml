@@ -2221,7 +2221,7 @@
   </Item>
 
 <!-- MAINTENANCE TABLET:-->
-  <Item name="Support Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+  <Item name="Maintenance Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="250" sold="true" />
     <PreferredContainer primary="reactorcab" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
@@ -2298,9 +2298,9 @@
       </Button>
       
       <!-- Report 4: -->
-       <Button text="Report 4">
+       <Button text="FUSE STATUS REPORT">
         <StatusEffect type="OnUse" target="This">
-          <LuaHook name="electrical_co2f.OnUse" /> 
+          <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
           <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
@@ -2797,7 +2797,7 @@
   </Item>
 
 <!-- FUSE PANEL: RELAY -->
-<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags="signal,logic" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags="signal,logic,fusebox" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="100" minleveldifficulty="15">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" sold="false"/>
@@ -2912,9 +2912,7 @@
 
 
 <!-- ELECTRICAL PANEL: -->
-
-
-  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
@@ -7232,7 +7230,7 @@
       <StatusEffect type="OnBroken" targettype="This" Comparison="or" isOn="false" comparaison="and">
         <Conditional voltage="gt 0.9" targetitemcomponent="RelayComponent"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
-          <Affliction identifier="steam_burn" strength="200" />
+          <Affliction identifier="burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
           <Affliction identifier="stun" strength="5" />
         </Explosion>

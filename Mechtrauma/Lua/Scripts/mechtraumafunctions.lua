@@ -13,7 +13,6 @@ function MT.F.dieselEngine(item)
         --print("This item has combustion!")
     end
 
-
         --COMPRESSION
         --FUEL
         --OXYGEN        

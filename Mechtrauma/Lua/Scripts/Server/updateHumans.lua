@@ -93,7 +93,7 @@ MT.Afflictions = {
             ))
         end
     end
-    }
+    },
 }
 -- define all the limb specific afflictions and their update functions
 MT.LimbAfflictions = {
