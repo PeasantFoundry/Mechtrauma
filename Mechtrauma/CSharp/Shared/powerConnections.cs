@@ -48,6 +48,15 @@ namespace Mechtrauma {
                         conn1.Item.HasTag("kineticjb") ||
                         conn2.Item.HasTag("kineticjb")
                     );
+                } else if (conn1.Name.StartsWith("thermal") || conn2.Name.StartsWith("thermal")) {
+                    // Check if its a kinetic connection, if so, only connect kinetic connections
+                    return conn1.Name.StartsWith("thermal") && conn2.Name.StartsWith("thermal") && (
+                        conn1.IsOutput != conn2.IsOutput || 
+                        conn1.Name == "thermal" || 
+                        conn2.Name == "thermal" ||
+                        conn1.Item.HasTag("thermaljb") ||
+                        conn2.Item.HasTag("thermaljb")
+                    );
                 }
 
                 // let the original function handle the rest
@@ -71,6 +80,11 @@ namespace Mechtrauma {
                     case "kinetic":
                     case "kinetic_out":
                     case "kinetic_in":
+                        isPowerField.SetValue(self, true);
+                        break;
+                    case "thermal":
+                    case "thermal_out":
+                    case "thermal_in":
                         isPowerField.SetValue(self, true);
                         break;
                 }
@@ -119,14 +133,17 @@ namespace Mechtrauma {
                     switch (c.Name) {
                         case "steam_out":
                         case "kinetic_out":
+                        case "thermal_out":
                             powerOutField.SetValue(self, c);
                             break;
                         case "kinetic_in":
                         case "steam_in":
+                        case "thermal_in":
                             powerInField.SetValue(self, c);
                             break;
                         case "steam":
                         case "kinetic":
+                        case "thermal":
                             if (c.IsOutput) {
                                 powerOutField.SetValue(self, c);
                             } else {

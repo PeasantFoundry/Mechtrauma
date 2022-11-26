@@ -49,6 +49,8 @@ namespace Mechtrauma {
                             colour = Color.DeepSkyBlue;
                         } else if (myself.Name.StartsWith("kinetic")) {
                             colour = Color.SaddleBrown;
+                        } else if (myself.Name.StartsWith("thermal")) {
+                            colour = Color.Orange;
                         } else if (myself.IsPower) {
                             colour = GUIStyle.Red;
                         }
