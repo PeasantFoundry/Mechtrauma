@@ -53,18 +53,18 @@ namespace Mechtrauma {
             (object self, Dictionary<string, object> args) => {
                 PowerContainer myself = (PowerContainer)self;
                 //Connection connection = args["connection"] as Connection;
-                float load = (float)args["load"];
+                float load = (float)args["load"]; // Load is busted just like connection
 
                 //connection != null && connection.IsPower && connection.IsOutput &&
                 // connection object is protected so we can't access it. Otherwise memory violation
                 if (myself.Item.HasTag("MechtraumaBoiler")) {
                     float maxOut = myself.MaxOutPut;
+
                     if (myself.ChargePercentage <= 25) {
-                        maxOut = MathHelper.Min(load * myself.ChargePercentage / 25, myself.MaxOutPut * myself.ChargePercentage / 10);
+                        maxOut = myself.MaxOutPut * myself.ChargePercentage / 25;
                     }
 
                     maxOut = MathHelper.Clamp(maxOut, 0, myself.MaxOutPut);
-
                     return new PowerRange(0, maxOut);
                 }
 
@@ -77,31 +77,37 @@ namespace Mechtrauma {
 
                 Connection connection = (Connection)args["connection"];
                 PowerRange minMaxPower = (PowerRange)args["minMaxPower"];
+                PowerContainer myself = (PowerContainer)self;
                 float power = (float)args["power"];
                 float load = (float)args["load"];
 
-                if (connection.IsPower && connection.IsOutput && ((PowerContainer)self).Item.HasTag("MechtraumaBoiler")) {
+                if (connection.IsPower && connection.IsOutput && myself.Item.HasTag("MechtraumaBoiler")) {
                     
-                    float maxOut = ((PowerContainer)self).MaxOutPut;
-                    if (((PowerContainer)self).ChargePercentage <= 25) {
-                        maxOut = MathHelper.Min(load * ((PowerContainer)self).ChargePercentage / 25, ((PowerContainer)self).MaxOutPut * ((PowerContainer)self).ChargePercentage / 10);
+                    float maxOut = myself.MaxOutPut;
+                    if (myself.ChargePercentage <= 25) {
+                        maxOut = myself.MaxOutPut * myself.ChargePercentage / 25;
                     }
 
-                    maxOut = MathHelper.Clamp(maxOut, 0, ((PowerContainer)self).MaxOutPut);
-
+                    maxOut = MathHelper.Clamp(maxOut, 0, myself.MaxOutPut);
                     float loadleft = load - power;
-                    if (((PowerContainer)self).ChargePercentage >= 75) {
-                        loadleft = (load * ((PowerContainer)self).ChargePercentage / 75 ) - power;
+                    if (myself.ChargePercentage >= 75) {
+                        loadleft = (load * myself.ChargePercentage / 75 ) - power;
                     }
 
-                    float powerOutValue = MathHelper.Clamp(loadleft / minMaxPower.Max, 0, 1) * maxOut;
+                    float powerOutValue = 0;
+                    if (minMaxPower.Max > 0) {
+                        powerOutValue = MathHelper.Clamp(loadleft / minMaxPower.Max, 0, 1) * maxOut;
+                    }
+
                     CurrPowerOutputProperty.SetValue(self, powerOutValue);
+                    
                     return powerOutValue;
                 }
 
                 return null;
             }, LuaCsHook.HookMethodType.Before, this);
 
+            
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.PowerContainer", 
             typeof(Barotrauma.Items.Components.PowerContainer).GetMethod("GridResolved", BindingFlags.Instance | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
@@ -113,7 +119,7 @@ namespace Mechtrauma {
 
                     ((PowerContainer)self).Charge += (loadIn * ((PowerContainer)self).Voltage) / 60 * UpdateInterval * ((PowerContainer)self).Efficiency;
 
-                    return args;
+                    return false;
                 }
 
                 return null;

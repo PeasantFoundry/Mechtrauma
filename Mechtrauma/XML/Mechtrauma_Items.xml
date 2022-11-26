@@ -2570,14 +2570,20 @@
     <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
 
-    
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
 
-    <Powered canbeselected="true" msg="ItemMsgInteractSelect" PowerConsumption="2000.0" MinVoltage="0.3">
-
+    <Powered canbeselected="true" msg="ItemMsgInteractSelect" PowerConsumption="2000.0" MinVoltage="0.3" IsActive="true">
+      <StatusEffect type="always" target="This" duration="5" delay="1">
+        <Conditional CurrPowerConsumption="lt -0.5"/>
+        <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="40" anglemax="50" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
+        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
+          <Affliction identifier="burn" strength="0.05" />          
+        </Explosion>
+      </StatusEffect>
     </Powered>
-     
+
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -2589,9 +2595,8 @@
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
      
-      <input name="power_in" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10"/>
+      <input name="steam_in" displayname="connection.steamin1"/>
       <output name="condition_out" displayname="connection.conditionout" />
-      <output name="power_value_out" displayname="connection.powervalueout" />
       <output name="load_value_out" displayname="connection.loadvalueout" />
    
 
@@ -6456,15 +6461,16 @@
     <BrokenSprite texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" origin="0.5,0.5" depth="0.8" maxcondition="0" />
 
+    <!--
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
-
-    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false">
+    -->
+    <RelayComponent canbeselected="true" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false">
       <GuiFrame relativesize="0.25,0.15" minsize="450,160" anchor="Center" style="ItemUI" /> 
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
 
       <!-- Shaft Friction.  -->
       <StatusEffect type="Always" targettype="This" Condition="-4.0" delay="1" duration="1" stackable="false" Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="LightComponent"/>         
+        <Conditional Voltage="gt 0.1" targettype="This"/>         
       </StatusEffect>
 
       <!-- Check for trubine blades (Statuseffect tags need to have a duration applied) -->
@@ -6490,7 +6496,7 @@
       <!-- It's bad when a turbine breaks and is still running, right? -->
       <StatusEffect type="OnBroken" targettype="This" isOn="false" Comparison="and">
         <Fire size="15" />
-        <Conditional voltage="gt 0.5" targetitemcomponent="this"/>
+        <Conditional voltage="gt 0.5" targettype="this"/>
       </StatusEffect>
 
     </RelayComponent>
