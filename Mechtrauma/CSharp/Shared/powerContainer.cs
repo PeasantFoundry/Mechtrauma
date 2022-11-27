@@ -80,7 +80,48 @@ namespace Mechtrauma {
                 return null;
             }, LuaCsHook.HookMethodType.Before, this);
 
-            // No need to modify GetConnectionPowerOut as it relies on MinMaxPowerOut above
+            // Modify the steam boiler to output extra power when above 75% charge
+            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.PowerContainer", 
+            typeof(Barotrauma.Items.Components.PowerContainer).GetMethod("GetConnectionPowerOut", BindingFlags.Instance | BindingFlags.Public),
+            (object self, Dictionary<string, object> args) => {
+
+                Connection connection = (Connection)args["connection"];
+                PowerRange minMaxPower = (PowerRange)args["minMaxPower"];
+                PowerContainer myself = (PowerContainer)self;
+                float power = (float)args["power"];
+                float load = (float)args["load"];
+
+                // Ensure its a steam boiler and output connection
+                if (connection.IsPower && connection.IsOutput && myself.Item.HasTag("MechtraumaBoiler")) {
+                    // Calculate the normal max power output
+                    float maxOut = myself.MaxOutPut;
+                    if (myself.ChargePercentage <= 25) {
+                        maxOut = myself.MaxOutPut * myself.ChargePercentage / 25;
+                    }
+
+                    maxOut = MathHelper.Clamp(maxOut, 0, myself.MaxOutPut);
+
+                    float loadleft = load - power;
+
+                    // scale the load above 75% charge to cause a overload
+                    if (myself.ChargePercentage >= 75) {
+                        loadleft = (load * myself.ChargePercentage / 75 ) - power;
+                    }
+
+                    // Output power taking in account other boilers
+                    float powerOutValue = 0;
+                    if (minMaxPower.Max > 0) {
+                        powerOutValue = MathHelper.Clamp(loadleft / minMaxPower.Max, 0, 1) * maxOut;
+                    }
+
+                    // Update power output value for status effects
+                    CurrPowerOutputProperty.SetValue(self, powerOutValue);
+
+                    return powerOutValue;
+                }
+
+                return null;
+            }, LuaCsHook.HookMethodType.Before, this);
             
             // Modify the steam boiler to not absorb the extra initial spike in power on the dry startup
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.PowerContainer", 
