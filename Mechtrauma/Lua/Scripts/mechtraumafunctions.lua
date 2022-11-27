@@ -1,5 +1,5 @@
 MT.F = {}
-CentralComputerOnline = false
+CentralComputerOnline = true
 OxygenVentCount = 0
 
 function MT.F.dieselEngine(item)
@@ -26,43 +26,69 @@ function MT.F.dieselEngine(item)
     --parts, oil, oil filter, fuel filter, fuel pump, engine. 
 end
 
--- DIVINGSUIT: Deterioration and extended pressure protection. 
+-- DIVINGSUIT: updates deterioration and extended pressure protection. 
 function MT.F.divingSuit(item)
-    if MT.HF.ItemIsWornInOuterClothesSlot(item) then
+    -- proceed if divingsuit is equipped and deterioration or extended pressure protection is enabled.
+    if MT.HF.ItemIsWornInOuterClothesSlot(item) and (MT.Config.divingSuitServiceLife > 0.0 or MT.Config.divingSuitEPP > 1.0) then
         local itemDepth = MT.HF.GetItemDepth(item)
-        local pressurePenalty = 0
-        -- print(item.ConditionPercentage)
-        -- Extended pressure protection: 
-        -- We aren't going to change the pressure protection of the diving suit because we don't want to hardcode the original value. 
-        -- This leaves the door open for others to make Mechtrauma suits.
-        -- So instead, we will make the character ImmuneToPressure until we're ready to release them to fate. 
-    
-        -- If they've disabled deterioration, we will exclude extended pressure protection as well, it's only fair.
-        if MT.Config.diveSuitDeteriorateRate > 0.0 then
-            -- EXTENDED PRESSURE PROTECTION: If you're past 2x pressure with a half borken suit you deserve what you get.   
-            if itemDepth < item.ParentInventory.Owner.PressureProtection * 2 and item.ConditionPercentage > 50 then 
-                item.ParentInventory.Owner.AddAbilityFlag(AbilityFlags.ImmuneToPressure) -- we are merciful            
-            else
-                item.ParentInventory.Owner.RemoveAbilityFlag(AbilityFlags.ImmuneToPressure)
-            end
+        local pressureProtectionMultiplier = itemDepth / item.ParentInventory.Owner.PressureProtection -- quotient of depth and pressure protection
+        local pressureDamagePD = 0 -- per delta        
+        local deteriorationDamagePD = 0 -- per delta
+        -- calculate deterioration damage if deterioration is enabled
+        if MT.Config.divingSuitServiceLife > 0.0 then deteriorationDamagePD = (item.MaxCondition / (MT.Config.divingSuitServiceLife * 60) * MT.Deltatime) end
 
-            -- Now that we've saved them from certain death it is time to punish the diving suit instead. But lets make it proportionate to the excess pressure. 
-            if itemDepth / item.ParentInventory.Owner.PressureProtection - 1 > 0.0 then
-                -- Only damage the suit if outside the sub or in a leathal hull.
-                if   item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0 then
-                    pressurePenalty = 10.0 * (itemDepth / item.ParentInventory.Owner.PressureProtection - 1)
-                    --- debug print("pressurePenalty: ", pressurePenalty)
-                end
-            end
-
-            -- Deteriorate the divingsuits. 0.2 is the seed deterioration rate that is modifed by the config, then tack the pressurePenalty on the end. 
-            item.Condition = item.Condition - (0.2 * MT.Config.diveSuitDeteriorateRate + pressurePenalty) -- (item.WorldPosition.Y)
+        -- EXTENDED PRESSURE PROTECTION: Protects up to 2x max pressure but damages the diving suit.
+        if pressureProtectionMultiplier <= 2 and item.Condition > 1 then --if you're past 2x pressure you deserve what you get.   
+            item.ParentInventory.Owner.AddAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel on             
+        else
+            item.ParentInventory.Owner.RemoveAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel off
         end
-    
+        -- damage the suit if exceeding pressure rating while outside the sub or in a leathal pressure hull.
+        if pressureProtectionMultiplier > 1 and (item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0) then
+            pressureDamagePD = pressureProtectionMultiplier^4 -- make pressure damage exponential                            
+        end
+        -- low poressure (less than 2500 protection) diving suits receive 50% deterioration dammage per delta
+        if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
+        -- apply deterioration and pressure damage to divingsuit for this update. 
+        item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
+    end
+end
 
+-- fuse logic
+function MT.F.fuseBox(item)        
+    local fuseWaterDamage = 0
+    local fuseOvervoltDamage = 0
+    local fuseDeteriorationDamage = MT.Config.fusBoxDeterioration * 0.1  --detiorate the fuse at 10% of MT.Config.fusBoxDeterioration  
+    local voltage = item.GetComponentString("PowerTransfer").Voltage
 
-            -- This is where will will reduce suits max depth based on condition. 11/15/22 But will we really?
-            -- note: 11/13/22 must find more secure place to store our evil plans.
+    --CHECK: is there a fuse?
+    if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
+        --fuse present logic
+        item.GetComponentString("Repairable").DeteriorationSpeed = 0.0 -- enable deterioration
+        item.GetComponentString("PowerTransfer").CanBeOverloaded = false -- enable overvoltage 
+        item.GetComponentString("PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
+        
+        if item.InWater then fuseWaterDamage = 1.0 end
+        --print(voltage)
+        --print(MT.Config.fuseOvervoltDamage)
+        if voltage > 1 then fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage end
+           
+        -- fuse deterioration - we piggy back water and voltage
+        if voltage > 1 then print(item.name, "voltage: ", voltage) end
+        item.OwnInventory.GetItemAt(0).Condition = item.OwnInventory.GetItemAt(0).Condition - fuseWaterDamage - fuseOvervoltDamage - fuseDeteriorationDamage
+
+    else
+        -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires. 
+        item.GetComponentString("Repairable").DeteriorationSpeed = MT.Config.fusBoxDeterioration --enable deterioration        
+        item.GetComponentString("PowerTransfer").CanBeOverloaded = true -- enable overvoltage
+        item.GetComponentString("PowerTransfer").FireProbability = 0.9 -- increase fire probability 
+ 
+     --debug printing
+     --print("ITEM: ", item.name)
+     --print("deterioration speed: ", item.name, item.GetComponentString("Repairable").DeteriorationSpeed)
+     --print("condition percentage: ", item.ConditionPercentage)
+ 
+ 
     end
 end
 

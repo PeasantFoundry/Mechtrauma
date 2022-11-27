@@ -1,1 +1,1 @@
-{"dieselDrainRate":1,"pumpGateDeteriorateRate":1,"diveSuitDeteriorateRate":1,"ventSpawnRate":0}
+{"dieselDrainRate":1,"pumpGateDeteriorateRate":1,"diveSuitDeteriorateRate":1,"ventSpawnRate":0,"electricalDeteriorateRate":0.10000000149011612,"fuseOvervoltDamage":5,"divingSuitServiceLife":60,"fusBoxDeterioration":1,"divingSuitEPP":2,"disableElectrocution":false}

@@ -3,8 +3,8 @@ MT = {} -- Mechtrauma
 BT = {} -- Biotrauma
 
 MT.Name="Mechtrauma"
-MT.Version = "1.1.3-0" 
-MT.VersionNum = 01010200 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
+MT.Version = "1.2.0-0" 
+MT.VersionNum = 01020000 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
 -- register mechtrauma as a neurotrauma "expansion"
@@ -85,7 +85,7 @@ MT.itemCache = {}
 MT.itemCacheCount = 0
     --loop through the item list and find items for the cache
     for k, item in pairs(Item.ItemList) do  
-        if item.HasTag("mtu") then   
+        if item.HasTag("mtupdate") or item.HasTag("mtu") then   
             -- CHECK: if the item is already in the cache, if not - add it.          
             if not MT.itemCache[item] then
                 MT.itemCache[item] = true

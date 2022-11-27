@@ -18,20 +18,63 @@ Hook.Add("signalReceived.water_pump", "MT.waterpumpGate", function(signal, conne
         gateCondition = gateCondition * 0.01
 
         connection.Item.GetComponentString("Pump").MaxFlow = 600 * gateCondition
-      --  print("Final maxFlow", connection.Item.GetComponentString("Pump").MaxFlow)
-        
+      --  print("Final maxFlow", connection.Item.GetComponentString("Pump").MaxFlow)        
       --  print(connection.Item.Tags)
         itemBuffer[1] = nil
     end
-
-    
 end)
+
+Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(effect, deltaTime, item, targets, worldPosition)
+  local character
+  -- if the human target isn't 10, loop through the targets and find the human
+  if tostring(targets[10]) == "Human" then
+     character = targets[10] 
+    else 
+      for k, v in pairs(targets) do
+        if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?          
+          character = targets[k] 
+          end              
+      end
+  end
+  -- what are we holding? this will come in handy later
+  local rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
+  local leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
+
+  -- is electrocution enabled?
+  if MT.Config.disableElectrocution == true then
+    -- check if you're a junctionbox or a fusepanel   
+    if item.HasTag("junctionbox") then -- need to add fuse panel support later  
+      -- i don't know why an item would have a junctionbox tag but no PowerTransfer Component but this makes the code harder to break
+      local electrocutionStrength = MT.HF.Clamp((item.GetComponentString("PowerTransfer").PowerLoad/100 or 2000) * (item.GetComponentString("PowerTransfer").Voltage or 1), 1, 200) 
+      print("electrocutionStrength: ", electrocutionStrength)
+      
+      -- explosion
+      MT.HF.AddAffliction(character,"stun",0.25)    
+      local explosion = Explosion(50, 100, 0, 0, 0, 0, 0)
+      explosion.Explode(item.WorldPosition - Vector2(0, 50), item)
+
+      MT.HF.AddAffliction(character,"electrocution", electrocutionStrength)
+    end
+  else
+    -- if not, follow vanilla functionality.
+    MT.HF.AddAffliction(character,"burn",5)
+    MT.HF.AddAffliction(character,"stun",4)
+  end
+
+end)
+
+  --[[ Check the hands for an item with the tag "electricalrepairtool" in sequence.
+      if rightHandItem.HasTag("electricalrepairtool") then
+        NT.TraumamputateLimb(targets[8],LimbType.RightArm)
+      elseif leftHandItem.HasTag("electricalrepairtool") then
+        NT.TraumamputateLimb(targets[8],LimbType.LeftArm)    
+      end]]
 
 
 Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, deltaTime, item, targets, worldPosition)
-  character = targets[8]
-  rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
-  leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
+  local character = targets[8]
+  local rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
+  local leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
 
   -- Check to see if NT is enabled
   if NT then -- Yes? Neurotrauma amputation time! 
@@ -44,11 +87,11 @@ Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, del
     end
   else  
       --No? do something vanilla
-      --if rightHandItem.HasTag("mechanicalrepairtool") then
-      --  MT.HF.SetAfflictionLimb(character,lacerations,LimbType.RightArm,100) 
-      --elseif leftHandItem.HasTag("mechanicalrepairtool") then
-      --  MT.HF.SetAfflictionLimb(character,lacerations,LimbType.LeftArm,100)
-      --end          
+      if rightHandItem.HasTag("mechanicalrepairtool") then        
+        MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.RightArm,100)
+      elseif leftHandItem.HasTag("mechanicalrepairtool") then
+        MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.LeftArm,100)
+      end          
   end
 
 end)
@@ -280,7 +323,7 @@ Hook.Add("maintenanceTablet_fsr.OnUse", "MT.fuseStatusReport", function(effect, 
   --local hull
   MT.HF.BlankTerminalLines(terminal, 20)
   if CentralComputerOnline then
-    MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 69, 0, 255), "*******REPORT: FUSE STATUS*******")    
+    MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: FUSE STATUS*******")    
     -- loop through the item list to find our fuse boxes(later make this loop through mtuItems?)
     for k, item in pairs(Item.ItemList) do
       
@@ -329,11 +372,10 @@ Hook.Add("maintenanceTablet_fsr.OnUse", "MT.fuseStatusReport", function(effect, 
     terminal.ShowMessage = "FUSES MISSING:" .. fuseBoxCount - #fuseList
     terminal.TextColor = Color(255, 69, 0, 255)
     terminal.ShowMessage = "**************END REPORT**************"    
-
   else
     terminal.ShowMessage = "**************NO CONNECTION**************"
   end
-
+ 
   if SERVER then    
     terminal.SyncHistory()
 end

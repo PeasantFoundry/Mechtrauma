@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Afflictions>
 
+<Affliction name="" identifier="electrocution" description="" healableinmedicalclinic="false" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" targets="human" type="burn" isbuff="false" maxstrength="100">
+  <icon texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
+</Affliction>
+
 <!-- Steam Burn! -->
   <Burn
     name="Steam Burn"
@@ -83,9 +87,6 @@
       <!-- Starts to become lethal when strength is above 100 -->
       <Effect minstrength="100" maxstrength="1000" minvitalitydecrease="0" maxvitalitydecrease="20.0" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
       </Effect>    
-
-     
-      
    </Affliction>
 
     <!-- =============< RESISTANCE >=============  -->

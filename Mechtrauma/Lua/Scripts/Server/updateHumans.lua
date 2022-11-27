@@ -74,6 +74,34 @@ MT.Afflictions = {
         end
     end
     },
+    -- electrocution
+    electrocution={max=200,update=function(c,i)
+        if c.afflictions[i].strength < 1 then return end -- don't do anything if the affliction isn't present
+       
+        local electrocutionExponent = 1.1
+        local stunStrength = 4
+        local burnStrength = (c.afflictions[i].strength) / 5 ^ electrocutionExponent
+        local fibrillationStrength = burnStrength ^ electrocutionExponent
+        print("Fibrilation applied: ", fibrillationStrength)
+        print("Burn applied: ", burnStrength)
+
+        -- check for Neurotrauma  
+        if NTC ~= nil then      
+            --electrocution effects
+            MT.HF.AddAffliction(c.character,"burn",burnStrength)
+            --MT.HF.AddAffliction(c.character,"stun",stunStrength)
+            if c.afflictions[i].strength > 20 then MT.HF.Fibrillate(c.character,fibrillationStrength) end -- anything over 2000kW                 
+        else
+            --vanilla electrocution effects
+            burnStrength = burnStrength * 2
+            MT.HF.AddAffliction(c.character,"burn",burnStrength)
+            MT.HF.AddAffliction(c.character,"stun",stunStrength)
+        end
+
+        c.afflictions[i].strength = 0 -- electrocution is punctiliar, once it's happened it happened and only the symptoms remain.
+    end
+    },
+
     -- co2 poisoning
     co2_poisoning={max=1000,update=function(c,i)
         if c.stats.stasis then return end -- don't do anything if in stasis
@@ -97,13 +125,21 @@ MT.Afflictions = {
 }
 -- define all the limb specific afflictions and their update functions
 MT.LimbAfflictions = {
+
     --[[
     example={update=function(c,limbaff,i,type)
         -- removes itself 1% per second
         limbaff[i].strength = limbaff[i].strength-1*MT.Deltatime
     end
     }
-    ]]
+    
+    steam_burn={max=200,update=function(c,limbaff,i)
+        if limbaff[i].strength < 50 then
+            limbaff[i].strength = limbaff[i].strength - (c.afflictions.immunity.prev/3000 + HF.Clamp(limbaff.bandaged.strength,0,1)*0.1)*c.stats.healingrate*NT.Deltatime
+        end
+    end
+    }]]
+   
 }
 -- define the stats, states and multipliers
 MT.CharStats = {

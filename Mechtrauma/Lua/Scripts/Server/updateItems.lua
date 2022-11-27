@@ -19,7 +19,7 @@ end)
 MT.tagfunctions = {
     divingSuit={
         tags={"deepdiving","diving"},
-        update=MT.F.divingSuit,        
+        update=MT.F.divingSuit      
     },
     centralComputer={
         tags={"centralcomputer"},
@@ -33,11 +33,17 @@ MT.tagfunctions = {
         tags={"steamturbine"},
         update=MT.F.steamTurbine
     },
+    fuseBox={ 
+    tags={"fusebox"},
+    update=MT.F.fuseBox
+    },
     oxygenVentSpawn={ --move to BT function table some day
-        tags={"oxygenVentSpawn"},
-        update=BT.F.oxygenVentSpawn,        
+        tags={"oxygenventspawn"},
+        update=BT.F.oxygenVentSpawn
     }
-  }
+       
+}
+  
 
 -- gets run once every two seconds
 function MT.updateItems()    
@@ -72,7 +78,7 @@ function MT.UpdateItem(item)
             end
         end
         -- call the function if all required tags are present
-        if hasalltags then            
+        if hasalltags then                        
             tagfunctiondata.update(item)
         end
     end
@@ -82,7 +88,7 @@ end
 -- check new items and add matches to the MT.itemCache
 Hook.add("item.created", "MT.newItem", function(item) 
       -- check if this item should be added to the item cache     
-        if item.HasTag("mtu") then
+        if item.HasTag("mtu") or item.HasTag("mtupdate") then
             if not MT.itemCache[item] then 
                 MT.itemCache[item] = true
                 MT.itemCacheCount = MT.itemCacheCount + 1

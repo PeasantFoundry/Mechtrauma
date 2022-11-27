@@ -28,16 +28,16 @@ end
 function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
     local terminalOrgiginalColor = terminal.TextColor -- save the current terminal color
     local property = terminal.SerializableProperties[Identifier("TextColor")]
+  
+            terminal.TextColor = color    
+            if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property)) end
+   
+            terminal.ShowMessage = message
+            if SERVER then terminal.SyncHistory()  end
 
-    terminal.TextColor = color    
-    Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property))    
-       
-    Timer.Wait(function() end,  10000) -- .1 second
+   
 
-    terminal.ShowMessage = message
-    terminal.SyncHistory()
-
-    Timer.Wait(function() end,  10000) -- 100 = .1 second    
+    --Timer.Wait(function() end,  10000) -- 100 = .1 second    
    
 end
 
@@ -70,6 +70,55 @@ function MT.HF.ItemIsWornInOuterClothesSlot(item)
 
   return true
   end
+--this is a testing function for damaging machines 
+  function MT.HF.damageFocusedItem(amount)
+    local item = Client.ClientList[1].Character.FocusedItem
+    item.condition = item.condition - amount
+    end
+
+-- Mechtrauma medical helper functions
+function MT.HF.Fibrillate(character,amount)    
+    -- tachycardia (increased heartrate) ->
+    -- fibrillation (irregular heartbeat) ->
+    -- cardiacarrest
+
+    -- fetch values
+    local tachycardia = MT.HF.GetAfflictionStrength(character,"tachycardia",0)
+    local fibrillation = MT.HF.GetAfflictionStrength(character,"fibrillation",0)
+    local cardiacarrest = MT.HF.GetAfflictionStrength(character,"cardiacarrest",0)
+
+    -- already in cardiac arrest? don't do anything
+    if cardiacarrest > 0 then return end
+
+    -- determine total amount of fibrillation, then determine afflictions from that
+    local previousAmount = tachycardia/5
+    if fibrillation > 0 then previousAmount = fibrillation+20 end
+    local newAmount = previousAmount + amount
+  
+    -- 0-20: 0-100% tachycardia
+    -- 20-120: 0-100% fibrillation
+    -- >120: cardiac arrest
+
+    if newAmount < 20 then
+        -- 0-20: 0-100% tachycardia
+        tachycardia = newAmount*5
+        fibrillation = 0
+    elseif newAmount < 120 then
+        -- 20-120: 0-100% fibrillation
+        tachycardia = 0
+        fibrillation = newAmount-20
+    else
+        -- >120: cardiac arrest
+        tachycardia = 0
+        fibrillation = 0
+        MT.HF.SetAffliction(character,"cardiacarrest",10)
+    end
+
+    MT.HF.SetAffliction(character,"tachycardia",tachycardia)
+    MT.HF.SetAffliction(character,"fibrillation",fibrillation)
+    print("total current tachycardia: ", tachycardia)
+    print("total current fibrillation: ", fibrillation)
+end
 
 -- Neurotrauma complementary functions:  
 
@@ -164,7 +213,7 @@ function MT.HF.SetAfflictionLimb(character,identifier,limbtype,strength,aggresso
         ,aggressor)
 
     character.CharacterHealth.ApplyAffliction(character.AnimController.GetLimb(limbtype),affliction,false)
-
+end
     -- turn target aggressive if damaging
 --    if(aggressor ~= nil and character~=aggressor) then 
 --        if prevstrength == nil then prevstrength = 0 end
@@ -176,8 +225,7 @@ function MT.HF.SetAfflictionLimb(character,identifier,limbtype,strength,aggresso
 --        end
 --    end
 
-    
-end
+
 
 function MT.HF.AddAfflictionLimb(character,identifier,limbtype,strength,aggressor)
     local prevstrength = MT.HF.GetAfflictionStrengthLimb(character,limbtype,identifier,0)

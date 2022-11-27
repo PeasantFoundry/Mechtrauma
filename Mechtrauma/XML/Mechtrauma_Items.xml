@@ -726,7 +726,8 @@
 
 
   <!-- WATER PUMP: -->
-  <Item name="Water Pump" identifier="water_pump" tags="pump,mtpump" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+  <Item name="Water Pump" identifier="water_pump" tags="pump,mtpump,repairable,test" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+    <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/mechtrauma_pumps.png" sourcerect="0,0,492,342" depth="0.701" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps.png" sourcerect="0,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps.png" sourcerect="0,384,492,342" depth="0.017" maxcondition="0" />
@@ -814,19 +815,14 @@
     </Repairable>
   </Item>
 
-   <!-- WATER PUMP: -->
-  <Item name="Water Pump A1" identifier="water_pump_a1" tags="pump,mtpump" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+   <!-- WATER PUMP A1: -->
+  <Item name="Water Pump A1" identifier="water_pump_a1" tags="pump,mtpump,Repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+    <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,0,492,342" depth="0.701" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,384,492,342" depth="0.017" maxcondition="0" />
     <InfectedSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
 
-    <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.79" offset="-130,70" sourcerect="52,456,43,43" origin="0.5,0.5" rotationspeed="-360">
-      <AnimationConditional Voltage="gt 0.3" targetitemcomponent="Pump" />
-      <AnimationConditional CurrFlow="gt 0.0" targetitemcomponent="Pump" />
-      <IsActiveConditional Condition="gt 0.0" />
-    </DecorativeSprite> -->
-    <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.78" offset="-130,70" sourcerect="109,456,43,43"/>-->
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
       <sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
     </LightComponent>
@@ -905,7 +901,7 @@
 
 
    <!-- WATER PUMP: -->
-  <Item name="Water Pump A2" identifier="water_pump_a2" tags="pump,mtpump" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+  <Item name="Water Pump A2" identifier="water_pump_a2" tags="pump,mtpump,repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <Sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,0,492,342" depth="0.701" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,384,492,342" depth="0.017" maxcondition="0" />
@@ -2309,7 +2305,7 @@
   </Item>
 
 <!-- STATUS CONSOLE-->
-<Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+<Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command_console" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="64,987,28,20" origin="0.5,0.45" />  
     <Sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
@@ -2353,7 +2349,7 @@
   </Item>
 
 <!-- ENGINEERING CONSOLE-->
-<Item name="Engineering Console" identifier="engineering_console" tags="mtu,ccn,command,statusmonitor" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+<Item name="Engineering Console" identifier="engineering_console" tags="mtu,ccn,command,statusmonitor" aliases="MiniMap" category="Machine" linkable="false" scale="0.5" allowedlinks="navterminal,command" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="64,987,28,20" origin="0.5,0.45" />
      <Sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,0,302,232" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,768,302,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
@@ -2404,7 +2400,7 @@
   </Item>
 
   <!-- COMMAND: Mechtrauma alternative, Nav Terminal -->
-  <Item name="Command" identifier="command_console" tags="mtu,ccn,command,navterminal,primarynavterminal" linkable="true" allowedlinks="statusmonitor" scale="0.5" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Command Console" identifier="command_console" tags="mtu,ccn,command,navterminal,primarynavterminal" linkable="true" allowedlinks="statusmonitor,status_console" scale="0.5" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="128,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="318,0,454,276" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="318,581,454,276" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
@@ -2784,6 +2780,7 @@
       <RequiredItem identifier="copper" />
     </Fabricate>
     
+    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="256,192,75,12" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="256,192,75,12" depth="0.55" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="256,206,75,12" depth="0.55" maxcondition="0" />
 
@@ -2797,7 +2794,7 @@
   </Item>
 
 <!-- FUSE PANEL: RELAY -->
-<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags="signal,logic,fusebox" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+<Item name="Fuse Panel" identifier="fuse_panel" category="Electrical" Tags=" signal,logic,mtupdate" maxstacksize="1" cargocontaineridentifier="metalcrate" description="Don't put your fingers in it." scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="100" minleveldifficulty="15">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" sold="false"/>
@@ -2910,7 +2907,7 @@
 
 
 <!-- ELECTRICAL PANEL: -->
-  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox,fusedJB" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox,fusedJB,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
@@ -2949,15 +2946,21 @@
     
    
       <!-- Check for a fuse -->
-      <!-- ON: yesfuse -->
-      <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="hasfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
-        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
-      </StatusEffect> 
+      <!-- ON: yesfuse 
+      <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="yesfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
+         <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
+       
+      </StatusEffect> -->
 
-      <!-- NO FUSE: burn it down, burn it all down  -->
-      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" checkconditionalways="true" FireProbability="1.0">
-        <Conditional HasStatusTag="neq hasfuse" />
-      </StatusEffect>
+      <!-- NO FUSE: allow overvoltage 
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" canbeoverloaded="true" Comparison="And">
+        <Conditional HasStatusTag="neq yesfuse" />           
+      </StatusEffect>  -->
+
+      <!-- NO FUSE: burn it down, burn it all down 
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="1.0" canbeoverloaded="true" Comparison="And">
+        <Conditional HasStatusTag="neq yesfuse" />           
+      </StatusEffect> -->
 
     </PowerTransfer>
 
@@ -2987,11 +2990,11 @@
       <Containable items="fuse" excludebroken="false" excludefullcondition="false" >
       
      
-      <!-- OVERVOLATGE: Damage fuse when voltage is too high   -->
+      <!-- OVERVOLATGE: Damage fuse when voltage is too high
       <StatusEffect type="OnContaining" targettype="Contained" condition="-1" Comparison='And'>
         <Conditional voltage="gt 1.25" targetcontainer="true" targetitemcomponent="PowerTransfer" /> 
         <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
-      </StatusEffect> 
+      </StatusEffect>    -->
              
 
       <!-- <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" /> -->
@@ -3002,10 +3005,11 @@
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
       <RequiredSkill identifier="electrical" level="55" />
       <RequiredItem items="screwdriver" type="Equipped" />
-      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand">
         <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
-        <Affliction identifier="stun" strength="4" />
-        <Affliction identifier="burn" strength="5" />
+        <LuaHook name="electricalRepair.OnFailure" /> 
+        <!-- <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" /> -->
       </StatusEffect>
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="MistSmoke" particlespersecond="60" anglemin="0" anglemax="360" distancemin="0" distancemax="30" velocitymin="0" velocitymax="20" mincondition="0.0" maxcondition="50.0" />
@@ -4560,7 +4564,7 @@
 
   
   <!-- DRY SUIT: -->
-  <Item name="" identifier="dry_suit" category="Equipment" tags="provocative,deepdiving,diving,mtu" scale="0.5" fireproof="false" description="" allowdroppingonswapwith="diving,scba" impactsoundtag="impact_metal_heavy">
+  <Item name="" identifier="dry_suit" category="Equipment" tags="provocative,deepdiving,diving,mtupdate" scale="0.5" fireproof="false" description="" allowdroppingonswapwith="diving,scba" impactsoundtag="impact_metal_heavy">
     <Price baseprice="180">
       <Price storeidentifier="merchantoutpost" multiplier="0.9" minavailable="2" />
       <Price storeidentifier="merchantcity" multiplier="0.85" minavailable="4" />
@@ -6177,7 +6181,7 @@
   
  <!-- DIESEL GENERATOR S5000D: Main power. -->
 
- <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtu,DieselEngine" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtupdate,DieselEngine" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
     <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
@@ -6913,7 +6917,7 @@
   </Item>
 
   <!-- The Beloved Steam Turbine! -->
- <Item name="Steam Turbine" identifier="steam_turbine" tags="steam,mtpriority,steamturbine,mtu" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
+ <Item name="Steam Turbine" identifier="steam_turbine" tags="steam,mtpriority,steamturbine,mtupdate" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
@@ -7069,7 +7073,7 @@
 
 
   <!-- The Beloved Steam Turbine! (1/2 deterioration for Peasants)-->
- <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam,steamturbine,mtu,mtpriority" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
+ <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam,steamturbine,mtupdate,mtpriority" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
