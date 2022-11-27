@@ -65,6 +65,11 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 
+Hook.Add("roundStart", "MT.roundStart", function()
+    -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
+    Game.poweredUpdateInterval = 1
+end)
+
 -- client-side code
 if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")

@@ -105,6 +105,10 @@ namespace Mechtrauma {
 
                 if (item.Connections == null) { return args; }
 
+                if (item.HasTag("mtpriority")) {
+                    GameMain.LuaCs.Game.AddPriorityItem(item);
+                }
+
                 // Get the highest priority device for this item
                 PowerPriority priority = PowerPriority.Default;;
                 foreach (var dev in item.GetComponents<Powered>()) {

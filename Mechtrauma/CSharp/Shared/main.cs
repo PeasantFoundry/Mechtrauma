@@ -20,8 +20,10 @@ namespace Mechtrauma {
             // Change the power container to disable output if not active
             modifyPowerContainers();
 
+            // Adds the fusedJB so that the custom junction disconnect if they don't have a fuse
             modifyJunctionBoxes();
 
+            // Adds custom device to absorb overload power and protect the grid I.e. Steam regulator
             addPowerAbsorber();
 
             #if SERVER

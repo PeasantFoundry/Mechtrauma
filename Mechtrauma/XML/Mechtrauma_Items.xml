@@ -2563,7 +2563,7 @@
   </Item>
 
   <!-- Steam regulator: -->
-  <Item name="Steam regulator" identifier="steam_regulator" tags="powerabsorber" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Steam regulator" identifier="steam_regulator" tags="mtpriority,powerabsorber" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
@@ -6454,7 +6454,7 @@
   </Item>
 
   <!-- The Beloved Steam Turbine! -->
- <Item name="Steam Turbine" identifier="steam_turbine" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
+ <Item name="Steam Turbine" identifier="steam_turbine" tags="steam,mtpriority" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
@@ -6610,7 +6610,7 @@
 
 
   <!-- The Beloved Steam Turbine! (1/2 deterioration for Peasants)-->
- <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
+ <Item name="Steam Turbine" identifier="steam_turbine_p" tags="steam,mtpriority" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="384,960,64,64" origin="0.5,0.45" />
     <Upgrade gameversion="0.10.0.0" scale="*0.5" />
     <Sprite name="Steam Turbine" texture="%ModDir%/images/steam_turbine.png" sourcerect="0,0,372,280" depth="0.8" origin="0.5,0.5" />
@@ -6756,7 +6756,7 @@
 
 
   <!-- STEAM BOILER: -->
-  <Item name="Boiler" identifier="boiler" tags="steam, MechtraumaBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
+  <Item name="Boiler" identifier="boiler" tags="mtpriority, steam, MechtraumaBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
     <Sprite name="Boiler" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" depth="0.8" origin="0.5,0.5" />
     <DecorativeSprite name="BoilerTop" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,220" depth="-0.4" origin="0.5,0.5" offset="0,90" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -6892,7 +6892,7 @@
 
 
   <!-- STEAM BOILER: (1/2 deterioration & 1/2 leak threshhold for peasants.) -->
-  <Item name="Boiler" identifier="boiler_p" tags="steam" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
+  <Item name="Boiler" identifier="boiler_p" tags="mtpriority,steam,MechtraumaBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
     <Sprite name="Boiler" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" depth="0.8" origin="0.5,0.5" />
     <DecorativeSprite name="BoilerTop" texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,220" depth="-0.4" origin="0.5,0.5" offset="0,90" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -7019,7 +7019,7 @@
   </Item>
 
   <!-- REDUCTION GEAR: -->
-  <Item name="Reduction Gear" identifier="reduction_gear" tags="engine" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Reduction Gear" identifier="reduction_gear" tags="engine,mtpriority" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,0,1024,700" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25"/>
     <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
       <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
@@ -7217,7 +7217,7 @@
 
 
   <!-- REDUCTION GEAR: (reduced deterioration - for Peasants) --> 
-  <Item name="Reduction Gear" identifier="reduction_gear_p" tags="engine" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="Reduction Gear" identifier="reduction_gear_p" tags="engine,mtpriority" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,0,1024,700" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25" />
     <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
       <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
