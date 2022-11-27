@@ -7250,7 +7250,7 @@
 
       <!-- It's bad when a boiler blows up, right? -->
       <StatusEffect type="OnBroken" targettype="This" Comparison="or" tags="batterydisabled" comparaison="and">
-        <Conditional voltage="gt 0.9" targetitemcomponent="PowerContainer"/>
+        <Conditional Charge="gt 1" target="this"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
@@ -7386,7 +7386,7 @@
 
       <!-- It's bad when a boiler blows up, right? -->
       <StatusEffect type="OnBroken" targettype="This" Comparison="or" tags="batterydisabled" comparaison="and">
-        <Conditional voltage="gt 0.9" targetitemcomponent="PowerContainer"/>
+        <Conditional Charge="gt 1" target="this"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="steam_burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
