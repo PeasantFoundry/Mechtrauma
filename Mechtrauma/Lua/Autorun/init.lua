@@ -1,8 +1,10 @@
 
 MT = {} -- Mechtrauma
+BT = {} -- Biotrauma
+
 MT.Name="Mechtrauma"
-MT.Version = "1.1.2-1" 
-MT.VersionNum = 01010201 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
+MT.Version = "1.1.3-0" 
+MT.VersionNum = 01010200 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
 -- register mechtrauma as a neurotrauma "expansion"
@@ -33,7 +35,9 @@ end
 
 -- define global helper functions (they're used everywhere else!)
 dofile(MT.Path.."/Lua/Scripts/helperfunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/biotraumafunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/mechtraumafunctions.lua")
+
 
 -- server-side code (also run in singleplayer)
 if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
@@ -55,13 +59,14 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
 
     -- this is where we run all the other lua files
     -- (jamming them all in autorun is bad for organization and surrenders control of what is to be executed)
+    
+    dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")
+    --dofile(MT.Path.."/Lua/Scripts/Server/bacteria_analyzer.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/bacteria_analyzer.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/oxygen_vent.lua")    
+    dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")    
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 
@@ -74,3 +79,23 @@ end)
 if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
 end
+
+-- Establish Mechtrauma item cache
+MT.itemCache = {}
+MT.itemCacheCount = 0
+    --loop through the item list and find items for the cache
+    for k, item in pairs(Item.ItemList) do  
+        if item.HasTag("mtu") then   
+            -- CHECK: if the item is already in the cache, if not - add it.          
+            if not MT.itemCache[item] then
+                MT.itemCache[item] = true
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end        
+        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- if this happens again, move to table and loop.
+            -- CHECK: if the item is already in the cache, if not - add it.   
+            if not MT.itemCache[item] then 
+                MT.itemCache[item] = true
+                MT.itemCacheCount = MT.itemCacheCount + 1
+            end        
+        end  
+   end     

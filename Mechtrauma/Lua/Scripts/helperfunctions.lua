@@ -1,17 +1,77 @@
 
--- This file contains a bunch of useful functions that see heavy use in the other scripts.
-
+MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neurotraumas use of the term)
 
 -- Mechtrauma exclusive functions:
 
--- none yet!
+-- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
+-- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
+function MT.HF.GetItemDepth(item)
+  if SERVER then
+    -- use server method
+    return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
+    else
+    -- use client method
+    return item.WorldPosition.Y * Physics.DisplayToRealWorldRatio
+    end
+end
 
+-- print blank lines to terminal in place of a functioning clear command
+function MT.HF.BlankTerminalLines(terminal, lines)
+    local counter = 0
+    while counter < lines do
+        counter = counter + 1
+        terminal.ShowMessage = "-"
+    end    
+end
 
-MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neurotraumas use of the term)
+-- colored terminal message
+function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
+    local terminalOrgiginalColor = terminal.TextColor -- save the current terminal color
+    local property = terminal.SerializableProperties[Identifier("TextColor")]
 
--- most of these are redundant if neurotrauma is running,
--- because neurotrauma already has a set of helperfunctions defined.
--- users might want to run mechtrauma without neurotrauma, so we do it here regardless.
+    terminal.TextColor = color    
+    Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property))    
+       
+    Timer.Wait(function() end,  10000) -- .1 second
+
+    terminal.ShowMessage = message
+    terminal.SyncHistory()
+
+    Timer.Wait(function() end,  10000) -- 100 = .1 second    
+   
+end
+
+-- utility for checking there are missing items from the cache
+function MT.HF.VerifyItemCache()  
+    print(" MT.itemCache BEFORE update: ",  MT.itemCacheCount)
+    -- flag the round as started    
+        -- loop through the item list and find items for the cache
+        for k, item in pairs(Item.ItemList) do  
+           if item.HasTag("mtu") or (item.HasTag("diving") and item.HasTag("deepdiving")) then            
+                if  MT.itemCache[item] then 
+                    print("Item Already Exists: ", item)                                     
+                else 
+                    print("Found a missing item: ", item, "adding it to the cache")                    
+                     MT.itemCache[item] = true
+                     MT.itemCacheCount =  MT.itemCacheCount + 1
+                end                 
+           end  
+       end       
+       print(" MT.itemCache AFTER update: ",  MT.itemCacheCount)
+       
+end
+
+-- fucked by Hadrada on 11/12/22
+-- unfucked by Mannatu on 11/13/22
+function MT.HF.ItemIsWornInOuterClothesSlot(item)
+    if item.ParentInventory == nil then return false end 
+    if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
+    if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
+
+  return true
+  end
+
+-- Neurotrauma complementary functions:  
 
 -- general mathy functions:
 
@@ -496,24 +556,4 @@ function MT.HF.Explode(entity,range,force,damage,structureDamage,itemDamage,empS
 
     MT.HF.SpawnItemAt("ntvfx_explosion",entity.WorldPosition)
 end
--- fucked by Hadrada on 11/12/22
--- unfucked by Mannatu on 11/13/22
-function MT.HF.ItemIsWornInOuterClothesSlot(item)
-    if item.ParentInventory == nil then return false end 
-    if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
-    if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
 
-  return true
-  end
-
--- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
--- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
-function MT.HF.GetItemDepth(item)
-  if SERVER then
-    -- use server method
-    return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
-    else
-    -- use client method
-    return item.WorldPosition.Y * 0.01  
-    end
-end

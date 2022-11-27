@@ -2,7 +2,7 @@
 <Afflictions>
 
 <!-- Steam Burn! -->
-  <Affliction
+  <Burn
     name="Steam Burn"
     identifier="steam_burn"
     description="The area is blistered and red, and skin is already beginning to peel away in sheets. The patient is in a great deal of pain."
@@ -17,7 +17,7 @@
       minvitalitydecrease="0"
       maxvitalitydecrease="2"/>
     <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0"/>
-  </Affliction>
+  </Burn>
 
 <!-- THE BELOVED SPORE INFECTION! -->
 <!-- smyptoms have been moved to humanupdate.lua -->
@@ -103,6 +103,9 @@
       <Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="contamination" minresistance="1" maxresistance="150"/>
       <icon texture="Content/UI/CommandUIBackground.png" sourcerect="384,896,128,128" color="0,65,50,255" origin="0,0"/>
     </Affliction>
+
+    <!--<Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="radiationsickness" minresistance="0.0" maxresistance="1.0"/>-->
+   
 
     <Affliction name="Buckled" identifier="buckled" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
       <!-- Prevents Stun. You won't be knocked out of your chair -->
