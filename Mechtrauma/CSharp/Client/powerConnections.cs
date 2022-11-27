@@ -49,6 +49,8 @@ namespace Mechtrauma {
                             colour = Color.DeepSkyBlue;
                         } else if (myself.Name.StartsWith("kinetic")) {
                             colour = Color.SaddleBrown;
+                        } else if (myself.Name.StartsWith("thermal")) {
+                            colour = Color.Orange;
                         } else if (myself.IsPower) {
                             colour = GUIStyle.Red;
                         }
@@ -66,7 +68,6 @@ namespace Mechtrauma {
                     connectionSprite.Draw(spriteBatch, position, scale: connectorSpriteScale);
 
                     // Prevent the original method from running
-                    args.Add("PreventExecution", true);
                     return args;
                 }, LuaCsHook.HookMethodType.Before, this);
         }

@@ -20,7 +20,6 @@ namespace Mechtrauma {
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered", 
             typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
-                args.Add("PreventExecution", true);
 
                 Connection conn1 = (Connection)args["conn1"];
                 Connection conn2 = (Connection)args["conn2"];
@@ -49,11 +48,19 @@ namespace Mechtrauma {
                         conn1.Item.HasTag("kineticjb") ||
                         conn2.Item.HasTag("kineticjb")
                     );
+                } else if (conn1.Name.StartsWith("thermal") || conn2.Name.StartsWith("thermal")) {
+                    // Check if its a kinetic connection, if so, only connect kinetic connections
+                    return conn1.Name.StartsWith("thermal") && conn2.Name.StartsWith("thermal") && (
+                        conn1.IsOutput != conn2.IsOutput || 
+                        conn1.Name == "thermal" || 
+                        conn2.Name == "thermal" ||
+                        conn1.Item.HasTag("thermaljb") ||
+                        conn2.Item.HasTag("thermaljb")
+                    );
                 }
 
-                // Prevent the original method from running
-                args.Add("PreventExecution", false);
-                return args;
+                // let the original function handle the rest
+                return null;
             }, LuaCsHook.HookMethodType.Before, this);
  
             // Grab the isPower property 
@@ -75,6 +82,11 @@ namespace Mechtrauma {
                     case "kinetic_in":
                         isPowerField.SetValue(self, true);
                         break;
+                    case "thermal":
+                    case "thermal_out":
+                    case "thermal_in":
+                        isPowerField.SetValue(self, true);
+                        break;
                 }
 
                 return args;
@@ -93,6 +105,10 @@ namespace Mechtrauma {
 
                 if (item.Connections == null) { return args; }
 
+                if (item.HasTag("mtpriority")) {
+                    GameMain.LuaCs.Game.AddPriorityItem(item);
+                }
+
                 // Get the highest priority device for this item
                 PowerPriority priority = PowerPriority.Default;;
                 foreach (var dev in item.GetComponents<Powered>()) {
@@ -103,6 +119,8 @@ namespace Mechtrauma {
                         currPrior = PowerPriority.Battery;
                     } else if (dev is Reactor) {
                         currPrior = PowerPriority.Reactor;
+                    } else if (dev.Item.HasTag("powerabsorber")) {
+                        currPrior = (PowerPriority)10;
                     }
 
                     if (currPrior > priority) {
@@ -115,21 +133,22 @@ namespace Mechtrauma {
                 {
                     if (!c.IsPower) { continue; }
 
-                    // Apply the device priority to all output connections and assign pins
+                    c.Priority = priority;
                     switch (c.Name) {
                         case "steam_out":
                         case "kinetic_out":
-                            c.Priority = priority;
+                        case "thermal_out":
                             powerOutField.SetValue(self, c);
                             break;
                         case "kinetic_in":
                         case "steam_in":
+                        case "thermal_in":
                             powerInField.SetValue(self, c);
                             break;
                         case "steam":
                         case "kinetic":
+                        case "thermal":
                             if (c.IsOutput) {
-                                c.Priority = priority;
                                 powerOutField.SetValue(self, c);
                             } else {
                                 powerInField.SetValue(self, c);
