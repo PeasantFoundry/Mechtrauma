@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+<!-- DIESEL GENERATOR S2500D: Standard. -->
+ <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="sC2500Da" texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <poweronsound file="%ModDir%/sound/dieseldeepstart.ogg" range="3000" loop="false" />      
+    </LightComponent>   
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
+        <Conditional IsOn="true" target="This"/>      
+        <sound file="%ModDir%/sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
+      </StatusEffect> 
+    </LightComponent>
+    <!-- Buffer Battery-->    
+    <PowerContainer capacity="100.0" maxrechargespeed="500.0" charge="100" maxoutput="3000.0" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
+    </PowerContainer>
+
+   <RelayComponent canbeselected="true" powerconsumption="0.0" minvoltage="0.1" vulnerabletoemp="false" maxPower="3000" canbeoverloaded="false">
+    <GuiFrame relativesize="0.2,0.2" minsize="450,160" anchor="Center" relativeoffset="0.1,0.0"  style="ItemUI" />
+   </RelayComponent>
+   
+   
+    <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="8" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+
+      <!-- SLOT 0-1 Oil -->  
+      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
+      <!-- SLOT 2 Oil Filter -->  
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+      </SubContainer>
+      <!-- SLOTs 3-5 DieselFuel -->  
+      <SubContainer capacity="3" maxstacksize="1" hideitems="true">
+        <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+
+      <!-- SLOTs 6-8 Oxygen -->  
+      <SubContainer capacity="3" maxstacksize="1" hideitems="true">
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
+      </SubContainer>               
+    </ItemContainer>
+
+    <!-- Controls -->
+    <CustomInterface canbeselected="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>        
+      </Button>      
+    </CustomInterface>
+        
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin1"/>
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <input name="set_state" displayname="connection.setstate" />
+    </ConnectionPanel>
+    
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+      <!-- At least you followed protocal -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
+        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+    
+    </Repairable>
+  </Item>
+
+<!-- DIESEL GENERATOR S3000D: Standard. -->
+ <Item name="s3000D" identifier="s3000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <poweronsound file="%ModDir%/sound/dieseldeepstart.ogg" range="3000" loop="false" />      
+    </LightComponent>   
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
+        <Conditional IsOn="true" target="This"/>      
+        <sound file="%ModDir%/sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
+      </StatusEffect> 
+    </LightComponent>
+    <!-- Buffer Battery-->    
+    <PowerContainer capacity="100.0" maxrechargespeed="500.0" charge="100" maxoutput="3000.0" canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
+    </PowerContainer>
+
+   <RelayComponent canbeselected="true" powerconsumption="0.0" minvoltage="0.1" vulnerabletoemp="false" maxPower="3000" canbeoverloaded="false">
+    <GuiFrame relativesize="0.2,0.2" minsize="450,160" anchor="Center" relativeoffset="0.1,0.0"  style="ItemUI" />
+   </RelayComponent>
+   
+    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true">
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+
+      <!-- SLOT 0 Oil -->  
+      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
+      <!-- SLOT 1 Oil Filter -->  
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+      </SubContainer>
+      <!-- SLOTs 2-5 DieselFuel -->  
+      <SubContainer capacity="4" maxstacksize="1" hideitems="true">
+        <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+
+      <!-- SLOTs 6-7 Oxygen -->  
+      <SubContainer capacity="2" maxstacksize="1" hideitems="true">
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
+      </SubContainer>               
+    </ItemContainer>
+
+    <!-- Controls -->
+    <CustomInterface canbeselected="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>        
+      </Button>      
+    </CustomInterface>
+        
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin1"/>
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <input name="set_state" displayname="connection.setstate" />
+    </ConnectionPanel>
+    
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+      <!-- At least you followed protocal -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
+        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+    
+    </Repairable>
+  </Item>
+
+</Items>

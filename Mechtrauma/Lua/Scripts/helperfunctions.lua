@@ -3,6 +3,33 @@ MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neu
 
 -- Mechtrauma exclusive functions:
 
+-- subtracts single amount from a list of items sequentially  
+function MT.HF.subFromListSeq (amount, list)
+    for k, item in pairs(list) do
+        if amount > item.Condition then 
+            amount = amount - item.Condition
+            item.Condition = 0
+        else
+            item.Condition = item.Condition - amount
+            amount = 0
+        end
+    end
+end
+
+-- subtracts amount from list by dividing it equally
+function MT.HF.subFromListEqu (amount, list)
+    for k, item in pairs(list) do
+        item.Condition = item.Condition - (amount / #list)        
+    end
+end
+
+-- subtracts single amount from every item in a list
+function MT.HF.subFromListAll (amount, list)
+    for k, item in pairs(list) do
+        item.Condition = item.Condition - amount
+    end
+end
+
 -- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
 -- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
 function MT.HF.GetItemDepth(item)

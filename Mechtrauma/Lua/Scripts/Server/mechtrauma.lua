@@ -7,8 +7,7 @@ Hook.Add("signalReceived.water_pump", "MT.waterpumpGate", function(signal, conne
     if buffer[connection.Item] == nil then buffer[connection.Item] = {} end
     
     local itemBuffer = buffer[connection.Item]
-    
-    
+        
     if connection.Name == "gate_in" then
         itemBuffer[1] = signal.value
     end
@@ -28,12 +27,12 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
   local character
   -- if the human target isn't 10, loop through the targets and find the human
   if tostring(targets[10]) == "Human" then
-     character = targets[10] 
-    else 
+     character = targets[10]
+    else
       for k, v in pairs(targets) do
         if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?          
           character = targets[k] 
-          end              
+          end
       end
   end
   -- what are we holding? this will come in handy later
@@ -72,18 +71,29 @@ end)
 
 
 Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, deltaTime, item, targets, worldPosition)
-  local character = targets[8]
+  
+  local character
+  -- if the human target isn't 6, loop through the targets and find the human
+  if tostring(targets[6]) == "Human" then
+     character = targets[6]
+    else
+      for k, v in pairs(targets) do
+        if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?                    
+          character = targets[k] 
+          end
+      end
+  end
+  -- what are we holding?
   local rightHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.RightHand)
   local leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
 
   -- Check to see if NT is enabled
-  if NT then -- Yes? Neurotrauma amputation time! 
-
+  if NT and not character.IsBot then -- Yes? Neurotrauma amputation time!     
     -- Check the hands for an item with the tag "mechanicalrepairtool" in sequence to avoid cutting off both arms at once. We are merciful. 
     if rightHandItem.HasTag("mechanicalrepairtool") then
-      NT.TraumamputateLimb(targets[8],LimbType.RightArm)
+      NT.TraumamputateLimb(character,LimbType.RightArm)
     elseif leftHandItem.HasTag("mechanicalrepairtool") then
-      NT.TraumamputateLimb(targets[8],LimbType.LeftArm)    
+      NT.TraumamputateLimb(character,LimbType.LeftArm)    
     end
   else  
       --No? do something vanilla

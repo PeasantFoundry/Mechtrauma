@@ -12,6 +12,7 @@ MT.MinNTVersion = "A1.8.1"
 MT.MinNTVersionNum = 01080100
 Timer.Wait(function() if NTC ~= nil and NTC.RegisterExpansion ~= nil then NTC.RegisterExpansion(MT) end end,1)
 
+
 -- config loading
 if not File.Exists(MT.Path .. "/config.json") then
 
@@ -73,6 +74,7 @@ end
 Hook.Add("roundStart", "MT.roundStart", function()
     -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
     Game.poweredUpdateInterval = 1
+
 end)
 
 -- client-side code

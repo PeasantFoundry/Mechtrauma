@@ -21,27 +21,38 @@ MT.tagfunctions = {
         tags={"deepdiving","diving"},
         update=MT.F.divingSuit      
     },
-    centralComputer={
-        tags={"centralcomputer"},
-        update=MT.F.centralComputer
+    fuseBox={ 
+        tags={"fusebox"},
+        update=MT.F.fuseBox
+    },
+    oxygenVentSpawn={ --move to BT function table some day
+        tags={"oxygenventspawn"},
+        update=BT.F.oxygenVentSpawn
     },
     centralComputerNeeded={
         tags={"ccn"},
         update=MT.F.centralComputerNeeded
     },
+    dieselGenerator={
+        tags={"dieselGenerator"},
+        update=MT.F.dieselGenerator
+    },
+    steamBoiler={
+        tags={"steamBoiler"},
+        update=MT.F.steamBoiler
+    },
     steamTurbine={
         tags={"steamturbine"},
         update=MT.F.steamTurbine
     },
-    fuseBox={ 
-    tags={"fusebox"},
-    update=MT.F.fuseBox
+    reductionGear={
+        tags={"reductionGear"},
+        update=MT.F.reductionGear
     },
-    oxygenVentSpawn={ --move to BT function table some day
-        tags={"oxygenventspawn"},
-        update=BT.F.oxygenVentSpawn
+    centralComputer={
+        tags={"centralcomputer"},
+        update=MT.F.centralComputer
     }
-       
 }
   
 

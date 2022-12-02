@@ -20,8 +20,9 @@ local function ClearElements(guicomponent, removeItself)
         guicomponent.Parent.RemoveChild(guicomponent)
     end
 end
+local config = MT.Config
 local function DetermineDifficulty()
-    local config = MT.Config
+    
 
     local difficulty = 0
     local res = ""
@@ -73,10 +74,12 @@ MT.ShowGUI = function ()
     local innerFrame2 = GUI.Frame(GUI.RectTransform(Vector2(0.95, 0.95), innerFrame.RectTransform, GUI.Anchor.Center),"DeviceSliderSeeThrough")
 
     -- config section
-    local config = GUI.ListBox(GUI.RectTransform(Vector2(1.0, 0.3), innerFrame2.RectTransform, GUI.Anchor.TopCenter),false, Color.Red, "GUIFrameListBox")
+    local config = GUI.ListBox(GUI.RectTransform(Vector2(1.0, 0.25), innerFrame2.RectTransform, GUI.Anchor.TopCenter),false, Color.Red, "GUIFrameListBox")
 
     -- category section
-    local category = GUI.ListBox(GUI.RectTransform(Vector2(1.0, 0.5), innerFrame2.RectTransform, GUI.Anchor.BottomCenter),false, nil, "GUIFrameListBox")
+    local category = GUI.ListBox(GUI.RectTransform(Vector2(1.0, 0.7), innerFrame2.RectTransform, GUI.Anchor.BottomCenter),false, nil, "GUIFrameListBox")
+    category.KeepSpaceForScrollBar = true
+    category.ScrollBarVisible = true
 
     -- save / close section
     --local menu = GUI.ListBox(GUI.RectTransform(Vector2(1.0, 0.55), innerFrame2.RectTransform, GUI.Anchor.BottomCenter),false, nil, "GUIFrameListBox")
@@ -112,6 +115,7 @@ MT.ShowGUI = function ()
     configCategory.AddItem("Experiemental Features ", 2)
     configCategory.AddItem("Biotrauma", 3)
     --configCategory.AddItem("BANNER", 4)
+    
     configCategory.OnSelected = function (guiComponent, object)        
         -----------| GENERAL BALANCE |-------------|
         if object == 0 then
@@ -119,10 +123,10 @@ MT.ShowGUI = function ()
             ClearElements(category.Content, true)
 
             -- DivingSuit: Service Life Description
-            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Diving Suit Service Life (Minutes)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Diving Suit Service Life (min)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
             "How long it takes for a diving suit to deteriorate from 100 to 0 condition. Low pressure diving suits last twice as long A service life 0.0 will disable deterioration and extended pressure protection."
             -- divingSuitServiceLife group
-            local divingSuitServiceLifeG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+            local divingSuitServiceLifeG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
             --divingSuitServiceLife sprite
             local divingSuitServiceLifeS = ItemPrefab.GetItemPrefab("divingsuit").InventoryIcon
             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), divingSuitServiceLifeG.RectTransform), divingSuitServiceLifeS)
@@ -132,17 +136,17 @@ MT.ShowGUI = function ()
             divingSuitServiceLife.valueStep = 10.0
             divingSuitServiceLife.MinValueFloat = 0.0
             divingSuitServiceLife.MaxValueFloat = 120
-            divingSuitServiceLife.FloatValue = MT.Config.diveSuitDeteriorateRate
+            divingSuitServiceLife.FloatValue = MT.Config.divingSuitServiceLife 
             divingSuitServiceLife.OnValueChanged = function ()
                 MT.Config.divingSuitServiceLife = divingSuitServiceLife.FloatValue
                 OnChanged()
-            end        
+            end
 
             -- DivingSuit: Extended Pressure Protection Description
-            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Diving Suit Extended Pressure Protection (multiplier)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
-            "1.0 = disabled"
+            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Diving Suits: Extended Pressure Protection (multiplier)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+            "EPP allowed players to exceed max pressure of a diving suit resulting in exponential damage to the suit. Setting this to 1.0 will disable this feature."
              -- divingSuitEPP group
-             local divingSuitEPPG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+             local divingSuitEPPG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
             --divingSuitEPP sprite
             local divingSuitServiceLifeS = ItemPrefab.GetItemPrefab("dry_suit").InventoryIcon
             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), divingSuitEPPG.RectTransform), divingSuitServiceLifeS)
@@ -157,18 +161,168 @@ MT.ShowGUI = function ()
                 MT.Config.divingSuitEPP = divingSuitEPP.FloatValue
                 OnChanged()
             end
+
+            -- SteamBoiler: Circulator Pump Service Life 
+            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Standard Circulator Pump Service Life (min)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+            "Standard Circulator Pump Service Life (min)"
+            -- circulatorServiceLife group
+            local circulatorServiceLifeG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+            --bearing sprite
+            local circulatorServiceLifeS = ItemPrefab.GetItemPrefab("circulator_pump").InventoryIcon
+            local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), circulatorServiceLifeG.RectTransform), circulatorServiceLifeS)
+            image.ToolTip = "Bearing"
+            -- DivingSuit: Extended Pressure Protection Setting (multiplier)
+            local circulatorServiceLife = GUI.NumberInput(GUI.RectTransform(Vector2(0.9,0.1), circulatorServiceLifeG.RectTransform), NumberType.Float)
+            circulatorServiceLife.valueStep = 0.5
+            circulatorServiceLife.MinValueFloat = 0.5
+            circulatorServiceLife.MaxValueFloat = 60.0
+            circulatorServiceLife.FloatValue = MT.Config.circulatorServiceLife
+            circulatorServiceLife.OnValueChanged = function ()
+                MT.Config.circulatorServiceLife = circulatorServiceLife.FloatValue
+                MT.Config.circulatorDPS = 100 / (MT.Config.circulatorServiceLife * 60)
+                OnChanged()
+            end
+
+             -- Thrust Bearing Deterioration
+             GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Standard Thrust Bearing Service Life (min)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+             "10"
+             -- bearingServiceLife group
+             local bearingServiceLifeG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+             --bearing sprite
+             local bearingServiceLifeS = ItemPrefab.GetItemPrefab("bearing").InventoryIcon
+             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), bearingServiceLifeG.RectTransform), bearingServiceLifeS)
+             image.ToolTip = "Bearing"
+             -- DivingSuit: Extended Pressure Protection Setting (multiplier)
+             local bearingServiceLife = GUI.NumberInput(GUI.RectTransform(Vector2(0.9,0.1), bearingServiceLifeG.RectTransform), NumberType.Float)
+             bearingServiceLife.valueStep = 0.5
+             bearingServiceLife.MinValueFloat = 0.5
+             bearingServiceLife.MaxValueFloat = 60
+             bearingServiceLife.FloatValue = MT.Config.bearingServiceLife
+             bearingServiceLife.OnValueChanged = function ()
+                MT.Config.bearingServiceLife = bearingServiceLife.FloatValue
+                MT.Config.bearingDPS = 100 / (MT.Config.bearingServiceLife * 60)                 
+                 OnChanged()
+             end
        
-        -----------| ADVANCED BALLANCE |-------------| 
+              -- oilFilter Standard Service Life (min)
+              GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Standard Oil Filter Service Life (min)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+              "Service Life (mins) for a standard oil filter (100 condition)."
+              -- oilFilter Service Life group
+              local oilFilterServiceLifeG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+              --oilFilter sprite
+              local oilFilterServiceLifeS = ItemPrefab.GetItemPrefab("oil_filter").InventoryIcon
+              local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), oilFilterServiceLifeG.RectTransform), oilFilterServiceLifeS)
+              image.ToolTip = "Oil Filter"
+              -- oilFilter Deterioration Setting (multiplier)
+              local oilFilterServiceLife = GUI.NumberInput(GUI.RectTransform(Vector2(0.9,0.1), oilFilterServiceLifeG.RectTransform), NumberType.Float)
+              oilFilterServiceLife.valueStep = 0.5
+              oilFilterServiceLife.MinValueFloat = 0.5
+              oilFilterServiceLife.MaxValueFloat = 60
+              oilFilterServiceLife.FloatValue = MT.Config.oilFilterServiceLife
+              oilFilterServiceLife.OnValueChanged = function ()
+                  MT.Config.oilFilterServiceLife = oilFilterServiceLife.FloatValue
+                  MT.Config.oilFilterDPS = 100 / (MT.Config.oilFilterServiceLife * 60)
+                  OnChanged()
+              end
+
+            -- oil Filtration Efficieny / Oil Deterioration Modifier
+            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Oil Filtration Efficiency Rating (%)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
+            "This determines how long filtered oil will last in machines. A 100% efficiency rating will eliminate oil deterioration."
+            -- oil Deterioration group
+            local oilFiltrationEPG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+            --oil sprite
+            local oilFiltrationES = ItemPrefab.GetItemPrefab("oil_can").InventoryIcon
+            local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), oilFiltrationEPG.RectTransform), oilFiltrationES)
+            image.ToolTip = "Oil Can"
+            -- oil Deterioration Setting (multiplier)
+            local oilFiltrationEP = GUI.NumberInput(GUI.RectTransform(Vector2(0.9,0.1), oilFiltrationEPG.RectTransform), NumberType.Float)
+            oilFiltrationEP.valueStep = 1.0
+            oilFiltrationEP.MinValueFloat = 1.0
+            oilFiltrationEP.MaxValueFloat = 100.0
+            oilFiltrationEP.FloatValue = MT.Config.oilFiltrationEP
+            oilFiltrationEP.OnValueChanged = function ()
+                MT.Config.oilFiltrationEP = oilFiltrationEP.FloatValue
+                MT.Config.oilFiltrationM = MT.Config.oilFiltrationEP / 100
+                OnChanged()
+            end
+        -----------| ADVANCED BALANCE |-------------| 
         elseif object == 1 then
             -- clear the previous results 
             ClearElements(category.Content, true)
+            
+             -- Diesel Generator Efficiency
+             GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Diesel Generator Efficiency ", nil, nil, GUI.Alignment.Center, true).ToolTip =
+             "How much energy is lost ."
+
+             -- dieselGeneratorEfficiency
+            local dieselGeneratorEfficiencyG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+            -- dieselGeneratorEfficiency sprite
+            local dieselGeneratorEfficiencyS = ItemPrefab.GetItemPrefab("s1500D").InventoryIcon
+            local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), dieselGeneratorEfficiencyG.RectTransform), dieselGeneratorEfficiencyS)
+            image.ToolTip = "Diesel fuel can."
+
+            local dieselGeneratorEfficiency = GUI.NumberInput(GUI.RectTransform(Vector2(0.9, 0.1), dieselGeneratorEfficiencyG.RectTransform), NumberType.Float)
+            dieselGeneratorEfficiency.valueStep = 1.0
+            dieselGeneratorEfficiency.MinValueFloat = 20.0
+            dieselGeneratorEfficiency.MaxValueFloat = 1
+            dieselGeneratorEfficiency.FloatValue = MT.Config.dieselGeneratorEfficiency
+            dieselGeneratorEfficiency.OnValueChanged = function ()
+                MT.Config.dieselGeneratorEfficiency = dieselGeneratorEfficiency.FloatValue
+                OnChanged()
+            end
+
+              -- Diesel (condition) to Power Ratio
+              GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Conversion Ratio: HorsePower:DieselFuel(1L)", nil, nil, GUI.Alignment.Center, true).ToolTip =
+              "kWh of power contained within 1 liter of diesel."
+ 
+              -- dieselPowerRatio group
+             local dieselHorsePowerRatioG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+             --dieselPowerRatio sprite
+             local dieselHorsePowerRatioS = ItemPrefab.GetItemPrefab("diesel_fuel_can").InventoryIcon
+             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), dieselHorsePowerRatioG.RectTransform), dieselHorsePowerRatioS)
+             image.ToolTip = "Diesel fuel can."
+ 
+             local dieselHorsePowerRatioL = GUI.NumberInput(GUI.RectTransform(Vector2(0.9, 0.1), dieselHorsePowerRatioG.RectTransform), NumberType.Float)
+             dieselHorsePowerRatioL.valueStep = 0.1
+             dieselHorsePowerRatioL.MinValueFloat = 0.2
+             dieselHorsePowerRatioL.MaxValueFloat = 25
+             dieselHorsePowerRatioL.FloatValue = MT.Config.dieselHorsePowerRatioL
+             dieselHorsePowerRatioL.OnValueChanged = function ()
+                 MT.Config.dieselHorsePowerRatioL = dieselHorsePowerRatioL.FloatValue
+                 MT.Config.dieselHorsePowerRatioDL = MT.Config.dieselHorsePowerRatioL * 10
+                 MT.Config.dieselHorsePowerRatioCL = MT.Config.dieselHorsePowerRatioL * 100
+                 OnChanged()
+             end
+
+             -- Diesel (condition) to Oxygen combustion Ratio. (Devices with a fuseBox.)
+             GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Conversion Ratio: OxygenUnit:DieselFuel(1L)  ", nil, nil, GUI.Alignment.Center, true).ToolTip =
+             "Diesel engine air to fuel ratio. The units of oxygen required to combust 1 liter of diesel. 7:1 air to fuel is default for Mechtrauma. "
+
+             -- dieselOxygenRatio group
+            local dieselOxygenRatioG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
+            --dieselPowerRatio sprite
+            local dieselOxygenRatioS = ItemPrefab.GetItemPrefab("diesel_fuel_can").InventoryIcon
+            local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), dieselOxygenRatioG.RectTransform), dieselOxygenRatioS)
+            image.ToolTip = "Diesel fuel can."
+
+            local dieselOxygenRatioL = GUI.NumberInput(GUI.RectTransform(Vector2(0.9, 0.1), dieselOxygenRatioG.RectTransform), NumberType.Float)
+            dieselOxygenRatioL.valueStep = 1.0
+            dieselOxygenRatioL.MinValueFloat = 1.0
+            dieselOxygenRatioL.MaxValueFloat = 14
+            dieselOxygenRatioL.FloatValue = MT.Config.dieselOxygenRatioL
+            dieselOxygenRatioL.OnValueChanged = function ()
+                MT.Config.dieselOxygenRatioL = dieselOxygenRatioL.FloatValue
+                MT.Config.dieselOxygenRatioDL = MT.Config.dieselOxygenRatioL * 10
+                MT.Config.dieselOxygenRatioCL = MT.Config.dieselOxygenRatioL * 100
+                OnChanged()
+            end
 
              -- Electrical device detirioration. (Devices with a fuseBox.)
              GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "fuseBox device deterioration (rate) ", nil, nil, GUI.Alignment.Center, true).ToolTip =
              "The deterioration rate fuseBox will suffer if it does not have a fuse in it. Fueses will deteriorate at 10% the speed of this rate"
 
              -- fusBoxDeterioration group
-            local fusBoxDeteriorationG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+            local fusBoxDeteriorationG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
             --fusBoxDeterioration sprite
             local fusBoxDeteriorationS = ItemPrefab.GetItemPrefab("electrical_panel").InventoryIcon
             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), fusBoxDeteriorationG.RectTransform), fusBoxDeteriorationS)
@@ -184,12 +338,11 @@ MT.ShowGUI = function ()
                 OnChanged()
             end
  
-
             -- Fuse overvoltage base damage
             GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "fuseOvervoltDamage base damage", nil, nil, GUI.Alignment.Center, true)
 
             -- fuseOvervoltDamage group
-            local fuseOvervoltDamageG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+            local fuseOvervoltDamageG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
             --fuseSpite
             local fuseSprite = ItemPrefab.GetItemPrefab("fuse").InventoryIcon
             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), fuseOvervoltDamageG.RectTransform), fuseSprite)
@@ -221,7 +374,6 @@ MT.ShowGUI = function ()
            end
 
 
-           
            --[[
            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Diesel consumption rate multiplier (NYI)", nil, nil, GUI.Alignment.Center, true).ToolTip = "Diesel is pretty cool!"  
            local dieselGroup = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
@@ -239,7 +391,7 @@ MT.ShowGUI = function ()
            dieselDrainRate.OnValueChanged = function ()
                MT.Config.dieselDrainRate = dieselDrainRate.FloatValue
                OnChanged()
-           end  
+           end  ]]
        
            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Pump Gate deterioration rate multiplier", nil, nil, GUI.Alignment.Center, true)
            local pumpGateDeteriorateRate = GUI.NumberInput(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), NumberType.Float)
@@ -276,8 +428,28 @@ MT.ShowGUI = function ()
            
             local mechtraumaBanner = Sprite(MT.Path .. "/images/mechtrauma_eys.png")
             GUI.Image(GUI.RectTransform(Vector2(.75,.75), category.Content.RectTransform, GUI.Anchor.Center), mechtraumaBanner)
-            
-        end
+
+            -- Diesel Generator Efficiency
+            GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Oil base DPS ", nil, nil, GUI.Alignment.Center, true).ToolTip =
+            "How much energy is lost ."
+
+            -- dieselGeneratorEfficiency
+            local oilBaseDPSG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true)
+            -- dieselGeneratorEfficiency sprite
+            local oilBaseDPSS = ItemPrefab.GetItemPrefab("oil_can").InventoryIcon
+            local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), oilBaseDPSG.RectTransform), oilBaseDPSS)
+            image.ToolTip = "Diesel fuel can."
+
+            local oilBaseDPS = GUI.NumberInput(GUI.RectTransform(Vector2(0.9, 0.1), oilBaseDPSG.RectTransform), NumberType.Float)
+            oilBaseDPS.valueStep = 1.0
+            oilBaseDPS.MinValueFloat = 20.0
+            oilBaseDPS.MaxValueFloat = 1
+            oilBaseDPS.FloatValue = MT.Config.oilBaseDPS
+            oilBaseDPS.OnValueChanged = function ()
+                MT.Config.oilBaseDPS = oilBaseDPS.FloatValue
+                OnChanged()
+            end
+        end       
     end
 
 
