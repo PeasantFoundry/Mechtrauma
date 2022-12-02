@@ -726,7 +726,7 @@
 
 
   <!-- WATER PUMP: -->
-  <Item name="Water Pump" identifier="water_pump" tags="pump,mtpump,repairable,test" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+  <Item name="Water Pump" identifier="water_pump" tags="pump,mtpump,repairable,test" linkable="true" category="Machine" scale="0.4" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="0,0,220,440" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/images/pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="220,0,220,440" maxcondition="80" fadein="true" />
@@ -737,11 +737,11 @@
       <AnimationConditional Voltage="gt 0.3" targetitemcomponent="Pump" />
       <AnimationConditional CurrFlow="gt 0.0" targetitemcomponent="Pump" />
       <IsActiveConditional Condition="gt 0.0" />
-    </DecorativeSprite> -->
+    </DecorativeSprite> 
     <DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.78" offset="-130,70" sourcerect="109,456,43,43"/>
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
       <sprite texture="%ModDir%/images/mechtrauma_pumps.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
-    </LightComponent>
+    </LightComponent>-->
 
     <Pump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
       <!-- TODO: define max size-->
@@ -818,10 +818,10 @@
    <!-- WATER PUMP A1: -->
   <Item name="Water Pump A1" identifier="water_pump_a1" tags="pump,mtpump,Repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
-    <Sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,0,492,342" depth="0.701" origin="0.5,0.5"/>
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,384,492,342" depth="0.017" maxcondition="0" />
-    <InfectedSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,0,492,342" depth="0.701" origin="0.5,0.5"/>
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,384,492,342" depth="0.017" maxcondition="0" />
+    <InfectedSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
 
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
       <sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
@@ -902,10 +902,10 @@
 
    <!-- WATER PUMP: -->
   <Item name="Water Pump A2" identifier="water_pump_a2" tags="pump,mtpump,repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
-    <Sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,0,492,342" depth="0.701" origin="0.5,0.5"/>
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,384,492,342" depth="0.017" maxcondition="0" />
-    <InfectedSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1024,1152,492,342" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="1024,0,492,342" depth="0.701" origin="0.5,0.5"/>
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="1024,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="1024,384,492,342" depth="0.017" maxcondition="0" />
+    <InfectedSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="1024,1152,492,342" origin="0.5,0.5"/>
 
     <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.79" offset="-130,70" sourcerect="52,456,43,43" origin="0.5,0.5" rotationspeed="-360">
       <AnimationConditional Voltage="gt 0.3" targetitemcomponent="Pump" />
@@ -991,10 +991,10 @@
 
    <!-- WATER PUMP: -->
   <Item name="Water Pump A2" identifier="water_pump_a3" tags="pump,mtpump,repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
-    <Sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="0,0,492,342" depth="0.701" origin="0.5,0.5"/>
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="0,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="0,384,492,342" depth="0.017" maxcondition="0" />
-    <InfectedSprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="0,1152,492,342" origin="0.5,0.5"/>
+    <Sprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="0,0,492,342" depth="0.701" origin="0.5,0.5"/>
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="0,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="0,384,492,342" depth="0.017" maxcondition="0" />
+    <InfectedSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="0,1152,492,342" origin="0.5,0.5"/>
 
     <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.79" offset="-130,70" sourcerect="52,456,43,43" origin="0.5,0.5" rotationspeed="-360">
       <AnimationConditional Voltage="gt 0.3" targetitemcomponent="Pump" />
@@ -1003,7 +1003,7 @@
     </DecorativeSprite> -->
     <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.78" offset="-130,70" sourcerect="109,456,43,43"/>-->
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
-      <sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
+      <sprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
     </LightComponent>
 
     <Pump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">

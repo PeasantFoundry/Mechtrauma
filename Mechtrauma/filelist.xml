@@ -16,6 +16,7 @@
   <Text file="%ModDir%/Localization/LatinamericanSpanish/LatinamericanSpanish.xml" />
   <Text file="%ModDir%/Localization/Polish/Polish.xml" />
   <Text file="%ModDir%/Localization/Turkish/Turkish.xml" />
+  <Other file="%ModDir%/images/pumps/MT_PUMPS_LARGE.png" />
   <Other file="%ModDir%/images/lcd.png" />
   <Other file="%ModDir%/images/gunners_chair.png" />
   <Other file="%ModDir%/images/mt_turrets.png" />

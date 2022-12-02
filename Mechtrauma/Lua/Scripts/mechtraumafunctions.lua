@@ -278,10 +278,9 @@ function MT.F.centralComputerNeeded(item)
     end
 end
 
-
 -- STEAM Boiler: the beloved steam turbine...
 function MT.F.steamBoiler(item)
-    
+
     --<!-- Deteriorate the Circulator Pumps -->
     -- -0.05 deterioration per 2 second when powered
     local index = 0
