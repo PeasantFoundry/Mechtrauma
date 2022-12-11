@@ -3,10 +3,22 @@ MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neu
 
 -- Mechtrauma exclusive functions:
 
+-- add function for removing useless lag causing items broken fuses,filters,emptycrates,
+function MT.HF.MechtraumaClean()
+    for k, item in pairs(Item.ItemList) do        
+        --if item.ParentInventory == nil then print("THIS ITEM IS LOOSE!", item) end
+        if item.parentInventory == nil and item.ConditionPercentage <= 0 then 
+            MT.HF.RemoveItem(item)
+            print("REMOVED: ", item)
+        end
+        
+    end
+end
+
 -- subtracts single amount from a list of items sequentially  
 function MT.HF.subFromListSeq (amount, list)
     for k, item in pairs(list) do
-        if amount > item.Condition then 
+        if amount > item.Condition then
             amount = amount - item.Condition
             item.Condition = 0
         else
@@ -69,21 +81,22 @@ function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
 end
 
 -- utility for checking there are missing items from the cache
-function MT.HF.VerifyItemCache()  
-    print(" MT.itemCache BEFORE update: ",  MT.itemCacheCount)
+function MT.HF.VerifyItemCache()
+    print(" MT.itemCache BEFORE update: ", MT.itemCacheCount)
     -- flag the round as started    
         -- loop through the item list and find items for the cache
         for k, item in pairs(Item.ItemList) do  
            if item.HasTag("mtu") or (item.HasTag("diving") and item.HasTag("deepdiving")) then            
-                if  MT.itemCache[item] then 
-                    print("Item Already Exists: ", item)                                     
-                else 
+                if  MT.itemCache[item] then
+                    print("Item Already Exists: ", item)
+                else
                     print("Found a missing item: ", item, "adding it to the cache")                    
                      MT.itemCache[item] = true
+                     MT.itemCache[item].counter = 0
                      MT.itemCacheCount =  MT.itemCacheCount + 1
-                end                 
-           end  
-       end       
+                end
+           end
+       end
        print(" MT.itemCache AFTER update: ",  MT.itemCacheCount)
        
 end
@@ -98,7 +111,7 @@ function MT.HF.ItemIsWornInOuterClothesSlot(item)
   return true
   end
 --this is a testing function for damaging machines 
-  function MT.HF.damageFocusedItem(amount)
+  function MT.HF.DamageFocusedItem(amount)
     local item = Client.ClientList[1].Character.FocusedItem
     item.condition = item.condition - amount
     end
@@ -307,8 +320,14 @@ function MT.HF.DMClient(client,msg,color)
     end
 end
 
+-- % chance
 function MT.HF.Chance(chance)
     return math.random() < chance
+end
+
+-- eventsTrue / totalEvents probability
+function MT.HF.Probability( eventsTrue, totalEvents)
+    return math.random(1,totalEvents) <= eventsTrue  
 end
 
 function MT.HF.BoolToNum(val,trueoutput)

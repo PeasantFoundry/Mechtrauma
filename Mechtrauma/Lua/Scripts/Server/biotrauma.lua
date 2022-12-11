@@ -24,13 +24,13 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
         
         
      
-        if outcome > 0 then
+        if outcome > 0 then -- this is a hack the disables failure
         --print("sucess, spawning an item with an outcome of:", outcome)
             Entity.Spawner.AddItemToSpawnQueue(samplePrefab, item.OwnInventory, nil, nil, function(item) end)
             -- attempt to clear the previous message
             -- terminal.ReceiveSignal(Signal(1),term.Connections[4])              
             terminal.ShowMessage = "*******POSITIVE*******"
-            terminal.ShowMessage = "Compound A4 has been identified in sample tube."             
+            terminal.ShowMessage = "Compound A4 has been identified in sample tube."
        
             
             if SERVER then
@@ -41,7 +41,7 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
           
         else
             terminal.ShowMessage = "*******NEGATIVE*******"
-            terminal.ShowMessage = "No known compound has been identified."    
+            terminal.ShowMessage = "No known compound has been identified."
 
         --print("failure, not spawning an item with an outcome of:", outcome)
         --print(item.GetComponentString("ItemContainer"))      

@@ -54,6 +54,22 @@
   <entityname.battery_bank_wr>Battery Bank</entityname.battery_bank_wr>
   <entitydescription.battery_bank_wr>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank_wr>
 
+ <!-- =============< COMPUTERS >=============  -->
+  <entityname.status_console>Status Console</entityname.status_console>
+  <entitydescription.status_console>Alternative Status Monitor.</entitydescription.status_console>
+
+  <entityname.engineering_console>Engineering Console</entityname.engineering_console>
+  <entitydescription.engineering_console>Alternative Status Monitor.</entitydescription.engineering_console>
+
+  <entityname.command_console>Command Console</entityname.command_console>
+  <entitydescription.command_console>Alternative Navigation Terminal.</entitydescription.command_console>
+
+  <entityname.central_computer>Central Computer</entityname.central_computer>
+  <entitydescription.central_computer>Central Computing System for enabling devices.</entitydescription.central_computer>
+
+  <entityname.mt_maintenance_tablet>Maintenance Tablet</entityname.mt_maintenance_tablet>
+  <entitydescription.mt_maintenance_tablet>Mobile computer for running .</entitydescription.mt_maintenance_tablet>
+
  <!-- =============< ITEMS >=============  -->
 
   <entityname.keys>Keys</entityname.keys>
@@ -186,11 +202,25 @@
   <entitydescription.diesel_fuel_barrel>A 50gallon barrel of Diesel Fuel.</entitydescription.diesel_fuel_barrel>
 
   <!-- =============< MACHINES >=============  -->
+
+  <!-- Water Pumps -->
   <entityname.water_pump_small>Small Water Pump</entityname.water_pump_small>
   <entitydescription.water_pump_small>For moving water.</entitydescription.water_pump_small>
 
-  <entityname.water_pump>Water Pump</entityname.water_pump>
-  <entitydescription.water_pump>For moving water.</entitydescription.water_pump>
+  <entityname.water_pumpT1>Water Pump T1</entityname.water_pumpT1>
+  <entitydescription.water_pumpT1>A tall pump for moving water.</entitydescription.water_pumpT1>
+
+  <entityname.water_pumpT2>Water Pump T2</entityname.water_pumpT2>
+  <entitydescription.water_pumpT2>A tall pump for moving water.</entitydescription.water_pumpT2>
+
+  <entityname.water_pump_a1>Water Pump A1</entityname.water_pump_a1>
+  <entitydescription.water_pump_a1>A large pump for moving water.</entitydescription.water_pump_a1>
+
+  <entityname.water_pump_a2>Water Pump A2</entityname.water_pump_a2>
+  <entitydescription.water_pump_a2>A large pump for moving water.</entitydescription.water_pump_a2>
+
+  <entityname.water_pump_a3>Water Pump A3</entityname.water_pump_a3>
+  <entitydescription.water_pump_a3>A large pump for moving water.</entitydescription.water_pump_a3>
 
   <entityname.water_pump_gate>Water Pump Gate</entityname.water_pump_gate>
   <entitydescription.water_pump_gate>Requires moving water.</entitydescription.water_pump_gate>
@@ -232,7 +262,10 @@
   <entityname.reduction_gear>Reduction Gear</entityname.reduction_gear>
   <entitydescription.reduction_gear>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear>
 
-  <!-- Powertrain for easy mode  -->
+  <entityname.reduction_gearv2>Reduction Gear</entityname.reduction_gearv2>
+  <entitydescription.reduction_gearv2>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gearv2>
+
+  <!-- Powertrain for easy mode  
   <entityname.boiler_p>Steam Boiler for Peasants</entityname.boiler_p>
   <entitydescription.boiler_p>Generates steam. -50% part deterioration speed.</entitydescription.boiler_p>
 
@@ -240,14 +273,23 @@
   <entitydescription.steam_turbine_p>Converts steam energy into kinetic engery. -50% part deterioration speed.</entitydescription.steam_turbine_p>
 
   <entityname.reduction_gear_p>Reduction Gear for Peasants</entityname.reduction_gear_p>
-  <entitydescription.reduction_gear_p>Converts high speed low torque into low speed high torque. -50% part deterioration speed.</entitydescription.reduction_gear_p>
+  <entitydescription.reduction_gear_p>Converts high speed low torque into low speed high torque. -50% part deterioration speed.</entitydescription.reduction_gear_p>-->
   
   <entityname.diesel_fuel_tank>Diesel Fuel Tank</entityname.diesel_fuel_tank>
   <entitydescription.diesel_fuel_tank>Ship's Diesel Fuel tank. Refills cans from barrels. </entitydescription.diesel_fuel_tank>
 
   <!-- Diesel Generators -->
   <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
-  <entitydescription.s1500D>Emergency backup diesel generator rated for 1500kw.</entitydescription.s1500D>
+  <entitydescription.s1500D>Emergency backup diesel generator rated: for 1500kw.</entitydescription.s1500D>
+
+  <entityname.sC2500Da>Series C-2500Da</entityname.sC2500Da>
+  <entitydescription.sC2500Da>Enclosed Diesel generator: rated for 2500kw.</entitydescription.sC2500Da>
+
+  <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
+  <entitydescription.s1500D>Emergency backup diesel generator: rated for 1500kw.</entitydescription.s1500D>
+
+  <entityname.s3000D>s3000D Diesel Generator</entityname.s3000D>
+  <entitydescription.s3000D>Open Chasis Diesel generator: rated for 5000kw.</entitydescription.s3000D>
 
   <entityname.S5000D>s5000D Diesel Generator</entityname.S5000D>
   <entitydescription.S5000D>Diesel generator rated for 5000kw.</entitydescription.S5000D>
@@ -262,6 +304,9 @@
   <entitydescription.trashcan>Dispose of unwanted items midround.</entitydescription.trashcan>
 
   <!-- =============< CONTAINERS >=============  -->
+  <entityname.storage_cabinet>Storage Cabinet</entityname.storage_cabinet>
+  <entitydescription.storage_cabinet>For storing small items.</entitydescription.storage_cabinet>
+
   <entityname.closet>Storage Closet</entityname.closet>
   <entitydescription.closet>For storing large items.</entitydescription.closet>
 
@@ -331,8 +376,6 @@
 
 
  <!-- =============< NEW ITEMS >=============  -->
-  <entityname.storage_cabinet>Storage Cabinet</entityname.storage_cabinet>
-  <entitydescription.storage_cabinet>For storing small items.</entitydescription.storage_cabinet>
 
   <entityname.emergency_disconnect>Emergency Disconnect</entityname.emergency_disconnect>
   <entitydescription.emergency_disconnect>Emergency Power Disconnect.</entitydescription.emergency_disconnect>
@@ -343,6 +386,10 @@
 
 <connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
 <connection.kineticout>Kinetic_Out</connection.kineticout>
+
+<!-- Display names -->
+<displayname.refititem>[itemname] (refit)</displayname.refititem>
+
 
 
 

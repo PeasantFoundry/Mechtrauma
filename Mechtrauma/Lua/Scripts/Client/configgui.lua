@@ -110,13 +110,18 @@ MT.ShowGUI = function ()
 
     -- Drop down for selecting config Category
     local configCategory = GUI.DropDown(GUI.RectTransform(Vector2(1, 0.15), config.Content.RectTransform), "Select Category", 4, nil, false)
+    category.OnSelected = function(component, object)
+        return false
+      end
     configCategory.AddItem("General Balance", 0)
     configCategory.AddItem("Advanced Balance", 1)
     configCategory.AddItem("Experiemental Features ", 2)
     configCategory.AddItem("Biotrauma", 3)
     --configCategory.AddItem("BANNER", 4)
-    
+
+
     configCategory.OnSelected = function (guiComponent, object)        
+       
         -----------| GENERAL BALANCE |-------------|
         if object == 0 then
             -- clear the previous results 
@@ -161,6 +166,7 @@ MT.ShowGUI = function ()
                 MT.Config.divingSuitEPP = divingSuitEPP.FloatValue
                 OnChanged()
             end
+            
 
             -- SteamBoiler: Circulator Pump Service Life 
             GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.05), category.Content.RectTransform), "Standard Circulator Pump Service Life (min)", nil, nil, GUI.Alignment.Center, true).ToolTip = 
@@ -296,7 +302,7 @@ MT.ShowGUI = function ()
 
              -- Diesel (condition) to Oxygen combustion Ratio. (Devices with a fuseBox.)
              GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Conversion Ratio: OxygenUnit:DieselFuel(1L)  ", nil, nil, GUI.Alignment.Center, true).ToolTip =
-             "Diesel engine air to fuel ratio. The units of oxygen required to combust 1 liter of diesel. 7:1 air to fuel is default for Mechtrauma. "
+             "Diesel engine air to fuel ratio. The units of oxygen required to combust 1 liter of diesel. 7:1 air to fuel is default for Mechtrauma. A LOWER NUMBER MEANS THE DIESEL USE LESS OXYGEN. "
 
              -- dieselOxygenRatio group
             local dieselOxygenRatioG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)

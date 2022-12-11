@@ -190,6 +190,7 @@
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
       </StatusEffect>
+      
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->

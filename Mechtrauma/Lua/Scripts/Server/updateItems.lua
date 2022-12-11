@@ -5,14 +5,9 @@ Hook.Add("roundStart", "MT.roundStart", function()
     print("MT ROUND STARTED:", mtRoundStarted)
     
     -- this is how many items we found in the MT.itemCache
-    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.") 
+    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")
    
-    -- check how many oxygenvents there are so that we only do it once per round. 
-    for k, item in pairs(Item.ItemList) do   
-        if item.Prefab.Identifier.Value == "oxygen_vent" then 
-            OxygenVentCount = OxygenVentCount + 1            
-        end
-    end       
+
 end)
 
 --table of tag functions - this is for mapping items to update functions
@@ -60,18 +55,17 @@ MT.tagfunctions = {
 function MT.updateItems()    
     local updateItemsCounter = 0
     if Game.GameSession == nil or MT.HF.GameIsPaused()then return end
-   
+    
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
     for key, value in pairs(MT.itemCache) do
         -- make sure the items still exists 
         if (key ~= nil and not key.Removed) then
             Timer.Wait(function ()
-                if (key ~= nil and not key.Removed) then 
-                    MT.UpdateItem(key) 
+                if (key ~= nil and not key.Removed) then
+                    MT.UpdateItem(key)
                     updateItemsCounter = updateItemsCounter + 1
                 end
-
-            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)
+            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)        
         end
     end
 end
@@ -94,28 +88,36 @@ function MT.UpdateItem(item)
         end
     end
 
-end    
+end
+
+-- adds eligible items to the item cache
+function MT.CacheItem(item)
+    
+    if not MT.itemCache[item] then
+        -- CHECK: should this item be in the cache
+       if item.HasTag("mtu") or item.HasTag("mtupdate") then
+        -- CHECK: if the item is already in the cache, if not - add it.   
+            MT.itemCache[item] = {}
+            MT.itemCache[item].counter = 0
+            MT.itemCacheCount = MT.itemCacheCount + 1
+        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this but it's for compatability
+                MT.itemCache[item] = {}
+                MT.itemCache[item].counter = 0
+                MT.itemCacheCount = MT.itemCacheCount + 1
+        end
+        
+    end
+end
 
 -- check new items and add matches to the MT.itemCache
-Hook.add("item.created", "MT.newItem", function(item) 
-      -- check if this item should be added to the item cache     
-        if item.HasTag("mtu") or item.HasTag("mtupdate") then
-            if not MT.itemCache[item] then 
-                MT.itemCache[item] = true
-                MT.itemCacheCount = MT.itemCacheCount + 1
-            end
-        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this
-            if not MT.itemCache[item] then 
-                MT.itemCache[item] = true 
-                MT.itemCacheCount = MT.itemCacheCount + 1
-            end                        
-        end  
+Hook.add("item.created", "MT.newItem", function(item)
+    MT.CacheItem(item)
 end)
 
 -- end of round housekeeping
 Hook.Add("roundEnd", "MT.roundEnd", function()
     -- clear the update item cache so we don't carry anything over accidentally
-    MT.itemCache = {}    
+    MT.itemCache = {}
     MT.itemCacheCount = 0
     -- track that the round is over
     mtRoundStarted = false

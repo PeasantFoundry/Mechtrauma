@@ -3,7 +3,7 @@ MT = {} -- Mechtrauma
 BT = {} -- Biotrauma
 
 MT.Name="Mechtrauma"
-MT.Version = "1.2.0-0" 
+MT.Version = "1.2.0"
 MT.VersionNum = 01020000 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
@@ -67,7 +67,7 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")    
+    dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 
@@ -75,6 +75,13 @@ Hook.Add("roundStart", "MT.roundStart", function()
     -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
     Game.poweredUpdateInterval = 1
 
+-- check how many oxygenvents there are so that we only do it once per round. 
+for k, item in pairs(Item.ItemList) do
+    if item.Prefab.Identifier.Value == "oxygen_vent" then 
+        OxygenVentCount = OxygenVentCount + 1           
+    end
+end
+print("OxygenVentCount", OxygenVentCount)
 end)
 
 -- client-side code
@@ -85,19 +92,12 @@ end
 -- Establish Mechtrauma item cache
 MT.itemCache = {}
 MT.itemCacheCount = 0
-    --loop through the item list and find items for the cache
-    for k, item in pairs(Item.ItemList) do  
-        if item.HasTag("mtupdate") or item.HasTag("mtu") then   
-            -- CHECK: if the item is already in the cache, if not - add it.          
-            if not MT.itemCache[item] then
-                MT.itemCache[item] = true
-                MT.itemCacheCount = MT.itemCacheCount + 1
-            end        
-        elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- if this happens again, move to table and loop.
-            -- CHECK: if the item is already in the cache, if not - add it.   
-            if not MT.itemCache[item] then 
-                MT.itemCache[item] = true
-                MT.itemCacheCount = MT.itemCacheCount + 1
-            end        
-        end  
-   end     
+    --loop through the item list and and cache eligible items
+    for k, item in pairs(Item.ItemList) do
+       MT.CacheItem(item)
+   end
+
+
+Game.AddCommand("mechtraumaclean", "removes *useless* items", function ()
+    --
+end)

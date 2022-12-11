@@ -39,7 +39,7 @@ function MT.F.dieselGenerator(item)
     
     -- debig printing: print(item.GetComponentString("RelayComponent").DisplayLoad)
     --convert load(kW) to targetPower(HP) 1.341022
-    local targetPower =item.GetComponentString("RelayComponent").DisplayLoad
+    local targetPower = item.GetComponentString("RelayComponent").DisplayLoad
 
     -- check for a series index
     if MT.DE[item.Prefab.Identifier.Value] ~= nil then
@@ -188,29 +188,35 @@ end
 
 -- DIVINGSUIT: updates deterioration and extended pressure protection. 
 function MT.F.divingSuit(item)
-    -- proceed if divingsuit is equipped and deterioration or extended pressure protection is enabled.
-    if MT.HF.ItemIsWornInOuterClothesSlot(item) and (MT.Config.divingSuitServiceLife > 0.0 or MT.Config.divingSuitEPP > 1.0) then
-        local itemDepth = MT.HF.GetItemDepth(item)
-        local pressureProtectionMultiplier = itemDepth / item.ParentInventory.Owner.PressureProtection -- quotient of depth and pressure protection
-        local pressureDamagePD = 0 -- per delta        
-        local deteriorationDamagePD = 0 -- per delta
-        -- calculate deterioration damage if deterioration is enabled
-        if MT.Config.divingSuitServiceLife > 0.0 then deteriorationDamagePD = (item.MaxCondition / (MT.Config.divingSuitServiceLife * 60) * MT.Deltatime) end
+    -- only update if equipped
+    if MT.HF.ItemIsWornInOuterClothesSlot(item) then
+        
 
-        -- EXTENDED PRESSURE PROTECTION: Protects up to 2x max pressure but damages the diving suit.
-        if pressureProtectionMultiplier <= 2 and item.Condition > 1 then --if you're past 2x pressure you deserve what you get.   
-            item.ParentInventory.Owner.AddAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel on             
-        else
-            item.ParentInventory.Owner.RemoveAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel off
+        -- DETERIORATION: 
+        -- execute if divingsuit is equipped and deterioration or extended pressure protection is enabled.
+        if (MT.Config.divingSuitServiceLife > 0.0 or MT.Config.divingSuitEPP > 1.0) then
+            local itemDepth = MT.HF.GetItemDepth(item)
+            local pressureProtectionMultiplier = itemDepth / item.ParentInventory.Owner.PressureProtection -- quotient of depth and pressure protection
+            local pressureDamagePD = 0 -- per delta        
+            local deteriorationDamagePD = 0 -- per delta
+            -- calculate deterioration damage if deterioration is enabled
+            if MT.Config.divingSuitServiceLife > 0.0 then deteriorationDamagePD = (item.MaxCondition / (MT.Config.divingSuitServiceLife * 60) * MT.Deltatime) end
+
+            -- EXTENDED PRESSURE PROTECTION: Protects up to 2x max pressure but damages the diving suit.
+            if pressureProtectionMultiplier <= 2 and item.Condition > 1 then --if you're past 2x pressure you deserve what you get.   
+                item.ParentInventory.Owner.AddAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel on             
+            else
+                item.ParentInventory.Owner.RemoveAbilityFlag(AbilityFlags.ImmuneToPressure) -- guardian angel off
+            end
+            -- damage the suit if exceeding pressure rating while outside the sub or in a leathal pressure hull.
+            if pressureProtectionMultiplier > 1 and (item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0) then
+                pressureDamagePD = pressureProtectionMultiplier^4 -- make pressure damage exponential                            
+            end
+            -- low poressure (less than 2500 protection) diving suits receive 50% deterioration dammage per delta
+            if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
+            -- apply deterioration and pressure damage to divingsuit for this update. 
+            item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
         end
-        -- damage the suit if exceeding pressure rating while outside the sub or in a leathal pressure hull.
-        if pressureProtectionMultiplier > 1 and (item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0) then
-            pressureDamagePD = pressureProtectionMultiplier^4 -- make pressure damage exponential                            
-        end
-        -- low poressure (less than 2500 protection) diving suits receive 50% deterioration dammage per delta
-        if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
-        -- apply deterioration and pressure damage to divingsuit for this update. 
-        item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
     end
 end
 
@@ -218,35 +224,48 @@ end
 function MT.F.fuseBox(item)        
     local fuseWaterDamage = 0
     local fuseOvervoltDamage = 0
-    local fuseDeteriorationDamage = MT.Config.fusBoxDeterioration * 0.1  --detiorate the fuse at 10% of MT.Config.fusBoxDeterioration  
+    local fuseDeteriorationDamage = 0    
     local voltage = item.GetComponentString("PowerTransfer").Voltage
+    
+    
+    --if MT.itemCache[item].counter < 0 then MT.itemCache[item].counter = 10 end
+    --print("FUSE COUNTER: ", MT.itemCache[item].counter)
+    --MT.itemCache[item].counter = MT.itemCache[item].counter - 1
+    
 
     --CHECK: is there a fuse?
     if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
-        --fuse present logic
-        item.GetComponentString("Repairable").DeteriorationSpeed = 0.0 -- enable deterioration
-        item.GetComponentString("PowerTransfer").CanBeOverloaded = false -- enable overvoltage 
-        item.GetComponentString("PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
         
-        if item.InWater then fuseWaterDamage = 1.0 end
-        --print(voltage)
-        --print(MT.Config.fuseOvervoltDamage)   
-        if voltage > 1.05 then fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage end
-           
-        -- fuse deterioration - we piggy back water and voltage
-        if voltage > 1.05 then print(item.name, "voltage: ", voltage) end
-        item.OwnInventory.GetItemAt(0).Condition = item.OwnInventory.GetItemAt(0).Condition - fuseWaterDamage - fuseOvervoltDamage - fuseDeteriorationDamage
+        --fuse present logic
+        item.GetComponentString("Repairable").DeteriorationSpeed = 0.0 -- disable fuseBfox deterioration
+        item.GetComponentString("PowerTransfer").CanBeOverloaded = false -- disable overvoltage 
+        item.GetComponentString("PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
+        -- enable RelayComponent if present
+        if item.GetComponentString("RelayComponent") then item.GetComponentString("RelayComponent").SetState(true, false) end
 
+        -- DEBUG PRINTING:
+        if voltage > 1.7 then print(item.name, "voltage: ", voltage) end
+        
+        -- set water, overvoltage, and deterioration damage amounts
+        if item.InWater then fuseWaterDamage = 1.0 end
+        if voltage > 1.7 then fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage end
+        if item.GetComponentString("PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.fusBoxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.fusBoxDeterioration 
+  
+        -- apply water, deterioration, and overvoltage damage to the fuse
+        item.OwnInventory.GetItemAt(0).Condition = item.OwnInventory.GetItemAt(0).Condition - fuseWaterDamage - fuseOvervoltDamage - fuseDeteriorationDamage
+                
     else
-        -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires. 
+        
+        -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires.         
         item.GetComponentString("Repairable").DeteriorationSpeed = MT.Config.fusBoxDeterioration --enable deterioration        
         item.GetComponentString("PowerTransfer").CanBeOverloaded = true -- enable overvoltage
         item.GetComponentString("PowerTransfer").FireProbability = 0.9 -- increase fire probability 
- 
-     --debug printing
-     --print("ITEM: ", item.name)
-     --print("deterioration speed: ", item.name, item.GetComponentString("Repairable").DeteriorationSpeed)
-     --print("condition percentage: ", item.ConditionPercentage) 
+        -- disable RelayComponent if present
+        if item.GetComponentString("RelayComponent") then item.GetComponentString("RelayComponent").SetState(false, false) end  
+        -- DEBUG PRINTING:
+        -- print("ITEM: ", item.name)
+        -- print("deterioration speed: ", item.name, item.GetComponentString("Repairable").DeteriorationSpeed)
+        -- print("condition percentage: ", item.ConditionPercentage) 
     end
 end
 
@@ -295,19 +314,16 @@ function MT.F.steamBoiler(item)
         while(index < item.OwnInventory.Capacity) do
             if item.OwnInventory.GetItemAt(index) ~= nil then                
                 local containedItem = item.OwnInventory.GetItemAt(index)               
-                if containedItem.HasTag("circulatorPump") and containedItem.Condition > 0 then 
+                if containedItem.HasTag("circulatorPump") and containedItem.Condition > 0 then
                     table.insert(curculatorItems, containedItem)                    
                     circulatorCount = circulatorCount + 1
-                    circulatorVol = circulatorVol + containedItem.Condition
                     -- disable hot swapping parts
                     containedItem.HiddenInGame = true -- cannot remove while operational
                 end
             end
             index = index + 1
         end
-        
-        print("Circulator Pumps will last for: ",((circulatorVol / 2) / MT.Config.circulatorDPS) / 60, " minutes.")  
-        print(circulatorVol)
+
         -- deteriorate Circulator Pumps
         MT.HF.subFromListAll(MT.Config.circulatorDPS * MT.Deltatime, curculatorItems) -- apply deterioration to each filters independently
         -- counteract pressureDamage
@@ -324,7 +340,7 @@ end
 
 -- STEAM TURBINE: the beloved steam turbine...
 function MT.F.steamTurbine(item)
-   
+
     -- <!-- DISABLE: Cannot transmit power without turbine blades, right? -->
     -- Would it be possible to have max power output be per turbine? So that one failing meaning -25% output not -100%
 
@@ -333,24 +349,23 @@ function MT.F.steamTurbine(item)
     local index = 0
     -- if operational (condition) and operating (powered)
     if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
-        local bearingItems = {}       
+        local bearingItems = {}
         local bladeCount = 0
         local bearingSlots = 4 -- temporarily hardcoded
         local frictionDamage = MT.Config.frictionBaseDPS * bearingSlots * MT.Deltatime
 
         --loop through the Turbine inventory        
         while(index < item.OwnInventory.Capacity) do
-            if item.OwnInventory.GetItemAt(index) ~= nil then 
+            if item.OwnInventory.GetItemAt(index) ~= nil then
                 local containedItem = item.OwnInventory.GetItemAt(index)
                 if containedItem.Prefab.Identifier.Value == "turbine_blade" then
-                    bladeCount = bladeCount + 1 
+                    bladeCount = bladeCount + 1
                     -- damage the blades if the condition is below 25
                     if item.ConditionPercentage < 25 then containedItem.Condition = containedItem.Condition -10.0 end -- make this exponential damage
                     containedItem.HiddenInGame = true -- cannot remove while operational
                 end
                 if containedItem.Prefab.Identifier.Value == "bearing" and containedItem.Condition > 0 then
                     table.insert(bearingItems, containedItem)
-                    bearingHealth = bearingHealth + containedItem.Condition
                     -- deteriorate the bearing                   
                     -- containedItem.HiddenInGame = true -- cannot remove while operational
                 end
@@ -376,7 +391,7 @@ function MT.F.steamTurbine(item)
       while(index < item.OwnInventory.Capacity) do
        if item.OwnInventory.GetItemAt(index) ~= nil then item.OwnInventory.GetItemAt(index).HiddenInGame = false end
           index = index + 1
-        end      
+        end
     end
 end
 
@@ -396,11 +411,11 @@ function MT.F.reductionGear(item)
         local frictionDamage = MT.Config.frictionBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
         local oilDeterioration = MT.Config.oilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local driveGearCount = 0
-           
-         
+
+
         local forceStrength = MT.HF.Round(item.GetComponentString("Engine").Force, 2)
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
-        
+
         --loop through the Reduction Gear inventory        
         while(index < item.OwnInventory.Capacity) do
             -- make sure the slot isn't empty

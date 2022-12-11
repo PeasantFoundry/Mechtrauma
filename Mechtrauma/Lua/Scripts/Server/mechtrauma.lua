@@ -95,13 +95,13 @@ Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, del
     elseif leftHandItem.HasTag("mechanicalrepairtool") then
       NT.TraumamputateLimb(character,LimbType.LeftArm)    
     end
-  else  
+  else
       --No? do something vanilla
       if rightHandItem.HasTag("mechanicalrepairtool") then        
         MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.RightArm,100)
       elseif leftHandItem.HasTag("mechanicalrepairtool") then
         MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.LeftArm,100)
-      end          
+      end
   end
 
 end)
