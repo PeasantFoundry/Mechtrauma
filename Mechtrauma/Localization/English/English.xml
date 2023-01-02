@@ -85,7 +85,7 @@
   <entitydescription.oxygentank_fr>Fire Resistant Oxygen Tank</entitydescription.oxygentank_fr>
 
   <entityname.oxygentank_large>Oxygen tank large</entityname.oxygentank_large>
-  <entitydescription.oxygentank_large>Large Oxygen Tank, only for use in OXygen Stations. </entitydescription.oxygentank_large>
+  <entitydescription.oxygentank_large>Large Oxygen Tank, only for use in Oxygen Stations. </entitydescription.oxygentank_large>
 
   <entityname.handtruck>Hand Truck</entityname.handtruck>
   <entitydescription.handtruck>Use this to move heavy things. Don't hurt your back.</entitydescription.handtruck>
@@ -109,7 +109,7 @@
   <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
   
   <entityname.l100_extinguisher>L100-Extinguisher</entityname.l100_extinguisher>
-  <entitydescription.l100_extinguisher>A large extinguisher for use in turnour gear.</entitydescription.l100_extinguisher>
+  <entitydescription.l100_extinguisher>A large extinguisher for use in turnout gear.</entitydescription.l100_extinguisher>
   
   
   <!-- =============< WEAPONS >=============  -->
