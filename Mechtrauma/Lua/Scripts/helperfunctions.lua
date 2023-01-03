@@ -1,18 +1,20 @@
 
 MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neurotraumas use of the term)
-
+-- LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.Items."], "isWire")
 -- Mechtrauma exclusive functions:
 
 -- add function for removing useless lag causing items broken fuses,filters,emptycrates,
 function MT.HF.MechtraumaClean()
     for k, item in pairs(Item.ItemList) do        
         --if item.ParentInventory == nil then print("THIS ITEM IS LOOSE!", item) end
-        if item.parentInventory == nil and item.ConditionPercentage <= 0 then 
+        if item.GetComponentString("Pickable") and item.GetComponentString("Pickable").IsAttached == false and item.parentInventory == nil and not item.GetComponentString("Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
+            print("Item is cleanable: ", item)
             MT.HF.RemoveItem(item)
             print("REMOVED: ", item)
+
         end
-        
     end
+    print("CLEANUP COMPLETE")
 end
 
 -- subtracts single amount from a list of items sequentially  
@@ -56,7 +58,7 @@ end
 
 -- print blank lines to terminal in place of a functioning clear command
 function MT.HF.BlankTerminalLines(terminal, lines)
-    local counter = 0
+    local counter = 0    
     while counter < lines do
         counter = counter + 1
         terminal.ShowMessage = "-"
@@ -68,16 +70,12 @@ function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
     local terminalOrgiginalColor = terminal.TextColor -- save the current terminal color
     local property = terminal.SerializableProperties[Identifier("TextColor")]
   
-            terminal.TextColor = color    
-            if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property)) end
+            terminal.TextColor = color
+            if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property, terminal)) end
    
             terminal.ShowMessage = message
             if SERVER then terminal.SyncHistory()  end
-
-   
-
-    --Timer.Wait(function() end,  10000) -- 100 = .1 second    
-   
+    --Timer.Wait(function() end,  10000) -- 100 = .1 second       
 end
 
 -- utility for checking there are missing items from the cache

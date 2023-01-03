@@ -1,6 +1,6 @@
 MT.F = {}
 CentralComputerOnline = true
-OxygenVentCount = 0
+
 
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second. 
 -- human breaths 700 oxygen/second and that requires to 0.3 
@@ -15,6 +15,15 @@ end
 
 --table for dieselEngine models
 MT.DE = {
+    s5000D={
+        maxHorsePower=5000,
+        oilSlots=2,
+        filterSlots=1,
+        dieselFuelSlots=6,
+        auxOxygenSlots=3,
+        name="s5000D",
+        ignitionType=MT.F.relayIgnition
+    },
     s3000D={
         maxHorsePower=3000,
         oilSlots=1,
@@ -32,11 +41,28 @@ MT.DE = {
         auxOxygenSlots=3,
         name="s2500Da",
         ignitionType=MT.F.relayIgnition
+    },
+    sC2500Db={
+        maxHorsePower=2500,
+        oilSlots=2,
+        filterSlots=1,
+        dieselFuelSlots=3,
+        auxOxygenSlots=3,
+        name="s2500Db",
+        ignitionType=MT.F.relayIgnition
+    },
+    PDG250={
+        maxHorsePower=250,
+        oilSlots=1,
+        filterSlots=1,
+        dieselFuelSlots=1,
+        auxOxygenSlots=1,
+        name="PDG250",
+        ignitionType=MT.F.relayIgnition
     }
 }
 
-function MT.F.dieselGenerator(item)
-    
+function MT.F.dieselGenerator(item)    
     -- debig printing: print(item.GetComponentString("RelayComponent").DisplayLoad)
     --convert load(kW) to targetPower(HP) 1.341022
     local targetPower = item.GetComponentString("RelayComponent").DisplayLoad
@@ -49,12 +75,15 @@ function MT.F.dieselGenerator(item)
         --print("Horse Power Generated!", result.powerGenerated)
         --print((result.powerGenerated * .75) / 60)
         
+        --print(item," BEFORE: ", item.GetComponentString("PowerContainer").Charge)
         item.GetComponentString("PowerContainer").Charge = item.GetComponentString("PowerContainer").Charge + ((result.powerGenerated) / 60)
+        --print("AFTER: ", item.GetComponentString("PowerContainer").Charge)
         -- DEBUG PRINTING
-        -- print("result.powerGenerated:", result.powerGenerated )
-        -- print("result.powergenerated processed:", (result.powerGenerated) / 60) 
+        --print("result.powerGenerated:", result.powerGenerated )
+        --print("result.powergenerated processed:", (result.powerGenerated) / 60) 
     else
         --possibly create a new dieselSeries or support some tag based series
+        print(item.Prefab.Identifier.Value, " DOES NOT EXIST!")
     end
 end
 
@@ -76,6 +105,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local auxOxygenItems = {}
     local auxOxygenVol = 0
     local hullOxygenPercentage = 0
+    -- this errors when a portable dieselEngine is outside of a hull...
      if item.InWater == false then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
 
     -- diesel
@@ -147,10 +177,13 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- set the generated amount to be returned
         dieselEngine.powerGenerated = MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower)
         -- restrict max output to to dieselEngine.powerGenerated. This prevents powerfluctations 
-        item.GetComponentString("PowerContainer").MaxOutPut = dieselEngine.powerGenerated
-        item.GetComponentString("RelayComponent").MaxPower = dieselEngine.powerGenerated
-
-        -- print("MAX OUTPUT: ", item.GetComponentString("PowerContainer").MaxOutPut)
+        --item.GetComponentString("PowerContainer").MaxOutPut = dieselSeries.maxHorsePower
+        --item.GetComponentString("RelayComponent").maxOutput = dieselSeries.maxHorsePower
+        --item.GetComponentString("RelayComponent").MaxPower = dieselSeries.maxHorsePower
+        --dieselEngine.powerGenerated
+       
+        --print("MAX OUTPUT: ", item.GetComponentString("PowerContainer").MaxOutPut, " for: ", item)
+        --print("MAX POWER: ",  item.GetComponentString("RelayComponent").MaxPower)
 
        --[[ for k, connection in pairs(item.Connections) do
             print("Found one!")
@@ -279,6 +312,10 @@ function MT.F.centralComputer(item)
         CentralComputerOnline = false
         --print("Central computer offline.")
     end
+end
+
+function MT.F.keyIgnition(item)
+
 end
 
 -- CENTRAL COMPUTER: Ships computer

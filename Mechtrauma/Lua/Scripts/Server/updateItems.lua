@@ -1,14 +1,8 @@
-local mtRoundStarted
 
-Hook.Add("roundStart", "MT.roundStart", function()
-    mtRoundStarted = true
-    print("MT ROUND STARTED:", mtRoundStarted)
-    
-    -- this is how many items we found in the MT.itemCache
-    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")
-   
-
-end)
+-- Establish Mechtrauma item cache
+MT.itemCache = {}
+MT.itemCacheCount = 0
+MT.oxygenVentCount = 0
 
 --table of tag functions - this is for mapping items to update functions
 MT.tagfunctions = {
@@ -47,12 +41,15 @@ MT.tagfunctions = {
     centralComputer={
         tags={"centralcomputer"},
         update=MT.F.centralComputer
+    },
+    keyIgnition={
+        tags={"keyignition"},
+        update=MT.F.keyIgnition
     }
 }
-  
 
--- gets run once every two seconds
-function MT.updateItems()    
+-- run once per MT.Deltatime (2 seconds) by updateCounter.lua
+function MT.updateItems()
     local updateItemsCounter = 0
     if Game.GameSession == nil or MT.HF.GameIsPaused()then return end
     
@@ -70,7 +67,7 @@ function MT.updateItems()
     end
 end
 
--- this function is called once for each item in MT.itemCache every two seconds
+-- called once for each item in MT.itemCache 
 function MT.UpdateItem(item)
     -- loop through the tag functions to see if we have a matching function for the item tag(s)
     for tagfunctiondata in MT.tagfunctions do
@@ -100,25 +97,56 @@ function MT.CacheItem(item)
             MT.itemCache[item] = {}
             MT.itemCache[item].counter = 0
             MT.itemCacheCount = MT.itemCacheCount + 1
+
+            -- this is here so that we don't double up execute on initialization and item creation
+            if item.Prefab.Identifier.Value == "oxygen_vent" then 
+                -- count the oxygen vents when you populate the cache               
+                MT.oxygenVentCount = MT.oxygenVentCount + 1
+            end
+
         elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this but it's for compatability
                 MT.itemCache[item] = {}
                 MT.itemCache[item].counter = 0
-                MT.itemCacheCount = MT.itemCacheCount + 1
+                MT.itemCacheCount = MT.itemCacheCount + 1        
         end
         
     end
 end
 
--- check new items and add matches to the MT.itemCache
-Hook.add("item.created", "MT.newItem", function(item)
-    MT.CacheItem(item)
-end)
 
--- end of round housekeeping
-Hook.Add("roundEnd", "MT.roundEnd", function()
-    -- clear the update item cache so we don't carry anything over accidentally
-    MT.itemCache = {}
-    MT.itemCacheCount = 0
-    -- track that the round is over
-    mtRoundStarted = false
-end)
+    -- INITIALIZATION: loop through the item list and and cache eligible items
+    for k, item in pairs(Item.ItemList) do
+        MT.CacheItem(item)
+    end
+ 
+    --[[ INITIALIZATION: loop through the item list and count the oxygen vents
+    for k, item in pairs(Item.ItemList) do
+        if item.Prefab.Identifier.Value == "oxygen_vent" then 
+            print(item)
+            oxygenVentCount = oxygenVentCount + 1
+        end
+    end]]
+    
+
+
+ Hook.Add("roundStart", "MT.roundStart2", function()
+    
+    -- this is how many items we found in the MT.itemCache
+    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")     
+    print("There are: ", MT.oxygenVentCount, " oxygen vents.")
+ end)
+
+ -- check new items and add matches to the MT.itemCache
+ Hook.add("item.created", "MT.newItem", function(item)
+     MT.CacheItem(item)
+ end)
+ 
+ -- end of round housekeeping
+ Hook.Add("roundEnd", "MT.roundEnd", function()
+     -- clear the update item cache so we don't carry anything over accidentally
+     MT.itemCache = {}
+     MT.itemCacheCount = 0
+     -- track that the round is over
+     
+ end)
+ 

@@ -297,6 +297,10 @@
   <entityname.pdg500>PDG500 Diesel Generator</entityname.pdg500>
   <entitydescription.pdg500>Portable diesel generator rated for 500kw.</entitydescription.pdg500>
 
+  <entityname.pdg250>PDG250 Diesel Generator</entityname.pdg250>
+  <entitydescription.pdg250>Portable diesel generator rated for 500kw.</entitydescription.pdg250>
+
+
   <entityname.incinerator>Incinerator</entityname.incinerator>
   <entitydescription.incinerator>Dispose of unwanted items midround.</entitydescription.incinerator>
 
