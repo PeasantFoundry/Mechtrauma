@@ -307,9 +307,11 @@ end
 function MT.F.centralComputer(item)
     if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
         CentralComputerOnline = true
+        item.GetComponentString("RelayComponent").SetState(true, false)        
         --print("Central computer online.")
     else
         CentralComputerOnline = false
+        item.GetComponentString("RelayComponent").SetState(false, false)
         --print("Central computer offline.")
     end
 end
