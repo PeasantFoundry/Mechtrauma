@@ -327,16 +327,18 @@ function MT.F.centralComputerNeeded(item)
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = true end
         if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = true end
         if item.GetComponentString("MiniMap") ~= nil then item.GetComponentString("MiniMap").CanBeSelected = true end
+        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = true end
      
     elseif not CentralComputerOnline then        
         if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = false end
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = false end
         if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = false end
         if item.GetComponentString("MiniMap") ~= nil then item.GetComponentString("MiniMap").CanBeSelected = false end
+        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = false end
     end
 end
 
--- STEAM Boiler: the beloved steam turbine...
+-- STEAM Boiler: the beloved steam boiler...
 function MT.F.steamBoiler(item)
 
     --<!-- Deteriorate the Circulator Pumps -->
@@ -370,10 +372,7 @@ function MT.F.steamBoiler(item)
         -- apply pressureDamage
         item.Condition = item.Condition - pressureDamage
     else
-      while(index < item.OwnInventory.Capacity) do
-       if item.OwnInventory.GetItemAt(index) ~= nil then item.OwnInventory.GetItemAt(index).HiddenInGame = false end
-          index = index + 1
-        end
+      -- nothing to see here
     end
 end
 
@@ -396,6 +395,7 @@ function MT.F.steamTurbine(item)
         --loop through the Turbine inventory        
         while(index < item.OwnInventory.Capacity) do
             if item.OwnInventory.GetItemAt(index) ~= nil then
+                print(item.OwnInventory.GetItemAt(index),item.OwnInventory.GetItemAt(index).HiddenInGame)
                 local containedItem = item.OwnInventory.GetItemAt(index)
                 if containedItem.Prefab.Identifier.Value == "turbine_blade" then
                     bladeCount = bladeCount + 1
@@ -405,12 +405,16 @@ function MT.F.steamTurbine(item)
                 end
                 if containedItem.Prefab.Identifier.Value == "bearing" and containedItem.Condition > 0 then
                     table.insert(bearingItems, containedItem)
-                    -- deteriorate the bearing                   
-                    -- containedItem.HiddenInGame = true -- cannot remove while operational
+                
+                    -- disable hot swapping parts
+                    item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                    if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
                 end
 
                 -- disable hot swapping parts
-                -- item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
+                
             end
             index = index + 1
         end
@@ -427,11 +431,16 @@ function MT.F.steamTurbine(item)
         item.GetComponentString("RelayComponent").SetState(bladeCount >= 4, false)
        
     else 
-      while(index < item.OwnInventory.Capacity) do
-       if item.OwnInventory.GetItemAt(index) ~= nil then item.OwnInventory.GetItemAt(index).HiddenInGame = false end
-          index = index + 1
+       
+        -- machine is off - all parts can now be swapped
+        while(index < item.OwnInventory.Capacity) do
+            if item.OwnInventory.GetItemAt(index) ~= nil then
+                item.OwnInventory.GetItemAt(index).HiddenInGame = false
+                if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end                
+            end
+            index = index + 1
+            end
         end
-    end
 end
 
 -- REDUCTION GEAR:
@@ -451,7 +460,6 @@ function MT.F.reductionGear(item)
         local oilDeterioration = MT.Config.oilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local driveGearCount = 0
 
-
         local forceStrength = MT.HF.Round(item.GetComponentString("Engine").Force, 2)
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
 
@@ -465,12 +473,18 @@ function MT.F.reductionGear(item)
                     driveGearCount = driveGearCount + 1
                     -- damage the gears if the condition is below 25 and if the propeller is engaged 
                     if item.ConditionPercentage < 40 and forceStrength ~= 0 then containedItem.Condition = containedItem.Condition - forceStrength^0.5 end -- make this damage exponential to force someday                    
+                    
+                    -- disable hot swapping
+                    item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                    if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
+
                 -- check for oil    
                 elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
                     table.insert(oilItems, containedItem)
                     oilVol = oilVol + containedItem.Condition
                     frictionDamage = frictionDamage - MT.Config.frictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
-                -- check for filters
+                
+                    -- check for filters
                 elseif containedItem.HasTag("oilfilter") then
                     table.insert(oilFiltrationItems, containedItem)
                     oilDeterioration =  oilDeterioration - MT.Config.oilBaseDPS * MT.Config.oilFiltrationM / oilfiltrationSlots -- LUBRICATE: reduce *possible* oil damage for this filter slot  
@@ -488,6 +502,13 @@ function MT.F.reductionGear(item)
         item.Condition = item.Condition - frictionDamage
 
     else
-        --do nothing, for now
-    end
+        -- machine is off - all parts can now be swapped
+        while(index < item.OwnInventory.Capacity) do
+            if item.OwnInventory.GetItemAt(index) ~= nil then
+                item.OwnInventory.GetItemAt(index).HiddenInGame = false 
+                if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end                
+            end
+            index = index + 1
+            end
+        end        
 end

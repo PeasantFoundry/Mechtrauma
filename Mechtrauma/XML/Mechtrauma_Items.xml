@@ -492,13 +492,7 @@
       <RequiredItem identifier="bearing_sleeve" amount="8"/>
       <RequiredItem identifier="grease_packet" />
     </Fabricate>
-    <!-- SEALED BEARING: Recycle the bearing housing by putting in a new copper sleeve and regreasing. -->
-    <Fabricate suitablefabricators="CNC,fabricator" displayname="recycleitem" requiredtime="15"> 
-      <RequiredSkill identifier="mechanical" level="25" />
-      <RequiredItem identifier="bearing_sleeve" />
-      <RequiredItem identifier="grease_packet" />
-      <RequiredItem identifier="sealed_bearing" mincondition="0.0" usecondition="false"/>
-    </Fabricate>
+    <!-- SEALED BEARING: Recycle - no need for recyle as sealed bearings are only used in fabrication -->
     <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="0,0,128,96" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,0,128,96" depth="0.55"/>
     <Body width="128" height="105" density="60" />

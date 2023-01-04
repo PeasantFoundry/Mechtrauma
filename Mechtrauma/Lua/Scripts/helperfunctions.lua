@@ -78,6 +78,12 @@ function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
     --Timer.Wait(function() end,  10000) -- 100 = .1 second       
 end
 
+-- synce serialized property
+-- be sure to pass property as a string 
+function MT.HF.SyncToClient(property, target)
+                Networking.CreateEntityEvent(target, Item.ChangePropertyEventData(target.SerializableProperties[Identifier(property)], target))                
+end
+
 -- utility for checking there are missing items from the cache
 function MT.HF.VerifyItemCache()
     print(" MT.itemCache BEFORE update: ", MT.itemCacheCount)
@@ -500,12 +506,15 @@ end
 
 --sadly, Game.RoundStarted does not work for singleplayer (sub editor)
 function MT.HF.GameIsRunning()
-    if SERVER then return false end
-
-    if Game.Paused or not Game.RoundStarted then return false end
-
-    return true
+    if SERVER then         
+            
+        return Game.RoundStarted
     
+    else
+        if Game.Paused or not Game.RoundStarted then return false end
+       
+        return true
+    end
 end
 
 function MT.HF.TableContains(table, value)
