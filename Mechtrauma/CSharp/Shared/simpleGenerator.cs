@@ -18,7 +18,7 @@ namespace Barotrauma.Items.Components
 
         public float PowerTolerance {
             get => powerTolerance;
-            set => powerTolerance = value;
+            set => powerTolerance = MathHelper.Clamp(value, 0.0f, 1.0f);
         }
         private float powerTolerance = 0.0f;
 
