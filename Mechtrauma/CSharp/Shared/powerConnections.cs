@@ -30,6 +30,16 @@ namespace Mechtrauma {
                     return false;
                 } 
 
+                FusedJB device = conn1.Item.GetComponent<FusedJB>();
+                if (device != null && device.BrokenFuse) {
+                    return false;
+                }
+
+                device = conn2.Item.GetComponent<FusedJB>();
+                if (device != null && device.BrokenFuse) {
+                    return false;
+                }
+
                 // Check if its a steam connection, if so, only connect steam connections
                 if (conn1.Name.StartsWith("steam") || conn2.Name.StartsWith("steam")) {
                     return conn1.Name.StartsWith("steam") && conn2.Name.StartsWith("steam") && (

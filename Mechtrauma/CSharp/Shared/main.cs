@@ -18,13 +18,13 @@ namespace Mechtrauma {
             changePowerRules();
 
             // Change the power container to disable output if not active
-            modifyPowerContainers();
+            //modifyPowerContainers();
 
             // Adds the fusedJB so that the custom junction disconnect if they don't have a fuse
-            modifyJunctionBoxes();
+            //modifyJunctionBoxes();
 
             // Adds custom device to absorb overload power and protect the grid I.e. Steam regulator
-            addPowerAbsorber();
+            //addPowerAbsorber();
 
             #if SERVER
                 //GameMain.Server?.SendChatMessage("Started Mechtrauma");
