@@ -2827,11 +2827,9 @@
         <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       
         <!-- Drain power when submerged. -->
-        <StatusEffect type="InWater" targettype="This" charge="-1.5" condition="-0.25"/>
-        <!-- Disable power transmission when submerged. -->
-        <StatusEffect type="InWater" targettype="This" IsOn="false" setvalue="true" />
+        <StatusEffect type="InWater" targettype="This" charge="-1.5" condition="-0.25" IsOn="false"/>
         <!-- Enable power transmission -->
-        <StatusEffect type="Always" targettype="This" IsOn="true" setvalue="true" >
+        <StatusEffect type="Always" targettype="This" IsOn="true" >
           <Conditional InWater="false" />
         </StatusEffect>
 
@@ -2884,12 +2882,6 @@
       
         <!-- Drain power when submerged. -->
         <StatusEffect type="InWater" targettype="This" charge="-0.25" condition="-0.25" />
-        <!-- Disable power transmission when submerged. -->
-        <StatusEffect type="InWater" targettype="This" MaxOutPut="1500" setvalue="true" />
-        <!-- Enable power transmission -->
-        <StatusEffect type="Always" targettype="This" MaxOutPut="2000" setvalue="true" >
-          <Conditional InWater="false" />
-        </StatusEffect>
 
       </PowerContainer>
 
