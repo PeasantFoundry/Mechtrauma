@@ -160,11 +160,11 @@ Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(ef
   
   if CentralComputerOnline then
     MT.HF.BlankTerminalLines(terminal, 20)
-    MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: GRID POWER CONSUMPTION*******")        
+    MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: GRID POWER CONSUMPTION*******")
   
-    for k, item in pairs(Item.ItemList) do   
+    for k, item in pairs(Item.ItemList) do
       if item.FindHull() ~= nil then hull = item.FindHull().DisplayName.Value else hull = "EXTERIOR"  end      
-      if item.GetComponentString("Powered") ~= nil and item.GetComponentString("Powered").CurrPowerConsumption > 0.5 then
+      if item.GetComponentString("Powered") ~= nil and item.GetComponentString("Powered").CurrPowerConsumption > 0.5 and item.HasTag("fusebox") == false then
         totalPowerConsumption = totalPowerConsumption + item.GetComponentString("Powered").CurrPowerConsumption           
         table.insert(poweredList, item)
       end 

@@ -73,15 +73,7 @@ end
 
 Hook.Add("roundStart", "MT.roundStart", function()
     -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
-    Game.poweredUpdateInterval = 1
-
--- check how many oxygenvents there are so that we only do it once per round. 
-for k, item in pairs(Item.ItemList) do
-    if item.Prefab.Identifier.Value == "oxygen_vent" then 
-        OxygenVentCount = OxygenVentCount + 1           
-    end
-end
-print("OxygenVentCount", OxygenVentCount)
+    Game.poweredUpdateInterval = 1    
 end)
 
 -- client-side code
@@ -89,15 +81,4 @@ if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
 end
 
--- Establish Mechtrauma item cache
-MT.itemCache = {}
-MT.itemCacheCount = 0
-    --loop through the item list and and cache eligible items
-    for k, item in pairs(Item.ItemList) do
-       MT.CacheItem(item)
-   end
 
-
-Game.AddCommand("mechtraumaclean", "removes *useless* items", function ()
-    --
-end)
