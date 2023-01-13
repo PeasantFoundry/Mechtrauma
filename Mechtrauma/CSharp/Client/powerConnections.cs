@@ -51,6 +51,8 @@ namespace Mechtrauma {
                             colour = Color.SaddleBrown;
                         } else if (myself.Name.StartsWith("thermal")) {
                             colour = Color.Orange;
+                        } else if (myself.Name.StartsWith("water")) {
+                            colour = Color.DodgerBlue;
                         } else if (myself.IsPower) {
                             colour = GUIStyle.Red;
                         }
