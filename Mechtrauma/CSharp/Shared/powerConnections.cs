@@ -30,6 +30,16 @@ namespace Mechtrauma {
                     return false;
                 } 
 
+                FusedJB device = conn1.Item.GetComponent<FusedJB>();
+                if (device != null && device.BrokenFuse) {
+                    return false;
+                }
+
+                device = conn2.Item.GetComponent<FusedJB>();
+                if (device != null && device.BrokenFuse) {
+                    return false;
+                }
+
                 // Check if its a steam connection, if so, only connect steam connections
                 if (conn1.Name.StartsWith("steam") || conn2.Name.StartsWith("steam")) {
                     return conn1.Name.StartsWith("steam") && conn2.Name.StartsWith("steam") && (
@@ -49,13 +59,22 @@ namespace Mechtrauma {
                         conn2.Item.HasTag("kineticjb")
                     );
                 } else if (conn1.Name.StartsWith("thermal") || conn2.Name.StartsWith("thermal")) {
-                    // Check if its a kinetic connection, if so, only connect kinetic connections
+                    // Check if its a thermal connection, if so, only connect thermal connections
                     return conn1.Name.StartsWith("thermal") && conn2.Name.StartsWith("thermal") && (
                         conn1.IsOutput != conn2.IsOutput || 
                         conn1.Name == "thermal" || 
                         conn2.Name == "thermal" ||
                         conn1.Item.HasTag("thermaljb") ||
                         conn2.Item.HasTag("thermaljb")
+                    );
+                } else if (conn1.Name.StartsWith("water") || conn2.Name.StartsWith("water")) {
+                    // Check if its a water connection, if so, only connect water connections
+                    return conn1.Name.StartsWith("water") && conn2.Name.StartsWith("water") && (
+                        conn1.IsOutput != conn2.IsOutput || 
+                        conn1.Name == "water" || 
+                        conn2.Name == "water" ||
+                        conn1.Item.HasTag("waterjb") ||
+                        conn2.Item.HasTag("waterjb")
                     );
                 }
 
@@ -85,6 +104,11 @@ namespace Mechtrauma {
                     case "thermal":
                     case "thermal_out":
                     case "thermal_in":
+                        isPowerField.SetValue(self, true);
+                        break;
+                    case "water":
+                    case "water_out":
+                    case "water_in":
                         isPowerField.SetValue(self, true);
                         break;
                 }
@@ -138,16 +162,19 @@ namespace Mechtrauma {
                         case "steam_out":
                         case "kinetic_out":
                         case "thermal_out":
+                        case "water_out":
                             powerOutField.SetValue(self, c);
                             break;
                         case "kinetic_in":
                         case "steam_in":
                         case "thermal_in":
+                        case "water_in":
                             powerInField.SetValue(self, c);
                             break;
                         case "steam":
                         case "kinetic":
                         case "thermal":
+                        case "water":
                             if (c.IsOutput) {
                                 powerOutField.SetValue(self, c);
                             } else {

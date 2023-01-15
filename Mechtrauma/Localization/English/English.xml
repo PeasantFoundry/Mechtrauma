@@ -391,6 +391,12 @@
 <connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
 <connection.kineticout>Kinetic_Out</connection.kineticout>
 
+<connection.waterin1>Water_Inlet</connection.waterin1>
+<connection.waterout>Water_Out</connection.waterout>
+<connection.waterconn>Water</connection.waterconn>
+
+<connection.hull_percentage>Hull_Percentage</connection.hull_percentage>
+
 <!-- Display names -->
 <displayname.refititem>[itemname] (refit)</displayname.refititem>
 

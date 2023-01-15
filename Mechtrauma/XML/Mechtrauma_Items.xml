@@ -2835,19 +2835,17 @@
       <InventoryIcon texture="%ModDir%/images/battery_bank.png" sourcerect="0,0,468,460" origin="0.5,0.5" />
 
       <Sprite texture="%ModDir%/images/battery_bank.png" sourcerect="0,0,468,460" depth="0.84" origin="0.5,0.5" canflipx="false" />
-      <PowerContainer capacity="5000.0" maxrechargespeed="500.0" maxoutput="1000.0" canbeselected="true" indicatorposition="65,33" indicatorsize="34,46" ishorizontal="false" msg="ItemMsgInteractSelect">
+      <ControllablePowerContainer capacity="5000.0" maxrechargespeed="500.0" maxoutput="1000.0" canbeselected="true" indicatorposition="65,33" indicatorsize="34,46" ishorizontal="false" msg="ItemMsgInteractSelect">
         <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       
         <!-- Drain power when submerged. -->
-        <StatusEffect type="InWater" targettype="This" charge="-1.5" condition="-0.25"/>
-        <!-- Disable power transmission when submerged. -->
-        <StatusEffect type="InWater" targettype="This" MaxOutPut="0" setvalue="true" />
+        <StatusEffect type="InWater" targettype="This" charge="-1.5" condition="-0.25" IsOn="false"/>
         <!-- Enable power transmission -->
-        <StatusEffect type="Always" targettype="This" MaxOutPut="5000" setvalue="true" >
+        <StatusEffect type="Always" targettype="This" IsOn="true" >
           <Conditional InWater="false" />
         </StatusEffect>
 
-      </PowerContainer>
+      </ControllablePowerContainer>
 
 
       <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
@@ -2896,12 +2894,6 @@
       
         <!-- Drain power when submerged. -->
         <StatusEffect type="InWater" targettype="This" charge="-0.25" condition="-0.25" />
-        <!-- Disable power transmission when submerged. -->
-        <StatusEffect type="InWater" targettype="This" MaxOutPut="1500" setvalue="true" />
-        <!-- Enable power transmission -->
-        <StatusEffect type="Always" targettype="This" MaxOutPut="2000" setvalue="true" >
-          <Conditional InWater="false" />
-        </StatusEffect>
 
       </PowerContainer>
 
@@ -3082,7 +3074,7 @@
   </Item>
 
 
-<!-- ELECTRICAL PANEL: temporarily removed fusedJB tag -->
+<!-- ELECTRICAL PANEL -->
   <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" hideinmenus="true">
     <InventoryIcon  texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
@@ -3095,12 +3087,12 @@
         <!-- POWER LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+      <IsActive targetitemcomponent="FusedJB" overload="eq False" />
     </LightComponent>
     <!-- OVERVOLTAGE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
+      <IsActive targetitemcomponent="FusedJB" overload="eq True" />
     </LightComponent>
     <!-- FUSE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
@@ -3114,7 +3106,7 @@
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
      
-    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
+    <FusedJB canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
       <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> <!--minsize="350,160" maxsize="420,190"-->
       <StatusEffect type="InWater" target="This" condition="-0.25">
         <Conditional Voltage="gt 0" />
@@ -3139,7 +3131,7 @@
         <Conditional HasStatusTag="neq yesfuse" />           
       </StatusEffect> -->
 
-    </PowerTransfer>
+    </FusedJB>
 
 
 
@@ -3197,7 +3189,7 @@
   </Item>
 
   
-<!-- ELECTRICAL PANEL: temporarily removed fusedJB tag -->
+<!-- ELECTRICAL PANEL -->
   <Item name="Electrical Panel" identifier="electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <InventoryIcon  texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
@@ -3210,12 +3202,12 @@
         <!-- POWER LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+      <IsActive targetitemcomponent="FusedJB" overload="eq False" />
     </LightComponent>
     <!-- OVERVOLTAGE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
+      <IsActive targetitemcomponent="FusedJB" overload="eq True" />
     </LightComponent>
     <!-- FUSE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
@@ -3229,7 +3221,7 @@
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
      
-    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
+    <FusedJB canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
       <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> <!--minsize="350,160" maxsize="420,190"-->
       <StatusEffect type="InWater" target="This" condition="-0.25">
         <Conditional Voltage="gt 0" />
@@ -3254,7 +3246,7 @@
         <Conditional HasStatusTag="neq yesfuse" />           
       </StatusEffect> -->
 
-    </PowerTransfer>
+    </FusedJB>
 
 
 
@@ -3311,6 +3303,129 @@
     </Repairable>
   </Item>
 
+  <!-- Advance water system -->
+  <Item name="Water Drain" identifier="waterdrain" category="Machine" tags="" scale="0.5" linkable="true">
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <Sprite texture="Content/Items/Alien/Legacy/AlienRuin_Legacy.png" depth="0.91" sourcerect="203,512,53,52" />
+    <WaterDrain MaxFlow="100" canbeselected="true"/>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped" />
+     
+      <input name="toggle" displayname="connection.togglestate" />
+      <input name="set_active" displayname="connection.setstate" />
+
+      <output name="water_out" displayname="connection.waterout"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.125" mindeteriorationdelay="60" maxdeteriorationdelay="270" MinDeteriorationCondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="-0.1,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="Equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="5" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+  </Item>
+
+  <Item name="Central Pump" identifier="central_water_pump" tags="pump,mtpump,Repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+    <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
+    <Sprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,0,492,342" depth="0.701" origin="0.5,0.5"/>
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,768,492,342" depth="0.701" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,384,492,342" depth="0.017" maxcondition="0" />
+    <InfectedSprite texture="%ModDir%/images/pumps/mt_pumps_large.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
+
+    <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
+      <sprite texture="%ModDir%/images/mechtrauma_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
+    </LightComponent>
+
+    <CentralPump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
+      <!-- TODO: define max size-->
+      <GuiFrame relativesize="0.25,0.2" minsize="420,220" anchor="Center" style="ItemUI" />
+      <sound file="Content/Items/Pump/Pump.ogg" type="OnActive" range="800.0" volumeproperty="CurrFlow" volume="0.01" loop="true" />
+      <sound file="Content/Items/Pump/PumpBroken.ogg" type="Always" range="800.0" volumeproperty="CurrentBrokenVolume" volume="0.008" loop="true" />
+      <PumpInEmitter particle="watersplash" particlespersecond="80" position="30,-110" anglemin="180" anglemax="180" velocitymin="400" velocitymax="500" />
+      <PumpInEmitter particle="bubbles" particlespersecond="10" position="30,-110" anglemin="180" anglemax="180" velocitymin="100" velocitymax="200" />
+      <PumpOutEmitter particle="bubbles" particlespersecond="5" position="157,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
+      <PumpOutEmitter particle="bubbles" particlespersecond="5" position="260,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
+
+      <!-- Activate the pump if there is a viable electric motor. -->      
+      <StatusEffect type="Always" target="This" targetslot="0" duration="1.0" stackable="false" tags="hasmotor" setvalue="true" isactive="true" checkconditionalalways="true" disabledeltatime="true" Comparison="And">
+        <RequiredItem items="electric_motor" targetcontainer="true" type="Contained" targetslot="0" mincondition="1.0" />         
+      </StatusEffect>  
+      
+      <!-- Deactivate the pump if there isn't a viable electric motor. --> 
+      <StatusEffect type="Always" target="This" delay="2" stackable="false" setvalue="true" isactive="false" checkconditionalalways="false" disabledeltatime="false" Comparison="And">
+        <Conditional HasStatusTag="neq hasmotor" targetitemcomponent="CentralPump" />   
+      </StatusEffect>  
+
+    </CentralPump>
+
+    <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" msg="MotorMount">
+       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
+       <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
+       
+       <!-- Slot0 -->
+       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">      
+
+        <!-- Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22-->        
+        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.25" Comparison="And">
+          <Conditional CurrFlow="neq 0.0" targetcontainer="true" targetitemcomponent="CentralPump"/>
+        </StatusEffect>
+
+        </Containable>
+     </ItemContainer>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="power_in" displayname="connection.powerin" />
+      <input name="toggle" displayname="connection.togglestate" />
+      <input name="set_active" displayname="connection.setstate" />
+      <input name="set_speed" displayname="connection.setpumpingspeed" />
+      <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
+      <input name="hull_percentage" displayname="connection.hull_percentage" />
+      <output name="water" displayname="connection.waterconn" />
+      <output name="state_out" displayname="connection.stateout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+      
+    </ConnectionPanel>
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="60" maxdeteriorationdelay="270" MinDeteriorationCondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="-0.1,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="Equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="5" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+  </Item>
+
   <!-- Steam regulator: -->
   <Item name="Steam regulator" identifier="steam_regulator" tags="mtpriority,powerabsorber" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
@@ -3322,7 +3437,7 @@
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
 
-    <Powered canbeselected="true" msg="ItemMsgInteractSelect" PowerConsumption="2000.0" MinVoltage="0.3" IsActive="true">
+    <GridAbsorber canbeselected="true" msg="ItemMsgInteractSelect" MaxPowerAbsorption="800.0" PowerConsumption="5.0" MinVoltage="0.3" IsActive="true">
       <StatusEffect type="always" target="This" duration="5" delay="1">
         <Conditional CurrPowerConsumption="lt -0.5"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="40" anglemax="50" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
@@ -3331,7 +3446,7 @@
           <Affliction identifier="burn" strength="0.05" />          
         </Explosion>
       </StatusEffect>
-    </Powered>
+    </GridAbsorber>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
@@ -7114,26 +7229,22 @@
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/boiler.png" sourcerect="0,0,372,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
 
-    <PowerContainer vulnerabletoemp="false" capacity="500.0" maxrechargespeed="6000.0" maxoutput="6000.0" canbeselected="true" indicatorposition="166,110" indicatorsize="20,80" ishorizontal="false" msg="ItemMsgInteractSelect" efficiency="90">
+    <MTBoiler vulnerabletoemp="false" capacity="500.0" maxrechargespeed="6000.0" maxoutput="6000.0" canbeselected="true" indicatorposition="166,110" indicatorsize="20,80" ishorizontal="false" msg="ItemMsgInteractSelect" efficiency="90">
       <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
 
       <!-- Am I on? -->
-      <StatusEffect type="Always" targettype="This" Comparison="And" tags="">
+      <StatusEffect type="Always" targettype="This" Comparison="And">
         <Conditional condition="gt 10" />
-        <Conditional RechargeSpeed="gt 0.0" targetitemcomponent="PowerContainer"/>
+        <Conditional RechargeSpeed="gt 0.0" targetitemcomponent="MTBoiler"/>
         <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
-      </StatusEffect>
-        
-      <!-- Am I off? -->
-      <StatusEffect type="Always" targettype="This" Comparison="or" tags="batterydisabled">
-        <Conditional condition="lte 10" />
       </StatusEffect>
 
       <!-- Pressure vessel failing, your boiler has leak. -->
       <StatusEffect type="Always" targettype="This" delay="1.0" duration="5.0" stackable="false" Comparison="And">
         <Conditional condition="lte 50" />              
         <Conditional InWater="false" />  
+        <Conditional Charge="gt 1" target="this"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
         <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
@@ -7142,7 +7253,7 @@
       </StatusEffect>
 
       <!-- It's bad when a boiler blows up, right? -->
-      <StatusEffect type="OnBroken" targettype="This" Comparison="or" tags="batterydisabled" comparaison="and">
+      <StatusEffect type="OnBroken" targettype="This" Comparison="or" comparaison="and">
         <Conditional Charge="gt 1" target="this"/>
         <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="burn" strength="200" />
@@ -7153,10 +7264,10 @@
    
       <!-- OVERHEAT: Without circulator pumps, this device will overheat and build up too much pressure. 
       <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
-        <Conditional Voltage="gt 0.1" targetitemcomponent="PowerContainer"/>         
+        <Conditional Voltage="gt 0.1" targetitemcomponent="MTBoiler"/>         
       </StatusEffect> -->
 
-    </PowerContainer>
+    </MTBoiler>
 
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
       <StatusEffect type="Always" targettype="This" IsOn="false" Comparison="Or">

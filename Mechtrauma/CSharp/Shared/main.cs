@@ -14,17 +14,8 @@ namespace Mechtrauma {
         public Mechtrauma() {
             //LuaCsSetup.PrintCsMessage("Started Mechtrauma");
             
-            // Change the power connection rules to isolate the steam, power and kinetic networks.
+            // Change the power connection rules to isolate the steam, power, water and kinetic networks.
             changePowerRules();
-
-            // Change the power container to disable output if not active
-            modifyPowerContainers();
-
-            // Adds the fusedJB so that the custom junction disconnect if they don't have a fuse
-            modifyJunctionBoxes();
-
-            // Adds custom device to absorb overload power and protect the grid I.e. Steam regulator
-            addPowerAbsorber();
 
             #if SERVER
                 //GameMain.Server?.SendChatMessage("Started Mechtrauma");
