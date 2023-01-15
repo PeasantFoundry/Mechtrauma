@@ -368,7 +368,7 @@ function MT.F.steamBoiler(item)
         -- deteriorate Circulator Pumps
         MT.HF.subFromListAll(MT.Config.circulatorDPS * MT.Deltatime, curculatorItems) -- apply deterioration to each filters independently
         -- counteract pressureDamage
-        pressureDamage = pressureDamage - pressureDamage / curculatorSlots * #curculatorItems        
+        pressureDamage = pressureDamage - pressureDamage / curculatorSlots * #curculatorItems
         -- apply pressureDamage
         item.Condition = item.Condition - pressureDamage
     else
@@ -407,7 +407,7 @@ function MT.F.steamTurbine(item)
                     table.insert(bearingItems, containedItem)
                 
                     -- disable hot swapping parts
-                    item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                    item.OwnInventory.GetItemAt(index).HiddenInGame = true
                     if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
                 end
 

@@ -7,7 +7,9 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
-
+    
+    <aitarget sightrange="500" soundrange="5000" staticsight="true" fadeouttime="5"/>
+    
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <poweronsound file="%ModDir%/sound/dieseldeepstart.ogg" range="3000" loop="false" />      
     </LightComponent>   
@@ -109,6 +111,8 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    
+    <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <poweronsound file="%ModDir%/sound/dieseldeepstart.ogg" range="1000" loop="false" />      
@@ -209,6 +213,8 @@
     <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="0" />
     
+    <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
+
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <poweronsound file="%ModDir%/sound/dieseldeepstart.ogg" range="800" loop="false" />      
     </LightComponent>   
@@ -308,7 +314,8 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
-      
+    
+    <aitarget sightrange="500" soundrange="250" staticsight="true" fadeouttime="5"/>
    
     <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" depth="0.54">
       <sprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>

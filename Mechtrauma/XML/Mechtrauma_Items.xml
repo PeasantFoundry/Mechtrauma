@@ -2485,7 +2485,7 @@
   </Item>
 
 <!-- STATUS CONSOLE-->
-<Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command_console" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+<Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor,mobileradio" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command_console" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="64,987,28,20" origin="0.5,0.45" />  
     <Sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
@@ -2499,6 +2499,10 @@
       <sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,128,302,232" depth="-0.01" origin="0.5,0.8" alpha="1.0" />
     </LightComponent>
     </MiniMap>
+
+    <WifiComponent range="35000.0" LinkToChat="true" MinChatMessageInterval="0.0">
+      <!--RequiredItems items="mobilebattery" type="Contained" /-->
+    </WifiComponent>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -7347,14 +7351,14 @@
 
   <!-- REDUCTION GEAR: -->
   <Item name="Reduction Gear V2" identifier="reduction_gearv2" aliases="reduction_gear_P" tags="engine,mtpriority,reductiongear,mtupdate" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
-    <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,768,580,514" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25"/>
+    <Sprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,768,580,512" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25"/>
     <!-- <DecorativeSprite texture="%ModDir%/images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
       <IsActiveConditional CurrentBrokenVolume="gt 0.1" targetitemcomponent="Engine" />
     </DecorativeSprite> -->
-    <BrokenSprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,768,580,514" depth="0.8" maxcondition="80" offset="200,0" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/reduction_gear.png" sourcerect="0,768,580,514"  depth="0.8" maxcondition="1" offset="0,30" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/reduction_gear.png" sourcerect="640,768,580,512" depth="0.8" maxcondition="80" offset="0,0" fadein="true" />
+    <BrokenSprite texture="%ModDir%/images/reduction_gear.png" sourcerect="1280,768,580,512"  depth="0.8" maxcondition="1" offset="0,0" fadein="true" />
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
-    <trigger x="436" y="-80" width="1024" height="430" />
+    <trigger x="50" y="-50" width="480" height="412" />
     <aitarget sightrange="500" soundrange="7000" staticsight="true" fadeouttime="5"/>
     <Engine minvoltage="0.5" powerconsumption="4000.0" maxforce="2000" canbeselected="true" propellerpos="-760,0" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.2,0.18" minsize="450,200" anchor="Center" style="ItemUI" />
