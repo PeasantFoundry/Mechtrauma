@@ -36,7 +36,7 @@ end
 
 -- define global helper functions (they're used everywhere else!)
 dofile(MT.Path.."/Lua/Scripts/helperfunctions.lua")
-dofile(MT.Path.."/Lua/Scripts/config.lua")
+--dofile(MT.Path.."/Lua/Scripts/config.lua")
 dofile(MT.Path.."/Lua/Scripts/biotraumafunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/mechtraumafunctions.lua")
 

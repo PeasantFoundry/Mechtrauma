@@ -34,8 +34,20 @@ namespace Barotrauma.Items.Components
             PowerTolerance = 0.0f;
         }
 
+        public Connection PowerOut {get=>powerOut;}
+
+        public float GridLoad {
+            get {
+                if (powerOut == null || powerOut.Grid == null) {
+                    return 0.0f;
+                }
+                
+                return powerOut.Grid.Load;
+            }
+        }
+
         public override float GetCurrentPowerConsumption(Connection connection) {
-            if (connection == powerIn) {
+            if (connection == powerIn || !IsActive) {
                 return 0.0f;
             }
 

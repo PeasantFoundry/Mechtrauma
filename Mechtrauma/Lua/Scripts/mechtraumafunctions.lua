@@ -1,6 +1,7 @@
 MT.F = {}
 CentralComputerOnline = true
 
+LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
 
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second. 
 -- human breaths 700 oxygen/second and that requires to 0.3 
@@ -10,6 +11,11 @@ CentralComputerOnline = true
     --combustionTarget
 function MT.F.relayIgnition(item)    
     local ignition = item.GetComponentString("RelayComponent").IsOn
+    return ignition
+end
+
+function MT.F.sGeneratorIgnition(item)
+    local ignition = MT.HF.findComponent(item, "SimpleGenerator").IsActive
     return ignition
 end
 
@@ -49,7 +55,7 @@ MT.DE = {
         dieselFuelSlots=3,
         auxOxygenSlots=3,
         name="s2500Db",
-        ignitionType=MT.F.relayIgnition
+        ignitionType=MT.F.sGeneratorIgnition
     },
     PDG250={
         maxHorsePower=250,
@@ -62,10 +68,27 @@ MT.DE = {
     }
 }
 
-function MT.F.dieselGenerator(item)    
+function MT.F.dieselGenerator(item)
     -- debig printing: print(item.GetComponentString("RelayComponent").DisplayLoad)
-    --convert load(kW) to targetPower(HP) 1.341022
-    local targetPower = item.GetComponentString("RelayComponent").DisplayLoad
+    -- convert load(kW) to targetPower(HP) 1.341022
+    print(item.Name)
+    -- print(item.GetComponentString("Powered").PowerOut.Grid.Load)
+    --print(item.GetComponentString(Barotrauma.Items.Components.SimpleGenerator).PowerOut.Grid.Load)
+  
+
+    local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")
+    
+    
+
+    print(simpleGenerator)
+    print("IsActive")
+    print(simpleGenerator.IsActive)
+    
+    print("Load: " .. tostring(simpleGenerator.GridLoad))
+    --print("PowerOut: " .. tostring(simpleGenerator.PowerOut.Grid.Power))
+    
+
+    local targetPower = simpleGenerator.GridLoad
 
     -- check for a series index
     if MT.DE[item.Prefab.Identifier.Value] ~= nil then
@@ -76,7 +99,8 @@ function MT.F.dieselGenerator(item)
         --print((result.powerGenerated * .75) / 60)
         
         --print(item," BEFORE: ", item.GetComponentString("PowerContainer").Charge)
-        item.GetComponentString("PowerContainer").Charge = item.GetComponentString("PowerContainer").Charge + ((result.powerGenerated) / 60)
+        simpleGenerator.PowerConsumption = -result.powerGenerated
+        --item.GetComponentString("PowerContainer").Charge = item.GetComponentString("PowerContainer").Charge + ((result.powerGenerated) / 60)
         --print("AFTER: ", item.GetComponentString("PowerContainer").Charge)
         -- DEBUG PRINTING
         --print("result.powerGenerated:", result.powerGenerated )
@@ -91,7 +115,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     --ADVANCED DIESEL DESIGN
     -- HP:kW = 1:0.75
     -- HP:diesel(l) 1:0.2
-    
+    print(ignition)
     local dieselEngine = {}
 
     --depricated powerconversion calculation  
@@ -156,7 +180,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true end
     
     -- attempt combustion
-    if item.Condition > 0 and MT.F.relayIgnition(item) and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
+    if item.Condition > 0 and ignition and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
         dieselEngine.combustion = true
     
         -- burn oxygen       
@@ -395,7 +419,8 @@ function MT.F.steamTurbine(item)
         --loop through the Turbine inventory        
         while(index < item.OwnInventory.Capacity) do
             if item.OwnInventory.GetItemAt(index) ~= nil then
-                print(item.OwnInventory.GetItemAt(index),item.OwnInventory.GetItemAt(index).HiddenInGame)
+                -- DEBUG PRINTING
+                -- print(item.OwnInventory.GetItemAt(index),item.OwnInventory.GetItemAt(index).HiddenInGame)
                 local containedItem = item.OwnInventory.GetItemAt(index)
                 if containedItem.Prefab.Identifier.Value == "turbine_blade" then
                     bladeCount = bladeCount + 1

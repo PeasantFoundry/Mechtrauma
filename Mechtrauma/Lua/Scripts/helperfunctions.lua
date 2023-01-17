@@ -3,6 +3,15 @@ MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neu
 -- LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.Items."], "isWire")
 -- Mechtrauma exclusive functions:
 
+function MT.HF.findComponent(item, value)
+    for comp in item.Components do      
+        if tostring(comp) == "Barotrauma.Items.Components." .. value then
+        return comp 
+      end
+    end
+    return nil
+  end
+
 -- add function for removing useless lag causing items broken fuses,filters,emptycrates,
 function MT.HF.MechtraumaClean()
     for k, item in pairs(Item.ItemList) do        
