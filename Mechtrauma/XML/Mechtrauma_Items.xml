@@ -1328,7 +1328,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-500.0" checkconditionalalways="true" Comparison="And">
             <Conditional HasStatusTag="dieseltofillinslot1" targetcontainer="true"/>
             <Requireditem items="diesel_fuel_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>   
       
         </Containable>  
@@ -1391,7 +1391,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-50.0" checkconditionalalways="true" Comparison="And">
             <Conditional HasStatusTag="oiltofillinslot1" targetcontainer="true"/>
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>   
         </Containable>  
       </SubContainer>
@@ -1988,7 +1988,7 @@
           <Conditional condition="gt 0" />     
           <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="0" anglemax="90" velocitymin="500" velocitymax="1000" highqualitycollisiondetection="true"/>
           <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="15" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
-          <Sound file="%ModDir%/sound/pressure_relief2.ogg" range="100" loop="true" />
+          <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="100" loop="true" />
       </StatusEffect> 
 
       <!-- BROKEN: -->
@@ -2066,7 +2066,7 @@
        <Conditional HullOxygenPercentage="gt 80" />
        <Conditional Voltage="gt 0.1" />
        <Conditional InWater="false" />    
-       <Sound file="%ModDir%/sound/electric_compressor.ogg" range="750" loop="true" />    
+       <Sound file="%ModDir%/Sound/electric_compressor.ogg" range="750" loop="true" />    
     </StatusEffect> 
 
     <!-- CHECK: LOW HULL OXYGEN-->
@@ -2098,7 +2098,7 @@
           <Requireditem items="oxygentank_large" type="contained" excludebroken="true" targetslot="0" />  
           <Conditional HasStatusTag="lowhulloxygen" targetcontainer="true"/>
           
-          <!-- <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   -->
+          <!-- <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   -->
         </StatusEffect>
 
           <!-- Check for a non empty oxygentank in slot0  (Statuseffect tags need to have a duration applied) -->
@@ -2131,7 +2131,7 @@
         <StatusEffect type="OnContaining" targettype="Contained" targetslot="1" Condition="20.0" Comparison="And">
             
             <Conditional HasStatusTag="oxygenavailibleinslot0" targetcontainer="true"/>             
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
         </StatusEffect>
 
         
@@ -2214,7 +2214,7 @@
        <Conditional HullOxygenPercentage="gte 50" />
        <Conditional InWater="false" />
        <Conditional Voltage="gte 0.5"/>
-       <Sound file="%ModDir%/sound/electric_compressor.ogg" range="500" loop="true" />          
+       <Sound file="%ModDir%/Sound/electric_compressor.ogg" range="500" loop="true" />          
     </StatusEffect>  
     </Powered>
 
@@ -2449,7 +2449,7 @@
       <Button text="Power Consumption Report">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="maintenanceTablet_pcr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
 
@@ -2457,7 +2457,7 @@
        <Button text="Co2 Filter Status Report">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_csr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -2469,7 +2469,7 @@
       <Button text="Pump Status Report">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="maintenanceTablet_pr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
       
@@ -2477,7 +2477,7 @@
        <Button text="FUSE STATUS REPORT">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -3441,7 +3441,7 @@
       <StatusEffect type="always" target="This" duration="5" delay="1">
         <Conditional CurrPowerConsumption="lt -0.5"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="40" anglemax="50" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="0.05" />          
         </Explosion>
@@ -3751,9 +3751,9 @@
           <StatusEffect type="OnWearing" target="This,Character" checkconditionalalways="true" Voltage="1.0" setvalue="true">
             <Conditional IsDead="false" />
             <RequiredItem items="batterycell" type="Contained" targetslot="1"/>            
-            <Sound file="%ModDir%/sound/knight1.ogg" range="500" selectionmode="Random"/>
-            <Sound file="%ModDir%/sound/knight2.ogg" range="500" selectionmode="Random"/>
-            <Sound file="%ModDir%/sound/knight3.ogg" range="500" selectionmode="Random"/>
+            <Sound file="%ModDir%/Sound/knight1.ogg" range="500" selectionmode="Random"/>
+            <Sound file="%ModDir%/Sound/knight2.ogg" range="500" selectionmode="Random"/>
+            <Sound file="%ModDir%/Sound/knight3.ogg" range="500" selectionmode="Random"/>
           </StatusEffect>
           <LightTexture texture="%ModDir%/Images/gear/knight_light.png" depth="0.3" origin="0.5,0.5" size="0.1,0.1" />
         </LightComponent>
@@ -5154,7 +5154,7 @@
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="steamspray" particlespersecond="1" anglemin="0" anglemax="0" velocitymin="500" velocitymax="500" position="25,5" highqualitycollisiondetection="true"/>
-      <Sound file="%ModDir%/sound/airrifle.ogg" type="OnUse" range="1000" />
+      <Sound file="%ModDir%/Sound/airrifle.ogg" type="OnUse" range="1000" />
       <StatusEffect type="OnUse">
         <Explosion range="150.0" force="2.5" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
@@ -5177,7 +5177,7 @@
           <!-- TRANSFER: Fill the airrifle -->
           <StatusEffect type="OnContaining" targettype="This" Condition="100" setvalue="true" delay="1.0" Comparison="And">
             <Conditional condition="lt 100" />
-            <Sound file="%ModDir%/sound/airrifle2.ogg" range="1000" loop="false" /> 
+            <Sound file="%ModDir%/Sound/airrifle2.ogg" range="1000" loop="false" /> 
             <ParticleEmitter particle="steamspray" particlespersecond="1" anglemin="0" anglemax="0" velocitymin="50" velocitymax="50" position="25,5" highqualitycollisiondetection="true"/>
           </StatusEffect>
 
@@ -5924,7 +5924,7 @@
         <!-- DRAIN BATTERY: Drain the battery after incinerating the items. -->
         <StatusEffect type="OnUse" target="This" targetitemcomponent="PowerContainer" duration="1.5" charge="-25.0">
           <Conditional charge="30" />          
-          <Sound file="%ModDir%/sound/buzz.ogg" range="500" loop="false" /> 
+          <Sound file="%ModDir%/Sound/buzz.ogg" range="500" loop="false" /> 
         </StatusEffect>
 
         <!-- ERROR: Not enough power. -->
@@ -6076,7 +6076,7 @@
             <!-- Play Tank Sound for slot6-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="6" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="dieselinslot0" targetcontainer="true" />            
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>
                 
           <!-- Fill the diesel fuel tank in slot6 from slot 0 -->
@@ -6216,7 +6216,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetslot="2" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             
             <Requireditem items="weldingfueltank" type="contained" targetslot="2" excludefullcondition="true"/>
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
         </Containable>  
@@ -6242,7 +6242,7 @@
              <!-- Play Tank Sound for slot3-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="3" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="argonavailibleinslot1" targetcontainer="true" />
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
     
@@ -6310,7 +6310,7 @@
           <!-- Play Tank Sound for slot2-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="1" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="fillailibleinslot0" targetcontainer="true" />            
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
         </Containable>  
@@ -6344,7 +6344,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-50.0" Comparison="And">
             <Conditional HasStatusTag="tanktofillinslot1" targetcontainer="true"/>
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>     
          
       
@@ -6417,7 +6417,7 @@
         <Conditional HasStatusTag="diesel_fuel" />
         <Conditional HullOxygenPercentage="gte 75" />
         <Conditional InWater="false" />      
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />   
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />   
       </StatusEffect>  
 
       <!-- COMBUSTION: Low Oxygen -->
@@ -6427,7 +6427,7 @@
         <Conditional HasStatusTag="oxygen" />
         <Conditional HullOxygenPercentage="lt 75" />
         <Conditional InWater="false" />         
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
 
       <!-- COMBUSTION: Under Water -->
@@ -6436,7 +6436,7 @@
         <Conditional HasStatusTag="diesel_fuel" />
         <Conditional HasStatusTag="oxygen" />
         <Conditional InWater="true" />
-        <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
       
       <!-- LUBRICATION: Counteracts engine friction. The generator will not destroy itself if it has oil in it. 11/2/22 I don't remember why lubrtication is .1 higher than friction -->
@@ -6660,7 +6660,7 @@
         <Conditional HasStatusTag="diesel_fuel_can" />
         <Conditional HullOxygenPercentage="gte 75" />
         <Conditional InWater="false" />      
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />   
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />   
       </StatusEffect>  
 
       <!-- COMBUSTION: Low Oxygen -->
@@ -6670,7 +6670,7 @@
         <Conditional HasStatusTag="oxygentank" />
         <Conditional HullOxygenPercentage="lt 75" />
         <Conditional InWater="false" />         
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
 
       <!-- COMBUSTION: Under Water -->
@@ -6679,7 +6679,7 @@
         <Conditional HasStatusTag="diesel_fuel_can" />
         <Conditional HasStatusTag="oxygentank" />
         <Conditional InWater="true" />
-        <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
       
       <!-- Lubricate Engine! The generator will not destroy itself if it has oil in it. -->
@@ -6864,7 +6864,7 @@
       <!-- Don't stick your hand in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
       </StatusEffect>
     
@@ -6914,7 +6914,7 @@
       <!-- ROCKET POWER: -->
       <StatusEffect type="Always" target="This" targetitemcomponent="Engine" Condition="2" Comparison="And">             
         <ParticleEmitter particle="weld" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief2.ogg" range="100" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="100" loop="true" />
         <Conditional force="neq 0" />        
       </StatusEffect>          
                  
@@ -7039,7 +7039,7 @@
         <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
     
         <Affliction identifier="bleeding" strength="35" /> 
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
 
       </StatusEffect>
@@ -7158,7 +7158,7 @@
         <Conditional InWater="false" />
         <Conditional Voltage="gt 0.5" targetitemcomponent="RelayComponent"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true" />
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">
           <Affliction identifier="burn" strength="25" />
         </Explosion>
@@ -7246,7 +7246,7 @@
         <Conditional InWater="false" />  
         <Conditional Charge="gt 1" target="this"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="25" />          
         </Explosion>
@@ -7641,13 +7641,13 @@
         <StatusEffect type="OnUse" target="Contained" >
           <Conditional HasStatusTag ="valid_sample" targetcontainer="true" />  
           <Remove targetslot="0"/>  
-          <Sound file="%ModDir%/sound/analyze.ogg" range="1000" />
+          <Sound file="%ModDir%/Sound/analyze.ogg" range="1000" />
         </StatusEffect>
         <!-- RESULT: Return the result -->
         <StatusEffect type="OnUse" target="Contained" Delay="2" stackable="false" >
           <Conditional HasStatusTag ="valid_sample" targetcontainer="true" />  
           <LuaHook name="mechtraumaBacteriaAnalyze.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -7683,7 +7683,7 @@
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
       </StatusEffect>
     
