@@ -432,7 +432,7 @@ MT.ShowGUI = function ()
              --clear the previous results 
              ClearElements(category.Content, true)
            
-            local mechtraumaBanner = Sprite(MT.Path .. "/images/mechtrauma_eys.png")
+            local mechtraumaBanner = Sprite(MT.Path .. "/Images/mechtrauma_eys.png")
             GUI.Image(GUI.RectTransform(Vector2(.75,.75), category.Content.RectTransform, GUI.Anchor.Center), mechtraumaBanner)
 
             -- Diesel Generator Efficiency

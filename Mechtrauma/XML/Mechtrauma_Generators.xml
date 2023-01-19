@@ -4,9 +4,9 @@
 
 <!-- DIESEL GENERATOR S5000D: Standard. -->
  <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
     
     <aitarget sightrange="500" soundrange="5000" staticsight="true" fadeouttime="5"/>
     
@@ -31,18 +31,18 @@
    
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="8" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="9" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="10" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
-      <SlotIcon slotindex="11" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="9" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="11" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
       <!-- SLOT 0-1 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
       <!-- SLOT 2 Oil Filter -->  
@@ -108,9 +108,9 @@
 
 <!-- DIESEL GENERATOR S3000D: Standard. -->
  <Item name="s3000D" identifier="s3000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
     
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
@@ -135,14 +135,14 @@
    
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
 
       <!-- SLOT 0 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
@@ -209,8 +209,8 @@
 
  <!-- DIESEL GENERATOR S2500Da: Yellow Cabinet. -->
  <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
     
     <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
 
@@ -238,15 +238,15 @@
    
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="8" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
 
       <!-- SLOT 0-1 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
@@ -312,9 +312,9 @@
 
   <!-- DIESEL GENERATOR S2500Db: Blue Cabinet. -->
  <Item name="Series C-2500Db" identifier="sC2500Db" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="0" />
     
     <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
 
@@ -345,15 +345,15 @@
    
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="6" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="7" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="8" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
 
       <!-- SLOT 0-1 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel"/>     
@@ -419,14 +419,14 @@
 
 <!-- DIESEL GENERATOR PDG250: Standard. -->
 <Item name="" identifier="PDG250" tags="Power,Portable,keyignition,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.4">
-    <Sprite name="Diesel Generator" texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
     
     <aitarget sightrange="500" soundrange="250" staticsight="true" fadeouttime="5"/>
    
     <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" depth="0.54">
-      <sprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
+      <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>      
         <sound file="%ModDir%/sound/diesel_sound.ogg" type="OnActive" range="800" loop="true" />    
@@ -454,11 +454,11 @@
      <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false"/>   
         
