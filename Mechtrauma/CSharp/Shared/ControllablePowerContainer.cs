@@ -81,7 +81,7 @@ namespace Barotrauma.Items.Components
 
 // Read isOn boolean from the client network event
 #if CLIENT
-        public void ClientEventRead(IReadMessage msg, float sendingTime)
+        public new void ClientEventRead(IReadMessage msg, float sendingTime)
         {
             // Keep track of whether delayedCorrection will occur, so we don't read the msg
             bool delayedCorrection = correctionTimer > 0.0f;

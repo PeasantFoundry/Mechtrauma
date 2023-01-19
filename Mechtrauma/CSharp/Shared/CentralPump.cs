@@ -106,7 +106,7 @@ namespace Barotrauma.Items.Components
             return -1;
         }
 
-        void UpdateProjSpecific(float deltaTime) {
+        new void UpdateProjSpecific(float deltaTime) {
             // Place holder
         }
 
