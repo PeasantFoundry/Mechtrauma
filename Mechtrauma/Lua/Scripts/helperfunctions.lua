@@ -515,14 +515,14 @@ end
 
 --sadly, Game.RoundStarted does not work for singleplayer (sub editor)
 function MT.HF.GameIsRunning()
-    if SERVER then         
+    if SERVER then
             
         return Game.RoundStarted
     
     else
-        if Game.Paused or not Game.RoundStarted then return false end
-       
-        return true
+        -- if Game.Paused or not Game.RoundStarted then return false end
+        -- return true
+        return Game.GameSession and Game.GameSession.IsRunning
     end
 end
 

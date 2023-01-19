@@ -227,7 +227,7 @@ MT.ShowGUI = function ()
               oilFilterServiceLife.FloatValue = MT.Config.oilFilterServiceLife
               oilFilterServiceLife.OnValueChanged = function ()
                   MT.Config.oilFilterServiceLife = oilFilterServiceLife.FloatValue
-                  MT.Config.oilFilterDPS = 100 / (MT.Config.oilFilterServiceLife * 60)
+                  MT.Config.oilFilterDPS = 100 / (MT.Config.oilFilterServiceLife * 60) -- calculate damage per second based on service life
                   OnChanged()
               end
 
@@ -258,19 +258,19 @@ MT.ShowGUI = function ()
             
              -- Diesel Generator Efficiency
              GUI.TextBlock(GUI.RectTransform(Vector2(1, 0.1), category.Content.RectTransform), "Diesel Generator Efficiency ", nil, nil, GUI.Alignment.Center, true).ToolTip =
-             "How much energy is lost ."
+             "Not currently used."
 
              -- dieselGeneratorEfficiency
             local dieselGeneratorEfficiencyG = GUI.LayoutGroup(GUI.RectTransform(Vector2(1.0, 0.1), category.Content.RectTransform), true, GUI.Anchor.TopLeft)
             -- dieselGeneratorEfficiency sprite
             local dieselGeneratorEfficiencyS = ItemPrefab.GetItemPrefab("s1500D").InventoryIcon
             local image = GUI.Image(GUI.RectTransform(Vector2(0.1,1.0), dieselGeneratorEfficiencyG.RectTransform), dieselGeneratorEfficiencyS)
-            image.ToolTip = "Diesel fuel can."
+            image.ToolTip = "Diesel Generator."
 
             local dieselGeneratorEfficiency = GUI.NumberInput(GUI.RectTransform(Vector2(0.9, 0.1), dieselGeneratorEfficiencyG.RectTransform), NumberType.Float)
-            dieselGeneratorEfficiency.valueStep = 1.0
-            dieselGeneratorEfficiency.MinValueFloat = 20.0
-            dieselGeneratorEfficiency.MaxValueFloat = 1
+            dieselGeneratorEfficiency.valueStep = 0.1
+            dieselGeneratorEfficiency.MinValueFloat = 1
+            dieselGeneratorEfficiency.MaxValueFloat = 2
             dieselGeneratorEfficiency.FloatValue = MT.Config.dieselGeneratorEfficiency
             dieselGeneratorEfficiency.OnValueChanged = function ()
                 MT.Config.dieselGeneratorEfficiency = dieselGeneratorEfficiency.FloatValue

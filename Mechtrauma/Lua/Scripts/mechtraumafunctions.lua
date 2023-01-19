@@ -15,7 +15,7 @@ function MT.F.relayIgnition(item)
 end
 
 function MT.F.sGeneratorIgnition(item)
-    local ignition = MT.HF.findComponent(item, "SimpleGenerator").IsActive
+    local ignition = MT.HF.findComponent(item, "SimpleGenerator").IsOn
     return ignition
 end
 
@@ -28,7 +28,7 @@ MT.DE = {
         dieselFuelSlots=6,
         auxOxygenSlots=3,
         name="s5000D",
-        ignitionType=MT.F.relayIgnition
+        ignitionType=MT.F.sGeneratorIgnition
     },
     s3000D={
         maxHorsePower=3000,
@@ -37,7 +37,7 @@ MT.DE = {
         dieselFuelSlots=4,
         auxOxygenSlots=2,
         name="s3000D",
-        ignitionType=MT.F.relayIgnition
+        ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Da={
         maxHorsePower=2500,
@@ -46,7 +46,7 @@ MT.DE = {
         dieselFuelSlots=3,
         auxOxygenSlots=3,
         name="s2500Da",
-        ignitionType=MT.F.relayIgnition
+        ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Db={
         maxHorsePower=2500,
@@ -57,6 +57,24 @@ MT.DE = {
         name="s2500Db",
         ignitionType=MT.F.sGeneratorIgnition
     },
+    s1500D={
+        maxHorsePower=1500,
+        oilSlots=1,
+        filterSlots=1,
+        dieselFuelSlots=3,
+        auxOxygenSlots=1,
+        name="s1500D",
+        ignitionType=MT.F.sGeneratorIgnition
+    },
+    PDG500={
+        maxHorsePower=500,
+        oilSlots=1,
+        filterSlots=1,
+        dieselFuelSlots=1,
+        auxOxygenSlots=1,
+        name="PDG500",
+        ignitionType=MT.F.sGeneratorIgnition
+    },
     PDG250={
         maxHorsePower=250,
         oilSlots=1,
@@ -64,64 +82,38 @@ MT.DE = {
         dieselFuelSlots=1,
         auxOxygenSlots=1,
         name="PDG250",
-        ignitionType=MT.F.relayIgnition
+        ignitionType=MT.F.sGeneratorIgnition
     }
 }
 
 function MT.F.dieselGenerator(item)
-    -- debig printing: print(item.GetComponentString("RelayComponent").DisplayLoad)
     -- convert load(kW) to targetPower(HP) 1.341022
-    print(item.Name)
-    -- print(item.GetComponentString("Powered").PowerOut.Grid.Load)
-    --print(item.GetComponentString(Barotrauma.Items.Components.SimpleGenerator).PowerOut.Grid.Load)
-  
-
     local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")
-    
-    
-
-    print(simpleGenerator)
-    print("IsActive")
-    print(simpleGenerator.IsActive)
-    
-    print("Load: " .. tostring(simpleGenerator.GridLoad))
-    --print("PowerOut: " .. tostring(simpleGenerator.PowerOut.Grid.Power))
-    
-
     local targetPower = simpleGenerator.GridLoad
 
-    -- check for a series index
+    -- print(simpleGenerator.IsOn)
+    -- print("Load: " .. tostring(simpleGenerator.GridLoad))
+    -- print("PowerOut: " .. tostring(simpleGenerator.PowerOut.Grid.Power))
+
+    -- check for a diesel series index
     if MT.DE[item.Prefab.Identifier.Value] ~= nil then
-        -- combustion
+        -- Results: Pass the ingition type, diesel series, and target power to the dieslEngine function to attempt combustion
         local result = MT.F.dieselEngine(item, MT.DE[item.Prefab.Identifier.Value].ignitionType(item), MT.DE[item.Prefab.Identifier.Value], targetPower)
-        --print("dieslengine.combustion", dieselEngine.combustion)
-        --print("Horse Power Generated!", result.powerGenerated)
-        --print((result.powerGenerated * .75) / 60)
         
-        --print(item," BEFORE: ", item.GetComponentString("PowerContainer").Charge)
+        -- Generate Power: need to add the HP to kW conversion
         simpleGenerator.PowerConsumption = -result.powerGenerated
-        --item.GetComponentString("PowerContainer").Charge = item.GetComponentString("PowerContainer").Charge + ((result.powerGenerated) / 60)
-        --print("AFTER: ", item.GetComponentString("PowerContainer").Charge)
-        -- DEBUG PRINTING
-        --print("result.powerGenerated:", result.powerGenerated )
-        --print("result.powergenerated processed:", (result.powerGenerated) / 60) 
+        
     else
-        --possibly create a new dieselSeries or support some tag based series
-        print(item.Prefab.Identifier.Value, " DOES NOT EXIST!")
+        -- invalid diesel series index
+        print(item.Prefab.Identifier.Value, " - !IS NOT A VALID DIESEL SERIES!")
     end
 end
 
 function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     --ADVANCED DIESEL DESIGN
     -- HP:kW = 1:0.75
-    -- HP:diesel(l) 1:0.2
-    print(ignition)
+    -- HP:diesel(l) 1:0.2    
     local dieselEngine = {}
-
-    --depricated powerconversion calculation  
-    --local dieselFuelNeededCL = targetPower / ((MT.Config.dieselPowerRatioCL * 3600) * MT.Config.dieselGeneratorEfficiency)  -- liters
-    -- if targetPower > dieselSeries.maxHorsePower then targetPower = dieselSeries.maxHorsePower       
-    -- print("Target horsePower:", MT.HF.Clamp(targetPower * 1.35, 100, dieselSeries.maxHorsePower))
     local dieselFuelNeededCL = MT.Config.dieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime -- min power is idle speed
     local oxygenNeeded = dieselFuelNeededCL * MT.Config.dieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condtion of diesel    
 
@@ -129,8 +121,8 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local auxOxygenItems = {}
     local auxOxygenVol = 0
     local hullOxygenPercentage = 0
-    -- this errors when a portable dieselEngine is outside of a hull...
-     if item.InWater == false then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
+    -- set hullOxygenPercentage to 0 when submerged or outside of a hull.
+     if item.InWater == false and item.FindHull() ~= nil then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
 
     -- diesel
     local dieselFuelItems = {}
@@ -181,10 +173,11 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     
     -- attempt combustion
     if item.Condition > 0 and ignition and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
+        -- combustion succeeded
         dieselEngine.combustion = true
-    
+
         -- burn oxygen       
-        if item.FindHull().OxygenPercentage >= 75 then  -- burn hull oxygen when above 75%
+        if hullOxygenPercentage >= 75 then  -- burn hull oxygen when above 75%
             item.FindHull().Oxygen = item.FindHull().Oxygen - (oxygenNeeded * 2250) -- 2250 hull oxygen ~= 1 oxygen condition                     
         else
             MT.HF.subFromListSeq (oxygenNeeded, auxOxygenItems) -- burn auxOxygen
@@ -200,42 +193,26 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
 
         -- set the generated amount to be returned
         dieselEngine.powerGenerated = MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower)
-        -- restrict max output to to dieselEngine.powerGenerated. This prevents powerfluctations 
-        --item.GetComponentString("PowerContainer").MaxOutPut = dieselSeries.maxHorsePower
-        --item.GetComponentString("RelayComponent").maxOutput = dieselSeries.maxHorsePower
-        --item.GetComponentString("RelayComponent").MaxPower = dieselSeries.maxHorsePower
-        --dieselEngine.powerGenerated
-       
-        --print("MAX OUTPUT: ", item.GetComponentString("PowerContainer").MaxOutPut, " for: ", item)
-        --print("MAX POWER: ",  item.GetComponentString("RelayComponent").MaxPower)
-
-       --[[ for k, connection in pairs(item.Connections) do
-            print("Found one!")
-            print(item.Connections)
-            print(connection.DisplayName)
-            
-        end]]
-        --public override PowerRange MinMaxPowerOut(Connection connection, float load = 0)
 
         -- DEBUG PRINTING: print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * 2 / 60, " minutes.")  
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
         -- DEBUG PRINTING: print("Filration will last for: ", oilFiltrationVol / MT.Config.oilFilterDPS  / 60 )
 
-        -- combustion sound: this sorta works, need to just move sounds to sound items, unfortunately. 
-        for k, item in pairs(item.Components) do            
+        -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
+        for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
             -- print(item,": ", item.IsOn)
         end
 
         return dieselEngine
     else
-        
-        dieselEngine.powerGenerated = 0
+        -- combustion failed        
         dieselEngine.combustion = false
-       
-        for k, item in pairs(item.Components) do            
+        dieselEngine.powerGenerated = 0
+        
+        -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
+        for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
-            -- print(item,": ", item.IsOn) 
         end
             
         return dieselEngine
@@ -364,11 +341,9 @@ end
 
 -- STEAM Boiler: the beloved steam boiler...
 function MT.F.steamBoiler(item)
-
-    --<!-- Deteriorate the Circulator Pumps -->
-    -- -0.05 deterioration per 2 second when powered
     local index = 0
-    -- if operational (condition) and operating (powered)
+
+    -- OPERATION: if operational (condition) and operating (powered)
     if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
         local curculatorItems = {}
         local curculatorSlots = 2 -- temporarily hardcoded        
@@ -395,6 +370,12 @@ function MT.F.steamBoiler(item)
         pressureDamage = pressureDamage - pressureDamage / curculatorSlots * #curculatorItems
         -- apply pressureDamage
         item.Condition = item.Condition - pressureDamage
+
+        -- check for leaks
+        if item.ConditionPercentage <= 50 then
+            print(item.CurrentHull.WaterVolume)
+            item.CurrentHull.WaterVolume = item.CurrentHull.WaterVolume + 3000
+        end
     else
       -- nothing to see here
     end

@@ -51,8 +51,7 @@ MT.tagfunctions = {
 -- run once per MT.Deltatime (2 seconds) by updateCounter.lua
 function MT.updateItems()
     local updateItemsCounter = 0
-    if Game.GameSession == nil or MT.HF.GameIsPaused()then return end
-    
+
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
     for key, value in pairs(MT.itemCache) do
         -- make sure the items still exists 

@@ -16,6 +16,15 @@ namespace Barotrauma.Items.Components
 {
     class SimpleGenerator : Powered {
 
+        public override bool UpdateWhenInactive => true;
+        
+        private bool isOn = false;
+        [Editable, Serialize(false, IsPropertySaveable.Yes, description: "Is the generator on.", alwaysUseInstanceValues: true)]
+        public bool IsOn {
+            get=>isOn;
+            set=>isOn=value;
+        }
+
         public float PowerTolerance {
             get => powerTolerance;
             set => powerTolerance = MathHelper.Clamp(value, 0.0f, 1.0f);
@@ -47,7 +56,7 @@ namespace Barotrauma.Items.Components
         }
 
         public override float GetCurrentPowerConsumption(Connection connection) {
-            if (connection == powerIn || !IsActive) {
+            if (connection == powerIn || !IsOn) {
                 return 0.0f;
             }
 
@@ -78,6 +87,28 @@ namespace Barotrauma.Items.Components
                 return MathHelper.Clamp(ratio * (myRange.Max - myRange.Min) + myRange.Min, myRange.Min, myRange.Max);
             }
             return 0.0f;
+        }
+        
+        public override void Update(float deltaTime, Camera cam)
+        {
+            
+            if (IsOn) {
+                base.Update(deltaTime, cam);
+            }
+            item.SendSignal(IsOn ? "1" : "0", "state_out");
+            
+        }
+        
+        public override void ReceiveSignal(Signal signal, Connection connection)
+        {
+            if (connection.Name == "toggle")
+            {
+                IsOn = !IsOn;
+            }
+            else if (connection.Name == "set_state")
+            {
+                IsOn = signal.value != "0";
+            }
         }
 
     }
