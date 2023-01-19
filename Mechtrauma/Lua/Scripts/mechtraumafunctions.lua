@@ -119,11 +119,11 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local dieselEngine = {}
 
     --depricated powerconversion calculation  
-    --local dieselFuelNeededCL = targetPower / ((MT.Config.dieselPowerRatioCL * 3600) * MT.Config.dieselGeneratorEfficiency)  -- liters
+    --local dieselFuelNeededCL = targetPower / ((MT.Config.DieselPowerRatioCL * 3600) * MT.Config.DieselGeneratorEfficiency)  -- liters
     -- if targetPower > dieselSeries.maxHorsePower then targetPower = dieselSeries.maxHorsePower       
     -- print("Target horsePower:", MT.HF.Clamp(targetPower * 1.35, 100, dieselSeries.maxHorsePower))
-    local dieselFuelNeededCL = MT.Config.dieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime -- min power is idle speed
-    local oxygenNeeded = dieselFuelNeededCL * MT.Config.dieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condtion of diesel    
+    local dieselFuelNeededCL = MT.Config.DieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime -- min power is idle speed
+    local oxygenNeeded = dieselFuelNeededCL * MT.Config.DieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condtion of diesel    
 
     -- oxygen    
     local auxOxygenItems = {}
@@ -143,8 +143,8 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local oilfiltrationSlots = dieselSeries.filterSlots
     local oilFiltrationVol = 0
     -- Damage and Reduction
-    local frictionDamage = MT.Config.frictionBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
-    local oilDeterioration = MT.Config.oilBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for capacity
+    local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
+    local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for capacity
 
     local index = 0
     -- INVENTORY: loop through the inventory and see what we have
@@ -159,11 +159,11 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
             table.insert(oilItems, containedItem)
             oilVol = oilVol + containedItem.Condition
-            frictionDamage = frictionDamage - MT.Config.frictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+            frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
         -- get oil filtration item(s)
         elseif containedItem.HasTag("oilfilter") and containedItem.Condition > 0 then
             table.insert(oilFiltrationItems, containedItem)            
-            oilDeterioration = oilDeterioration - oilDeterioration * (MT.Config.oilFiltrationM / oilfiltrationSlots) -- FILTER: reduce *possible* oil damage for this filter slot  
+            oilDeterioration = oilDeterioration - oilDeterioration * (MT.Config.OilFiltrationM / oilfiltrationSlots) -- FILTER: reduce *possible* oil damage for this filter slot  
             oilFiltrationVol = oilFiltrationVol + containedItem.Condition
         -- get aux oxygen item(s)    
         elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then 
@@ -194,7 +194,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- burn oil
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate filter(s)
-        MT.HF.subFromListAll((MT.Config.oilFilterDPS * MT.Deltatime), oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
+        MT.HF.subFromListAll((MT.Config.OilFilterDPS * MT.Deltatime), oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
         -- friction damage
         item.Condition = item.Condition - frictionDamage
 
@@ -219,7 +219,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
 
         -- DEBUG PRINTING: print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * 2 / 60, " minutes.")  
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
-        -- DEBUG PRINTING: print("Filration will last for: ", oilFiltrationVol / MT.Config.oilFilterDPS  / 60 )
+        -- DEBUG PRINTING: print("Filration will last for: ", oilFiltrationVol / MT.Config.OilFilterDPS  / 60 )
 
         -- combustion sound: this sorta works, need to just move sounds to sound items, unfortunately. 
         for k, item in pairs(item.Components) do            
@@ -251,13 +251,13 @@ function MT.F.divingSuit(item)
 
         -- DETERIORATION: 
         -- execute if divingsuit is equipped and deterioration or extended pressure protection is enabled.
-        if (MT.Config.divingSuitServiceLife > 0.0 or MT.Config.divingSuitEPP > 1.0) then
+        if (MT.Config.DivingSuitServiceLife > 0.0 or MT.Config.DivingSuitEPP > 1.0) then
             local itemDepth = MT.HF.GetItemDepth(item)
             local pressureProtectionMultiplier = itemDepth / item.ParentInventory.Owner.PressureProtection -- quotient of depth and pressure protection
             local pressureDamagePD = 0 -- per delta        
             local deteriorationDamagePD = 0 -- per delta
             -- calculate deterioration damage if deterioration is enabled
-            if MT.Config.divingSuitServiceLife > 0.0 then deteriorationDamagePD = (item.MaxCondition / (MT.Config.divingSuitServiceLife * 60) * MT.Deltatime) end
+            if MT.Config.DivingSuitServiceLife > 0.0 then deteriorationDamagePD = (item.MaxCondition / (MT.Config.DivingSuitServiceLife * 60) * MT.Deltatime) end
 
             -- EXTENDED PRESSURE PROTECTION: Protects up to 2x max pressure but damages the diving suit.
             if pressureProtectionMultiplier <= 2 and item.Condition > 1 then --if you're past 2x pressure you deserve what you get.   
@@ -305,8 +305,8 @@ function MT.F.fuseBox(item)
         
         -- set water, overvoltage, and deterioration damage amounts
         if item.InWater then fuseWaterDamage = 1.0 end
-        if voltage > 1.7 then fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage end
-        if item.GetComponentString("PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.fusBoxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.fusBoxDeterioration 
+        if voltage > 1.7 then fuseOvervoltDamage = MT.Config.FuseOvervoltDamage * voltage end
+        if item.GetComponentString("PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.FuseboxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.FuseboxDeterioration 
   
         -- apply water, deterioration, and overvoltage damage to the fuse
         item.OwnInventory.GetItemAt(0).Condition = item.OwnInventory.GetItemAt(0).Condition - fuseWaterDamage - fuseOvervoltDamage - fuseDeteriorationDamage
@@ -314,7 +314,7 @@ function MT.F.fuseBox(item)
     else
         
         -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires.         
-        item.GetComponentString("Repairable").DeteriorationSpeed = MT.Config.fusBoxDeterioration --enable deterioration        
+        item.GetComponentString("Repairable").DeteriorationSpeed = MT.Config.FuseboxDeterioration --enable deterioration        
         item.GetComponentString("PowerTransfer").CanBeOverloaded = true -- enable overvoltage
         item.GetComponentString("PowerTransfer").FireProbability = 0.9 -- increase fire probability 
         -- disable RelayComponent if present
@@ -390,7 +390,7 @@ function MT.F.steamBoiler(item)
         end
 
         -- deteriorate Circulator Pumps
-        MT.HF.subFromListAll(MT.Config.circulatorDPS * MT.Deltatime, curculatorItems) -- apply deterioration to each filters independently
+        MT.HF.subFromListAll(MT.Config.CirculatorDPS * MT.Deltatime, curculatorItems) -- apply deterioration to each filters independently
         -- counteract pressureDamage
         pressureDamage = pressureDamage - pressureDamage / curculatorSlots * #curculatorItems
         -- apply pressureDamage
@@ -414,7 +414,7 @@ function MT.F.steamTurbine(item)
         local bearingItems = {}
         local bladeCount = 0
         local bearingSlots = 4 -- temporarily hardcoded
-        local frictionDamage = MT.Config.frictionBaseDPS * bearingSlots * MT.Deltatime
+        local frictionDamage = MT.Config.FrictionBaseDPS * bearingSlots * MT.Deltatime
 
         --loop through the Turbine inventory        
         while(index < item.OwnInventory.Capacity) do
@@ -446,7 +446,7 @@ function MT.F.steamTurbine(item)
         
     
         -- deteriorate Thrust Bearings
-        MT.HF.subFromListAll(MT.Config.bearingDPS * MT.Deltatime, bearingItems) -- apply deterioration to each bearings independently
+        MT.HF.subFromListAll(MT.Config.BearingDPS * MT.Deltatime, bearingItems) -- apply deterioration to each bearings independently
         -- counteract frictionDamage
         frictionDamage = frictionDamage - frictionDamage / bearingSlots * #bearingItems     
         -- apply frictionDamage
@@ -481,8 +481,8 @@ function MT.F.reductionGear(item)
         local oilFiltrationItems = {}
         local oilfiltrationSlots = 2 -- temporarily hardcoded, need machine table or handle in loop
         -- Damage and Reduction
-        local frictionDamage = MT.Config.frictionBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
-        local oilDeterioration = MT.Config.oilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
+        local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
+        local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local driveGearCount = 0
 
         local forceStrength = MT.HF.Round(item.GetComponentString("Engine").Force, 2)
@@ -507,12 +507,12 @@ function MT.F.reductionGear(item)
                 elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
                     table.insert(oilItems, containedItem)
                     oilVol = oilVol + containedItem.Condition
-                    frictionDamage = frictionDamage - MT.Config.frictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+                    frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
                 
                     -- check for filters
                 elseif containedItem.HasTag("oilfilter") then
                     table.insert(oilFiltrationItems, containedItem)
-                    oilDeterioration =  oilDeterioration - MT.Config.oilBaseDPS * MT.Config.oilFiltrationM / oilfiltrationSlots -- LUBRICATE: reduce *possible* oil damage for this filter slot  
+                    oilDeterioration =  oilDeterioration - MT.Config.OilBaseDPS * MT.Config.OilFiltrationM / oilfiltrationSlots -- LUBRICATE: reduce *possible* oil damage for this filter slot  
                 end
             end
             index = index + 1
@@ -521,7 +521,7 @@ function MT.F.reductionGear(item)
         -- deteriorate oil
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate filter(s)
-        MT.HF.subFromListAll(MT.Config.oilFilterDPS * MT.Deltatime, oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
+        MT.HF.subFromListAll(MT.Config.OilFilterDPS * MT.Deltatime, oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
 
         -- apply frictionDamage
         item.Condition = item.Condition - frictionDamage

@@ -13,7 +13,7 @@ mySimpleVar.Value = true
 print(mySimpleVar.Value)
 
 -- Save your value to file/disk
-ModdingToolkit.Config.ConfigManager.Save(mySimpleVar)
+ConfigManager.Save(mySimpleVar)
 
 -- Want to access it somewhere else?
-local myVar2 = ModdingToolkit.Config.ConfigManager.GetConfigMember("MyModName","MyVarName1")
+local myVar2 = ConfigManager.GetConfigMember("MyModName","MyVarName1")

@@ -13,8 +13,9 @@ MT.MinNTVersionNum = 01080100
 Timer.Wait(function() if NTC ~= nil and NTC.RegisterExpansion ~= nil then NTC.RegisterExpansion(MT) end end,1)
 
 
+-- TODO: Remove old configuration code
 -- config loading
-if not File.Exists(MT.Path .. "/config.json") then
+--[[if not File.Exists(MT.Path .. "/config.json") then
 
     -- create default config if there is no config file
     MT.Config = dofile(MT.Path .. "/Lua/defaultconfig.lua")
@@ -32,7 +33,10 @@ else
             MT.Config[key] = value
         end
     end
-end
+end]]
+
+-- TODO: Validate new config
+MT.Config = MTConfig;
 
 -- define global helper functions (they're used everywhere else!)
 dofile(MT.Path.."/Lua/Scripts/helperfunctions.lua")
