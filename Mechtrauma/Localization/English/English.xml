@@ -47,6 +47,12 @@
 
   <entityname.electrical_panel>Electrical Panel</entityname.electrical_panel>
   <entitydescription.electrical_panel>Electrical Panel.</entitydescription.electrical_panel>
+   
+  <entityname.electrical_panelv2>Electrical Panel</entityname.electrical_panelv2>
+  <entitydescription.electrical_panelv2>Electrical Panel.</entitydescription.electrical_panelv2>
+   
+  <entityname.s_electrical_panelv2>Small Electrical Panel</entityname.s_electrical_panelv2>
+  <entitydescription.s_electrical_panelv2>Small Electrical Panel.</entitydescription.s_electrical_panelv2>
 
   <entityname.battery_bank>Battery Bank</entityname.battery_bank>
   <entitydescription.battery_bank>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank>
@@ -63,6 +69,12 @@
 
   <entityname.command_console>Command Console</entityname.command_console>
   <entitydescription.command_console>Alternative Navigation Terminal.</entitydescription.command_console>
+   
+   <entityname.mt_navterminal>Navigation Chair</entityname.mt_navterminal>
+   <entitydescription.mt_navterminal>The navigation terminal for an overworked captain.</entitydescription.mt_navterminal>
+   
+   <entityname.mt_terminal>Mechtrauma Terminal</entityname.mt_terminal>
+   <entitydescription.mt_terminal>Mechtrauma version of the terminal.</entitydescription.mt_terminal>
 
   <entityname.central_computer>Central Computer</entityname.central_computer>
   <entitydescription.central_computer>Central Computing System for enabling devices.</entitydescription.central_computer>
@@ -77,6 +89,9 @@
 
   <entityname.peasantprime>PeasantPrime Box</entityname.peasantprime>
   <entitydescription.peasantprime>PeasantPrime Box</entitydescription.peasantprime>
+   
+   <entityname.mtcrate_medical>MT Medical Crate</entityname.mtcrate_medical>
+   <entitydescription.mtcrate_medical> Mechtrauma version of the medical crate.</entitydescription.mtcrate_medical>
    
   <entityname.oxygen_transfer_tank>Oxygen Transfer Tank</entityname.oxygen_transfer_tank>
   <entitydescription.oxygen_transfer_tank>A large portable oxygen tank, useful for providing backup oxygen to combustion engines. </entitydescription.oxygen_transfer_tank>
@@ -102,7 +117,7 @@
   <entityname.mechweldingtool>Welder</entityname.mechweldingtool>
   <entitydescription.mechweldingtool>An electric welder that uses Argon gas.</entitydescription.mechweldingtool>
 
-  <entityname.extinguisher_tank>ExtinguisherTank</entityname.extinguisher_tank>
+  <entityname.extinguisher_tank>Extinguisher Tank</entityname.extinguisher_tank>
   <entitydescription.extinguisher_tank>Refill.</entitydescription.extinguisher_tank>
 
   <entityname.S5_Extinguisher>S5_Extinguisher</entityname.S5_Extinguisher>
@@ -120,13 +135,13 @@
   <entitydescription.leadpellet>Air Rifle ammunition.</entitydescription.leadpellet>
 
   <entityname.gunners_chair>Gunners Chair </entityname.gunners_chair>
-  <entitydescription.gunners_chair>Stay seated. </entitydescription.gunners_chair>
+  <entitydescription.gunners_chair>Stay seated. </entitydescription.gunners_chair> 
   
   <entityname.mt_coilgun>MT Coilgun</entityname.mt_coilgun>
   <entitydescription.mt_coilgun>An alternative color for coil guns. </entitydescription.mt_coilgun>
 
   <entityname.50cal_turret>50 cal Turret</entityname.50cal_turret>
-  <entitydescription.50cal_turret>Costly alternative to the coilgun but dosen't requrie power to fire.</entitydescription.50cal_turret>
+  <entitydescription.50cal_turret>Costly alternative to the coilgun but doesn't requrie power to fire.</entitydescription.50cal_turret>
 
   <entityname.50cal_loader>50 cal Loader</entityname.50cal_loader>
   <entitydescription.50cal_loader>Ammunition loader for the 50 cal turret.</entitydescription.50cal_loader>
@@ -221,9 +236,15 @@
 
   <entityname.water_pump_a3>Water Pump A3</entityname.water_pump_a3>
   <entitydescription.water_pump_a3>A large pump for moving water.</entitydescription.water_pump_a3>
+   
+  <entityname.central_water_pump>Central Water Pump</entityname.central_water_pump>
+  <entitydescription.central_water_pump>A large pump for moving water.</entitydescription.central_water_pump>
 
   <entityname.water_pump_gate>Water Pump Gate</entityname.water_pump_gate>
   <entitydescription.water_pump_gate>Requires moving water.</entitydescription.water_pump_gate>
+   
+   <entityname.waterdrain>Water Drain</entityname.waterdrain>
+   <entitydescription.waterdrain>Drains water from an area.</entitydescription.waterdrain>
 
   <entityname.oxygentank_compressor>Oxygen Tank Compressor</entityname.oxygentank_compressor>
   <entitydescription.oxygentank_compressor>Compresses hull oxygen into tanks for use. </entitydescription.oxygentank_compressor>
@@ -255,9 +276,18 @@
   <!-- Powertrain -->
   <entityname.boiler>Steam Boiler</entityname.boiler>
   <entitydescription.boiler>Generates steam.</entitydescription.boiler>
+      
+  <entityname.steam_boiler_h>Horizontal Steam Boiler</entityname.steam_boiler>
+  <entitydescription.steam_boiler_h> Generates steam.</entitydescription.steam_boiler_h> 
+   
+   <entityname.advanced_boiler>Advanced Steam Boiler</entitydescription.advanced_boiler>
+   <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
 
   <entityname.steam_turbine>Steam Turbine</entityname.steam_turbine>
   <entitydescription.steam_turbine>Converts steam energy into kinetic engery.</entitydescription.steam_turbine>
+   
+   <entityname.steam_regulator>Steam Regulator</entityname.steam_regulator>
+   <entitydescription.steam_regulator>Serves to prevent too much steam pressure from passing onto its output.<entitydescription.steam_regulator>
 
   <entityname.reduction_gear>Reduction Gear</entityname.reduction_gear>
   <entitydescription.reduction_gear>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear>
@@ -284,6 +314,9 @@
 
   <entityname.sC2500Da>Series C-2500Da</entityname.sC2500Da>
   <entitydescription.sC2500Da>Enclosed Diesel generator: rated for 2500kw.</entitydescription.sC2500Da>
+      
+  <entityname.sC2500Db>Series C-2500Db</entityname.sC2500Db>
+  <entitydescription.sC2500Db>Enclosed Diesel generator: rated for 2500kw.</entitydescription.sC2500Db>
 
   <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
   <entitydescription.s1500D>Emergency backup diesel generator: rated for 1500kw.</entitydescription.s1500D>
@@ -358,7 +391,7 @@
   <entitydescription.expedition_divingsuit>Expedition suit: Rated for 5,000m dual oxygen bottles.</entitydescription.expedition_divingsuit>
 
   <entityname.armored_divingsuit>Armored Diving Suit</entityname.armored_divingsuit>
-  <entitydescription.armored_divingsuit>Combat suit: Rated for 5,000m. </entitydescription.armored_divingsuit>
+  <entitydescription.armored_divingsuit>Combat suit: Rated for 5,000m. Has an inventory slot for a small or large weapon. </entitydescription.armored_divingsuit>
 
   <entityname.armored_suit>Antique Armor</entityname.armored_suit>
   <entitydescription.armored_suit>A mid 15th century relic from earth. This is a piece of art! </entitydescription.armored_suit>
@@ -384,6 +417,11 @@
   <entityname.emergency_disconnect>Emergency Disconnect</entityname.emergency_disconnect>
   <entitydescription.emergency_disconnect>Emergency Power Disconnect.</entitydescription.emergency_disconnect>
 
+  <!-- =============< Uncertain Category >============  -->
+      
+  <entityname.s1000R>s1000R</entityname.s1000R>
+  <entitydescription.s1000R>No description.</entityname.s1000R>
+      
   <!-- =============< Connections >============  -->
 <connection.steamin1>Steam_Inlet</connection.steamin1>
 <connection.steamout>Steam_Out</connection.steamout>
