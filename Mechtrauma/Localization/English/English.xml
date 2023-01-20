@@ -40,7 +40,7 @@
   <entitydescription.average_component>Outputs the average of the combined input signals. Requires Lua.</entitydescription.average_component>
   
   <entityname.fuse>Fuse</entityname.fuse>
-  <entitydescription.fuse>Fuse</entitydescription.fuse>
+  <entitydescription.fuse>Sacrificial fuse for use in a fuse panel to protect the rest of the electrical grid.</entitydescription.fuse>
   
   <entityname.fuse_panel>Fuse Panel</entityname.fuse_panel>
   <entitydescription.fuse_panel>An electrical relay panel with a sacrificial fuse for overvoltage.</entitydescription.fuse_panel>
@@ -112,13 +112,13 @@
   <entitydescription.oil_transfer_truck>Mobile oil transfer station.</entitydescription.oil_transfer_truck>
 
   <entityname.argon_tank>Argon Tank</entityname.argon_tank>
-  <entitydescription.argon_tank>Refill.</entitydescription.argon_tank>
+  <entitydescription.argon_tank>A tank containing argon gas to be put into a welding fuel tank.</entitydescription.argon_tank>
 
   <entityname.mechweldingtool>Welder</entityname.mechweldingtool>
   <entitydescription.mechweldingtool>An electric welder that uses Argon gas.</entitydescription.mechweldingtool>
 
   <entityname.extinguisher_tank>Extinguisher Tank</entityname.extinguisher_tank>
-  <entitydescription.extinguisher_tank>Refill.</entitydescription.extinguisher_tank>
+  <entitydescription.extinguisher_tank>A tank storing liquid nitrogen for refueling a fire extinguisher.</entitydescription.extinguisher_tank>
 
   <entityname.S5_Extinguisher>S5 Extinguisher</entityname.S5_Extinguisher>
   <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
@@ -268,10 +268,10 @@
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
 
   <entityname.extinguisher_station>Extinguisher Station</entityname.extinguisher_station>
-  <entitydescription.extinguisher_station>Refill.</entitydescription.extinguisher_station>
+  <entitydescription.extinguisher_station>A station used to refill fire extinguishers with liquid nitrogen.</entitydescription.extinguisher_station>
 
   <entityname.argon_station>Argon Station</entityname.argon_station>
-  <entitydescription.argon_station>Refill.</entitydescription.argon_station>
+  <entitydescription.argon_station>A station used to refill welding fuel tanks with argon gas.</entitydescription.argon_station>
 
   <!-- Powertrain -->
   <entityname.boiler>Steam Boiler</entityname.boiler>
@@ -395,6 +395,9 @@
 
   <entityname.armored_suit>Antique Armor</entityname.armored_suit>
   <entitydescription.armored_suit>A mid 15th century relic from earth. This is a piece of art! </entitydescription.armored_suit>
+  
+  <entityname.pucs>PUCS</entityname.pucs>
+  <entitydescription.pucs> Are you sick of dying to environmental hazards on a poorly maintained submarine? If so, the FatBoy™ by Thesean Remanufacturing is the solution for you! It may be clunky and slow, but it contains dual oxygen bottles and top of the line proctection from all dangers imaginable. Buy now!</entitydescription.pucs>
 
   <!-- Kits -->
   <entityname.plague_doctor_kit>Plague Doctor Kit</entityname.plague_doctor_kit>
