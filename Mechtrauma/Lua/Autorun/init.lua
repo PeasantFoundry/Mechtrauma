@@ -81,6 +81,7 @@ end)
 -- client-side code
 if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
+    dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
 end
 
 

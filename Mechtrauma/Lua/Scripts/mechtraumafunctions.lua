@@ -87,9 +87,11 @@ MT.DE = {
 }
 
 function MT.F.dieselGenerator(item)
-    -- convert load(kW) to targetPower(HP) 1.341022
+    -- convert load(kW) to targetPower(HP) 1.341022   
     local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")
     local targetPower = simpleGenerator.GridLoad
+
+    
 
     -- print(simpleGenerator.IsOn)
     -- print("Load: " .. tostring(simpleGenerator.GridLoad))
@@ -192,7 +194,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         item.Condition = item.Condition - frictionDamage
 
         -- set the generated amount to be returned
-        dieselEngine.powerGenerated = MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower)
+        dieselEngine.powerGenerated = MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower)
 
         -- DEBUG PRINTING: print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * 2 / 60, " minutes.")  
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
@@ -266,7 +268,6 @@ function MT.F.fuseBox(item)
     --print("FUSE COUNTER: ", MT.itemCache[item].counter)
     --MT.itemCache[item].counter = MT.itemCache[item].counter - 1
     
-
     --CHECK: is there a fuse?
     if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
         
@@ -282,9 +283,19 @@ function MT.F.fuseBox(item)
         
         -- set water, overvoltage, and deterioration damage amounts
         if item.InWater then fuseWaterDamage = 1.0 end
-        if voltage > 1.7 then fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage end
+        
         if item.GetComponentString("PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.fusBoxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.fusBoxDeterioration 
-  
+
+        if voltage > 1.7 then
+            -- use the item counter to track how long the item has been overvolted
+            MT.itemCache[item].counter = MT.itemCache[item].counter + 1
+            -- only apply overvoltage damage if overvoltage has lasted for more than 1 update
+            if MT.itemCache[item].counter > 1 then
+                fuseOvervoltDamage = MT.Config.fuseOvervoltDamage * voltage-- this needs to scale with load overvoltage on 10,000kw should do more damage than on 100kw     
+            end         
+        else
+            MT.itemCache[item].counter = 0
+        end
         -- apply water, deterioration, and overvoltage damage to the fuse
         item.OwnInventory.GetItemAt(0).Condition = item.OwnInventory.GetItemAt(0).Condition - fuseWaterDamage - fuseOvervoltDamage - fuseDeteriorationDamage
                 
@@ -355,10 +366,8 @@ function MT.F.steamBoiler(item)
             if item.OwnInventory.GetItemAt(index) ~= nil then                
                 local containedItem = item.OwnInventory.GetItemAt(index)               
                 if containedItem.HasTag("circulatorPump") and containedItem.Condition > 0 then
-                    table.insert(curculatorItems, containedItem)                    
-                    circulatorCount = circulatorCount + 1
-                    -- disable hot swapping parts
-                    containedItem.HiddenInGame = true -- cannot remove while operational
+                    table.insert(curculatorItems, containedItem)         
+                    circulatorCount = circulatorCount + 1                    
                 end
             end
             index = index + 1

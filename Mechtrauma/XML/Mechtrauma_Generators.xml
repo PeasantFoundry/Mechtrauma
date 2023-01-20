@@ -11,7 +11,7 @@
     <aitarget sightrange="500" soundrange="5000" staticsight="true" fadeouttime="5"/>
     
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>      
         <sound file="%ModDir%/sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
@@ -57,10 +57,10 @@
     <CustomInterface canbeselected="true" allowuioverlap="true">
       <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>        
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
       </Button>      
     </CustomInterface>
         
@@ -87,13 +87,13 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
       
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
     
     </Repairable>
@@ -107,8 +107,8 @@
     
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
-     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <!-- Sound Light -->
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>      
         <sound file="%ModDir%/sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
@@ -151,10 +151,10 @@
     <CustomInterface canbeselected="true" allowuioverlap="true">
       <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>        
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
       </Button>      
     </CustomInterface>
         
@@ -181,13 +181,13 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
       
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
     
     </Repairable>
@@ -245,10 +245,10 @@
     <CustomInterface canbeselected="true" allowuioverlap="true">
       <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true"/>        
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
       </Button>      
     </CustomInterface>
         
@@ -275,12 +275,12 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>    
     </Repairable>
   </Item>
@@ -368,12 +368,12 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
     
     </Repairable>
@@ -412,70 +412,17 @@
       <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
       
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil" excludebroken="true" excludefullcondition="false" >     
-            
-          <!-- Burn the oil! (Combustion Required) --> 
-          <StatusEffect type="OnContaining" targettype="Contained" targets="oil" Condition="-1.0" Comparison="And">
-          <Conditional HasStatusTag="combustion" targetcontainer="true" targetitemcomponent="PowerContainer"/> 
-          </StatusEffect>
-          
-          <!-- Clean the oil! (Combustion Required) --> 
-          <StatusEffect type="OnContaining" targettype="Contained" targets="oil" Condition="0.5" Comparison="And">
-          <Conditional HasStatusTag="combustion" targetcontainer="true" targetitemcomponent="PowerContainer"/> 
-          <RequiredItem items="oil_filter" type="Contained" mincondition="1.0" />
-          </StatusEffect>
-
-        </Containable>
+        <Containable items="oil" excludebroken="true" excludefullcondition="false"/>       
       </SubContainer>
-
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false">     
-
-          <!-- Dirty the filter! (Combustion Required) --> 
-          <StatusEffect type="OnContaining" targettype="Contained" targets="oil_filter" Condition="-1.0" Comparison="And">
-            <Conditional HasStatusTag="combustion" targetcontainer="true" targetitemcomponent="PowerContainer"/> 
-          </StatusEffect>
-
-        </Containable>
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>        
       </SubContainer>
-
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false">
-        <!-- Burn oxygen tank (Low Atmosphere Oxygen) -->
-          <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" Comparison="And">
-            <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="1.0" />
-            <Conditional HullOxygenPercentage="lt 75" />    
-            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/> <!-- we are not checking for oxygen here, we are just checking if there is diesel and telling it to burn oxygen? A: yes we are but badly - On Conatining with exclude broken.-->
-            <Conditional InWater="false" />
-          </StatusEffect>        
-
-          <!-- Burn oxygen tank (Underwater) -->
-          <StatusEffect type="OnContaining" targettype="Contained" Condition="-1.0" Comparison="And">
-            <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="1.0" />
-            <Conditional InWater="true" />
-            <Conditional IsOn="true" targetcontainer="true" targetitemcomponent="RelayComponent"/>
-          </StatusEffect>   
-        </Containable>
-      </SubContainer>  
-    
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>     
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
-        <Containable items="diesel_fuel_can" excludebroken="true" excludefullcondition="false">
-       
-          <!-- Burn the fuel! (Combustion Required) --> 
-          <StatusEffect type="OnContaining" targettype="Contained" targets="diesel_fuel_can" Condition="-2.0" Comparison="And">
-            <Conditional HasStatusTag="combustion" targetcontainer="true" targetitemcomponent="PowerContainer"/> 
-          </StatusEffect>
-       
-         <!-- EXHAUST: Vent exhaust inside the ship. -->
-        <StatusEffect type="OnContaining" targettype="Contained" Comparison="And">
-          <ParticleEmitter particle="extinguisher" particlespersecond="3" anglemin="350" anglemax="359" distancemin="0" distancemax="1" velocitymin="700" velocitymax="800" underwaterbubble="True" alpha="1.0" /> 
-          <Conditional HasStatusTag="combustion" targetcontainer="true" targetitemcomponent="PowerContainer"/> 
-          <Conditional Condition="lt 50.0" targetcontainer="true" />
-          <!-- This will eventually cause carbon monoxide poisoning. -->
-        </StatusEffect>
-
-      </Containable>
-    </SubContainer>
+        <Containable items="diesel_fuel_can" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
    
            
     </ItemContainer>
@@ -485,12 +432,12 @@
       <GuiFrame relativesize="0.25,0.2" anchor="Center" relativeoffset="0.1,-0.01" style="ItemUI" linkuitocomponent="ItemContainer" />
      
       <Button text="START ENGINE">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
           
         </StatusEffect>
       </Button>
       <Button text="STOP ENGINE">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="RelayComponent" voltage="1.0" disabledeltatime="true">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
         </StatusEffect>
       </Button>
   
@@ -516,18 +463,20 @@
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
       
-      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
-        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="lacerations" strength="25" />
-         <Conditional HasStatusTag="neq combustion" targetitemcomponent="PowerContainer"/> 
-      </StatusEffect>
-
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+      
+      <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
-        <Affliction identifier="bleeding" strength="35" />
-        <Conditional HasStatusTag="combustion" targetitemcomponent="PowerContainer"/> 
-        <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
-      </StatusEffect>    
+        <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+     
     </Repairable>
   </Item>
 
@@ -628,12 +577,12 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>      
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>    
     </Repairable> 
   </Item>
@@ -734,12 +683,12 @@
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
-        <Conditional IsOn="true" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>      
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
-        <Conditional IsOn="false" targetitemcomponent="RelayComponent"/>
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>    
     </Repairable> 
 
