@@ -277,10 +277,10 @@
   <entityname.boiler>Steam Boiler</entityname.boiler>
   <entitydescription.boiler>Generates steam.</entitydescription.boiler>
       
-  <entityname.steam_boiler_h>Horizontal Steam Boiler</entityname.steam_boiler>
+  <entityname.steam_boiler_h>Horizontal Steam Boiler</entityname.steam_boiler_h>
   <entitydescription.steam_boiler_h> Generates steam.</entitydescription.steam_boiler_h> 
    
-   <entityname.advanced_boiler>Advanced Steam Boiler</entitydescription.advanced_boiler>
+   <entityname.advanced_boiler>Advanced Steam Boiler</entityname.advanced_boiler>
    <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
 
   <entityname.steam_turbine>Steam Turbine</entityname.steam_turbine>
@@ -423,7 +423,7 @@
   <!-- =============< Uncertain Category >============  -->
       
   <entityname.s1000R>s1000R</entityname.s1000R>
-  <entitydescription.s1000R>No description.</entityname.s1000R>
+  <entitydescription.s1000R>!EXPERIMENTAL ITEM! DO NOT USE!</entitydescription.s1000R>
       
   <!-- =============< Connections >============  -->
 <connection.steamin1>Steam_Inlet</connection.steamin1>
