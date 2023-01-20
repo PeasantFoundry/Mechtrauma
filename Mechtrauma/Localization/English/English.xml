@@ -80,7 +80,7 @@
   <entitydescription.central_computer>Central Computing System for enabling devices.</entitydescription.central_computer>
 
   <entityname.mt_maintenance_tablet>Maintenance Tablet</entityname.mt_maintenance_tablet>
-  <entitydescription.mt_maintenance_tablet>Mobile computer for running .</entitydescription.mt_maintenance_tablet>
+  <entitydescription.mt_maintenance_tablet>Mobile computer for running diagnostics on sub integrity, power, fuses, pumps, and CO2 filters.</entitydescription.mt_maintenance_tablet>
 
  <!-- =============< ITEMS >=============  -->
 
