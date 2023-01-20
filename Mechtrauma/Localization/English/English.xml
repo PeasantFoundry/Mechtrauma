@@ -287,7 +287,7 @@
   <entitydescription.steam_turbine>Converts steam energy into kinetic engery.</entitydescription.steam_turbine>
    
    <entityname.steam_regulator>Steam Regulator</entityname.steam_regulator>
-   <entitydescription.steam_regulator>Serves to prevent too much steam pressure from passing onto its output.<entitydescription.steam_regulator>
+   <entitydescription.steam_regulator>Serves to prevent too much steam pressure from passing onto its output.</entitydescription.steam_regulator>
 
   <entityname.reduction_gear>Reduction Gear</entityname.reduction_gear>
   <entitydescription.reduction_gear>Converts high speed low torque into low speed high torque.</entitydescription.reduction_gear>
