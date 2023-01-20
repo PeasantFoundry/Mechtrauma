@@ -138,7 +138,7 @@
   <entitydescription.gunners_chair>Stay seated. </entitydescription.gunners_chair> 
   
   <entityname.mt_coilgun>MT Coilgun</entityname.mt_coilgun>
-  <entitydescription.mt_coilgun>An alternative color for coil guns. </entitydescription.mt_coilgun>
+  <entitydescription.mt_coilgun>An alternative color for coilguns. </entitydescription.mt_coilgun>
 
   <entityname.50cal_turret>50 cal Turret</entityname.50cal_turret>
   <entitydescription.50cal_turret>Costly alternative to the coilgun but doesn't requrie power to fire.</entitydescription.50cal_turret>
@@ -253,7 +253,7 @@
   <entitydescription.oxygen_station>For quickly refilling oxygen tanks and releasing oxygen in an emergency.</entitydescription.oxygen_station>
 
   <entityname.oxygen_vent>Oxygen Vent</entityname.oxygen_vent>
-  <entitydescription.oxygen_vent>Clean regularly. Repalce Co2 filter regularly.</entitydescription.oxygen_vent>
+  <entitydescription.oxygen_vent>Clean regularly. Repalce CO2 filter regularly.</entitydescription.oxygen_vent>
 
   <entityname.oxygen_supply>Oxygen supply</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply>
@@ -262,7 +262,7 @@
   <entitydescription.oil_station>Black gold.</entitydescription.oil_station> 
 
   <entityname.cncfab>CNC Mechanical Fabricator</entityname.cncfab>
-  <entitydescription.cncfab>Mech your dream reality!.</entitydescription.cncfab>
+  <entitydescription.cncfab>Mech your dream reality!</entitydescription.cncfab>
 
   <entityname.repairtable>Repair Table</entityname.repairtable>
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
