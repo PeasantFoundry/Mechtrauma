@@ -55,10 +55,10 @@
   <entitydescription.s_electrical_panelv2>Safety Electrical Panel.</entitydescription.s_electrical_panelv2>
 
   <entityname.battery_bank>Battery Bank</entityname.battery_bank>
-  <entitydescription.battery_bank>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank>
+  <entitydescription.battery_bank>Vast storage capacity with a 1000kw output. Stores 5000kw*min of power. Will not function when submerged.</entitydescription.battery_bank>
 
   <entityname.battery_bank_wr>Battery Bank</entityname.battery_bank_wr>
-  <entitydescription.battery_bank_wr>Vast storage capacity with a 5000kw max output (cannot be changed in editor). Will not function when submerged.</entitydescription.battery_bank_wr>
+  <entitydescription.battery_bank_wr>Vast storage capacity with a 1000kw output. Stores 5000kw*min of power. Will not function when submerged.</entitydescription.battery_bank_wr>
 
  <!-- =============< COMPUTERS >=============  -->
   <entityname.status_console>Status Console</entityname.status_console>
