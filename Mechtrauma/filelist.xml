@@ -2,6 +2,7 @@
 <contentpackage name="Mechtrauma" modversion="1.1.2.2" corepackage="False" steamworkshopid="2855458020" gameversion="0.19.14.0" altnames="Mechtrauma">
   <Item file="%ModDir%/XML/Mechtrauma_Items.xml" />
   <Item file="%ModDir%/XML/Mechtrauma_Generators.xml" />
+  <Item file="%ModDir%/XML/Mechtrauma_Gear.xml" />
   <Missions file="%ModDir%/XML/Mechtrauma_Missions.xml" />
   <Afflictions file="%ModDir%/XML/Mechtrauma_Afflictions.xml" />
   <Text file="%ModDir%/Localization/English/English.xml" />
