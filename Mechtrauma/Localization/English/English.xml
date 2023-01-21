@@ -317,12 +317,15 @@
       
   <entityname.sC2500Db>Series C-2500Db</entityname.sC2500Db>
   <entitydescription.sC2500Db>Enclosed Diesel generator: rated for 2500kw.</entitydescription.sC2500Db>
+   
+  <entityname.sC2500Dc>Series C-2500Dc</entityname.sC2500Dc>
+  <entitydescription.sC2500Dc>Enclosed Diesel generator: rated for 2500kw.</entitydescription.sC2500Dc>
 
   <entityname.s1500D>s1500D Diesel Generator</entityname.s1500D>
   <entitydescription.s1500D>Emergency backup diesel generator: rated for 1500kw.</entitydescription.s1500D>
 
   <entityname.s3000D>s3000D Diesel Generator</entityname.s3000D>
-  <entitydescription.s3000D>Open Chasis Diesel generator: rated for 5000kw.</entitydescription.s3000D>
+  <entitydescription.s3000D>Open Chasis Diesel generator: rated for 3000kw.</entitydescription.s3000D>
 
   <entityname.S5000D>s5000D Diesel Generator</entityname.S5000D>
   <entitydescription.S5000D>Diesel generator rated for 5000kw.</entitydescription.S5000D>
@@ -331,7 +334,7 @@
   <entitydescription.pdg500>Portable diesel generator rated for 500kw.</entitydescription.pdg500>
 
   <entityname.pdg250>PDG250 Diesel Generator</entityname.pdg250>
-  <entitydescription.pdg250>Portable diesel generator rated for 500kw.</entitydescription.pdg250>
+  <entitydescription.pdg250>Portable diesel generator rated for 250kw.</entitydescription.pdg250>
 
 
   <entityname.incinerator>Incinerator</entityname.incinerator>
@@ -374,8 +377,8 @@
 
   <!-- Suits -->
  <Override>
-  <entityname.pucs>FatBoy</entityname.pucs>
-  <entitydescription.pucs>Heavily shielded pressure suit for Hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.pucs>
+  <entityname.pucs>PUCS</entityname.pucs>
+  <entitydescription.pucs>The Protective Universal Crisis Suit is a heavily shielded pressure suit for hazardous jobs. Rated depth: 4,500. Resistant to fire, radiation, and flesh wounds. </entitydescription.pucs>
  </Override>
  
   <entityname.radiation_suit2>Radiation Suit</entityname.radiation_suit2>
@@ -396,8 +399,8 @@
   <entityname.armored_suit>Antique Armor</entityname.armored_suit>
   <entitydescription.armored_suit>A mid 15th century relic from earth. This is a piece of art! </entitydescription.armored_suit>
   
-  <entityname.pucs>PUCS</entityname.pucs>
-  <entitydescription.pucs> Are you sick of dying to environmental hazards on a poorly maintained submarine? If so, the FatBoy™ by Thesean Remanufacturing is the solution for you! It may be clunky and slow, but it contains dual oxygen bottles and top of the line proctection from all dangers imaginable. Buy now!</entitydescription.pucs>
+  <entityname.fatboy>FatBoy</entityname.fatboy>
+  <entitydescription.fatboy> Are you sick of dying to environmental hazards on a poorly maintained submarine? If so, the FatBoy™ by Thesean Remanufacturing is the solution for you! It may be clunky and slow, but it contains dual oxygen bottles and top of the line proctection from all dangers imaginable. Buy now!</entitydescription.fatboy>
 
   <!-- Kits -->
   <entityname.plague_doctor_kit>Plague Doctor Kit</entityname.plague_doctor_kit>
