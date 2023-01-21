@@ -22,10 +22,10 @@ MT.tagfunctions = {
         tags={"ccn"},
         update=MT.F.centralComputerNeeded
     },
-    dieselGenerator={
-        tags={"dieselGenerator"},
-        update=MT.F.dieselGenerator
-    },
+    --dieselGenerator={
+    --    tags={"dieselGenerator"},
+    --    update=MT.F.dieselGenerator
+    --},
     steamBoiler={
         tags={"steamBoiler"},
         update=MT.F.steamBoiler
