@@ -579,9 +579,9 @@
   <!-- DIESEL FUEL BARREL: -->
   <Item name="Diesel Fuel Barrel" identifier="diesel_fuel_barrel" Category="Fuel" Tags="largeitem,handtruck,diesel_fuel" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.4">
     <PreferredContainer primary="reactorcab"/>    
-    <Price baseprice="250" displaynonempty="true" minavailable="2">
-      <Price storeidentifier="merchantoutpost" />
-      <Price storeidentifier="merchantcity" minavailable="3" />
+    <Price baseprice="250" displaynonempty="true" minavailable="8">
+      <Price storeidentifier="merchantoutpost" multiplier="2" />
+      <Price storeidentifier="merchantcity" multiplier="2" minavailable="3" />
       <Price storeidentifier="merchantresearch" />
       <Price storeidentifier="merchantmilitary" />
       <Price storeidentifier="merchantmine" />
@@ -654,7 +654,7 @@
     </ItemContainer>
   </Item>
   
-  
+
  <!-- STORAGE CLOSET: -->
  <Item name="Storage Closet" identifier="closet" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.6">
      <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />   
@@ -830,7 +830,7 @@
   </Item>
 
   <!-- WATER PUMP: Tall2 -->
-  <Item name="Water Pump" identifier="water_pumpT2" tags="pump,mtpump,repairable,test" linkable="true" category="Machine" scale="0.4" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
+  <Item name="Water Pump" identifier="water_pumpT2" tags="pump,mtpump,repairable" linkable="true" category="Machine" scale="0.4" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/images/pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="0,550,220,440" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/images/pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="220,550,220,440" maxcondition="80" fadein="true" />
@@ -2510,14 +2510,15 @@
       <GuiFrame relativesize="0.5,0.5" anchor="Center" style="ItemUI" />
       <AlternativeLayout relativesize="0.2725,0.3" anchor="CenterLeft" pivot="BottomLeft" relativeoffset="0.05,-0.001"/>
       <poweronsound file="Content/Items/PowerOnLight3.ogg" range="1000" loop="false" />
-         <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
-      <sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,128,302,232" depth="-0.01" origin="0.5,0.8" alpha="1.0" />
-    </LightComponent>
+      <sound file="Content/Sounds/UI/DeadMsg.ogg" type="OnPicked" range="1000.0" onlyinsamesub="true"/>      
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+      </StatusEffect>
+      <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
+        <sprite texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="0,128,302,232" depth="-0.01" origin="0.5,0.8" alpha="1.0" />
+      </LightComponent>
     </MiniMap>
 
-    <WifiComponent range="35000.0" LinkToChat="true" MinChatMessageInterval="0.0">
-      <!--RequiredItems items="mobilebattery" type="Contained" /-->
-    </WifiComponent>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -2561,6 +2562,10 @@
       <GuiFrame relativesize="0.5,0.5" minsize="600,475" anchor="TopCenter" relativeoffset="0.0,0.0" style="ItemUI" allowuioverlap="false" /> 
       <!-- <AlternativeLayout relativesize="0.2725,0.3" anchor="CenterLeft" pivot="BottomLeft" relativeoffset="0.05,-0.001"/> -->     
       <poweronsound file="Content/Items/PowerOnLight3.ogg" range="1000" loop="false" />
+      <!-- Interact Sound -->
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+      </StatusEffect>
     </MiniMap>
     <ItemContainer capacity="3" maxstacksize="1" itemsperrow="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.79">
       <GuiFrame relativesize="0.1,0.5" anchor="TopCenter" allowuioverlap="false" style="ItemUI" relativeoffset="0.1,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
@@ -2615,6 +2620,10 @@
       <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">        
         <sprite  texture="%ModDir%/images/mechtrauma_command_final.png" sourcerect="318,896,454,276" depth="0.025" origin="0.5,0.5" alpha="1.0" />
       </LightComponent>
+      <!-- Interact Sound -->
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+      </StatusEffect>
       <!--<LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
         <Upgrade gameversion="0.9.600.0" lightcolor="255,255,255,0"/>
         <sprite texture="Content/Items/Command/navigatorLights.png" depth="0.025" sourcerect="0,0,384,304" origin="0.5,0.5" alpha="1.0" />
@@ -3119,36 +3128,27 @@
 
     
     <!-- LABEL-->
-    <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" /> 
-     
-    <FusedJB canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
-      <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> <!--minsize="350,160" maxsize="420,190"-->
+    <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
+    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />
+      <!--minsize="350,160" maxsize="420,190"-->
       <StatusEffect type="InWater" target="This" condition="-0.25">
-        <Conditional Voltage="gt 0" />
+        <Conditional currPowerConsumption="lt -10" />
       </StatusEffect>
-    
-    
-   
       <!-- Check for a fuse -->
-      <!-- ON: yesfuse 
+      <!-- ON: yesfuse -->
       <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="yesfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
-         <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
-       
-      </StatusEffect> -->
-
-      <!-- NO FUSE: allow overvoltage 
-      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" canbeoverloaded="true" Comparison="And">
-        <Conditional HasStatusTag="neq yesfuse" />           
-      </StatusEffect>  -->
-
-      <!-- NO FUSE: burn it down, burn it all down 
+        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
+      </StatusEffect>
+      <!-- NO FUSE: allow overvoltage  -->
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="0.0" canbeoverloaded="true" Comparison="And">
+        <Conditional HasStatusTag="neq yesfuse" />
+      </StatusEffect>
+      <!-- NO FUSE: burn it down, burn it all down  -->
       <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="1.0" canbeoverloaded="true" Comparison="And">
-        <Conditional HasStatusTag="neq yesfuse" />           
-      </StatusEffect> -->
-
-    </FusedJB>
-
-
+        <Conditional HasStatusTag="neq yesfuse" />
+      </StatusEffect>
+    </PowerTransfer>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -3159,12 +3159,11 @@
         <Affliction identifier="burn" strength="5" />
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
-     
-      <output name="power" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10"/>
+      <output name="power" displayname="connection.power" maxplayerconnectablewires="10" />
+      <output name="power" displayname="connection.power" />
       <output name="condition_out" displayname="connection.conditionout" />
       <output name="power_value_out" displayname="connection.powervalueout" />
       <output name="load_value_out" displayname="connection.loadvalueout" />
-   
     </ConnectionPanel>
 
      <!-- FUSE! -->
@@ -5150,6 +5149,10 @@
         <Conditional Condition="lt 1" />
         <Conditional InWater="false" />        
         <ParticleEmitter particle="steamspray" particlespersecond="1" scalemin="0.5" scalemax="3.5" anglemin="0" anglemax="0" velocitymin="0" velocitymax="15" position="5,5" highqualitycollisiondetection="false" />        
+      </StatusEffect>
+      <!-- Interact Sound -->
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/sound/item_interact2.ogg" range="1000" /> 
       </StatusEffect>
     </RelayComponent>
     

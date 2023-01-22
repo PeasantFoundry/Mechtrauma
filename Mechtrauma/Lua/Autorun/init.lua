@@ -1,6 +1,6 @@
-
 MT = {} -- Mechtrauma
 BT = {} -- Biotrauma
+
 
 MT.Name="Mechtrauma"
 MT.Version = "1.2.0"
@@ -34,15 +34,18 @@ else
     end
 end
 
--- define global helper functions (they're used everywhere else!)
-dofile(MT.Path.."/Lua/Scripts/helperfunctions.lua")
---dofile(MT.Path.."/Lua/Scripts/config.lua")
-dofile(MT.Path.."/Lua/Scripts/biotraumafunctions.lua")
-dofile(MT.Path.."/Lua/Scripts/mechtraumafunctions.lua")
+-- SHARED: client/server code
+
+-- functions
+dofile(MT.Path.."/Lua/Scripts/Shared/helperfunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/biotraumafunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumafunctions.lua")
+
+-- SHARED: client/server code
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaPower.lua")
 
 
-
--- server-side code (also run in singleplayer)
+-- SERVER: server-side code (also run in singleplayer)
 if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
 
     -- Version and expansion display
@@ -60,28 +63,27 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
         print(runstring)
     end,1) end,1)
 
-    -- this is where we run all the other lua files
-    -- (jamming them all in autorun is bad for organization and surrenders control of what is to be executed)
-    
-    dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")
-    --dofile(MT.Path.."/Lua/Scripts/Server/bacteria_analyzer.lua")
+    -- this is where we run all the other lua files    
+    dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")    
     dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
+    --dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 
-Hook.Add("roundStart", "MT.roundStart", function()
-    -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
-    Game.poweredUpdateInterval = 1    
-end)
-
--- client-side code
+-- CLIENT: side-code
 if CLIENT then
     dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
     dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
 end
+
+-- PERFORMANCE FIX:
+Hook.Add("roundStart", "MT.roundStart", function()
+    -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
+    Game.poweredUpdateInterval = 1    
+end)
 
 

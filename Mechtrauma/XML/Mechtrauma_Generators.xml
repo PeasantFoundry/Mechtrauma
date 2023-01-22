@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
 
-
 <!-- DIESEL GENERATOR S5000D: Standard. -->
  <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
     <Sprite name="Diesel Generator" texture="%ModDir%/images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
@@ -429,8 +428,7 @@
          
     <!-- INTERFACE: On/Off-->     
      <CustomInterface canbeselected="true" allowuioverlap="false">
-      <GuiFrame relativesize="0.25,0.2" anchor="Center" relativeoffset="0.1,-0.01" style="ItemUI" linkuitocomponent="ItemContainer" />
-     
+      <GuiFrame relativesize="0.25,0.2" anchor="Center" relativeoffset="0.1,-0.01" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="START ENGINE">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
           
@@ -439,20 +437,17 @@
       <Button text="STOP ENGINE">
         <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
         </StatusEffect>
-      </Button>
-  
-      
+      </Button>      
     </CustomInterface>
 
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>
-      <input name="power_in" displayname="connection.powerin1"/>
-      <output name="power_out" displayname="connection.powerout" />
-      <output name="condition_out" displayname="connection.conditionout" />
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <RequiredItem items="screwdriver" type="Equipped"/>      
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
+      <output name="power_out" displayname="connection.powerout" />      
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
 
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.02" mindeteriorationdelay="30" maxdeteriorationdelay="60" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">

@@ -22,10 +22,10 @@ MT.tagfunctions = {
         tags={"ccn"},
         update=MT.F.centralComputerNeeded
     },
-    --dieselGenerator={
-    --    tags={"dieselGenerator"},
-    --    update=MT.F.dieselGenerator
-    --},
+    dieselGenerator={
+        tags={"dieselGenerator"},
+       update=MT.F.dieselGenerator
+    },
     steamBoiler={
         tags={"steamBoiler"},
         update=MT.F.steamBoiler
@@ -94,7 +94,7 @@ function MT.CacheItem(item)
        if item.HasTag("mtu") or item.HasTag("mtupdate") then
         -- CHECK: if the item is already in the cache, if not - add it.   
             MT.itemCache[item] = {}
-            MT.itemCache[item].counter = 0
+            MT.itemCache[item].counter = 0                
             MT.itemCacheCount = MT.itemCacheCount + 1
 
             -- this is here so that we don't double up execute on initialization and item creation

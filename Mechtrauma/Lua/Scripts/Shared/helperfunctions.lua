@@ -67,11 +67,11 @@ end
 
 -- print blank lines to terminal in place of a functioning clear command
 function MT.HF.BlankTerminalLines(terminal, lines)
-    local counter = 0    
+    local counter = 0
     while counter < lines do
         counter = counter + 1
         terminal.ShowMessage = "-"
-    end    
+    end
 end
 
 -- colored terminal message
@@ -90,7 +90,7 @@ end
 -- synce serialized property
 -- be sure to pass property as a string 
 function MT.HF.SyncToClient(property, target)
-                Networking.CreateEntityEvent(target, Item.ChangePropertyEventData(target.SerializableProperties[Identifier(property)], target))                
+                Networking.CreateEntityEvent(target, Item.ChangePropertyEventData(target.SerializableProperties[Identifier(property)], target))
 end
 
 -- utility for checking there are missing items from the cache

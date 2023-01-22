@@ -3,6 +3,11 @@ MT.UpdateCooldown = 0
 MT.UpdateInterval = 120
 MT.Deltatime = MT.UpdateInterval/60 -- Time in seconds that transpires between updates
 
+MT.PriorityUpdateCooldown = 0
+MT.PriorityUpdateInterval = 15
+MT.PriorityDeltatime = MT.UpdateInterval/60 -- Time in seconds that transpires between updates
+
+
 Hook.Add("think", "MT.update", function()
     
     -- only run updates if the game is running        
@@ -15,3 +20,11 @@ Hook.Add("think", "MT.update", function()
         end
     end
 end)
+
+
+--[[
+MT.PriorityUpdateCooldown = MT.PriorityUpdateCooldown-1
+if (MT.PriorityUpdateCooldown <= 0) then
+    MT.PriorityUpdateCooldown = MT.PriorityUpdateInterval
+    --priority updates here
+end]]
