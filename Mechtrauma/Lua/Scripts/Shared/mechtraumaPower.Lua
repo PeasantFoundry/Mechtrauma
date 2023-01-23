@@ -248,11 +248,3 @@ Hook.Patch(
     instance.PowerConsumption = -instance.PowerToGenerate
     
   end, Hook.HookMethodType.Before)
-
-  Hook.Add("think", "MT.update", function()
-    for k, item in pairs(Item.ItemList) do
-        if item.Prefab.Identifier.Value == "s5000D" then
-            local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")           
-        end
-    end
-  end)
