@@ -6,11 +6,6 @@ LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second. 
 -- human breaths 700 oxygen/second and that requires to 0.3 
 
-    --combustionMax
-    --combustionEfficieny
-    --combustionTarget
-    
-
 -- DIVINGSUIT: updates deterioration and extended pressure protection. 
 function MT.F.divingSuit(item)
     -- only update if equipped

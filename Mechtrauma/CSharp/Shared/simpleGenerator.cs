@@ -30,14 +30,22 @@ namespace Barotrauma.Items.Components
             set => powerTolerance = MathHelper.Clamp(value, 0.0f, 1.0f);
         }
         private float powerTolerance = 0.0f;
+         
+        // used by network events for clients to update power consumption
+        [Editable, Serialize(0.0f, IsPropertySaveable.Yes, description: "Power to generate.", alwaysUseInstanceValues: true)]
+        public float PowerToGenerate {
+            get => powerToGenerate;
+            set => powerToGenerate = value;
+        }
+        private float powerToGenerate = 0.0f;
 
-        [Editable, Serialize(0.0f, IsPropertySaveable.Yes, description: "Configurable Maximum power output of the device", alwaysUseInstanceValues: true)]
+        [Editable, Serialize(0.0f, IsPropertySaveable.Yes, description: "Configurable Maximum power output of the device.", alwaysUseInstanceValues: true)]
         public float MaxPowerOut {
             get => maxPowerOut;
             set => maxPowerOut = value;
         }
         private float maxPowerOut = 0.0f;
-
+ 
         public SimpleGenerator(Item item, ContentXElement element) : base(item, element) {
             IsActive = true;
             PowerTolerance = 0.0f;
