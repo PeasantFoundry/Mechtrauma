@@ -37,9 +37,9 @@ end
 -- SHARED: client/server code
 
 -- functions
-dofile(MT.Path.."/Lua/Scripts/Shared/helperfunctions.lua")
-dofile(MT.Path.."/Lua/Scripts/Shared/biotraumafunctions.lua")
-dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumafunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/helperFunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/biotraumaFunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaFunctions.lua")
 
 -- SHARED: client/server code
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaPower.lua")
@@ -64,13 +64,12 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     end,1) end,1)
 
     -- this is where we run all the other lua files    
-    dofile(MT.Path.."/Lua/Scripts/Server/treatmentitems.lua")    
+    dofile(MT.Path.."/Lua/Scripts/Server/treatmentItems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
-    --dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
 end
 
@@ -85,5 +84,3 @@ Hook.Add("roundStart", "MT.roundStart", function()
     -- DO NOT REMOVE - corrects power grid desyncs from the performance fix mod
     Game.poweredUpdateInterval = 1    
 end)
-
-

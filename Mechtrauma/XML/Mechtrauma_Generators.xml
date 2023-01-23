@@ -83,7 +83,7 @@
       
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
-        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" targetitemcomponent="SimpleGenerator" volumeproperty="CurrFlow" range="1000" />
         <Affliction identifier="bleeding" strength="25" />       
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>

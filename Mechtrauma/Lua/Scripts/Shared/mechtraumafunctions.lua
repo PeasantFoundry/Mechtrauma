@@ -30,7 +30,7 @@ function MT.F.divingSuit(item)
             if pressureProtectionMultiplier > 1 and (item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0) then
                 pressureDamagePD = pressureProtectionMultiplier^4 -- make pressure damage exponential                            
             end
-            -- low poressure (less than 2500 protection) diving suits receive 50% deterioration dammage per delta
+            -- low poressure (<= 2500 protection) diving suits receive 50% deterioration dammage per delta
             if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
             -- apply deterioration and pressure damage to divingsuit for this update. 
             item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
@@ -121,8 +121,7 @@ function MT.F.centralComputerNeeded(item)
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = true end
         if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = true end
         if item.GetComponentString("MiniMap") ~= nil then item.GetComponentString("MiniMap").CanBeSelected = true end
-        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = true end
-     
+        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = true end     
     elseif not CentralComputerOnline then        
         if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = false end
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = false end
