@@ -58,7 +58,7 @@
   <entitydescription.battery_bank>Vast storage capacity with a 1000kw output. Stores 5000kw*min of power. Will not function when submerged.</entitydescription.battery_bank>
 
   <entityname.battery_bank_wr>Battery Bank</entityname.battery_bank_wr>
-  <entitydescription.battery_bank_wr>Vast storage capacity with a 1500kw output. Stores 1500kw*min of power. Will not function when submerged.</entitydescription.battery_bank_wr>
+  <entitydescription.battery_bank_wr>Vast storage capacity with a 1500kw output. Stores 1500kw*min of power. Will function when submerged.</entitydescription.battery_bank_wr>
 
  <!-- =============< COMPUTERS >=============  -->
   <entityname.status_console>Status Console</entityname.status_console>
