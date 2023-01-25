@@ -79,27 +79,27 @@ public sealed class Configuration
         public Settings_General()
         {
             Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
-                "Circulator Service Life", ModName + " General",
+                "CirculatorServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                 NetworkSync.ServerAuthority);
             Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeFloat(
-                "Diving Suit Service Life", ModName + " General",
+                "DivingSuitServiceLife", ModName,
                 60f, 0f, 120f, GetStepCount(0f, 120f, 10f),
                 NetworkSync.ServerAuthority);
             Setting_DivingSuitExtPressProtection = ConfigManager.AddConfigRangeFloat(
-                "Diving Suit Extended Pressure Protection", ModName + " General",
+                "DivingSuitExtendedPressureProtection", ModName,
                 2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
                 NetworkSync.ServerAuthority);
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
-                "Oil Filter Service Life", ModName + " General",
+                "OilFilterServiceLife", ModName,
                 6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                 NetworkSync.ServerAuthority);
             Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
-                "Oil Filter Efficiency Rating", ModName + " General",
+                "OilFilterEfficiencyRating", ModName,
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
                 NetworkSync.ServerAuthority);
             Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
-                "Thrust Bearing Service Life", ModName + " General",
+                "ThrustBearingServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                 NetworkSync.ServerAuthority);
         }
@@ -117,25 +117,25 @@ public sealed class Configuration
         public Settings_Advanced()
         {
             Setting_DieselGeneratorEfficiency = ConfigManager.AddConfigRangeFloat(
-                "Diesel Generator Efficiency", ModName + " Advanced",
+                "DieselGeneratorEfficiency", ModName,
                 0.3f, 1f, 20f, GetStepCount(1f, 20f, 1f),
                 NetworkSync.ServerAuthority);
             Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
-                "Conversion Ratio - HP to Diesel Fuel", ModName + " Advanced",
+                "ConversionRatioHPtoDieselFuel", ModName,
                 0.2f, 0.2f, 25f, GetStepCount(0.2f, 25f, 0.1f),
                 NetworkSync.ServerAuthority);
             Setting_ConversionRatioOxygenToDiesel = ConfigManager.AddConfigRangeFloat(
-                "Conversion Ratio - Oxygen to Diesel Fuel", ModName + " Advanced",
+                "ConversionRatioOxygenToDieselFuel", ModName,
                 7.0f, 1.0f, 14f, GetStepCount(1f, 14f, 1f),
                 NetworkSync.ServerAuthority);
             Setting_FuseboxDeteriorationRate = ConfigManager.AddConfigRangeFloat(
-                "Fusebox Device Deterioration Rate", ModName + " Advanced",
+                "FuseboxDeviceDeteriorationRate", ModName,
                 0.12f, 0f, 1f, GetStepCount(0f, 1f, 0.05f),
                 NetworkSync.ServerAuthority);
             Setting_FuseboxOvervoltDamage = ConfigManager.AddConfigRangeFloat(
-                "Fuse Overvolt Damage", ModName + " Advanced",
+                "FuseOvervoltDamage", ModName,
                 5f, 0f, 10f, GetStepCount(0f, 10f, 1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority); 
         }
     }
 
@@ -147,10 +147,10 @@ public sealed class Configuration
         public Settings_Experimental()
         {
             Setting_EnableElectrocution = ConfigManager.AddConfigEntry(
-                "Enable Electrocution Mechanic", ModName + " Experimental",
+                "EnableElectrocutionMechanic", ModName,
                 true, networkSync: NetworkSync.ServerAuthority);
             Setting_PumpGateDeteriorationRate = ConfigManager.AddConfigRangeFloat(
-                "Pump Gate Deterioration Rate Multi", ModName + " Experimental",
+                "PumpGateDeteriorationRateMulti", ModName,
                 1f, 0f, 100f, GetStepCount(0f, 100f, 0.1f),
                 NetworkSync.ServerAuthority);
         }
@@ -162,7 +162,7 @@ public sealed class Configuration
         public Settings_Biotrauma()
         {
             Setting_FungusSpawnRate = ConfigManager.AddConfigRangeFloat(
-                "Fungus Spawn Rate", ModName + " Biotrauma",
+                "FungusSpawnRate", ModName,
                 0f, 0f, 10f, GetStepCount(0f, 10f, 0.1f),
                 NetworkSync.ServerAuthority);
         }
@@ -175,7 +175,7 @@ public sealed class Configuration
         public Settings_Test()
         {
             Setting_OilBaseDPS = ConfigManager.AddConfigRangeFloat(
-                "Oil Base DPS", ModName + " Test",
+                "OilBaseDPS", ModName,
                 1f, 1f, 20f, GetStepCount(1f, 20f, 1f),
                 NetworkSync.ServerAuthority);
         }
