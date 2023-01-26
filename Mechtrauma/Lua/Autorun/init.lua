@@ -13,29 +13,6 @@ MT.MinNTVersionNum = 01080100
 Timer.Wait(function() if NTC ~= nil and NTC.RegisterExpansion ~= nil then NTC.RegisterExpansion(MT) end end,1)
 
 
--- TODO: Remove old configuration code
--- config loading
---[[if not File.Exists(MT.Path .. "/config.json") then
-
-    -- create default config if there is no config file
-    MT.Config = dofile(MT.Path .. "/Lua/defaultconfig.lua")
-    File.Write(MT.Path .. "/config.json", json.serialize(MT.Config))
-
-else
-
-    -- load existing config
-    MT.Config = json.parse(File.Read(MT.Path .. "/config.json"))
-    
-    -- add missing entries
-    local defaultConfig = dofile(MT.Path .. "/Lua/defaultconfig.lua")
-    for key, value in pairs(defaultConfig) do
-        if MT.Config[key] == nil then
-            MT.Config[key] = value
-        end
-    end
-end]]
-
--- TODO: Validate new config
 MT.Config = MTConfig;
 
 -- SHARED: client/server code
