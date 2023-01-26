@@ -81,27 +81,56 @@ public sealed class Configuration
             Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
                 "CirculatorServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Standard Circulator Service Life (min)",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeFloat(
                 "DivingSuitServiceLife", ModName,
                 60f, 0f, 120f, GetStepCount(0f, 120f, 10f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Diving Suit Service Life (min)",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_DivingSuitExtPressProtection = ConfigManager.AddConfigRangeFloat(
                 "DivingSuitExtendedPressureProtection", ModName,
                 2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, displayData: new DisplayData(
+                    DisplayName: "Diving Suit Extended Pressure Protection (multiplier)",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
                 "OilFilterServiceLife", ModName,
                 6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
                 "OilFilterEfficiencyRating", ModName,
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Standard Oil Filter Service Life (min)",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ThrustBearingServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Standard Thrust Bearing Service Life (min)",
+                    DisplayCategory: "General"
+                    ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
         }
     }
 
@@ -119,23 +148,48 @@ public sealed class Configuration
             Setting_DieselGeneratorEfficiency = ConfigManager.AddConfigRangeFloat(
                 "DieselGeneratorEfficiency", ModName,
                 0.3f, 1f, 20f, GetStepCount(1f, 20f, 1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Diesel Generator Efficiency",
+                    DisplayCategory: "Advanced"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
                 "ConversionRatioHPtoDieselFuel", ModName,
                 0.2f, 0.2f, 25f, GetStepCount(0.2f, 25f, 0.1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Conversion Ratio: kWh : Diesel (1L)",
+                    DisplayCategory: "Advanced"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_ConversionRatioOxygenToDiesel = ConfigManager.AddConfigRangeFloat(
                 "ConversionRatioOxygenToDieselFuel", ModName,
                 7.0f, 1.0f, 14f, GetStepCount(1f, 14f, 1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Conversion Ratio: Oxygen Unit : Diesel (1L)",
+                    DisplayCategory: "Advanced"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_FuseboxDeteriorationRate = ConfigManager.AddConfigRangeFloat(
                 "FuseboxDeviceDeteriorationRate", ModName,
                 0.12f, 0f, 1f, GetStepCount(0f, 1f, 0.05f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Fusebox Deterioration Rate",
+                    DisplayCategory: "Advanced"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_FuseboxOvervoltDamage = ConfigManager.AddConfigRangeFloat(
                 "FuseOvervoltDamage", ModName,
                 5f, 0f, 10f, GetStepCount(0f, 10f, 1f),
-                NetworkSync.ServerAuthority); 
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Fusebox Overvolt Damage",
+                    DisplayCategory: "Advanced"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress()); 
         }
     }
 
@@ -148,11 +202,21 @@ public sealed class Configuration
         {
             Setting_EnableElectrocution = ConfigManager.AddConfigEntry(
                 "EnableElectrocutionMechanic", ModName,
-                true, networkSync: NetworkSync.ServerAuthority);
+                true, networkSync: NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Enable Electrocution Mechanic",
+                    DisplayCategory: "Experimental"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
             Setting_PumpGateDeteriorationRate = ConfigManager.AddConfigRangeFloat(
                 "PumpGateDeteriorationRateMulti", ModName,
                 1f, 0f, 100f, GetStepCount(0f, 100f, 0.1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Pump Gate Deterioration Rate (Multi)",
+                    DisplayCategory: "Experimental"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
         }
     }
 
@@ -164,7 +228,12 @@ public sealed class Configuration
             Setting_FungusSpawnRate = ConfigManager.AddConfigRangeFloat(
                 "FungusSpawnRate", ModName,
                 0f, 0f, 10f, GetStepCount(0f, 10f, 0.1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Fungus Spawn Rate",
+                    DisplayCategory: "Biotrauma"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
         }
     }
 
@@ -177,7 +246,12 @@ public sealed class Configuration
             Setting_OilBaseDPS = ConfigManager.AddConfigRangeFloat(
                 "OilBaseDPS", ModName,
                 1f, 1f, 20f, GetStepCount(1f, 20f, 1f),
-                NetworkSync.ServerAuthority);
+                NetworkSync.ServerAuthority, 
+                displayData: new DisplayData(
+                    DisplayName: "Oil Base DeePeeEss",
+                    DisplayCategory: "Test"
+                ),
+                valueChangePredicate: f => !Utils.Game.IsRoundInProgress());
         }
     }
     
