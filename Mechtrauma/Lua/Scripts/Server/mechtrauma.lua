@@ -150,6 +150,123 @@ Hook.Add("signalReceived.average_component", "MT.averageComponent", function(sig
 end)
 
 
+-- MEDICAL TABLET: Hematology Report
+Hook.Add("medicalTablet_hR.OnUse", "MT.hematologyReport", function(effect, deltaTime, item, targets, worldPosition, client)
+  --local containedItem = item.OwnInventory.GetItemAt(0)
+  local terminal = item.GetComponentString("Terminal")
+  local bloodBankInventory = {}
+  if CentralComputerOnline then
+    MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+    -- begin report
+    MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 35, 35, 255), "*******REPORT: HEMATOLOGY*******")        
+
+    -- Do nothing if NT isn't enabled
+    if not NT then return end
+
+    -- populate the bloodBank
+    for k, item in pairs(item.ItemList) do
+      -- identify by tag
+      if item.HasTag("container") and item.HasTag("bloodbank") then
+        local index = 0
+        while(index < item.OwnInventory.Capacity) do
+          -- make sure the slot isn't empty
+          if item.OwnInventory.GetItemAt(index) ~= nil then
+            -- grab all the items in the slot            
+            for bloodpack, value in (item.OwnInventory.GetItemsAt(index)) do
+              -- if the blood IS NOT in the bloodBankInventory, add it
+              if not bloodBankInventory[bloodpack.name] then
+                bloodBankInventory[bloodpack.name] = {}
+                bloodBankInventory[bloodpack.name].count = 1
+              else
+                -- if the pharmaceutical IS in the pharmacyInventory, increase the count
+                bloodBankInventory[bloodpack.name].count = bloodBankInventory[bloodpack.name].count + 1                
+              end
+            end
+          end
+          -- increment the slot index
+          index = index + 1
+        end
+      end
+        end
+
+    -- HEMATOLOGY REPORT
+    terminal.ShowMessage = "-------------CREW MANIFEST-------------"
+    for k, character in pairs(Character.CharacterList) do
+      -- CHECK: for donor card
+      if character.Inventory.GetItemInLimbSlot(InvSlotType.Card).OwnInventory.GetItemAt(0) ~= nil then bloodType = character.Inventory.GetItemInLimbSlot(InvSlotType.Card).OwnInventory.GetItemAt(0).name else bloodType = "UNKNOWN" end      
+      terminal.ShowMessage = "NAME: " .. character.Name  .. " | " .. "BLOOD TYPE: " .. bloodType
+    end    
+    terminal.ShowMessage = "-------------BLOOD BANK-------------"
+    for bloodpack, value in pairs(bloodBankInventory) do      
+      terminal.ShowMessage = "BLOODPACK: " .. bloodpack .. " | x"  .. bloodBankInventory[bloodpack].count
+    end    
+    terminal.ShowMessage = "------------------------------"
+    terminal.ShowMessage = "**************END REPORT**************"
+  else
+    terminal.ShowMessage = "**************NO CONNECTION**************"
+  end
+
+  if SERVER then
+    terminal.SyncHistory()
+end
+
+end)
+
+-- MEDICAL TABLET: Pharmacy Report
+Hook.Add("medicalTablet_pR.OnUse", "MT.pharmacyReport", function(effect, deltaTime, item, targets, worldPosition, client)
+  --local containedItem = item.OwnInventory.GetItemAt(0)  
+  local terminal = item.GetComponentString("Terminal")
+  local pharmacyInventory = {}
+  --local itemStack = {}
+  if CentralComputerOnline then
+    MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+    -- begin report
+    MT.HF.SendTerminalColorMessage(item, terminal, Color(200, 35, 35, 255), "*******REPORT: PHARMACY*******")        
+    
+    -- look for Pharmacy Containers
+    for k, item in pairs(item.ItemList) do
+      -- identify by tag
+      if item.HasTag("container") and item.HasTag("pharmacy") then
+        local index = 0
+        while(index < item.OwnInventory.Capacity) do
+          -- make sure the slot isn't empty
+          if item.OwnInventory.GetItemAt(index) ~= nil then
+            -- grab all the items in the slot            
+            for pharmaceutical, value in (item.OwnInventory.GetItemsAt(index)) do
+              -- if the pharmaceutical IS NOT in the pharmacyInventory, add it
+              if not pharmacyInventory[pharmaceutical.name] then
+                pharmacyInventory[pharmaceutical.name] = {}
+                pharmacyInventory[pharmaceutical.name].count = 1
+              else
+                -- if the pharmaceutical IS in the pharmacyInventory, increase the count
+                pharmacyInventory[pharmaceutical.name].count = pharmacyInventory[pharmaceutical.name].count + 1                
+              end
+            end
+          end
+          -- increment the slot index
+          index = index + 1
+        end
+      end
+    end
+
+    -- PHARMACY REPORT    
+    for pharmaceutical, value in pairs(pharmacyInventory) do      
+      terminal.ShowMessage = "PHARMACEUTICAL: " .. pharmaceutical .. " | x"  .. pharmacyInventory[pharmaceutical].count
+    end    
+    terminal.ShowMessage = "------------------------------"
+    terminal.ShowMessage = "**************END REPORT**************"
+    else
+    terminal.ShowMessage = "**************NO CONNECTION**************"
+  end
+
+  if SERVER then
+    terminal.SyncHistory()
+end
+
+end)
+
+
+-- MAINTENANCE TABLET
 Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(effect, deltaTime, item, targets, worldPosition, client)
  
   local terminal = item.GetComponentString("Terminal")

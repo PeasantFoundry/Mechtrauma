@@ -520,7 +520,9 @@ function MT.HF.GameIsRunning()
         return Game.RoundStarted
     
     else
-        -- if Game.Paused or not Game.RoundStarted then return false end
+        
+        if Game.Paused then return false end
+        
         -- return true
         return Game.GameSession and Game.GameSession.IsRunning
     end

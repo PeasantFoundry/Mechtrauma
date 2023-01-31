@@ -441,11 +441,15 @@
 
 <connection.hull_percentage>Hull_Percentage</connection.hull_percentage>
 
-<!-- Display names -->
+<!-- Display Names -->
 <displayname.refititem>[itemname] (refit)</displayname.refititem>
+<!-- UI Labels -->
+<uilabel.motormount>Motor Mount</uilabel.motormount>
 
+<!-- Upgrade Categories -->
+<upgradecategory.generators>Generators</upgradecategory.generators>
 
-
-
+<upgradename.generatorefficiency>Generator Efficiency</upgradename.generatorefficiency>
+<upgradedescription.generatorefficiency>Increases horsepower to kW ratio.</upgradedescription.generatorefficiency>
 
 </infotexts> 

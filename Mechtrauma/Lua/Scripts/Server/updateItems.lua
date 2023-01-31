@@ -8,7 +8,7 @@ MT.oxygenVentCount = 0
 MT.tagfunctions = {
     divingSuit={
         tags={"deepdiving","diving"},
-        update=MT.F.divingSuit      
+        update=MT.F.divingSuit
     },
     fuseBox={ 
         tags={"fusebox"},

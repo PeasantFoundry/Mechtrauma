@@ -25,7 +25,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     s3000D={
-        maxHorsePower=3000,
+        maxHorsePower=3000*1.5,
         oilSlots=1,
         filterSlots=1,
         dieselFuelSlots=4,
@@ -34,7 +34,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Da={
-        maxHorsePower=2500,
+        maxHorsePower=2500*1.5,
         oilSlots=2,
         filterSlots=1,
         dieselFuelSlots=3,
@@ -43,7 +43,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Db={
-        maxHorsePower=2500,
+        maxHorsePower=2500*1.5,
         oilSlots=2,
         filterSlots=1,
         dieselFuelSlots=3,
@@ -52,7 +52,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     s1500D={
-        maxHorsePower=1500,
+        maxHorsePower=1500*1.5,
         oilSlots=1,
         filterSlots=1,
         dieselFuelSlots=3,
@@ -61,7 +61,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     PDG500={
-        maxHorsePower=500,
+        maxHorsePower=500*1.5,
         oilSlots=1,
         filterSlots=1,
         dieselFuelSlots=1,
@@ -70,7 +70,7 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     PDG250={
-        maxHorsePower=250,
+        maxHorsePower=250*1.5,
         oilSlots=1,
         filterSlots=1,
         dieselFuelSlots=1,
@@ -112,7 +112,7 @@ function MT.F.dieselGenerator(item)
 end
 
 -- called by MT.F.dieselGenerator: calculates if and how much power an engine should be producing
-function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)    
+function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     --ADVANCED DIESEL DESIGN
     -- HP:kW = 1:0.75
     -- HP:diesel(l) 1:0.2        
@@ -126,7 +126,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local auxOxygenVol = 0
     local hullOxygenPercentage = 0
     -- set hullOxygenPercentage to 0 when submerged or outside of a hull.
-     if item.InWater == false and item.FindHull() ~= nil then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
+    if item.InWater == false and item.FindHull() ~= nil then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
 
     -- diesel
     local dieselFuelItems = {}
@@ -142,7 +142,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local frictionDamage = MT.Config.frictionBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
     local oilDeterioration = MT.Config.oilBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for capacity    
 
-    
+
     -- INVENTORY: loop through the inventory and see what we have
     local index = 0
     while(index < item.OwnInventory.Capacity) do
@@ -198,7 +198,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         MT.HF.subFromListAll((MT.Config.oilFilterDPS * MT.Deltatime), oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deterioration
         -- friction damage
         item.Condition = item.Condition - frictionDamage
-        
+
         -- DEBUG PRINTING: print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
         -- DEBUG PRINTING: print("Filration will last for: ", (oilFiltrationVol / MT.Config.oilFilterDPS) / 60 ) -- no need to calculate the deltaTime here since calc is in dps
@@ -214,15 +214,15 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- combustion failed        
         dieselEngine.combustion = false
         dieselEngine.powerGenerated = 0
-        
+
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
         end
-            
+
         return dieselEngine
     end
-    
+
 end
 
 Hook.Patch(
