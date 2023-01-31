@@ -40,7 +40,7 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
   local leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
 
   -- is electrocution enabled?
-  if MT.Config.disableElectrocution == true then
+  if MT.Config.DisableElectrocution == true then
     -- check if you're a junctionbox or a fusepanel   
     if item.HasTag("junctionbox") then -- need to add fuse panel support later  
       -- i don't know why an item would have a junctionbox tag but no PowerTransfer Component but this makes the code harder to break
