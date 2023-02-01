@@ -123,10 +123,10 @@ function MT.HF.ItemIsWornInOuterClothesSlot(item)
 
   return true
   end
---this is a testing function for damaging machines 
-  function MT.HF.DamageFocusedItem(amount)
-    local item = Client.ClientList[1].Character.FocusedItem
-    item.condition = item.condition - amount
+    --this is a testing function for damaging machines 
+    function MT.HF.DamageFocusedItem(amount)
+        local item = Client.ClientList[1].Character.FocusedItem
+        item.condition = item.condition - amount
     end
 
 -- Mechtrauma medical helper functions
