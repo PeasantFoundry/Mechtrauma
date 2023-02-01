@@ -1,5 +1,6 @@
 MT.F = {}
-CentralComputerOnline = true
+CentralComputer = {}
+CentralComputer.online = true
 
 LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
 
@@ -100,11 +101,11 @@ end
 --MT.tagKeys.centralComputer = function(item)
 function MT.F.centralComputer(item)
     if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
-        CentralComputerOnline = true
+        CentralComputer.online  = true
         item.GetComponentString("RelayComponent").SetState(true, false)        
         --print("Central computer online.")
     else
-        CentralComputerOnline = false
+        CentralComputer.online  = false
         item.GetComponentString("RelayComponent").SetState(false, false)
         --print("Central computer offline.")
     end
@@ -112,11 +113,13 @@ end
 
 function MT.F.keyIgnition(item)
 
-end
+end 
+
 
 -- CENTRAL COMPUTER: Ships computer
-function MT.F.centralComputerNeeded(item)    
-    if CentralComputerOnline then
+function MT.F.centralComputerNeeded(item)
+    print("found a: ", item.name)
+    if CentralComputer.online  then
         if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = true end
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = true end
         if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = true end
@@ -269,7 +272,7 @@ function MT.F.reductionGear(item)
                     driveGearCount = driveGearCount + 1
                     -- damage the gears if the condition is below 25 and if the propeller is engaged 
                     if item.ConditionPercentage < 40 and forceStrength ~= 0 then containedItem.Condition = containedItem.Condition - forceStrength^0.5 end -- make this damage exponential to force someday                    
-                    
+
                     -- disable hot swapping
                     item.OwnInventory.GetItemAt(index).HiddenInGame = true 
                     if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end

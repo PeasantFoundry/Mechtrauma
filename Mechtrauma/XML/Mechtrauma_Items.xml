@@ -3683,7 +3683,7 @@
     
 
 <!-- CNC: Mechanical Fabricator --> 
-  <Item name="CNC Mechanical Fabricator" identifier="cncfab" tags="CNC,donttakeitems,dontsellitems" category="Machine" linkable="true" allowedlinks="deconstructor,locker" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <Item name="CNC Mechanical Fabricator" identifier="cncfab" tags="ccn,mtu,donttakeitems,dontsellitems" category="Machine" linkable="true" allowedlinks="deconstructor,locker" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="256,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/Images/cnc.png" sourcerect="0,0,400,460" depth="0.84"/>
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
@@ -5390,7 +5390,7 @@
       <StatusEffect type="OnFailure" target="This" Condition="-100.0" disabledeltatime="true" />
       <StatusEffect type="OnUse" target="This" Condition="-100.0" disabledeltatime="true" />
       <!-- ON SUCESS: Significantly reduce the infection -->
-      <StatusEffect tags="medical" type="OnUse" target="Character" duration="60.0">
+      <StatusEffect tags="medical" type="OnUse" target="UseTarget" duration="60.0">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
         <ReduceAffliction identifier="spore_infection" amount="5" />
       </StatusEffect>
@@ -5399,12 +5399,12 @@
         <Affliction identifier="organdamage" amount="0.15" />
       </StatusEffect>
       <!-- ON SUCESS: Provide infection resistance -->
-      <StatusEffect tags="medical" type="OnUse" target="Character" disabledeltatime="true">
+      <StatusEffect tags="medical" type="OnUse" target="UseTarget" disabledeltatime="true">
         <Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
         <Affliction identifier="spore_infection_resistance" amount="100" />
       </StatusEffect>
       <!-- ON FAILURE: Reduce the infection -->
-      <StatusEffect tags="medical" type="OnFailure" target="Character" duration="60.0">
+      <StatusEffect tags="medical" type="OnFailure" target="UseTarget" duration="60.0">
         <ReduceAffliction identifier="spore_infection" amount="50" />
       </StatusEffect>
       <!-- ON FAILURE: Additional organ damage -->

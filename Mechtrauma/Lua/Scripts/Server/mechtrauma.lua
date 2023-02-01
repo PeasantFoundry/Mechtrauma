@@ -155,7 +155,7 @@ Hook.Add("medicalTablet_hR.OnUse", "MT.hematologyReport", function(effect, delta
   --local containedItem = item.OwnInventory.GetItemAt(0)
   local terminal = item.GetComponentString("Terminal")
   local bloodBankInventory = {}
-  if CentralComputerOnline then
+  if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
     -- begin report
     MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 35, 35, 255), "*******REPORT: HEMATOLOGY*******")        
@@ -218,7 +218,7 @@ Hook.Add("medicalTablet_pR.OnUse", "MT.pharmacyReport", function(effect, deltaTi
   local terminal = item.GetComponentString("Terminal")
   local pharmacyInventory = {}
   --local itemStack = {}
-  if CentralComputerOnline then
+  if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
     -- begin report
     MT.HF.SendTerminalColorMessage(item, terminal, Color(200, 35, 35, 255), "*******REPORT: PHARMACY*******")        
@@ -275,7 +275,7 @@ Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(ef
   local hull = "ERROR"
   --print(item.GetComponent.Powered())
   
-  if CentralComputerOnline then
+  if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20)
     MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: GRID POWER CONSUMPTION*******")
   
@@ -321,7 +321,7 @@ Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(eff
   local filterLocation
   
   
-  if CentralComputerOnline then
+  if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
     -- begin report
     MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: CO2 FILTER STATUS*******")        
@@ -380,7 +380,7 @@ Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, 
   local brokenElectricMotorCount = 0  
   local pumpLocation
   
-  if CentralComputerOnline then    
+  if CentralComputer.online then    
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
     -- begin report
     MT.HF.SendTerminalColorMessage(item, terminal, Color(65, 115, 205, 255), "*******REPORT: WATER PUMP STATUS*******")    
@@ -449,7 +449,7 @@ Hook.Add("maintenanceTablet_fsr.OnUse", "MT.fuseStatusReport", function(effect, 
   local fuseLocation = "ERROR" -- inca
   --local hull
   MT.HF.BlankTerminalLines(terminal, 20)
-  if CentralComputerOnline then
+  if CentralComputer.online then
     MT.HF.SendTerminalColorMessage(item, terminal, Color(0, 255, 0, 255), "*******REPORT: FUSE STATUS*******")    
     -- loop through the item list to find our fuse boxes(later make this loop through mtuItems?)
     for k, item in pairs(Item.ItemList) do
