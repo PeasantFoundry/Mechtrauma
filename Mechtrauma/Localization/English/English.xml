@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
 
    
@@ -15,6 +15,9 @@
   <entityname.spore_fungus>Fungus</entityname.spore_fungus>
   <entitydescription.spore_fungus>An unknown fungus.</entitydescription.spore_fungus>
 
+   <entityname.mt_medical_tablet>Medical Tablet</entityname.mt_medical_tablet>
+   <entitydescription.mt_medical_tablet>The creator is appreciated by medical professionals everywhere. Reports health information such as blood types and locations of pharmaceuticals.</entitydescription.mt_medical_tablet>
+   
    <!-- =============< DECORATIVE >=============  -->
   <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
   <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
@@ -90,8 +93,19 @@
   <entityname.peasantprime>PeasantPrime Box</entityname.peasantprime>
   <entitydescription.peasantprime>PeasantPrime Box</entitydescription.peasantprime>
    
+   <entityname.mtcrate_generic>MT Crate</entityname.mtcrate_generic>
+   <entitydescription.mtcrate_generic>One-handed crate for storing generic supplies.</entitydescription.mtcrate_generic>
+   
    <entityname.mtcrate_medical>MT Medical Crate</entityname.mtcrate_medical>
-   <entitydescription.mtcrate_medical> Mechtrauma version of the medical crate.</entitydescription.mtcrate_medical>
+   <entitydescription.mtcrate_medical>One-handed crate for storing various medicines.</entitydescription.mtcrate_medical>
+   
+   <entityname.mtcrate_mechanical>MT Mechanical Crate</entityname.mtcrate_mechanical>
+   <entitydescription.mtcrate_mechanical>One-handed crate for storing mechanical items.</entitydescription.mtcrate_mechanical>
+   
+   <entityname.mtcrate_rusty>MT Rusty Crate</entityname.mtcrate_rusty>
+   <entitydescription.mtcrate_rusty>Rusted one-handed crate.</entitydescription.mtcrate_rusty>
+   
+   
    
   <entityname.oxygen_transfer_tank>Oxygen Transfer Tank</entityname.oxygen_transfer_tank>
   <entitydescription.oxygen_transfer_tank>A large portable oxygen tank, useful for providing backup oxygen to combustion engines. </entitydescription.oxygen_transfer_tank>
@@ -222,10 +236,10 @@
   <entityname.water_pump_small>Small Water Pump</entityname.water_pump_small>
   <entitydescription.water_pump_small>For moving water.</entitydescription.water_pump_small>
 
-  <entityname.water_pumpT1>Water Pump T1</entityname.water_pumpT1>
-  <entitydescription.water_pumpT1>A tall pump for moving water.</entitydescription.water_pumpT1>
+  <entityname.water_pump_t1>Water Pump T1</entityname.water_pump_t1>
+  <entitydescription.water_pump_t1>A tall pump for moving water.</entitydescription.water_pump_t1>
 
-  <entityname.water_pumpT2>Water Pump T2</entityname.water_pumpT2>
+  <entityname.water_pump_t2>Water Pump T2</entityname.water_pump_t2>
   <entitydescription.water_pumpT2>A tall pump for moving water.</entitydescription.water_pumpT2>
 
   <entityname.water_pump_a1>Water Pump A1</entityname.water_pump_a1>
@@ -245,6 +259,11 @@
    
    <entityname.waterdrain>Water Drain</entityname.waterdrain>
    <entitydescription.waterdrain>Drains water from an area.</entitydescription.waterdrain>
+   
+   <entityname.pump_mount>Pump Mount</entityname.pump_mount>
+   <entitydescription.pump_mount>Mount for later attachment of a pump at an outpost.</entitydescription.pump_mount>
+   
+   <!-- Oxygen  -->
 
   <entityname.oxygentank_compressor>Oxygen Tank Compressor</entityname.oxygentank_compressor>
   <entitydescription.oxygentank_compressor>Compresses hull oxygen into tanks for use. </entitydescription.oxygentank_compressor>
@@ -257,6 +276,8 @@
 
   <entityname.oxygen_supply>Oxygen supply</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply>
+   
+   <!-- Crafting and Refilling -->
 
   <entityname.oil_station>Oil Station</entityname.oil_station>
   <entitydescription.oil_station>Black gold.</entitydescription.oil_station> 
@@ -335,6 +356,9 @@
 
   <entityname.pdg250>PDG250 Diesel Generator</entityname.pdg250>
   <entitydescription.pdg250>Portable diesel generator rated for 250kw.</entitydescription.pdg250>
+   
+   <entityname.generator_mount>Generator Mount</entityname.generator_mount>
+   <entitydescription.generator_mount>Mount for future attachment of diesel generators at an outpost.</entitydescription.generator_mount>
 
 
   <entityname.incinerator>Incinerator</entityname.incinerator>
@@ -352,6 +376,13 @@
 
   <entityname.storage_container_single>Storage Container</entityname.storage_container_single>
   <entitydescription.storage_container_single>Storage container, larger than a cabinet. </entitydescription.storage_container_single>
+   
+   <entityname.s12a_container>S12A Container</entityname.s12a_container>
+   <entitydescription.s12a_container> Storage container.</entitydescription.s12a_container>
+   
+   
+   <entityname.s12b_container>S12B Container</entityname.s12b_container>
+   <entitydescription.s12b_container> Storage container.</entitydescription.s12b_container>
 
   <entityname.shipping_container_open>Cargo Container Open.</entityname.shipping_container_open>
   <entitydescription.shipping_container_open>Non-waterpoof continer for storing large items and materials.</entitydescription.shipping_container_open>
