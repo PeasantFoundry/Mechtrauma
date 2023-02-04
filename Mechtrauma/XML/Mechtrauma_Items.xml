@@ -2027,7 +2027,12 @@
     <Sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="0" origin="0.5,0.5" />
- 
+    
+    <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1280,296,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent>
+
+
     <MiniMap MinVoltage="0.5" PowerConsumption="100" canbeselected="true" msg="ItemMsgInteractSelect" allowuioverlap="true">
       <GuiFrame relativesize="0.5,0.5" anchor="Center" style="ItemUI" />
       <AlternativeLayout relativesize="0.2725,0.3" anchor="CenterLeft" pivot="BottomLeft" relativeoffset="0.05,-0.001"/>
@@ -2038,9 +2043,11 @@
         <Sound file="%ModDir%/Sound/item_interact.ogg" range="1000" /> 
       </StatusEffect>
       
-      <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
-        <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,128,302,232" depth="-0.01" origin="0.5,0.8" alpha="1.0" />
-      </LightComponent>
+          <!-- 
+    <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,496,302,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent> -->
+ 
     </MiniMap>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
