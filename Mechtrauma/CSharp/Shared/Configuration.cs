@@ -78,6 +78,8 @@ public sealed class Configuration
                 MenuCategory: Category.Ignore
             ));
         
+        Setting_IsDevMode.Value = true; // Allow editing mid-round by default.
+        
         _general = new(this);
         _advanced = new(this);
         _experimental = new(this);
@@ -131,7 +133,7 @@ public sealed class Configuration
                 6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
-                    DisplayName: "",
+                    DisplayName: "Standard Oil Filter Service Life (min)",
                     DisplayCategory: "General"
                     ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
@@ -140,7 +142,7 @@ public sealed class Configuration
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
-                    DisplayName: "Standard Oil Filter Service Life (min)",
+                    DisplayName: "Standard Oil Filter Efficiency Rating (%)",
                     DisplayCategory: "General"
                     ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
