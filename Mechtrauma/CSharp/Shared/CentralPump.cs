@@ -51,7 +51,7 @@ namespace Barotrauma.Items.Components
             updateTimers(deltaTime);
 
             if (!IsActive) {
-                LuaCsSetup.PrintCsMessage("Drain not active");
+                //LuaCsSetup.PrintCsMessage("Drain not active");
                 return;
             }
 
