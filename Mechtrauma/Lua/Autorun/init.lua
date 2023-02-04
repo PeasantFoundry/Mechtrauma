@@ -76,7 +76,7 @@ end
 
 -- CLIENT: side-code
 if CLIENT then
-    dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
+    --dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
 end
 
 -- PERFORMANCE FIX:
