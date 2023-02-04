@@ -59,7 +59,7 @@ namespace Barotrauma.Items.Components
 
             if (item.CurrentHull == null) { return; }
 
-            item.CurrentHull.WaterVolume += MaxFlow * Voltage * deltaTime * Timing.FixedUpdateRate; 
+            item.CurrentHull.WaterVolume += MaxFlow * (Voltage - float.Epsilon) * deltaTime * Timing.FixedUpdateRate; 
             if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }
 

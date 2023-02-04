@@ -1,13 +1,13 @@
 <!-- PORTABLE DIESEL GENERATOR: Portable Emergency power. -->
 
   <Item name="PDG500" identifier="pdg500" tags="Power,Portable" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.4">
-    <Sprite name="Diesel Generator" texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
     
    <!--<LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="True" castshadows="false" allowingameediting="false" />--> 
     <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="true" castshadows="false" allowingameediting="false" depth="0.54">
-      <sprite texture="%ModDir%/images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
+      <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
      </LightComponent>    
    
    <RelayComponent canbeselected="true" powerconsumption="0.0" minvoltage="0.1" IsOn="false" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
@@ -42,7 +42,7 @@
         <Conditional HasStatusTag="diesel_fuel_can" />
         <Conditional HullOxygenPercentage="gte 75" />
         <Conditional InWater="false" />      
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />   
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />   
       </StatusEffect>  
 
       <!-- COMBUSTION: Low Oxygen -->
@@ -52,7 +52,7 @@
         <Conditional HasStatusTag="oxygentank" />
         <Conditional HullOxygenPercentage="lt 75" />
         <Conditional InWater="false" />         
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
 
       <!-- COMBUSTION: Under Water -->
@@ -61,7 +61,7 @@
         <Conditional HasStatusTag="diesel_fuel_can" />
         <Conditional HasStatusTag="oxygentank" />
         <Conditional InWater="true" />
-        <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
       
       <!-- Lubricate Engine! The generator will not destroy itself if it has oil in it. -->
@@ -103,11 +103,11 @@
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false" >     
             
@@ -246,7 +246,7 @@
       <!-- Don't stick your hand in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
       </StatusEffect>
     
@@ -258,14 +258,14 @@
   <!-- DIESEL GENERATOR S1500D: Emergency power. -->
 
  <Item name="s1500D" identifier="s1500D" tags="Power,DieselEngine" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-  <InventoryIcon texture="%ModDir%/images/mechtrauma_generators.png" sourcerect="0,768,212,256" origin="0.5,0.5" />
-  <Sprite name="Diesel Generator" texture="%ModDir%/images/mechtrauma_generators.png" sourcerect="0,768,212,256" depth="0.81" origin="0.5,0.5" />
-  <BrokenSprite texture="%ModDir%/images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
-  <BrokenSprite texture="%ModDir%/images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="0" />
+  <InventoryIcon texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="0,768,212,256" origin="0.5,0.5" />
+  <Sprite name="Diesel Generator" texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="0,768,212,256" depth="0.81" origin="0.5,0.5" />
+  <BrokenSprite texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
+  <BrokenSprite texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="0" />
   
   <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
   <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="false" castshadows="false" allowingameediting="false" depth="0.8">
-    <sprite texture="%ModDir%/images/mechtrauma_generators.png" sourcerect="512,772,128,96" depth="0.8" origin="0.6,0.6" alpha="100.0"/>
+    <sprite texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="512,772,128,96" depth="0.8" origin="0.6,0.6" alpha="100.0"/>
     <IsActive targetitemcomponent="RelayComponent" />
   </LightComponent> 
 
@@ -296,7 +296,7 @@
         <Conditional HasStatusTag="diesel_fuel" />
         <Conditional HullOxygenPercentage="gte 75" />
         <Conditional InWater="false" />      
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />   
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />   
       </StatusEffect>  
 
       <!-- COMBUSTION: Low Oxygen -->
@@ -306,7 +306,7 @@
         <Conditional HasStatusTag="oxygen" />
         <Conditional HullOxygenPercentage="lt 75" />
         <Conditional InWater="false" />         
-         <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+         <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
 
       <!-- COMBUSTION: Under Water -->
@@ -315,7 +315,7 @@
         <Conditional HasStatusTag="diesel_fuel" />
         <Conditional HasStatusTag="oxygen" />
         <Conditional InWater="true" />
-        <Sound file="%ModDir%/sound/diesel_sound.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/diesel_sound.ogg" range="1000" loop="true" />
       </StatusEffect> 
       
       <!-- LUBRICATION: Counteracts engine friction. The generator will not destroy itself if it has oil in it. 11/2/22 I don't remember why lubrtication is .1 higher than friction -->
@@ -366,12 +366,12 @@
   
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.4" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
       
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false" >     
