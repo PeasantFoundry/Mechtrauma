@@ -5013,8 +5013,8 @@
   </Item>
 
   <!-- ADVANCED STEAM BOILER: -->
-<!-- NOTES: Possibly need to move boiler damage to be dependent on over pressure and make tie circulator pumps to the ability to control the charge rate? -->
-  <Item name="Advanced Boiler H" identifier="advanced_boiler_h" tags="mtpriority, steam, MechtraumaBoiler,steamBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="1.0">
+  <!-- NOTES: Possibly need to move boiler damage to be dependent on over pressure and make tie circulator pumps to the ability to control the charge rate? -->
+  <Item name="Advanced Boiler H" identifier="advanced_boiler_h" tags="mtpriority, steam, MechtraumaBoiler,steamBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="0.5">
     <Sprite name="Boiler" texture="%ModDir%/Images/boilerh.png" sourcerect="0,0,760,456" depth="0.8" origin="0.5,0.5" />    
     <BrokenSprite texture="%ModDir%/Images/boilerh.png" sourcerect="0,512,760,456" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/boilerh.png" sourcerect="0,1024,760,456" origin="0.5,0.5" depth="0.8" maxcondition="0" />

@@ -48,7 +48,7 @@ public sealed class Configuration
     public float DieselOxygenRatioDL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 10f;
     public float DieselOxygenRatioL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value;
     public float DivingSuitEPP => _general.Setting_DivingSuitExtPressProtection.Value;
-    public float DivingSuitServiceLife => _general.Setting_DivingSuitServiceLife.Value;
+    public int DivingSuitServiceLife => _general.Setting_DivingSuitServiceLife.Value;
     public float FrictionBaseDPS => 1f;
     public float FuseboxDeterioration => _advanced.Setting_FuseboxDeteriorationRate.Value;
     public float FuseboxOvervoltDamage => _advanced.Setting_FuseboxOvervoltDamage.Value;
@@ -75,7 +75,11 @@ public sealed class Configuration
             false,
             NetworkSync.ServerAuthority,
             data: new DisplayData(  
-                MenuCategory: Category.Ignore
+            #if DEBUG
+                            MenuCategory: Category.Gameplay
+            #else
+                            MenuCategory: Category.Ignore
+            #endif
             ));
         
         Setting_IsDevMode.Value = true; // Allow editing mid-round by default.
@@ -92,12 +96,14 @@ public sealed class Configuration
     public sealed class Settings_General
     {
         public readonly IConfigRangeFloat
-            Setting_CirculatorServiceLife,
-            Setting_DivingSuitServiceLife,
+            Setting_CirculatorServiceLife,            
             Setting_DivingSuitExtPressProtection,
             Setting_OilFilterServiceLife,
             Setting_OilFiltrationEfficiencyRating,
             Setting_ThrustbearingServiceLife;
+
+        public readonly IConfigRangeInt
+            Setting_DivingSuitServiceLife;
 
         public Settings_General(Configuration instance)
         {
@@ -111,9 +117,9 @@ public sealed class Configuration
                     ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             
-            Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeFloat(
+            Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
                 "DivingSuitServiceLife", ModName,
-                60f, 0f, 120f, GetStepCount(0f, 120f, 10f),
+                60, 0, 120, GetStepCount(0, 120, 10),
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Diving Suit Service Life (min)",
@@ -125,7 +131,12 @@ public sealed class Configuration
                 2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
                 NetworkSync.ServerAuthority, displayData: new DisplayData(
                     DisplayName: "Diving Suit Extended Pressure Protection (multiplier)",
-                    DisplayCategory: "General"
+                    DisplayCategory: "General",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                     ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
@@ -175,7 +186,12 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Diesel Generator Efficiency",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
@@ -184,7 +200,12 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Conversion Ratio: kWh : Diesel (1L)",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_ConversionRatioOxygenToDiesel = ConfigManager.AddConfigRangeFloat(
@@ -193,7 +214,12 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Conversion Ratio: Oxygen Unit : Diesel (1L)",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_FuseboxDeteriorationRate = ConfigManager.AddConfigRangeFloat(
@@ -202,7 +228,12 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Fusebox Deterioration Rate",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_FuseboxOvervoltDamage = ConfigManager.AddConfigRangeFloat(
@@ -238,7 +269,12 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Pump Gate Deterioration Rate (Multi)",
-                    DisplayCategory: "Experimental"
+                    DisplayCategory: "Experimental",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
         }
@@ -272,8 +308,13 @@ public sealed class Configuration
                 1f, 1f, 20f, GetStepCount(1f, 20f, 1f),
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
-                    DisplayName: "Oil Base DeePeeEss",
-                    DisplayCategory: "Test"
+                    DisplayName: "Oil Base DPS",
+                    DisplayCategory: "Test",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
         }
