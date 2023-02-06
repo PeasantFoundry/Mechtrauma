@@ -117,8 +117,7 @@ end
 
 
 -- CENTRAL COMPUTER: Ships computer
-function MT.F.centralComputerNeeded(item)
-    print("found a: ", item.name)
+function MT.F.centralComputerNeeded(item)    
     if CentralComputer.online  then
         if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = true end
         if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = true end

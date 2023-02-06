@@ -44,8 +44,8 @@ public sealed class Configuration
     public float DieselHorsePowerRatioCL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 100f;
     public float DieselHorsePowerRatioDL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 10f;
     public float DieselHorsePowerRatioL => _advanced.Setting_ConversionRatioHPtoDiesel.Value;
-    public float DieselOxygenRatioCL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 100f;
-    public float DieselOxygenRatioDL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 10f;
+    public float DieselOxygenRatioDL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 0.1f;
+    public float DieselOxygenRatioCL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 0.01f;
     public float DieselOxygenRatioL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value;
     public float DivingSuitEPP => _general.Setting_DivingSuitExtPressProtection.Value;
     public int DivingSuitServiceLife => _general.Setting_DivingSuitServiceLife.Value;
