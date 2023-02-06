@@ -35,9 +35,9 @@ public sealed class Configuration
     
     // ---- PUBLIC READONLY CONFIG ---- //
     public bool DisableElectrocution => !_experimental.Setting_EnableElectrocution.Value;
-    public float BearingDPS => GetPercentPerTick(_general.Setting_ThrustbearingServiceLife.Value); 
+    public float BearingDPS => GetDPS(_general.Setting_ThrustbearingServiceLife.Value); 
     public float BearingServiceLife => _general.Setting_ThrustbearingServiceLife.Value;
-    public float CirculatorDPS => GetPercentPerTick(_general.Setting_CirculatorServiceLife.Value);
+    public float CirculatorDPS => GetDPS(_general.Setting_CirculatorServiceLife.Value);
     public float CirculatorServiceLife => _general.Setting_CirculatorServiceLife.Value;
     public float DieselDrainRate => 1f;
     public float DieselGeneratorEfficiency => _advanced.Setting_DieselGeneratorEfficiency.Value;
@@ -53,7 +53,7 @@ public sealed class Configuration
     public float FuseboxDeterioration => _advanced.Setting_FuseboxDeteriorationRate.Value;
     public float FuseboxOvervoltDamage => _advanced.Setting_FuseboxOvervoltDamage.Value;
     public float OilBaseDPS => _test.Setting_OilBaseDPS.Value;
-    public float OilFilterDPS => GetPercentPerTick(_general.Setting_OilFilterServiceLife.Value);
+    public float OilFilterDPS => GetDPS(_general.Setting_OilFilterServiceLife.Value);
     public float OilFilterServiceLife => _general.Setting_OilFilterServiceLife.Value;
     public float OilFiltrationEP => _general.Setting_OilFiltrationEfficiencyRating.Value;
     public float OilFiltrationM => _general.Setting_OilFiltrationEfficiencyRating.Value / 100f;
@@ -327,7 +327,8 @@ public sealed class Configuration
     
     private static float ENGINE_TICKRATE = 60f;
     private static string ModName = "Mechtrauma";
-    private static float GetPercentPerTick(float v) => 100f * v / ENGINE_TICKRATE;
+    private static float GetPercentPerTick(float v) => 100f / v * 60;
+    private static float GetDPS(float ssl) => 100f / ssl / 60f;
     private static int GetStepCount(float min, float max, float step) => (int)((max - min) / step + 1);
 
     // Settings Containers //
