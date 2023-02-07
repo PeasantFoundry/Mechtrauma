@@ -325,9 +325,8 @@ public sealed class Configuration
     
     #region INTERNAL_OPS
     
-    private static float ENGINE_TICKRATE = 60f;
     private static string ModName = "Mechtrauma";
-    private static float GetPercentPerTick(float v) => 100f / v * 60;
+    private static float GetPercentPerTick(float v) => v / 60f * 100;
     private static float GetDPS(float ssl) => 100f / ssl / 60f;
     private static int GetStepCount(float min, float max, float step) => (int)((max - min) / step + 1);
 
