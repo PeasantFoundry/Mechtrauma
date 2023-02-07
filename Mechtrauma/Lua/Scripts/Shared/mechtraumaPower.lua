@@ -172,9 +172,13 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     end
          
     -- fuelCheck
-    if dieselFuelVol > dieselFuelNeededCL then dieselEngine.fuelCheck = true end
+    if dieselFuelVol > dieselFuelNeededCL then dieselEngine.fuelCheck = true print("FUEL CHECK: PASSED!") end
     -- oxygenCheck
-    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true end
+    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true print("O2 CHECK: PASSED! Hull O2: ", hullOxygenPercentage, "AUX O2 Volume: ", auxOxygenVol) 
+    
+    else
+        print("O2 CHECK: FAILED! Hull O2: ", hullOxygenPercentage, " AUX O2 Volume: ", auxOxygenVol, " O2 NEEDED: ", oxygenNeeded)
+    end
     
     -- attempt combustion
     if item.Condition > 0 and ignition and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
