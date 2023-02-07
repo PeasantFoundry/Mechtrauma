@@ -65,25 +65,9 @@ public sealed class Configuration
     
     #region TYPEDEF
 
-    private readonly IConfigEntry<bool> Setting_IsDevMode;
 
     public Configuration()
-    {
-        Setting_IsDevMode = ConfigManager.AddConfigBoolean(
-            "DevMode",
-            ModName,
-            false,
-            NetworkSync.ServerAuthority,
-            data: new DisplayData(  
-            #if DEBUG
-                            MenuCategory: Category.Gameplay
-            #else
-                            MenuCategory: Category.Ignore
-            #endif
-            ));
-        
-        Setting_IsDevMode.Value = true; // Allow editing mid-round by default.
-        
+    { 
         _general = new(this);
         _advanced = new(this);
         _experimental = new(this);
@@ -91,8 +75,6 @@ public sealed class Configuration
         _test = new(this);
     }
 
-    public bool IsDevMode() => Setting_IsDevMode.Value;
-    
     public sealed class Settings_General
     {
         public readonly IConfigRangeFloat
@@ -114,8 +96,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Standard Circulator Service Life (min)",
                     DisplayCategory: "General"
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
             
             Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
                 "DivingSuitServiceLife", ModName,
@@ -124,8 +105,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Diving Suit Service Life (min)",
                     DisplayCategory: "General"
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
             Setting_DivingSuitExtPressProtection = ConfigManager.AddConfigRangeFloat(
                 "DivingSuitExtendedPressureProtection", ModName,
                 2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
@@ -137,8 +117,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
                 "OilFilterServiceLife", ModName,
                 6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
@@ -146,8 +125,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Standard Oil Filter Service Life (min)",
                     DisplayCategory: "General"
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
             Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
                 "OilFilterEfficiencyRating", ModName,
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
@@ -155,8 +133,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Standard Oil Filter Efficiency Rating (%)",
                     DisplayCategory: "General"
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
             Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ThrustBearingServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
@@ -164,8 +141,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Standard Thrust Bearing Service Life (min)",
                     DisplayCategory: "General"
-                    ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                    ));
         }
     }
 
@@ -192,8 +168,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
             Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
                 "ConversionRatioHPtoDieselFuel", ModName,
                 0.2f, 0.2f, 25f, GetStepCount(0.2f, 25f, 0.1f),
@@ -206,8 +181,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
             Setting_ConversionRatioOxygenToDiesel = ConfigManager.AddConfigRangeFloat(
                 "ConversionRatioOxygenToDieselFuel", ModName,
                 7.0f, 1.0f, 14f, GetStepCount(1f, 14f, 1f),
@@ -220,8 +194,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
             Setting_FuseboxDeteriorationRate = ConfigManager.AddConfigRangeFloat(
                 "FuseboxDeviceDeteriorationRate", ModName,
                 0.12f, 0f, 1f, GetStepCount(0f, 1f, 0.05f),
@@ -234,8 +207,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
             Setting_FuseboxOvervoltDamage = ConfigManager.AddConfigRangeFloat(
                 "FuseOvervoltDamage", ModName,
                 5f, 0f, 10f, GetStepCount(0f, 10f, 1f),
@@ -243,8 +215,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Fusebox Overvolt Damage",
                     DisplayCategory: "Advanced"
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress()); 
+                )); 
         }
     }
 
@@ -261,8 +232,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Enable Electrocution Mechanic",
                     DisplayCategory: "Experimental"
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
             Setting_PumpGateDeteriorationRate = ConfigManager.AddConfigRangeFloat(
                 "PumpGateDeteriorationRateMulti", ModName,
                 1f, 0f, 100f, GetStepCount(0f, 100f, 0.1f),
@@ -275,8 +245,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
         }
     }
 
@@ -292,8 +261,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Fungus Spawn Rate",
                     DisplayCategory: "Biotrauma"
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
         }
     }
 
@@ -315,8 +283,7 @@ public sealed class Configuration
                     #else
                     MenuCategory: Category.Ignore
                     #endif
-                ),
-                valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
+                ));
         }
     }
     
