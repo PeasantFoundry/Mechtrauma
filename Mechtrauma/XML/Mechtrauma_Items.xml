@@ -2972,7 +2972,12 @@
   <Item name="Water Drain" identifier="waterdrain" category="Machine" tags="" scale="0.5" linkable="true">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <Sprite texture="Content/Items/Alien/Legacy/AlienRuin_Legacy.png" depth="0.91" sourcerect="203,512,53,52" />
-    <WaterDrain MaxFlow="100" canbeselected="true"/>
+	<WaterDrain MaxFlow="100" canbeselected="true">
+		<PumpInEmitter particle="watersplash" particlespersecond="80" position="25,-25" anglemin="230" anglemax="310" velocitymin="1" velocitymax="50" />
+		<PumpInEmitter particle="bubbles" particlespersecond="10" position="25,-25" anglemin="190" anglemax="350" velocitymin="50" velocitymax="120" />
+		<PumpOutEmitter particle="bubbles" particlespersecond="5" position="25,-25" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
+		<PumpOutEmitter particle="bubbles" particlespersecond="5" position="25,-25" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
+	</WaterDrain>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />

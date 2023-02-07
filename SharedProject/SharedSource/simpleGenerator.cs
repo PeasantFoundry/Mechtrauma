@@ -3,6 +3,8 @@ Simple generator component for Mechtrauma that allows for configurable power out
 Using negative 'PowerConsumption' variable to provide power to the grid. While positive to add a load.
 And the 'PowerTolerance' variable to allow for snapping to the grid demand.
 ***/
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -12,7 +14,7 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 
-namespace Barotrauma.Items.Components 
+namespace Barotrauma.Items.Components
 {
     class SimpleGenerator : Powered {
 

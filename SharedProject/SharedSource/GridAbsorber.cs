@@ -2,6 +2,8 @@
 Adds grid absorption device that absorb over voltage in turn for damaging themselves
 This is primarily utilised by steam regulators
 ***/
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;

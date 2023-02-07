@@ -15,16 +15,13 @@ namespace Mechtrauma {
         public Mechtrauma() {
             ModdingToolkit.Utils.Logging.PrintMessage("Mechtrauma starting...");
             InitUserData();
-            
-            // Change the power connection rules to isolate the steam, power, water and kinetic networks.
-            changePowerRules();
 
             #if SERVER
                 //GameMain.Server?.SendChatMessage("Started Mechtrauma");
 
             #elif CLIENT
                 //GameMain.Client?.SendChatMessage("Started Mechtrauma");
-                changeConnectionGUI();
+                //changeConnectionGUI();
             #endif
         }
 
