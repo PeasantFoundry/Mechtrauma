@@ -27,7 +27,6 @@ namespace Mechtrauma
         private float maxFlow = 80.0f;
 
         [Serialize(false, IsPropertySaveable.Yes, alwaysUseInstanceValues: true)]
-
         public bool IsInfected 
         {
             get => isInfected;
@@ -83,7 +82,7 @@ namespace Mechtrauma
         /// <summary>
         /// Power consumption of the Pump. Only consume power when active and adjust consumption based on condition.
         /// </summary>
-        public override float GetCurrentPowerConsumption(Connection connection = null)
+        public override float GetCurrentPowerConsumption(Connection connection)
         {
             //There shouldn't be other power connections to this
             if (connection == powerOut && IsActive)
