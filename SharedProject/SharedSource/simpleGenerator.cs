@@ -70,12 +70,19 @@ namespace Barotrauma.Items.Components
                 return 0.0f;
             }
 
-            return (PowerConsumption >= 0 ? PowerConsumption : -1.0f);
+            return -1f;
         }
 
         // Calculate the min and max power output of the device for the given tolerance
         public override PowerRange MinMaxPowerOut(Connection connection, float load = 0) {
             if (connection == powerOut) {
+                PowerConsumption = -PowerToGenerate;
+
+                if (PowerConsumption > 0)
+                {
+                    PowerConsumption = 0.0f;
+                }
+
                 float minOut = -PowerConsumption * (1 - PowerTolerance);
                 float maxOut = -PowerConsumption * (1 + PowerTolerance);
                 return new PowerRange(minOut, maxOut, MaxPowerOut);

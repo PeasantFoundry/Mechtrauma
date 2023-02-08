@@ -229,26 +229,3 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
 
 end
 
-Hook.Patch(
-  "Barotrauma.Items.Components.SimpleGenerator",
-  "GetCurrentPowerConsumption",
-  function(instance, ptable)
-    instance.PowerConsumption = 0
-  
-    -- Return -1 if the generator should provide power
-    if instance.IsOn then
-      return -1
-    end
-    return 0
-  end, Hook.HookMethodType.After)
-
-Hook.Patch(
-  "Barotrauma.Items.Components.SimpleGenerator",
-  "MinMaxPowerOut",
-  function(instance, ptable)
-    load = ptable["load"]
-    
-    -- Set power consumption from PowerToGenerate    
-    instance.PowerConsumption = -instance.PowerToGenerate
-    
-  end, Hook.HookMethodType.Before)
