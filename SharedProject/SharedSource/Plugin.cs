@@ -1,8 +1,10 @@
-﻿using ModdingToolkit;
+﻿using Barotrauma;
+using ModdingToolkit;
 
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using MoonSharp.Interpreter;
 using System.Text;
 
 namespace Mechtrauma
@@ -19,10 +21,16 @@ namespace Mechtrauma
         public void Initialize()
         {
             changePowerRules();
-#if CLIENT
+            Utils.Logging.PrintMessage("Mechtrauma starting...");
+            InitUserData();
+
+#if SERVER
+            //GameMain.Server?.SendChatMessage("Started Mechtrauma");
+
+#elif CLIENT
+            //GameMain.Client?.SendChatMessage("Started Mechtrauma");
             ClientInitialize();
 #endif
-
         }
 
         public void OnLoadCompleted()
@@ -30,10 +38,37 @@ namespace Mechtrauma
             // After all plugins have loaded
         }
 
+        private void InitUserData()
+        {
+            UserData.RegisterType<Configuration>();
+            UserData.RegisterType<Configuration.Settings_General>();
+            UserData.RegisterType<Configuration.Settings_Advanced>();
+            UserData.RegisterType<Configuration.Settings_Experimental>();
+
+            GameMain.LuaCs.Lua.Globals["MTConfig"] = Configuration.Instance;
+        }
+
+        private void UnloadUserData()
+        {
+            GameMain.LuaCs.Lua.Globals["MTConfig"] = null;
+
+            UserData.UnregisterType<Configuration.Settings_Experimental>();
+            UserData.UnregisterType<Configuration.Settings_Advanced>();
+            UserData.UnregisterType<Configuration.Settings_General>();
+            UserData.UnregisterType<Configuration>();
+        }
+
         public void Dispose()
         {
-            // Cleanup your mod
-            throw new NotImplementedException();
+            UnloadUserData();
+            // stopping code, e.g. save custom data
+#if SERVER
+            // server-side code
+
+#elif CLIENT
+                // client-side code
+                
+#endif
         }
     }
 }
