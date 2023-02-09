@@ -67,7 +67,7 @@
      <aitarget maxsightrange="1000" maxsoundrange="2000" fadeouttime="5" />
   </Item> 
 
-  <!-- WATER PUMP: -->
+  <!-- WATER PUMP: Tall1 - black -->
   <Item name="Water Pump T1" identifier="water_pump_t1" aliases="water_pump,water_pumpT1" tags="pump,mtpump,repairable,test" linkable="true" category="Machine" scale="0.4" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="0,0,220,440" origin="0.5,0.5"/>
@@ -161,7 +161,7 @@
     </Repairable>
   </Item>
 
-  <!-- WATER PUMP: Tall2 -->
+  <!-- WATER PUMP: Tall2 - grey -->
   <Item name="Water Pump T2" identifier="water_pump_t2" aliases="water_pumpT2" variantof="water_pump_t1" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="0,550,220,440" origin="0.5,0.5"/>
@@ -170,7 +170,7 @@
     <InfectedSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="660,550,220,440" origin="0.5,0.5"/>
   </Item>
 
-   <!-- WATER PUMP A1: -->
+   <!-- WATER PUMP: A1 - grey -->
   <Item name="Water Pump A1" identifier="water_pump_a1" tags="pump,mtpump,Repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="512,0,492,342" depth="0.701" origin="0.5,0.5"/>
@@ -258,7 +258,7 @@
     </Repairable>
   </Item>
 
-  <!-- WATER PUMP: A2 -->
+  <!-- WATER PUMP: A2 - red -->
   <Item name="Water Pump A2" identifier="water_pump_a2" variantof="water_pump_a1" tags="pump,mtpump,repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <Sprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="1024,0,492,342" depth="0.701" origin="0.5,0.5"/>
     <BrokenSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="1024,768,492,342" depth="0.701" maxcondition="80" fadein="true" />

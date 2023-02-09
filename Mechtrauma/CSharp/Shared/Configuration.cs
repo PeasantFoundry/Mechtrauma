@@ -196,7 +196,7 @@ public sealed class Configuration
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
             Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
                 "ConversionRatioHPtoDieselFuel", ModName,
-                0.2f, 0.2f, 25f, GetStepCount(0.2f, 25f, 0.1f),
+                0.25f, 0.2f, 1.0f, GetStepCount(0.2f, 1.0f, 0.05f),
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Conversion Ratio: kWh : Diesel (1L)",
@@ -204,7 +204,8 @@ public sealed class Configuration
                     #if DEBUG
                     MenuCategory: Category.Gameplay
                     #else
-                    MenuCategory: Category.Ignore
+                    MenuCategory: Category.Gameplay
+                    //MenuCategory: Category.Ignore
                     #endif
                 ),
                 valueChangePredicate: f => instance.IsDevMode() || !Utils.Game.IsRoundInProgress());
@@ -257,7 +258,7 @@ public sealed class Configuration
         {
             Setting_EnableElectrocution = ConfigManager.AddConfigEntry(
                 "EnableElectrocutionMechanic", ModName,
-                true, networkSync: NetworkSync.ServerAuthority, 
+                false, networkSync: NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Enable Electrocution Mechanic",
                     DisplayCategory: "Experimental"

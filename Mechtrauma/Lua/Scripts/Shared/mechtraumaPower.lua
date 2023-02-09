@@ -85,7 +85,7 @@ function MT.F.dieselGenerator(item)
     -- convert load(kW) to targetPower(HP) 1.341022   
     local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")
     local powered = item.GetComponentString("Powered")
-    local targetPower = simpleGenerator.GridLoad
+    local targetPower = MT.HF.Clamp(simpleGenerator.GridLoad, 0, simpleGenerator.MaxPowerOut)
     
     -- print(simpleGenerator.IsOn)
     -- print("Load: " .. tostring(simpleGenerator.GridLoad))
@@ -100,9 +100,13 @@ function MT.F.dieselGenerator(item)
         
         -- set the power consumpition for the server        
         simpleGenerator.PowerConsumption = -result.powerGenerated
+        --connection.Item.SendSignal(tostring(result.powerGenerated), "powergenerated")
+        for k, connection in pairs(item.Connections) do
+         if connection.name == "power_generated" then connection.Item.SendSignal(tostring(result.powerGenerated), "powergenerated") end
+        end
         
         -- set power to generate and send it to clients
-        simpleGenerator.PowerToGenerate = result.powerGenerated 
+        simpleGenerator.PowerToGenerate = result.powerGenerated
         if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(simpleGenerator.SerializableProperties[Identifier("PowerToGenerate")], simpleGenerator)) end
 
     else
@@ -172,13 +176,9 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     end
          
     -- fuelCheck
-    if dieselFuelVol > dieselFuelNeededCL then dieselEngine.fuelCheck = true print("FUEL CHECK: PASSED!") end
+    if dieselFuelVol > dieselFuelNeededCL then dieselEngine.fuelCheck = true end
     -- oxygenCheck
-    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true print("O2 CHECK: PASSED! Hull O2: ", hullOxygenPercentage, "AUX O2 Volume: ", auxOxygenVol) 
-    
-    else
-        print("O2 CHECK: FAILED! Hull O2: ", hullOxygenPercentage, " AUX O2 Volume: ", auxOxygenVol, " O2 NEEDED: ", oxygenNeeded)
-    end
+    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true end
     
     -- attempt combustion
     if item.Condition > 0 and ignition and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
@@ -203,7 +203,8 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- friction damage
         item.Condition = item.Condition - frictionDamage
 
-        -- DEBUG PRINTING: print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
+        -- DEBUG PRINTING: 
+        print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
         -- DEBUG PRINTING: print("Filration will last for: ", (oilFiltrationVol / MT.Config.OilFilterDPS) / 60 ) -- no need to calculate the deltaTime here since calc is in dps
 
