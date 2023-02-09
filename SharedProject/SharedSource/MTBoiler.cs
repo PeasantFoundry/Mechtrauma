@@ -1,6 +1,8 @@
 /***
 Modified Power container designed to be used as an advance boiler
 ***/
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;

@@ -1,6 +1,8 @@
 /***
 Modified power container that can be turned on and off
 ***/
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -72,7 +74,7 @@ namespace Barotrauma.Items.Components
 
 // Add isOn boolean to the server network event
 #if SERVER
-        public void ServerEventWrite(IWriteMessage msg, Client c, NetEntityEvent.IData extraData = null)
+        public new void ServerEventWrite(IWriteMessage msg, Client c, NetEntityEvent.IData extraData = null)
         {
             base.ServerEventWrite(msg, c, extraData);
             msg.WriteBoolean(isOn);

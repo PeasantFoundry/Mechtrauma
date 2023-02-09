@@ -8,6 +8,7 @@ global using System.Reflection.Emit;
 global using System.Runtime.CompilerServices;
 global using System.Linq;
 global using System.Linq.Expressions;
+global using ModdingToolkit;
 
 /***
  * This file exists to contain Metadata References that are normally added automatically by MSBuild in .NET 5+
