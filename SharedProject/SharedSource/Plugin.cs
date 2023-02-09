@@ -1,31 +1,41 @@
-/***
-Main class for Mechtrauma
-Initialises the necessary functions and helps make the mod files more managable.
-Ensures only specific functions are called if its a client or server
-***/
+﻿using Barotrauma;
+using ModdingToolkit;
+
 using System;
-using Barotrauma;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Immutable;
 using MoonSharp.Interpreter;
+using System.Text;
 
-namespace Mechtrauma {
-    partial class Mechtrauma: ACsMod {
-        public Mechtrauma() {
-            ModdingToolkit.Utils.Logging.PrintMessage("Mechtrauma starting...");
-            InitUserData();
-            
-            // Change the power connection rules to isolate the steam, power, water and kinetic networks.
+namespace Mechtrauma
+{
+    public partial class Plugin : IAssemblyPlugin
+    {
+        /// <summary>
+        /// Plugin Info.
+        /// </summary>
+        public static readonly PluginInfo PluginInfo = new("Mechtrauma", "1.0", ImmutableArray<string>.Empty);
+
+        public PluginInfo GetPluginInfo() => PluginInfo;
+
+        public void Initialize()
+        {
             changePowerRules();
+            Utils.Logging.PrintMessage("Mechtrauma starting...");
+            InitUserData();
 
-            #if SERVER
-                //GameMain.Server?.SendChatMessage("Started Mechtrauma");
+#if SERVER
+            //GameMain.Server?.SendChatMessage("Started Mechtrauma");
 
-            #elif CLIENT
-                //GameMain.Client?.SendChatMessage("Started Mechtrauma");
-                changeConnectionGUI();
-            #endif
+#elif CLIENT
+            //GameMain.Client?.SendChatMessage("Started Mechtrauma");
+            ClientInitialize();
+#endif
+        }
+
+        public void OnLoadCompleted()
+        {
+            // After all plugins have loaded
         }
 
         private void InitUserData()
@@ -47,19 +57,18 @@ namespace Mechtrauma {
             UserData.UnregisterType<Configuration.Settings_General>();
             UserData.UnregisterType<Configuration>();
         }
- 
-        // Place holder
-        public override void Stop() {
-            
+
+        public void Dispose()
+        {
             UnloadUserData();
             // stopping code, e.g. save custom data
-             #if SERVER
-                // server-side code
-                
-            #elif CLIENT
+#if SERVER
+            // server-side code
+
+#elif CLIENT
                 // client-side code
                 
-            #endif
+#endif
         }
     }
 }

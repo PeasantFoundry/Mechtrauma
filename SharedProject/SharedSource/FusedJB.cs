@@ -13,7 +13,7 @@ using Barotrauma.Items.Components;
 
 namespace Barotrauma.Items.Components 
 {
-    class FusedJB : PowerTransfer {
+    public class FusedJB : PowerTransfer {
         public bool BrokenFuse { 
             get => brokenFuse; 
             set 

@@ -1,6 +1,10 @@
 /***
 Modifies the gui drawing code for power connections to display the different colours for steam and kinetic grids.
 ***/
+
+
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -10,24 +14,25 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Barotrauma.Items.Components;
 using System.Linq;
- 
-namespace Mechtrauma {
-    partial class Mechtrauma: ACsMod {
-        // Change the connection gui to show the steam and kinetic networks
-        private void changeConnectionGUI() {
-            // Make the connectionSprite publicly accessible
-            FieldInfo spriteField = typeof(Barotrauma.Items.Components.Connection).GetField("connectionSprite", BindingFlags.Static | BindingFlags.NonPublic);
+using System.Runtime.CompilerServices;
 
+namespace Mechtrauma
+{
+    public partial class Plugin : IAssemblyPlugin
+    {
+        // Change the connection gui to show the steam and kinetic networks
+        private void changeConnectionGUI()
+        {
             // Override the DrawConnection function for connections
             // Most of the code is the same as the original just an extra if statements for colour picking
-            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection", 
-                typeof(Barotrauma.Items.Components.Connection).GetMethod("DrawConnection", BindingFlags.Instance | BindingFlags.NonPublic),
+            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection",
+                typeof(Connection).GetMethod("DrawConnection", BindingFlags.Instance | BindingFlags.NonPublic),
                 (Object self, Dictionary<string, object> args) => {
                     // Assign parameters and helper variables for ease of use
-                    Barotrauma.Items.Components.Connection myself = (Barotrauma.Items.Components.Connection)self;
-                    
-                    SpriteBatch spriteBatch = args["spriteBatch"] as SpriteBatch;
-                    ConnectionPanel panel = args["panel"] as ConnectionPanel;
+                    Connection myself = (Connection)self;
+
+                    SpriteBatch spriteBatch = (SpriteBatch)args["spriteBatch"];
+                    ConnectionPanel panel = (ConnectionPanel)args["panel"];
                     Vector2 position = (Vector2)args["position"];
                     Vector2 labelPos = (Vector2)args["labelPos"];
                     Vector2 scale = (Vector2)args["scale"];
@@ -45,15 +50,24 @@ namespace Mechtrauma {
 
                         // Set background colour based on the grid type
                         Color colour = Color.SteelBlue;
-                        if (myself.Name.StartsWith("steam")) {
+                        if (myself.Name.StartsWith("steam"))
+                        {
                             colour = Color.DeepSkyBlue;
-                        } else if (myself.Name.StartsWith("kinetic")) {
+                        }
+                        else if (myself.Name.StartsWith("kinetic"))
+                        {
                             colour = Color.SaddleBrown;
-                        } else if (myself.Name.StartsWith("thermal")) {
+                        }
+                        else if (myself.Name.StartsWith("thermal"))
+                        {
                             colour = Color.Orange;
-                        } else if (myself.Name.StartsWith("water")) {
+                        }
+                        else if (myself.Name.StartsWith("water"))
+                        {
                             colour = Color.DodgerBlue;
-                        } else if (myself.IsPower) {
+                        }
+                        else if (myself.IsPower)
+                        {
                             colour = GUIStyle.Red;
                         }
 
@@ -65,15 +79,13 @@ namespace Mechtrauma {
                     GUI.DrawString(spriteBatch, labelPos, text, GUIStyle.TextColorBright, font: GUIStyle.SmallFont);
 
                     // Draw the connection sprite
-                    Sprite connectionSprite = spriteField.GetValue(self) as Sprite;
-                    float connectorSpriteScale = (35.0f / connectionSprite.SourceRect.Width) * panel.Scale;
-                    connectionSprite.Draw(spriteBatch, position, scale: connectorSpriteScale);
+                    float connectorSpriteScale = (35.0f / Connection.connectionSprite.SourceRect.Width) * panel.Scale;
+                    Connection.connectionSprite.Draw(spriteBatch, position, scale: connectorSpriteScale);
 
                     // Prevent the original method from running
-                    return args;
-                }, LuaCsHook.HookMethodType.Before, this);
+                    return true;
+                }, LuaCsHook.HookMethodType.Before);
         }
     }
 }
-
 

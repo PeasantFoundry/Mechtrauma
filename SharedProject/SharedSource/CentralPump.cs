@@ -1,3 +1,5 @@
+using ModdingToolkit;
+
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -10,32 +12,6 @@ using System.Linq;
 namespace Barotrauma.Items.Components 
 {
     class CentralPump : Pump {
-        FieldInfo flowPercentageField = typeof(Barotrauma.Items.Components.Pump).GetField("flowPercentage", BindingFlags.Instance | BindingFlags.NonPublic);
-        FieldInfo currFlowField = typeof(Barotrauma.Items.Components.Pump).GetField("currFlow", BindingFlags.Instance | BindingFlags.NonPublic);
-        FieldInfo pumpSpeedLockTimerField = typeof(Barotrauma.Items.Components.Pump).GetField("pumpSpeedLockTimer", BindingFlags.Instance | BindingFlags.NonPublic);
-        FieldInfo isActiveLockTimerField = typeof(Barotrauma.Items.Components.Pump).GetField("isActiveLockTimer", BindingFlags.Instance | BindingFlags.NonPublic);
-
-        protected void setFlowPercentage(float value)
-        {
-            flowPercentageField.SetValue(this, MathHelper.Clamp(value, -100.0f, 100.0f));
-        }
-
-        protected void setCurrFlow(float value)
-        {
-            currFlowField.SetValue(this, value);
-        }
-
-        protected float getCurrFlow() 
-        {
-            return (float)currFlowField.GetValue(this);
-        }
-
-        protected void updateTimers(float deltaTime)
-        {
-            pumpSpeedLockTimerField.SetValue(this, (float)pumpSpeedLockTimerField.GetValue(this) - deltaTime);
-            isActiveLockTimerField.SetValue(this, (float)isActiveLockTimerField.GetValue(this) - deltaTime);
-        }
-
         public float HullPercentage 
         {
             get => hullPercentage;
@@ -48,7 +24,8 @@ namespace Barotrauma.Items.Components
         }
 
         public override void Update(float deltaTime, Camera cam) {
-            updateTimers(deltaTime);
+            pumpSpeedLockTimer -= deltaTime;
+            isActiveLockTimer -= deltaTime;
 
             if (!IsActive) {
                 //LuaCsSetup.PrintCsMessage("Drain not active");
@@ -56,7 +33,7 @@ namespace Barotrauma.Items.Components
             }
 
             if (TargetLevel != null) {
-                setFlowPercentage(((float)TargetLevel - HullPercentage) * 10.0f);
+                flowPercentage = ((float)TargetLevel - HullPercentage) * 10.0f;
             }
 
             if (!HasPower) {
@@ -81,7 +58,7 @@ namespace Barotrauma.Items.Components
             //less effective when in a bad condition
             flow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
 
-            setCurrFlow(flow);
+            currFlow = flow;
         }
 
         /// <summary>
@@ -121,7 +98,7 @@ namespace Barotrauma.Items.Components
         // Pump will output positive or negative power to indicate flow direction
         public override float GetConnectionPowerOut(Connection connection, float power, PowerRange minMaxPower, float load) {
             if (connection == powerOut) {
-                return MathHelper.Clamp(getCurrFlow(), -MaxFlow, MaxFlow);
+                return MathHelper.Clamp(currFlow, -MaxFlow, MaxFlow);
             }
             return 0.0f;
         }
