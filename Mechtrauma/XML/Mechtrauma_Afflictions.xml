@@ -2,7 +2,7 @@
 <Afflictions>
 
 <Affliction name="" identifier="electrocution" description="" healableinmedicalclinic="false" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" targets="human" type="burn" isbuff="false" maxstrength="100">
-  <icon texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
+  <icon texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
 </Affliction>
 
 <!-- Steam Burn! -->
@@ -112,7 +112,7 @@
       <!-- Prevents Stun. You won't be knocked out of your chair -->
       <Effect minstrength="0" maxstrength="100" strengthchange="-100"/>
       <ReduceAffliction identifier="stun" amount="1" />      
-      <icon texture="%ModDir%/images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
+      <icon texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
     </Affliction>
 
 </Afflictions>

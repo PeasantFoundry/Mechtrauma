@@ -16,7 +16,7 @@
     </Items>
     <Reputation identifier="location" amount="4" />
     <Reputation identifier="coalition" amount="2" />
-    <Icon texture="%ModDir%/images/mechtrauma_logo.png" sourcerect="0,0,128,128" color="255,255,255"/>
+    <Icon texture="%ModDir%/Images/mechtrauma_logo.png" sourcerect="0,0,128,128" color="255,255,255"/>
     <LocationType from="AnyOutpost" to="AnyOutpost" />
   </CargoMission>
 

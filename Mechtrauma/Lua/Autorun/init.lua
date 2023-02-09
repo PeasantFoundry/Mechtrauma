@@ -12,13 +12,14 @@ MT.MinNTVersion = "A1.8.1"
 MT.MinNTVersionNum = 01080100
 Timer.Wait(function() if NTC ~= nil and NTC.RegisterExpansion ~= nil then NTC.RegisterExpansion(MT) end end,1)
 
+MT.Config = MTConfig;
 
--- config loading
+--[[-- config loading
 if not File.Exists(MT.Path .. "/config.json") then
 
     -- create default config if there is no config file
-    MT.Config = dofile(MT.Path .. "/Lua/defaultconfig.lua")
-    File.Write(MT.Path .. "/config.json", json.serialize(MT.Config))
+    --MT.Config = dofile(MT.Path .. "/Lua/defaultconfig.lua")
+    --File.Write(MT.Path .. "/config.json", json.serialize(MT.Config))
 
 else
 
@@ -32,7 +33,7 @@ else
             MT.Config[key] = value
         end
     end
-end
+end]]
 
 -- SHARED: client/server code
 
@@ -75,8 +76,7 @@ end
 
 -- CLIENT: side-code
 if CLIENT then
-    dofile(MT.Path.."/Lua/Scripts/Client/configgui.lua")
-    dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
+    --dofile(MT.Path.."/Lua/Scripts/Client/csluacheck.lua")
 end
 
 -- PERFORMANCE FIX:

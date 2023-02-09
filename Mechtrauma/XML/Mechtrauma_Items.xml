@@ -402,8 +402,8 @@
       <Item identifier="scrap_steel" />
     </Deconstruct>
  
-    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="384,0,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="384,0,128,128" depth="0.55" origin="0.5,0.5"/>
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,0,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,0,128,128" depth="0.55" origin="0.5,0.5"/>
     <Body width="128" height="128" density="20" />
     <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"/>
     <Quality>
@@ -426,8 +426,8 @@
       <RequiredItem identifier="grease_can" />
     </Fabricate>
 
-    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="128,0,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="128,0,128,128" depth="0.55" origin="0.5,0.5" />
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,0,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,0,128,128" depth="0.55" origin="0.5,0.5" />
     <Body width="128" height="128" density="20" />
     <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"/>
     <Quality>
@@ -458,8 +458,8 @@
       <RequiredItem identifier="grease_packet" />
     </Fabricate>
     <!-- SEALED BEARING: Recycle - no need for recyle as sealed bearings are only used in fabrication -->
-    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="0,0,128,96" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="0,0,128,96" depth="0.55"/>
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,0,128,96" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,0,128,96" depth="0.55"/>
     <Body width="128" height="105" density="60" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>   
@@ -504,8 +504,8 @@
       <RequiredItem identifier="sealed_bearing" />
     </Fabricate>
     
-    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="384,128,128,112" depth="0.55"/>
-    <BrokenSprite texture="%ModDir%/images/mechtrauma.png" sourcerect="384,256,128,112" origin="0.5,0.5" depth="0.55" maxcondition="20" fadein="false" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,128,128,112" depth="0.55"/>
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,256,128,112" origin="0.5,0.5" depth="0.55" maxcondition="20" fadein="false" />
     <Body width="128" height="105" density="60" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>   
@@ -533,8 +533,8 @@
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="copper" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/images/mechtrauma.png" sourcerect="256,0,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/mechtrauma.png" sourcerect="256,0,128,128" depth="0.55"/>
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,0,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,0,128,128" depth="0.55"/>
     <Body width="128" height="128" density="60" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>   
@@ -561,8 +561,9 @@
       <Item identifier="scrap_steel" />
     </Deconstruct>
  
-    <InventoryIcon texture="%ModDir%/images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" depth="0.55" />
+    <InventoryIcon texture="%ModDir%/Images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,896,236,383" depth="0.55" />
+    <!-- <Sprite texture="%ModDir%/Images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" depth="0.55" />-->
     <Body width="156" height="248" density="20" />
    <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect">
     <StatusEffect type="Always" target="Character" SpeedMultiplier="0.1" setvalue="true" />
@@ -590,8 +591,8 @@
       <Item identifier="scrap_steel" />
     </Deconstruct>
  
-    <InventoryIcon texture="%ModDir%/images/oil_barrel.png" sourcerect="0,0,156,248" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/images/oil_barrel.png" sourcerect="0,0,156,248" depth="0.55" />
+    <InventoryIcon texture="%ModDir%/Images/oil_barrel.png" sourcerect="0,0,156,248" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/oil_barrel.png" sourcerect="0,0,156,248" depth="0.55" />
     <Body width="156" height="248" density="20" />
    <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect">
     <StatusEffect type="Always" target="Character" SpeedMultiplier="0.1" setvalue="true" />
@@ -603,7 +604,7 @@
   
  <!-- STORAGE CABINET: -->
   <Item name="Storage Cabinet" identifier="storage_cabinet" Aliases="steelcabinet" category="Misc" tags="locker,container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
-    <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="0,896,256,320"/>
+    <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,896,256,320"/>
     <trigger x="0" y="0" width="256" height="320" />
     <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
@@ -624,7 +625,7 @@
 
   <!-- STORAGE CLOSET: -->
   <Item name="Storage Closet" identifier="closet" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.6">
-     <Sprite texture="%ModDir%/images/mechtrauma_containers.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />   
+     <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />   
     <ItemContainer capacity="12" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" />
       
@@ -793,7 +794,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-500.0" checkconditionalalways="true" Comparison="And">
             <Conditional HasStatusTag="dieseltofillinslot1" targetcontainer="true"/>
             <Requireditem items="diesel_fuel_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>   
       
         </Containable>  
@@ -856,7 +857,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-50.0" checkconditionalalways="true" Comparison="And">
             <Conditional HasStatusTag="oiltofillinslot1" targetcontainer="true"/>
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>   
         </Containable>  
       </SubContainer>
@@ -1453,7 +1454,98 @@
           <Conditional condition="gt 0" />     
           <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="0" anglemax="90" velocitymin="500" velocitymax="1000" highqualitycollisiondetection="true"/>
           <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="15" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
-          <Sound file="%ModDir%/sound/pressure_relief2.ogg" range="100" loop="true" />
+          <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="100" loop="true" />
+      </StatusEffect> 
+
+      <!-- BROKEN: -->
+      <StatusEffect type="OnBroken" targettype="This" disabledeltatime="true">
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="8000" selectionmode="All"/>
+        <sound file="Content/Items/Weapons/ExplosionDebris3.ogg" range="8000" />
+        <Explosion range="200" stun="1" force="4.0" flames="false" shockwave="true" sparks="true" underwaterbubble="true"/>
+      </StatusEffect>
+
+    </OxygenGenerator>
+  
+    <trigger/>
+  
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.125" mindeteriorationdelay="120" maxdeteriorationdelay="750" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- REPAIR FAILURE - ON: -->
+      <StatusEffect type="OnFailure" target="This,Character" condition="-50" setvalue="false" targetlimbs="LeftHand,RightHand" >
+        <Conditional Voltage="gte 0.5" />
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />   
+        <Affliction identifier="lacerations" strength="15" />     
+      </StatusEffect>
+
+      <!-- REPAIR FAILURE - OFF: Safer when machine is off.  -->
+      <StatusEffect type="OnFailure" target="This,Character" condition="-25" setvalue="false" targetlimbs="LeftHand,RightHand" >
+        <Conditional Voltage="lt 0.5" />
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />   
+        <Affliction identifier="lacerations" strength="10" />     
+      </StatusEffect>
+     
+    </Repairable>
+  </Item>
+
+  <!-- OXYGEN SUPPLY: (replaces but does not override oxygen generator) -->
+<Item name="Oxygen Supply CoProd" identifier="oxygen_supply_cp" tags="oxygengenerator" category="Machine" linkable="true" allowedlinks="vent" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite texture="%ModDir%/Images/coprod.png" sourcerect="0,457,385,498" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/coprod.png" sourcerect="0,457,385,498" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" />
+    <!-- SPRITE: Powered -->
+    <LightComponent range="10.0" lightcolor="120,250,220,1" powerconsumption="1" IsOn="true" depth="0.75" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/oxygen.png" sourcerect="768,0,112,112" depth="0.82" origin="0.3,1.35" alpha="1.0" />
+      <!-- <IsActive targetitemcomponent="PowerTransfer" overload="eq False" /> -->
+    </LightComponent>
+
+    <OxygenGenerator powerconsumption="1000.0" generatedAmount="0" minvoltage="0.5" canbeselected="true" msg="ItemMsgInteractSelect">
+      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
+      <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.001" loop="true"/>    
+      <StatusEffect type="OnFire" target="This" Condition="-0.5"/>
+      
+      <!-- Check for power. -->
+      <StatusEffect type="Always" targettype="This" duration="2" tags="02power" stackable="false" IsOn="true" checkconditionalalways="true" disabledeltatime="true" Comparison="And">
+          <Conditional Voltage="gte 0.5" targetitemcomponent="OxygenGenerator"/>      
+          <Conditional condition="gt 0" />    
+      </StatusEffect>
+
+       <!-- Check for power. -->
+      <StatusEffect type="Always" targettype="This" duration="2" tags="no02power" stackable="false" IsOn="false" checkconditionalalways="true" disabledeltatime="true">
+          <Conditional Voltage="lt 0.5" targetitemcomponent="OxygenGenerator"/>          
+      </StatusEffect>
+      
+      <!-- POWER: Set oxygen generation (2 minute delay) -->
+      <StatusEffect type="Always" targettype="This" delay="120" checkconditionalalways="true" stackable="false" generatedAmount="5000" conditionMult="0.5" disabledeltatime="false" setvalue="True">
+          <Conditional HasStatusTag="02power" />
+        
+      </StatusEffect>
+
+      <!-- NO POWER: Reset oxygen generation -->
+      <StatusEffect type="Always" targettype="This" checkconditionalalways="true" generatedAmount="0" conditionMult="0" CurrFlow="0" oxygenflow="0" disabledeltatime="True" setvalue="True" stackable="false">
+          <Conditional HasStatusTag="no02power" />        
+      </StatusEffect>  
+
+      <!-- DAMAGED: Captain, we have a leak! -->
+      <StatusEffect type="Always" targettype="This" duration="5" condition="-0.5" setvalue="false" stackable="false" Comparison="And">
+          <Conditional Voltage="gte 0.5" />
+          <Conditional condition="lt 50" />       
+          <Conditional condition="gt 0" />     
+          <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="0" anglemax="90" velocitymin="500" velocitymax="1000" highqualitycollisiondetection="true"/>
+          <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="15" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
+          <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="100" loop="true" />
       </StatusEffect> 
 
       <!-- BROKEN: -->
@@ -1531,7 +1623,7 @@
        <Conditional HullOxygenPercentage="gt 80" />
        <Conditional Voltage="gt 0.1" />
        <Conditional InWater="false" />    
-       <Sound file="%ModDir%/sound/electric_compressor.ogg" range="750" loop="true" />    
+       <Sound file="%ModDir%/Sound/electric_compressor.ogg" range="750" loop="true" />    
     </StatusEffect> 
 
     <!-- CHECK: LOW HULL OXYGEN-->
@@ -1563,7 +1655,7 @@
           <Requireditem items="oxygentank_large" type="contained" excludebroken="true" targetslot="0" />  
           <Conditional HasStatusTag="lowhulloxygen" targetcontainer="true"/>
           
-          <!-- <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   -->
+          <!-- <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   -->
         </StatusEffect>
 
           <!-- Check for a non empty oxygentank in slot0  (Statuseffect tags need to have a duration applied) -->
@@ -1596,7 +1688,7 @@
         <StatusEffect type="OnContaining" targettype="Contained" targetslot="1" Condition="20.0" Comparison="And">
             
             <Conditional HasStatusTag="oxygenavailibleinslot0" targetcontainer="true"/>             
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
         </StatusEffect>
 
         
@@ -1679,7 +1771,7 @@
        <Conditional HullOxygenPercentage="gte 50" />
        <Conditional InWater="false" />
        <Conditional Voltage="gte 0.5"/>
-       <Sound file="%ModDir%/sound/electric_compressor.ogg" range="500" loop="true" />          
+       <Sound file="%ModDir%/Sound/electric_compressor.ogg" range="500" loop="true" />          
     </StatusEffect>  
     </Powered>
 
@@ -1871,9 +1963,9 @@
     </Price>
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
-    <Sprite texture="%ModDir%/Images/mechtrauma_command.png" sourcerect="0,768,128,128" depth="0.8" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.8" origin="0.5,0.5" />
     <Body width="128" height="128" density="8" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" >
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
     
       <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">            
         <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
@@ -1919,7 +2011,7 @@
       <Button text="Power Consumption Report">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="maintenanceTablet_pcr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
 
@@ -1927,7 +2019,7 @@
        <Button text="Co2 Filter Status Report">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_csr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -1939,7 +2031,7 @@
       <Button text="Pump Status Report">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="maintenanceTablet_pr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
       
@@ -1947,7 +2039,7 @@
        <Button text="FUSE STATUS REPORT">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -1962,7 +2054,7 @@
     </Price>
     <!-- <PreferredContainer primary="engineering_console" secondary="engcab" /> -->
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="576,1088,170,128" depth="0.8" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="64,192,128,128" depth="0.8" origin="0.5,0.5" />
     <Body width="128" height="128" density="8" />
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
         
@@ -1984,7 +2076,7 @@
       <Button text="Hematology Report">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="medicalTablet_hR.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
 
@@ -1992,7 +2084,7 @@
       <Button text="REPORT TBD">
         <StatusEffect type="OnUse" target="This" >
           <LuaHook name="maintenanceTablet_pr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
 
@@ -2006,7 +2098,7 @@
        <Button text="Pharmacy Report">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="medicalTablet_pR.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -2014,7 +2106,7 @@
       <Button text="REPORT TBD">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -2027,7 +2119,12 @@
     <Sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="0" origin="0.5,0.5" />
- 
+    
+    <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1280,296,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent>
+
+
     <MiniMap MinVoltage="0.5" PowerConsumption="100" canbeselected="true" msg="ItemMsgInteractSelect" allowuioverlap="true">
       <GuiFrame relativesize="0.5,0.5" anchor="Center" style="ItemUI" />
       <AlternativeLayout relativesize="0.2725,0.3" anchor="CenterLeft" pivot="BottomLeft" relativeoffset="0.05,-0.001"/>
@@ -2035,12 +2132,14 @@
       <sound file="Content/Sounds/UI/DeadMsg.ogg" type="OnPicked" range="1000.0" onlyinsamesub="true"/>      
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact.ogg" range="1000" /> 
       </StatusEffect>
       
-      <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
-        <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,128,302,232" depth="-0.01" origin="0.5,0.8" alpha="1.0" />
-      </LightComponent>
+          <!-- 
+    <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,496,302,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+    </LightComponent> -->
+ 
     </MiniMap>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
@@ -2088,7 +2187,7 @@
       <poweronsound file="Content/Items/PowerOnLight3.ogg" range="1000" loop="false" />
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact.ogg" range="1000" /> 
       </StatusEffect>
     </MiniMap>
     <ItemContainer capacity="3" maxstacksize="1" itemsperrow="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.79">
@@ -2146,7 +2245,7 @@
       </LightComponent>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact.ogg" range="1000" /> 
       </StatusEffect>
       <!--<LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
         <Upgrade gameversion="0.9.600.0" lightcolor="255,255,255,0"/>
@@ -2265,7 +2364,7 @@
       </LightComponent>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact.ogg" range="1000" /> 
       </StatusEffect>
     </Steering>
     <aitarget sightrange="200" soundrange="8000" staticsight="true" fadeouttime="5" />
@@ -2431,7 +2530,7 @@
       <ControllablePowerContainer capacity="5000.0" maxrechargespeed="500.0" maxoutput="1000.0" canbeselected="true" indicatorposition="65,33" indicatorsize="34,46" ishorizontal="false" msg="ItemMsgInteractSelect">
         <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
       
-        <!-- Drain power when submerged. -->
+        <!-- Disable and Drain power when submerged. -->
         <StatusEffect type="InWater" targettype="This" charge="-1.5" condition="-0.25" IsOn="false"/>
         <!-- Enable power transmission -->
         <StatusEffect type="Always" targettype="This" IsOn="true" >
@@ -3099,7 +3198,7 @@
       <StatusEffect type="always" target="This" duration="5" delay="1">
         <Conditional CurrPowerConsumption="lt -0.5"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="40" anglemax="50" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="0.05" />          
         </Explosion>
@@ -3190,7 +3289,7 @@
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <ParticleEmitter particle="steamspray" particlespersecond="1" anglemin="0" anglemax="0" velocitymin="500" velocitymax="500" position="25,5" highqualitycollisiondetection="true"/>
-      <Sound file="%ModDir%/sound/airrifle.ogg" type="OnUse" range="1000" />
+      <Sound file="%ModDir%/Sound/airrifle.ogg" type="OnUse" range="1000" />
       <StatusEffect type="OnUse">
         <Explosion range="150.0" force="2.5" shockwave="false" smoke="false" flash="true" sparks="false" flames="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>
@@ -3213,7 +3312,7 @@
           <!-- TRANSFER: Fill the airrifle -->
           <StatusEffect type="OnContaining" targettype="This" Condition="100" setvalue="true" delay="1.0" Comparison="And">
             <Conditional condition="lt 100" />
-            <Sound file="%ModDir%/sound/airrifle2.ogg" range="1000" loop="false" /> 
+            <Sound file="%ModDir%/Sound/airrifle2.ogg" range="1000" loop="false" /> 
             <ParticleEmitter particle="steamspray" particlespersecond="1" anglemin="0" anglemax="0" velocitymin="50" velocitymax="50" position="25,5" highqualitycollisiondetection="true"/>
           </StatusEffect>
 
@@ -3785,6 +3884,108 @@
     <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true"/>
   </Item>
 
+  <!-- CoProd CNC: Mechanical Fabricator --> 
+  <Item name="CoProd CNC Mechanical Fabricator" identifier="cncfab_cp" tags="ccn,mtu,donttakeitems,dontsellitems" category="Machine" linkable="true" allowedlinks="deconstructor,locker" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="256,960,64,64" origin="0.5,0.45" />
+    <Sprite texture="%ModDir%/Images/coprod.png" sourcerect="0,0,395,457" depth="0.84"/>
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
+      <sprite texture="Content/Items/Command/navigatorLights.png" depth="0.025" sourcerect="351,624,336,400" alpha="1.0" />
+    </LightComponent>
+
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" blinkfrequency="1" allowingameediting="false">
+      <sprite texture="Content/Items/Command/navigatorLights.png" depth="0.025" sourcerect="688,624,336,400" alpha="1.0" />
+    </LightComponent>
+    
+    <Fabricator canbeselected="true" powerconsumption="500.0" Fabricationspeed="1" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.5,0.8" style="ItemUI" anchor="Center" />
+      <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
+      <poweronsound file="Content/Items/PowerOnLight1.ogg" range="600" loop="false" />
+      <StatusEffect type="InWater" target="This" condition="-0.5" />
+    </Fabricator>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" hudpriority="10" msg="ItemMsgRewireScrewdriver">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.50" mindeteriorationdelay="60" maxdeteriorationdelay="120" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.1,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="Equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="5" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+
+    <ItemContainer capacity="4" canbeselected="true" hideitems="true" slotsperrow="4" uilabel="" allowuioverlap="false">
+    <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="9" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="10" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,64,64,64" origin="0.5,0.5" /> 
+    <SlotIcon slotindex="11" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,0,64,64" origin="0.5,0.5" /> 
+
+
+    <!-- ROW2 SLOT4-->
+    <SubContainer slots="1">
+      <Containable items="bearing_sleeve" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT5-->
+    <SubContainer slots="1">
+      <Containable items="copper_windings" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT6-->
+    <SubContainer slots="1">
+      <Containable items="copper" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT7-->
+    <SubContainer slots="1">
+      <Containable items="plastic"/>
+    </SubContainer>
+
+    <!-- ROW3 SLOT8-->
+    <SubContainer slots="1">
+      <Containable items="sealed_bearing" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT9-->
+    <SubContainer slots="1">
+      <Containable items="grease_packet" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT10-->
+    <SubContainer slots="1">
+      <Containable items="steel" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT11-->
+    <SubContainer slots="1">
+      <Containable items="rubber" />
+    </SubContainer>
+
+    </ItemContainer>
+
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true"/>
+  </Item>
   
   <!-- REPAIR TABLE: Gear Repair --> 
   <Item name="Repair Table" identifier="repairtable" tags="donttakeitems,dontsellitems" isshootable="true" category="Machine" linkable="true" allowedlinks="locker,decontructor" description="" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
@@ -3960,7 +4161,7 @@
         <!-- DRAIN BATTERY: Drain the battery after incinerating the items. -->
         <StatusEffect type="OnUse" target="This" targetitemcomponent="PowerContainer" duration="1.5" charge="-25.0">
           <Conditional charge="30" />          
-          <Sound file="%ModDir%/sound/buzz.ogg" range="500" loop="false" /> 
+          <Sound file="%ModDir%/Sound/buzz.ogg" range="500" loop="false" /> 
         </StatusEffect>
 
         <!-- ERROR: Not enough power. -->
@@ -4112,7 +4313,7 @@
             <!-- Play Tank Sound for slot6-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="6" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="dieselinslot0" targetcontainer="true" />            
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>
                 
           <!-- Fill the diesel fuel tank in slot6 from slot 0 -->
@@ -4252,7 +4453,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetslot="2" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             
             <Requireditem items="weldingfueltank" type="contained" targetslot="2" excludefullcondition="true"/>
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
         </Containable>  
@@ -4278,7 +4479,7 @@
              <!-- Play Tank Sound for slot3-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="3" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="argonavailibleinslot1" targetcontainer="true" />
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
     
@@ -4346,7 +4547,7 @@
           <!-- Play Tank Sound for slot2-->
           <StatusEffect type="OnContaining" target="Contained" targetslot="1" duration="1.55" stackable="false" disabledeltatime="True" Comparison="And">
             <Conditional HasStatusTag="fillailibleinslot0" targetcontainer="true" />            
-            <Sound file="%ModDir%/sound/remove_tank.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
           </StatusEffect>
 
         </Containable>  
@@ -4380,7 +4581,7 @@
           <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" Condition="-50.0" Comparison="And">
             <Conditional HasStatusTag="tanktofillinslot1" targetcontainer="true"/>
             <Requireditem items="oil_barrel" type="contained" targetslot="0"/>
-            <Sound file="%ModDir%/sound/pump_loop.ogg" range="1000" loop="false" />
+            <Sound file="%ModDir%/Sound/pump_loop.ogg" range="1000" loop="false" />
           </StatusEffect>     
          
       
@@ -4454,7 +4655,7 @@
       <!-- ROCKET POWER: -->
       <StatusEffect type="Always" target="This" targetitemcomponent="Engine" Condition="2" Comparison="And">             
         <ParticleEmitter particle="weld" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief2.ogg" range="100" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="100" loop="true" />
         <Conditional force="neq 0" />        
       </StatusEffect>          
                  
@@ -4579,7 +4780,7 @@
         <Conditional Voltage="gt 0.1" targetitemcomponent="RelayComponent"/>
     
         <Affliction identifier="bleeding" strength="35" /> 
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
 
       </StatusEffect>
@@ -4606,7 +4807,7 @@
       </StatusEffect>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact3.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact3.ogg" range="1000" /> 
       </StatusEffect>
 
     </RelayComponent>
@@ -4702,7 +4903,7 @@
         <Conditional InWater="false" />
         <Conditional Voltage="gt 0.5" targetitemcomponent="RelayComponent"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true" />
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">
           <Affliction identifier="burn" strength="25" />
         </Explosion>
@@ -4724,7 +4925,7 @@
       </StatusEffect>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact2.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact2.ogg" range="1000" /> 
       </StatusEffect>
     </RelayComponent>
     
@@ -4804,7 +5005,7 @@
         <Conditional InWater="false" />
         <Conditional Voltage="gt 0.5" targetitemcomponent="RelayComponent"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true" />
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">
           <Affliction identifier="burn" strength="25" />
         </Explosion>
@@ -4826,7 +5027,7 @@
       </StatusEffect>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact2.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact2.ogg" range="1000" /> 
       </StatusEffect>
     </RelayComponent>
     
@@ -4902,7 +5103,7 @@
         <Conditional InWater="false" />  
         <Conditional Charge="gt 1" target="this"/>
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
-        <Sound file="%ModDir%/sound/pressure_relief.ogg" range="1000" loop="true" />   
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   
         <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
           <Affliction identifier="burn" strength="25" />          
         </Explosion>
@@ -4920,7 +5121,135 @@
 
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact2.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact2.ogg" range="1000" /> 
+      </StatusEffect>
+   
+      <!-- OVERHEAT: Without circulator pumps, this device will overheat and build up too much pressure. 
+      <StatusEffect type="Always" targettype="This" Condition="-2.0" delay="1" duration="1" stackable="false" Comparison="And">
+        <Conditional Voltage="gt 0.1" targetitemcomponent="MTBoiler"/>         
+      </StatusEffect> -->
+
+    </MTBoiler>
+
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
+      <StatusEffect type="Always" targettype="This" IsOn="false" Comparison="Or">
+        <Conditional RechargeSpeed="lte 0.0" targetitemcomponent="PowerContainer"/>      
+        <Conditional HasStatusTag="batterydisabled" />
+      </StatusEffect>
+    </LightComponent>
+ 
+    <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="true" itempos="31,-250" iteminterval="44.5,0" msg="CirculatorPump">
+      <GuiFrame relativesize="0.2,0.2" minsize="450,160" relativeoffset="0.0,0.1" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,128,64,64" origin="0.5,0.5" /> 
+     
+       <!-- Deteriorate the circulator_pumps -->
+      <Containable items="circulator_pump" excludebroken="false" excludefullcondition="false">
+        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.4" Comparison="And">
+         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="PowerContainer"/>
+        </StatusEffect>
+         
+      
+      <!-- CIRCULATORS: Prevents overheating. -->
+
+        <!--SLOT0-->
+        <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
+          <RequiredItem items="circulator_pump" type="Contained" targetslot="0" mincondition="5.0" />
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
+        </StatusEffect>
+
+        <!--SLOT1-->
+        <StatusEffect type="OnContaining" target="This" Condition="1.0" delay="1" duration="1" stackable="false" Comparison="And">
+          <RequiredItem items="circulator_pump" type="Contained" targetslot="1" mincondition="5.0" />
+          <Conditional Voltage="gt 0.1" targetcontainer="false" targetitemcomponent="PowerContainer"/>
+        </StatusEffect>
+            
+      </Containable>
+    </ItemContainer>
+   
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin1"/>
+      <output name="steam_out" displayname="connection.steamout" />
+      <input name="set_rate" displayname="connection.batterysetrechargespeed" />
+      <output name="charge" displayname="connection.batterychargestatusout" />
+      <output name="charge_%" displayname="connection.batterychargepercentage" />
+      <output name="charge_rate" displayname="connection.batteryrechargespeedout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" targetitemcomponent="RelayComponent" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- REPAIR FAILURE: OFF -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional Voltage="lte 0.5" targetitemcomponent="PowerContainer"/>
+      </StatusEffect>
+
+      <!-- REPAIR FAILURE: ON -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Affliction identifier="burn" strength="100" />    
+        <Conditional Voltage="gt 0.5" targetitemcomponent="PowerContainer"/>
+        <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
+      </StatusEffect>
+    
+    </Repairable>
+  </Item>
+
+  <!-- ADVANCED STEAM BOILER: -->
+  <!-- NOTES: Possibly need to move boiler damage to be dependent on over pressure and make tie circulator pumps to the ability to control the charge rate? -->
+  <Item name="Advanced Boiler H" identifier="advanced_boiler_h" tags="mtpriority, steam, MechtraumaBoiler,steamBoiler" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.0" scale="0.5">
+    <Sprite name="Boiler" texture="%ModDir%/Images/boilerh.png" sourcerect="0,0,760,456" depth="0.8" origin="0.5,0.5" />    
+    <BrokenSprite texture="%ModDir%/Images/boilerh.png" sourcerect="0,512,760,456" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/boilerh.png" sourcerect="0,1024,760,456" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
+
+    <MTBoiler vulnerabletoemp="false" capacity="500.0" maxrechargespeed="6000.0" maxoutput="6000.0" canbeselected="true" indicatorposition="166,110" indicatorsize="20,80" ishorizontal="false" msg="ItemMsgInteractSelect" efficiency="90">
+      <GuiFrame relativesize="0.25,0.23" minsize="350,200" anchor="Center" style="ItemUI" /> <!--minsize="350,250" maxsize="420,300"-->
+      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
+
+      <!-- Am I on? -->
+      <StatusEffect type="Always" targettype="This" Comparison="And">
+        <Conditional condition="gt 10" />
+        <Conditional RechargeSpeed="gt 0.0" targetitemcomponent="MTBoiler"/>
+        <sound file="Content/Items/OxygenGenerator/OxygenGenerator.ogg" type="OnActive" range="1000.0" volumeproperty="CurrFlow" volume="0.8" loop="true"/>  
+      </StatusEffect>
+
+      <!-- Pressure vessel failing, your boiler has leak. -->
+      <StatusEffect type="Always" targettype="This" delay="1.0" duration="5.0" stackable="false" Comparison="And">
+        <Conditional condition="lte 50" />              
+        <Conditional InWater="false" />  
+        <Conditional Charge="gt 1" target="this"/>
+        <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
+        <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   
+        <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">        
+          <Affliction identifier="burn" strength="25" />          
+        </Explosion>
+      </StatusEffect>
+
+      <!-- It's bad when a boiler blows up, right? -->
+      <StatusEffect type="OnBroken" targettype="This" Comparison="or" comparaison="and">
+        <Conditional Charge="gt 1" target="this"/>
+        <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
+          <Affliction identifier="burn" strength="200" />
+          <Affliction identifier="explosiondamage" strength="50" />
+          <Affliction identifier="stun" strength="5" />
+        </Explosion>
+      </StatusEffect>
+
+      <!-- Interact Sound -->
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/Sound/item_interact2.ogg" range="1000" /> 
       </StatusEffect>
    
       <!-- OVERHEAT: Without circulator pumps, this device will overheat and build up too much pressure. 
@@ -5048,7 +5377,7 @@
 
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
-        <Sound file="%ModDir%/sound/item_interact4.ogg" range="1000" /> 
+        <Sound file="%ModDir%/Sound/item_interact4.ogg" range="1000" /> 
       </StatusEffect>
         
     </Engine>
@@ -5307,13 +5636,13 @@
         <StatusEffect type="OnUse" target="Contained" >
           <Conditional HasStatusTag ="valid_sample" targetcontainer="true" />  
           <Remove targetslot="0"/>  
-          <Sound file="%ModDir%/sound/analyze.ogg" range="1000" />
+          <Sound file="%ModDir%/Sound/analyze.ogg" range="1000" />
         </StatusEffect>
         <!-- RESULT: Return the result -->
         <StatusEffect type="OnUse" target="Contained" Delay="2" stackable="false" >
           <Conditional HasStatusTag ="valid_sample" targetcontainer="true" />  
           <LuaHook name="mechtraumaBacteriaAnalyze.OnUse" /> 
-          <Sound file="%ModDir%/sound/receipt1.ogg" range="500" />             
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
       
@@ -5349,7 +5678,7 @@
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="35" />
-        <Sound file="%ModDir%/sound/screams_woman_2.ogg" range="1000" />
+        <Sound file="%ModDir%/Sound/screams_woman_2.ogg" range="1000" />
         <Sound file="Content/Sounds/Damage/Gore1.ogg" range="1000" />
       </StatusEffect>
     
@@ -5379,7 +5708,7 @@
     <Body width="38" height="66" density="20" />
 
     <!-- ANTIBACTERIAL: Make a new antibacterial drug.  -->
-    <Fabricate suitablefabricators="medicalfabricator" amount="4" requiredtime="5">
+    <Fabricate suitablefabricators="medicalfabricator" amount="8" requiredtime="5">
       <RequiredSkill identifier="medical" level="20" />
       <RequiredItem identifier="bacterial_sample_a4" />
     </Fabricate>  
