@@ -196,6 +196,7 @@
       <output name="power_out" displayname="connection.powerout" />      
       <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
       <output name="condition_out" displayname="connection.conditionout" />
+      <output name="power_generated" displayname="connection.powergenerated" />      
     </ConnectionPanel>
     
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
@@ -324,7 +325,7 @@
     <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
   </Item>
 
-  <!-- DIESEL GENERATOR S2500Dc: Blue Cabinet. -->
+  <!-- DIESEL GENERATOR S2500Dc: Red Cabinet. -->
   <Item name="Series C-2500Dc Diesel Generator" identifier="sC2500Dc" variantof="sC2500Da" scale="0.5">
     <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
