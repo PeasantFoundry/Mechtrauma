@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace Mechtrauma
 {
-    partial class WaterDrain : Powered
+    public partial class WaterDrain : Powered
     {
         private readonly List<(Vector2 position, ParticleEmitter emitter)> pumpOutEmitters = new List<(Vector2 position, ParticleEmitter emitter)>();
         private readonly List<(Vector2 position, ParticleEmitter emitter)> pumpInEmitters = new List<(Vector2 position, ParticleEmitter emitter)>();

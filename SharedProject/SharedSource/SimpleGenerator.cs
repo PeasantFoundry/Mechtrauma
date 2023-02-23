@@ -14,9 +14,9 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 
-namespace Barotrauma.Items.Components
+namespace Mechtrauma
 {
-    class SimpleGenerator : Powered {
+    public class SimpleGenerator : Powered {
 
         public override bool UpdateWhenInactive => true;
         

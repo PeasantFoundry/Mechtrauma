@@ -13,9 +13,9 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
  
-namespace Barotrauma.Items.Components 
+namespace Mechtrauma
 {
-    class GridAbsorber : Powered {
+    public class GridAbsorber : Powered {
         [Editable, Serialize(500.0f, IsPropertySaveable.Yes, description: "Max power the device can absorb in an overvoltage event", alwaysUseInstanceValues: true)]
         public float MaxPowerAbsorption { get => maxPowerAbsorption; set => maxPowerAbsorption = value; }
         

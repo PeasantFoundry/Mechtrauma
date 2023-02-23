@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 
-namespace Barotrauma.Items.Components
+namespace Mechtrauma
 {
-    class AdvanceOxygenGenerator : OxygenGenerator {
+    public class AdvanceOxygenGenerator : OxygenGenerator {
 
         const float bottleLitres = 200.0f; 
 

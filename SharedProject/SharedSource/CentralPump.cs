@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 
-namespace Barotrauma.Items.Components 
+namespace Mechtrauma
 {
-    class CentralPump : Pump {
+    public class CentralPump : Pump {
         public float HullPercentage 
         {
             get => hullPercentage;

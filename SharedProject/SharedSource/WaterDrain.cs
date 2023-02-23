@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace Mechtrauma 
 {
-    partial class WaterDrain : Powered {
+    public partial class WaterDrain : Powered {
 
         [Editable, Serialize(80.0f, IsPropertySaveable.No, description: "How fast the item pumps water in/out when operating at 100%.", alwaysUseInstanceValues: true)]
         public float MaxFlow
