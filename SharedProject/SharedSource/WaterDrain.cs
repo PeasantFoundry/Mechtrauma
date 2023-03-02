@@ -56,6 +56,7 @@ namespace Mechtrauma
         public WaterDrain(Item item, ContentXElement element) : base(item, element) 
         {
             IsActive = true;
+            PowerConsumption = MaxFlow;
             InitProjSpecific(element);
         }
 
@@ -66,6 +67,12 @@ namespace Mechtrauma
             if (!IsActive)
             {
                 return;
+            }
+
+            PowerConsumption = MaxFlow;
+            if (Voltage > 1)
+            {
+                Voltage -= deltaTime * 5;
             }
 
             UpdateProjSpecific(deltaTime);

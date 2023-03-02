@@ -22,6 +22,7 @@ namespace Mechtrauma
             "steam",
             "kinetic",
             "thermal",
+            "waterGate",
             "water",
             "oxygen"
         };
@@ -84,7 +85,7 @@ namespace Mechtrauma
                 // Check if its an extra power type connection, if so, set the isPower property to true
                 foreach (string powerType in ExtraPowerTypes)
                 {
-                    if (((Barotrauma.Items.Components.Connection)self).Name.StartsWith(powerType))
+                    if (((Connection)self).Name == powerType || ((Connection)self).Name.StartsWith(powerType + "_in") || ((Connection)self).Name.StartsWith(powerType + "_out"))
                     {
                         ((Connection)self).IsPower = true;
                     }

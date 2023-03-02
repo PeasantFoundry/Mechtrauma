@@ -1,4 +1,4 @@
-using ModdingToolkit;
+﻿using ModdingToolkit;
 
 using System;
 using Barotrauma;
@@ -8,37 +8,52 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
-using System.Globalization;
 
 namespace Mechtrauma
 {
-    class CentralPump : Pump {
-        public float HullPercentage 
+    class GatedPump : Pump
+    {
+        Connection? waterGateOut;
+
+        public GatedPump(Item item, ContentXElement element) : base(item, element)
         {
-            get => hullPercentage;
-            set => hullPercentage = value;
-        }
-        private float hullPercentage;
-
-        Connection? waterGateIn;
-
-        public CentralPump(Item item, ContentXElement element) : base(item, element) {
             // call base constructor
         }
 
-        public override void Update(float deltaTime, Camera cam) {
+        public override void Update(float deltaTime, Camera cam)
+        {
             pumpSpeedLockTimer -= deltaTime;
             isActiveLockTimer -= deltaTime;
 
-            if (!IsActive) {
+            if (!IsActive)
+            {
                 return;
             }
 
-            if (TargetLevel != null) {
-                flowPercentage = ((float)TargetLevel - HullPercentage);
+            currFlow = 0.0f;
+
+            if (TargetLevel != null)
+            {
+                float hullPercentage = 0.0f;
+                if (item.CurrentHull != null)
+                {
+                    float hullWaterVolume = item.CurrentHull.WaterVolume;
+                    float totalHullVolume = item.CurrentHull.Volume;
+                    foreach (var linked in item.CurrentHull.linkedTo)
+                    {
+                        if ((linked is Hull linkedHull))
+                        {
+                            hullWaterVolume += linkedHull.WaterVolume;
+                            totalHullVolume += linkedHull.Volume;
+                        }
+                    }
+                    hullPercentage = hullWaterVolume / totalHullVolume * 100.0f;
+                }
+                FlowPercentage = ((float)TargetLevel - hullPercentage) * 10.0f;
             }
 
-            if (!HasPower) {
+            if (!HasPower)
+            {
                 return;
             }
 
@@ -46,12 +61,14 @@ namespace Mechtrauma
 
             ApplyStatusEffects(ActionType.OnActive, deltaTime, null);
 
+            if (item.CurrentHull == null) { return; }
+
             float powerFactor = Math.Min(currPowerConsumption <= 0.0f || MinVoltage <= 0.0f ? 1.0f : Voltage, MaxOverVoltageFactor);
 
             float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             //Prevent water flow if there is no water gates connected
-            if (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f)
+            if (waterGateOut == null || waterGateOut.Grid == null || waterGateOut.Grid.Voltage < 0.5f)
             {
                 flow = 0.0f;
             }
@@ -67,6 +84,11 @@ namespace Mechtrauma
             flow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
 
             currFlow = flow;
+
+            currFlow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
+
+            item.CurrentHull.WaterVolume += currFlow * deltaTime * Timing.FixedUpdateRate;
+            if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }
 
         public override void OnItemLoaded()
@@ -74,12 +96,9 @@ namespace Mechtrauma
             base.OnItemLoaded();
             foreach (KeyValuePair<string, Connection> pair in item.connections)
             {
-                if (pair.Key.StartsWith("power") && pair.Value != null && !pair.Value.IsOutput)
+                if (pair.Key.StartsWith("waterGate") && pair.Value != null)
                 {
-                    powerIn = pair.Value;
-                } else if (pair.Key.StartsWith("waterGate") && pair.Value != null && !pair.Value.IsOutput)
-                {
-                    waterGateIn = pair.Value;
+                    waterGateOut = pair.Value;
                 }
             }
         }
@@ -95,7 +114,8 @@ namespace Mechtrauma
                 return 0;
             }
 
-            if (connection == powerIn) {
+            if (connection == powerIn)
+            {
                 currPowerConsumption = powerConsumption * Math.Abs(FlowPercentage / 100.0f);
                 //pumps consume more power when in a bad condition
                 item.GetComponent<Repairable>()?.AdjustPowerConsumption(ref currPowerConsumption);
@@ -103,42 +123,12 @@ namespace Mechtrauma
                 return currPowerConsumption;
             }
 
-            return -1;
+            return 1.0f;
         }
 
-        new void UpdateProjSpecific(float deltaTime) {
-            // Place holder
-        }
-
-        
-        public override PowerRange MinMaxPowerOut(Connection connection, float load = 0) {
-            if (connection == powerOut) {
-                return new PowerRange(0, MaxFlow);
-            }
-            return PowerRange.Zero;
-        }
-
-        // Pump will output positive or negative power to indicate flow direction
-        public override float GetConnectionPowerOut(Connection connection, float power, PowerRange minMaxPower, float load) {
-            if (connection == powerOut) {
-                return MathHelper.Clamp(currFlow, -MaxFlow, MaxFlow);
-            }
-            return 0.0f;
-        }
-
-        public override void ReceiveSignal(Signal signal, Connection connection)
+        new void UpdateProjSpecific(float deltaTime)
         {
-            if (Hijacked) { return; }
-
-            base.ReceiveSignal(signal, connection);
-
-            if (connection.Name == "hull_percentage")
-            {
-                if (float.TryParse(signal.value, NumberStyles.Any, CultureInfo.InvariantCulture, out float tempTarget))
-                {
-                    HullPercentage = MathHelper.Clamp(tempTarget, 0.0f, 105.0f);
-                }
-            }
+            // Place holder
         }
 
     }

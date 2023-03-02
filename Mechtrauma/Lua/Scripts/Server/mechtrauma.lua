@@ -1,28 +1,6 @@
 
 local buffer = {} -- signal buffer
 
-
-Hook.Add("signalReceived.water_pump", "MT.waterpumpGate", function(signal, connection, item)
-    -- If the buffer is empty, populate it with connection.item
-    if buffer[connection.Item] == nil then buffer[connection.Item] = {} end
-    
-    local itemBuffer = buffer[connection.Item]
-        
-    if connection.Name == "gate_in" then
-        itemBuffer[1] = signal.value
-    end
-
-    if itemBuffer[1] ~= nil then
-        local gateCondition = (tonumber(itemBuffer[1]) or 0)
-        gateCondition = gateCondition * 0.01
-
-        connection.Item.GetComponentString("Pump").MaxFlow = 600 * gateCondition
-      --  print("Final maxFlow", connection.Item.GetComponentString("Pump").MaxFlow)        
-      --  print(connection.Item.Tags)
-        itemBuffer[1] = nil
-    end
-end)
-
 Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(effect, deltaTime, item, targets, worldPosition)
   local character
   -- if the human target isn't 10, loop through the targets and find the human

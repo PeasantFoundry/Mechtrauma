@@ -40,17 +40,18 @@
 
 
   <!-- WATER PUMP GATE: -->
- <Item name="Water Pump Gate" identifier="water_pump_gate" tags="mtu,pumpgate,machine" damagedbyrepairtools="true" pickdistance="150" waterproof="true" health="500" scale="0.6">
+ <Item name="Water Pump Gate" identifier="water_pump_gate" tags="mtu,pumpgate,machine" IsActive="true" damagedbyrepairtools="true" pickdistance="150" waterproof="true" health="500" scale="0.6">
     <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.8" sourcerect="640,256,126,124" origin="0.5,0.5" />
     <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="CleanGate">
       <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
         
-    <Powered powerconsumption="0" currpowerconsumption="0" isactive="true"/>
+    <WaterGate canbeselected="true"/>
 
     </ItemContainer>
      <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
+	  <output name="waterGate_out" displayname="connection.watergateconn" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
     
@@ -89,7 +90,7 @@
       <sprite texture="%ModDir%/Images/mechtrauma_pumps.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
     </LightComponent>-->
 
-    <Pump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
+	<GatedPump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
       <!-- TODO: define max size-->
       <GuiFrame relativesize="0.25,0.2" minsize="420,220" anchor="Center" style="ItemUI" />
       <sound file="Content/Items/Pump/Pump.ogg" type="OnActive" range="800.0" volumeproperty="CurrFlow" volume="0.01" loop="true" />
@@ -109,7 +110,7 @@
         <Conditional HasStatusTag="neq hasmotor" targetitemcomponent="Pump" />   
       </StatusEffect>  
 
-    </Pump>
+    </GatedPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" uilabel="motormount" msg="MotorMount">
        <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
@@ -141,7 +142,7 @@
       <input name="disconnected" displayname="connection.disconnected" fallbackdisplayname="disconnected" /> <!-- set_state -->
       <input name="set_speed" displayname="connection.setpumpingspeed" />
       <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
-      <input name="gate_in" displayname="connection.gate_in" />
+	  <output name="waterGate" displayname="connection.watergateconn" />
       <output name="state_out" displayname="connection.stateout" />
       <output name="condition_out" displayname="connection.conditionout" />      
     </ConnectionPanel>
@@ -186,7 +187,7 @@
       <sprite texture="%ModDir%/Images/mechtrauma_pumps_large.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
     </LightComponent>
 
-    <Pump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
+	<GatedPump canbeselected="true" maxflow="600" PowerConsumption="300.0" MinVoltage="0.3" IsOn="true" msg="ItemMsgInteractSelect">
       <!-- TODO: define max size-->
       <GuiFrame relativesize="0.25,0.2" minsize="420,220" anchor="Center" style="ItemUI" />
       <sound file="Content/Items/Pump/Pump.ogg" type="OnActive" range="800.0" volumeproperty="CurrFlow" volume="0.01" loop="true" />
@@ -206,7 +207,7 @@
         <Conditional HasStatusTag="neq hasmotor" targetitemcomponent="Pump" />   
       </StatusEffect>  
 
-       </Pump>
+    </GatedPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" uilabel="motormount" msg="MotorMount">
        <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
@@ -238,7 +239,7 @@
       <input name="disconnected" displayname="connection.disconnected" fallbackdisplayname="disconnected" /> <!-- set_state -->
       <input name="set_speed" displayname="connection.setpumpingspeed" />
       <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
-      <input name="gate_in" displayname="connection.gate_in" />
+      <output name="waterGate" displayname="connection.watergateconn" />
       <output name="state_out" displayname="connection.stateout" />
       <output name="condition_out" displayname="connection.conditionout" />      
     </ConnectionPanel>

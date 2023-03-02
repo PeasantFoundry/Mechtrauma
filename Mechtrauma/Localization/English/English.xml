@@ -470,6 +470,10 @@
 <connection.waterout>Water_Out</connection.waterout>
 <connection.waterconn>Water</connection.waterconn>
 
+<connection.watergatein1>WaterGate_Inlet</connection.watergatein1>
+<connection.watergateout>WaterGate_Out</connection.watergateout>
+<connection.watergateconn>WaterGate</connection.watergateconn>
+
 <connection.hull_percentage>Hull_Percentage</connection.hull_percentage>
 
 <!-- Display Names -->

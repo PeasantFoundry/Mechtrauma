@@ -3061,6 +3061,7 @@
   </Item>
 
   <!-- Advance water system -->
+  <!-- TODO: Replace place holder models, damage and status effects-->
   <Item name="Water Drain" identifier="waterdrain" category="Machine" tags="" scale="0.5" linkable="true">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <Sprite texture="Content/Items/Alien/Legacy/AlienRuin_Legacy.png" depth="0.91" sourcerect="203,512,53,52" />
@@ -3163,6 +3164,7 @@
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
       <input name="power_in" displayname="connection.powerin" />
+	  <input name="waterGate_in" displayname="connection.watergatein1" />
       <input name="toggle" displayname="connection.togglestate" />
       <input name="set_active" displayname="connection.setstate" />
       <input name="set_speed" displayname="connection.setpumpingspeed" />
