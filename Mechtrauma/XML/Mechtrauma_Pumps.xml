@@ -44,14 +44,12 @@
     <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.8" sourcerect="640,256,126,124" origin="0.5,0.5" />
     <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="CleanGate">
       <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
-        
-    <WaterGate canbeselected="true"/>
-
     </ItemContainer>
-     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+	<WaterGate canbeselected="true"/>
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
       <RequiredItem items="screwdriver" type="Equipped"/>
-	  <output name="waterGate_out" displayname="connection.watergateconn" />
+	  <output name="waterGate_out" displayname="connection.watergateout" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
     
