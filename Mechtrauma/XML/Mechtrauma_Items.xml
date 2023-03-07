@@ -3126,16 +3126,6 @@
       <PumpOutEmitter particle="bubbles" particlespersecond="5" position="157,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
       <PumpOutEmitter particle="bubbles" particlespersecond="5" position="260,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
 
-      <!-- Activate the pump if there is a viable electric motor. -->      
-      <StatusEffect type="Always" target="This" targetslot="0" duration="1.0" stackable="false" tags="hasmotor" setvalue="true" isactive="true" checkconditionalalways="true" disabledeltatime="true" Comparison="And">
-        <RequiredItem items="electric_motor" targetcontainer="true" type="Contained" targetslot="0" mincondition="1.0" />         
-      </StatusEffect>  
-      
-      <!-- Deactivate the pump if there isn't a viable electric motor. --> 
-      <StatusEffect type="Always" target="This" delay="2" stackable="false" setvalue="true" isactive="false" checkconditionalalways="false" disabledeltatime="false" Comparison="And">
-        <Conditional HasStatusTag="neq hasmotor" targetitemcomponent="CentralPump" />   
-      </StatusEffect>  
-
     </CentralPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" msg="MotorMount">

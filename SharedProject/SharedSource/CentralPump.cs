@@ -12,7 +12,7 @@ using System.Globalization;
 
 namespace Mechtrauma
 {
-    class CentralPump : Pump {
+    class CentralPump : BatteryPump {
         public float HullPercentage 
         {
             get => hullPercentage;
@@ -38,8 +38,23 @@ namespace Mechtrauma
                 flowPercentage = ((float)TargetLevel - HullPercentage);
             }
 
-            if (!HasPower) {
-                return;
+            Item? battery = getBackupBattery();
+            if (!HasPower)
+            {
+                if (BatteryPowerable && battery != null && battery.Condition > 0.0f)
+                {
+                    usingBattery = true;
+                    battery.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f);
+                }
+                else
+                {
+                    usingBattery = false;
+                    return;
+                }
+            }
+            else
+            {
+                usingBattery = false;
             }
 
             UpdateProjSpecific(deltaTime);
@@ -47,11 +62,16 @@ namespace Mechtrauma
             ApplyStatusEffects(ActionType.OnActive, deltaTime, null);
 
             float powerFactor = Math.Min(currPowerConsumption <= 0.0f || MinVoltage <= 0.0f ? 1.0f : Voltage, MaxOverVoltageFactor);
+            if (usingBattery)
+            {
+                powerFactor = 1.0f;
+            }
+
 
             float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             //Prevent water flow if there is no water gates connected
-            if (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f)
+            if (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f || !HasMotor)
             {
                 flow = 0.0f;
             }
@@ -96,6 +116,11 @@ namespace Mechtrauma
             }
 
             if (connection == powerIn) {
+                if (!HasMotor)
+                {
+                    return 0;
+                }
+
                 currPowerConsumption = powerConsumption * Math.Abs(FlowPercentage / 100.0f);
                 //pumps consume more power when in a bad condition
                 item.GetComponent<Repairable>()?.AdjustPowerConsumption(ref currPowerConsumption);

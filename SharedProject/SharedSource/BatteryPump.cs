@@ -8,14 +8,49 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
+using System.Globalization;
 
 namespace Mechtrauma
 {
-    class GatedPump : BatteryPump
+    public partial class BatteryPump : Pump
     {
-        Connection? waterGateOut;
+        [Editable, Serialize(false, IsPropertySaveable.No, description: "Whether batteries contained will power the pump", alwaysUseInstanceValues: true)]
 
-        public GatedPump(Item item, ContentXElement element) : base(item, element)
+        public bool BatteryPowerable
+        {
+            get => batteryPowerable;
+            set => batteryPowerable = value;
+        }
+        private bool batteryPowerable;
+
+        public bool UsingBattery
+        {
+            get => usingBattery;
+        }
+        protected bool usingBattery;
+
+        public bool HasMotor
+        {
+            get
+            {
+                ItemInventory inv = item.OwnInventory;
+                if (inv != null)
+                {
+
+                    // Get condition of the first item in the JB inventory
+                    Item? invItem = inv.GetItemAt(0);
+                    if (invItem?.HasTag("electricmotor") == false)
+                    {
+                        return false;
+                    }
+
+                    return invItem?.Condition > 0.0f;
+                }
+                return true;
+            }
+        }
+
+        public BatteryPump(Item item, ContentXElement element) : base(item, element)
         {
             // call base constructor
         }
@@ -59,14 +94,12 @@ namespace Mechtrauma
                 {
                     usingBattery = true;
                     battery.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f);
-                }
-                else
+                } else
                 {
                     usingBattery = false;
                     return;
                 }
-            }
-            else
+            } else
             {
                 usingBattery = false;
             }
@@ -83,76 +116,45 @@ namespace Mechtrauma
                 powerFactor = 1.0f;
             }
 
-
-            float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
-
-            //Prevent water flow if there is no water gates connected
-            if (waterGateOut == null || waterGateOut.Grid == null || waterGateOut.Grid.Voltage < 0.5f || !HasMotor)
+            if (!HasMotor)
             {
-                flow = 0.0f;
+                powerFactor = 0.0f;
             }
+
+            currFlow = flowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             if (item.GetComponent<Repairable>() is { IsTinkering: true } repairable)
             {
-                flow *= 1f + repairable.TinkeringStrength * 4.0f;
+                currFlow *= 1f + repairable.TinkeringStrength * TinkeringSpeedIncrease;
             }
 
-            flow = item.StatManager.GetAdjustedValue(ItemTalentStats.PumpSpeed, flow);
+            currFlow = item.StatManager.GetAdjustedValue(ItemTalentStats.PumpSpeed, currFlow);
 
             //less effective when in a bad condition
-            flow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
-
-            currFlow = flow;
-
             currFlow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
 
             item.CurrentHull.WaterVolume += currFlow * deltaTime * Timing.FixedUpdateRate;
             if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }
 
-        public override void OnItemLoaded()
+        protected Item? getBackupBattery()
         {
-            base.OnItemLoaded();
-            foreach (KeyValuePair<string, Connection> pair in item.connections)
+            ItemInventory inv = item.OwnInventory;
+            if (inv != null)
             {
-                if (pair.Key.StartsWith("waterGate") && pair.Value != null)
+                foreach (Item item in inv.AllItems)
                 {
-                    waterGateOut = pair.Value;
+                    if (item?.HasTag("mobilebattery") == true)
+                    {
+                        if (item.Condition > 0.0f)
+                        {
+                            return item;
+                        }
+                    }
                 }
             }
-        }
 
-        /// <summary>
-        /// Power consumption of the Pump. Only consume power when active and adjust consumption based on condition.
-        /// </summary>
-        public override float GetCurrentPowerConsumption(Connection connection)
-        {
-            //There shouldn't be other power connections to this
-            if (!IsActive)
-            {
-                return 0;
-            }
-
-            if (connection == powerIn)
-            {
-                if (!HasMotor)
-                {
-                    return 0;
-                }
-
-                currPowerConsumption = powerConsumption * Math.Abs(FlowPercentage / 100.0f);
-                //pumps consume more power when in a bad condition
-                item.GetComponent<Repairable>()?.AdjustPowerConsumption(ref currPowerConsumption);
-
-                return currPowerConsumption;
-            }
-
-            return 1.0f;
-        }
-
-        new void UpdateProjSpecific(float deltaTime)
-        {
-            // Place holder
+            return null;
         }
 
     }
