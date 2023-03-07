@@ -81,7 +81,7 @@ namespace Mechtrauma
 
             if (item.CurrentHull == null) { return; }
 
-            currFlow = MaxFlow * (Voltage - float.Epsilon);
+            currFlow = CurrPowerConsumption * (Voltage - float.Epsilon);
             item.CurrentHull.WaterVolume += currFlow * deltaTime * Timing.FixedUpdateRate;
             if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }
