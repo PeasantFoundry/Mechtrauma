@@ -13,6 +13,14 @@ namespace Mechtrauma
 {
     class GatedPump : BatteryPump
     {
+        [Editable, Serialize(false, IsPropertySaveable.No, description: "Should an external water gate be required to function", alwaysUseInstanceValues: true)]
+        public bool NeedWaterGate
+        {
+            get => needWaterGate;
+            set => needWaterGate = value;
+        }
+        private bool needWaterGate;
+
         Connection? waterGateOut;
 
         public GatedPump(Item item, ContentXElement element) : base(item, element)
@@ -87,7 +95,7 @@ namespace Mechtrauma
             float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             //Prevent water flow if there is no water gates connected
-            if (waterGateOut == null || waterGateOut.Grid == null || waterGateOut.Grid.Voltage < 0.5f || !HasMotor)
+            if (NeedWaterGate && (waterGateOut == null || waterGateOut.Grid == null || waterGateOut.Grid.Voltage < 0.5f || !HasMotor))
             {
                 flow = 0.0f;
             }
