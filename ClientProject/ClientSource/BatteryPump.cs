@@ -19,7 +19,7 @@ namespace Mechtrauma
             autoControlIndicator.Selected = IsAutoControlled;
             PowerButton.Enabled = isActiveLockTimer <= 0.0f;
 
-            if (HasPower || UsingBattery)
+            if (HasPower)
             {
                 flickerTimer = 0;
                 powerLight.Selected = IsActive;
@@ -27,7 +27,8 @@ namespace Mechtrauma
             else if (IsActive)
             {
                 flickerTimer += deltaTime;
-                if (flickerTimer > flickerFrequency)
+                float adjustedFlicker = UsingBattery ? 0.3f : flickerFrequency;
+                if (flickerTimer > adjustedFlicker)
                 {
                     flickerTimer = 0;
                     powerLight.Selected = !powerLight.Selected;
