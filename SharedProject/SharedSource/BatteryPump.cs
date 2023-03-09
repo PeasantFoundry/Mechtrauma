@@ -121,6 +121,18 @@ namespace Mechtrauma
                 powerFactor = 0.0f;
             }
 
+            ItemInventory inv = item.OwnInventory;
+            if (inv != null)
+            {
+
+                // Get condition of the first item in the JB inventory
+                Item? invItem = inv.GetItemAt(0);
+                if (invItem?.HasTag("electricmotor") == true)
+                {
+                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Configuration.Instance.ElectricMotorDegradeRate;
+                }
+            }
+
             currFlow = flowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             if (item.GetComponent<Repairable>() is { IsTinkering: true } repairable)

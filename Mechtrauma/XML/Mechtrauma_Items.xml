@@ -3133,14 +3133,8 @@
        <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
        
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">      
-
-        <!-- Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22-->        
-        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.25" Comparison="And">
-          <Conditional CurrFlow="neq 0.0" targetcontainer="true" targetitemcomponent="CentralPump"/>
-        </StatusEffect>
-
-        </Containable>
+       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+       </Containable>
      </ItemContainer>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">

@@ -76,11 +76,22 @@ namespace Mechtrauma
                 powerFactor = 1.0f;
             }
 
+            ItemInventory inv = item.OwnInventory;
+            if (inv != null)
+            {
+
+                // Get condition of the first item in the JB inventory
+                Item? invItem = inv.GetItemAt(0);
+                if (invItem?.HasTag("electricmotor") == true)
+                {
+                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Configuration.Instance.ElectricMotorDegradeRate;
+                }
+            }
 
             float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             //Prevent water flow if there is no water gates connected
-            if (NeedWaterGate && (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f || !HasMotor))
+            if (!HasMotor || (NeedWaterGate && (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f)))
             {
                 flow = 0.0f;
             }
