@@ -160,7 +160,7 @@
   <entityname.50cal_loader>50 cal Loader</entityname.50cal_loader>
   <entitydescription.50cal_loader>Ammunition loader for the 50 cal turret.</entitydescription.50cal_loader>
 
-  <entityname.50cal_ammobox>50 cal Ammobox</entityname.50cal_ammobox>
+  <entityname.50cal_ammobox>50 cal Ammo Box</entityname.50cal_ammobox>
   <entitydescription.50cal_ammobox>Ammunition loader for the 50 cal turret.</entitydescription.50cal_ammobox>
 
   <entityname.50cal_bolt>50 cal Bolt</entityname.50cal_bolt>
