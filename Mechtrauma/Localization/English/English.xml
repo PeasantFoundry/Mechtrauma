@@ -276,6 +276,9 @@
 
   <entityname.oxygen_supply>Oxygen supply</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply>
+  
+  <entityname.oxygen_supply_cp>Oxygen supply</entityname.oxygen_supply_cp>
+  <entitydescription.oxygen_supply_cp>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply_cp>
    
    <!-- Crafting and Refilling -->
 
@@ -284,6 +287,9 @@
 
   <entityname.cncfab>CNC Mechanical Fabricator</entityname.cncfab>
   <entitydescription.cncfab>Mech your dream reality!</entitydescription.cncfab>
+   
+  <entityname.cncfab_cp>CNC Mechanical Fabricator</entityname.cncfab_cp>
+  <entitydescription.cncfab_cp>Mech your dream reality!</entitydescription.cncfab_cp>
 
   <entityname.repairtable>Repair Table</entityname.repairtable>
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
@@ -301,8 +307,11 @@
   <entityname.steam_boiler_h>Horizontal Steam Boiler</entityname.steam_boiler_h>
   <entitydescription.steam_boiler_h> Generates steam.</entitydescription.steam_boiler_h> 
    
-   <entityname.advanced_boiler>Advanced Steam Boiler</entityname.advanced_boiler>
-   <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
+  <entityname.advanced_boiler>Advanced Steam Boiler</entityname.advanced_boiler>
+  <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
+  
+  <entityname.advanced_boiler_h>Horizontal Advanced Steam Boiler</entityname.advanced_boiler_h>
+  <entitydescription.advanced_boiler_h>Masochist's steam generator.</entitydescription.advanced_boiler_h>
 
   <entityname.steam_turbine>Steam Turbine</entityname.steam_turbine>
   <entitydescription.steam_turbine>Converts steam energy into kinetic engery.</entitydescription.steam_turbine>
