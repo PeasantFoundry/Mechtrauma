@@ -52,7 +52,7 @@
   <entitydescription.electrical_panel>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Can be run without a fuse but problems like frequent fires and heavy damage will arise.</entitydescription.electrical_panel>
    
   <entityname.electrical_panelv2>Electrical Panel</entityname.electrical_panelv2>
-  <entitydescription.electrical_panelv2>Electrical Panel.</entitydescription.electrical_panelv2>
+  <entitydescription.electrical_panelv2>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Can be run without a fuse but problems like frequent fires and heavy damage will arise.</entitydescription.electrical_panelv2>
    
   <entityname.s_electrical_panelv2>Safety Electrical Panel</entityname.s_electrical_panelv2>
   <entitydescription.s_electrical_panelv2>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Automatically stops transmitting power after its fuse blows in order to protect itself and the rest of the grid.</entitydescription.s_electrical_panelv2>
