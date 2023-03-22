@@ -9,7 +9,7 @@
   <entityname.bacterial_sample_a4>Bacterial Sample A4</entityname.bacterial_sample_a4>
   <entitydescription.bacterial_sample_a4>A refined bacterial sample of A4.</entitydescription.bacterial_sample_a4>
 
-  <entityname.antibacterial_a4>A4 Antibacterial </entityname.antibacterial_a4>
+  <entityname.antibacterial_a4>A4 Antibacterial</entityname.antibacterial_a4>
   <entitydescription.antibacterial_a4>An antibacterial for A4 bacteria. </entitydescription.antibacterial_a4>
 
   <entityname.spore_fungus>Fungus</entityname.spore_fungus>
@@ -22,14 +22,14 @@
   <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
   <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
 
-  <entityname.cargo_crane>Cargo Crane.</entityname.cargo_crane>
+  <entityname.cargo_crane>Cargo Crane</entityname.cargo_crane>
   <entitydescription.cargo_crane>Hoist the cargo men!</entitydescription.cargo_crane>
   
   <entityname.lcd>LCD TV</entityname.lcd>
   <entitydescription.lcd>LCD TV</entitydescription.lcd>
 
   <!-- =============< MAP ITEMS >=============  -->
-  <entityname.cargo_hatch>Cargo Hatch.</entityname.cargo_hatch>
+  <entityname.cargo_hatch>Cargo Hatch</entityname.cargo_hatch>
   <entitydescription.cargo_hatch>Sometimes, you need to move big things.</entitydescription.cargo_hatch>
 
   <!-- =============< ELECTRICAL >=============  -->
@@ -52,7 +52,7 @@
   <entitydescription.electrical_panel>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Can be run without a fuse but problems like frequent fires and heavy damage will arise.</entitydescription.electrical_panel>
    
   <entityname.electrical_panelv2>Electrical Panel</entityname.electrical_panelv2>
-  <entitydescription.electrical_panelv2>Electrical Panel.</entitydescription.electrical_panelv2>
+  <entitydescription.electrical_panelv2>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Can be run without a fuse but problems like frequent fires and heavy damage will arise.</entitydescription.electrical_panelv2>
    
   <entityname.s_electrical_panelv2>Safety Electrical Panel</entityname.s_electrical_panelv2>
   <entitydescription.s_electrical_panelv2>Transmits power from point A to point B. Accepts a sacrificial fuse which will protect from over voltage. Automatically stops transmitting power after its fuse blows in order to protect itself and the rest of the grid.</entitydescription.s_electrical_panelv2>
@@ -113,7 +113,7 @@
   <entityname.oxygentank_fr>Fire Resistant Oxygen Tank</entityname.oxygentank_fr>
   <entitydescription.oxygentank_fr>Fire Resistant Oxygen Tank</entitydescription.oxygentank_fr>
 
-  <entityname.oxygentank_large>Oxygen tank large</entityname.oxygentank_large>
+  <entityname.oxygentank_large>Oxygen Tank Large</entityname.oxygentank_large>
   <entitydescription.oxygentank_large>Large Oxygen Tank, only for use in Oxygen Stations. </entitydescription.oxygentank_large>
 
   <entityname.handtruck>Hand Truck</entityname.handtruck>
@@ -137,18 +137,18 @@
   <entityname.S5_Extinguisher>S5 Extinguisher</entityname.S5_Extinguisher>
   <entitydescription.S5_Extinguisher>A small 5 second extinguisher that can be worn on your belt.</entitydescription.S5_Extinguisher>
   
-  <entityname.l100_extinguisher>L100-Extinguisher</entityname.l100_extinguisher>
+  <entityname.l100_extinguisher>L100 Extinguisher</entityname.l100_extinguisher>
   <entitydescription.l100_extinguisher>A large extinguisher for use in turnout gear.</entitydescription.l100_extinguisher>
   
   
   <!-- =============< WEAPONS >=============  -->
-  <entityname.airrifle>Air Rifle </entityname.airrifle>
+  <entityname.airrifle>Air Rifle</entityname.airrifle>
   <entitydescription.airrifle>A low power, highly accessible and easily replentished weapon.</entitydescription.airrifle>
   
-  <entityname.leadpellet>Lead Pellet </entityname.leadpellet>
+  <entityname.leadpellet>Lead Pellet</entityname.leadpellet>
   <entitydescription.leadpellet>Air Rifle ammunition.</entitydescription.leadpellet>
 
-  <entityname.gunners_chair>Gunners Chair </entityname.gunners_chair>
+  <entityname.gunners_chair>Gunner's Chair</entityname.gunners_chair>
   <entitydescription.gunners_chair>Stay seated. </entitydescription.gunners_chair> 
   
   <entityname.mt_coilgun>MT Coilgun</entityname.mt_coilgun>
@@ -160,10 +160,10 @@
   <entityname.50cal_loader>50 cal Loader</entityname.50cal_loader>
   <entitydescription.50cal_loader>Ammunition loader for the 50 cal turret.</entitydescription.50cal_loader>
 
-  <entityname.50cal_ammobox>50 cal Ammobox</entityname.50cal_ammobox>
+  <entityname.50cal_ammobox>50 cal Ammo Box</entityname.50cal_ammobox>
   <entitydescription.50cal_ammobox>Ammunition loader for the 50 cal turret.</entitydescription.50cal_ammobox>
 
-  <entityname.50cal_bolt>50 cal bolt</entityname.50cal_bolt>
+  <entityname.50cal_bolt>50 cal Bolt</entityname.50cal_bolt>
   <entitydescription.50cal_bolt>50 cal bolt</entitydescription.50cal_bolt>
 
   
@@ -171,7 +171,7 @@
   <entityname.scrap_steel>Scrap Steel</entityname.scrap_steel>
   <entitydescription.scrap_steel>Don't forget to recycle!.</entitydescription.scrap_steel>
 
-  <entityname.scrap_aluminium>Scrap aluminium</entityname.scrap_aluminium>
+  <entityname.scrap_aluminium>Scrap Aluminium</entityname.scrap_aluminium>
   <entitydescription.scrap_aluminium>Don't forget to recycle!.</entitydescription.scrap_aluminium>
 
   <entityname.scrap_copper>Scrap Copper</entityname.scrap_copper>
@@ -196,7 +196,7 @@
   <entitydescription.copper_windings>Copper windings for reparing electric motors.</entitydescription.copper_windings>
 
   <!-- =============< MACHINE PARTS >=============  -->
-  <entityname.oil_filter>Oil filter</entityname.oil_filter>
+  <entityname.oil_filter>Oil Filter</entityname.oil_filter>
   <entitydescription.oil_filter>Saves black gold.</entitydescription.oil_filter>
 
   <entityname.bearing>Bearing</entityname.bearing>
@@ -214,8 +214,8 @@
   <entityname.turbine_blade>Turbine Blade</entityname.turbine_blade>
   <entitydescription.turbine_blade>For use in machines such as steam turbine.</entitydescription.turbine_blade>
   
-  <entityname.co2_cartridge>Co2 Filter</entityname.co2_cartridge>
-  <entitydescription.co2_cartridge>For filtering Co2 from the atmosphere.</entitydescription.co2_cartridge>
+  <entityname.co2_cartridge>CO2 Filter</entityname.co2_cartridge>
+  <entitydescription.co2_cartridge>For filtering CO2 from the atmosphere.</entitydescription.co2_cartridge>
 
   <!-- =============< MACHINE FUELS >=============  -->
   <entityname.oil_can>Oil Can</entityname.oil_can>
@@ -268,14 +268,17 @@
   <entityname.oxygentank_compressor>Oxygen Tank Compressor</entityname.oxygentank_compressor>
   <entitydescription.oxygentank_compressor>Compresses hull oxygen into tanks for use. </entitydescription.oxygentank_compressor>
 
-  <entityname.oxygen_station>Oxygen tank station</entityname.oxygen_station>
+  <entityname.oxygen_station>Oxygen Tank Station</entityname.oxygen_station>
   <entitydescription.oxygen_station>For quickly refilling oxygen tanks and releasing oxygen in an emergency.</entitydescription.oxygen_station>
 
   <entityname.oxygen_vent>Oxygen Vent</entityname.oxygen_vent>
   <entitydescription.oxygen_vent>Clean regularly. Repalce CO2 filter regularly.</entitydescription.oxygen_vent>
 
-  <entityname.oxygen_supply>Oxygen supply</entityname.oxygen_supply>
+  <entityname.oxygen_supply>Oxygen Supply</entityname.oxygen_supply>
   <entitydescription.oxygen_supply>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply>
+  
+  <entityname.oxygen_supply_cp>Oxygen Supply</entityname.oxygen_supply_cp>
+  <entitydescription.oxygen_supply_cp>Mechtrauma alternative to oxygen generator.</entitydescription.oxygen_supply_cp>
    
    <!-- Crafting and Refilling -->
 
@@ -284,6 +287,9 @@
 
   <entityname.cncfab>CNC Mechanical Fabricator</entityname.cncfab>
   <entitydescription.cncfab>Mech your dream reality!</entitydescription.cncfab>
+   
+  <entityname.cncfab_cp>CNC Mechanical Fabricator</entityname.cncfab_cp>
+  <entitydescription.cncfab_cp>Mech your dream reality!</entitydescription.cncfab_cp>
 
   <entityname.repairtable>Repair Table</entityname.repairtable>
   <entitydescription.repairtable>Dedicated fabricator for reparing diving suits and gear.</entitydescription.repairtable>
@@ -301,8 +307,11 @@
   <entityname.steam_boiler_h>Horizontal Steam Boiler</entityname.steam_boiler_h>
   <entitydescription.steam_boiler_h> Generates steam.</entitydescription.steam_boiler_h> 
    
-   <entityname.advanced_boiler>Advanced Steam Boiler</entityname.advanced_boiler>
-   <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
+  <entityname.advanced_boiler>Advanced Steam Boiler</entityname.advanced_boiler>
+  <entitydescription.advanced_boiler>Masochist's steam generator.</entitydescription.advanced_boiler>
+  
+  <entityname.advanced_boiler_h>Horizontal Advanced Steam Boiler</entityname.advanced_boiler_h>
+  <entitydescription.advanced_boiler_h>Masochist's steam generator.</entitydescription.advanced_boiler_h>
 
   <entityname.steam_turbine>Steam Turbine</entityname.steam_turbine>
   <entitydescription.steam_turbine>Converts steam energy into kinetic engery.</entitydescription.steam_turbine>
@@ -384,10 +393,10 @@
    <entityname.s12b_container>S12B Container</entityname.s12b_container>
    <entitydescription.s12b_container> Storage container.</entitydescription.s12b_container>
 
-  <entityname.shipping_container_open>Cargo Container Open.</entityname.shipping_container_open>
+  <entityname.shipping_container_open>Cargo Container Open</entityname.shipping_container_open>
   <entitydescription.shipping_container_open>Non-waterpoof continer for storing large items and materials.</entitydescription.shipping_container_open>
 
-  <entityname.shipping_container_closed>Cargo Container Closed.</entityname.shipping_container_closed>
+  <entityname.shipping_container_closed>Cargo Container Closed</entityname.shipping_container_closed>
   <entitydescription.shipping_container_closed>Waterproof cargo container for transporting goods.</entitydescription.shipping_container_closed>
 
   <entityname.mechcab>Quick Cabinet</entityname.mechcab>
