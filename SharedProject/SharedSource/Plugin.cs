@@ -89,10 +89,11 @@ namespace Mechtrauma
 #endif
         }
         
-        static readonly List<string> ExtraPowerTypes = new () {
+        List<string> ExtraPowerTypes = new List<string>() {
             "steam",
             "kinetic",
             "thermal",
+            "waterGate",
             "water",
             "oxygen"
         };
@@ -101,9 +102,8 @@ namespace Mechtrauma
         private void changePowerRules()
         {
             // Changes the power connections limits to create steam and kinetic grids as well as the power grid.
-            GameMain.LuaCs.Hook.HookMethod("Mechtrauma::Barotrauma.Items.Components.Powered",
-            //typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
-            AccessTools.DeclaredMethod(typeof(Barotrauma.Items.Components.Powered), "ValidPowerConnection"),
+            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered",
+            typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
 
                 Connection conn1 = (Connection)args["conn1"];
@@ -149,14 +149,14 @@ namespace Mechtrauma
 
             // Change the item connection loading to allow for steam and kinetic networks
             // After the constructor correctly set the isPower property, for the steam and kinetic networks
-            GameMain.LuaCs.Hook.HookMethod("Mechtrauma::Barotrauma.Items.Components.Connection",
+            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection",
             typeof(Barotrauma.Items.Components.Connection).GetConstructor(new[] { typeof(ContentXElement), typeof(ConnectionPanel), typeof(IdRemap) }),
             (object self, Dictionary<string, object> args) => {
 
                 // Check if its an extra power type connection, if so, set the isPower property to true
                 foreach (string powerType in ExtraPowerTypes)
                 {
-                    if (((Barotrauma.Items.Components.Connection)self).Name.StartsWith(powerType))
+                    if (((Connection)self).Name == powerType || ((Connection)self).Name.StartsWith(powerType + "_in") || ((Connection)self).Name.StartsWith(powerType + "_out"))
                     {
                         ((Connection)self).IsPower = true;
                     }
@@ -166,7 +166,7 @@ namespace Mechtrauma
             }, LuaCsHook.HookMethodType.After);
 
             // Correctly assign the powerIn and powerOut for the steam and kinetic networks
-            GameMain.LuaCs.Hook.HookMethod("Mechtrauma::Barotrauma.Items.Components.Powered",
+            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered",
             typeof(Barotrauma.Items.Components.Powered).GetMethod("OnItemLoaded", BindingFlags.Instance | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
                 Powered myself = (Powered)self;

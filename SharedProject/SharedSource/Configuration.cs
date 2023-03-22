@@ -40,6 +40,9 @@ public sealed class Configuration
     public float CirculatorDPS => GetDPS(_general.Setting_CirculatorServiceLife.Value);
     public float CirculatorServiceLife => _general.Setting_CirculatorServiceLife.Value;
     public float DieselDrainRate => 1f;
+
+    //Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22
+    public float ElectricMotorDegradeRate => 0.25f;
     public float DieselGeneratorEfficiency => _advanced.Setting_DieselGeneratorEfficiency.Value;
     public float DieselHorsePowerRatioCL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 100f;
     public float DieselHorsePowerRatioDL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 10f;

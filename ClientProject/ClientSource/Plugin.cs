@@ -51,25 +51,25 @@ namespace Mechtrauma
 
                         // Set background colour based on the grid type
                         Color colour = Color.SteelBlue;
-                        if (myself.Name.StartsWith("steam"))
-                        {
-                            colour = Color.DeepSkyBlue;
-                        }
-                        else if (myself.Name.StartsWith("kinetic"))
-                        {
-                            colour = Color.SaddleBrown;
-                        }
-                        else if (myself.Name.StartsWith("thermal"))
-                        {
-                            colour = Color.Orange;
-                        }
-                        else if (myself.Name.StartsWith("water"))
-                        {
-                            colour = Color.DodgerBlue;
-                        }
-                        else if (myself.IsPower)
+                        if (myself.IsPower)
                         {
                             colour = GUIStyle.Red;
+                            if (myself.Name.StartsWith("steam"))
+                            {
+                                colour = Color.DeepSkyBlue;
+                            }
+                            else if (myself.Name.StartsWith("kinetic"))
+                            {
+                                colour = Color.SaddleBrown;
+                            }
+                            else if (myself.Name.StartsWith("thermal"))
+                            {
+                                colour = Color.Orange;
+                            }
+                            else if (myself.Name.StartsWith("water"))
+                            {
+                                colour = Color.DodgerBlue;
+                            }
                         }
 
                         labelSprite.Draw(spriteBatch, labelArea, colour);
