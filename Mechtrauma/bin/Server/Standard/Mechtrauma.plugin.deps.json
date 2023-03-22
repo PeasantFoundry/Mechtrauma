@@ -1,0 +1,137 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Mechtrauma.plugin/1.0.0": {
+        "dependencies": {
+          "0Harmony": "2.2.2.0",
+          "DedicatedServer": "0.21.6.0",
+          "Mono.Cecil": "0.11.4.0",
+          "MonoGame.Framework.Windows.NetStandard": "3.7.0.0",
+          "MonoMod.Common": "22.6.3.1",
+          "MoonSharp.Interpreter": "2.0.0.0",
+          "NetScriptAssembly": "0.0.0.0",
+          "XNATypes": "1.0.0.0"
+        },
+        "runtime": {
+          "Mechtrauma.plugin.dll": {}
+        }
+      },
+      "0Harmony/2.2.2.0": {
+        "runtime": {
+          "0Harmony.dll": {
+            "assemblyVersion": "2.2.2.0",
+            "fileVersion": "2.2.2.0"
+          }
+        }
+      },
+      "DedicatedServer/0.21.6.0": {
+        "runtime": {
+          "DedicatedServer.dll": {
+            "assemblyVersion": "0.21.6.0",
+            "fileVersion": "0.21.6.0"
+          }
+        }
+      },
+      "Mono.Cecil/0.11.4.0": {
+        "runtime": {
+          "Mono.Cecil.dll": {
+            "assemblyVersion": "0.11.4.0",
+            "fileVersion": "0.11.4.0"
+          }
+        }
+      },
+      "MonoGame.Framework.Windows.NetStandard/3.7.0.0": {
+        "runtime": {
+          "MonoGame.Framework.Windows.NetStandard.dll": {
+            "assemblyVersion": "3.7.0.0",
+            "fileVersion": "3.7.0.0"
+          }
+        }
+      },
+      "MonoMod.Common/22.6.3.1": {
+        "runtime": {
+          "MonoMod.Common.dll": {
+            "assemblyVersion": "22.6.3.1",
+            "fileVersion": "22.6.3.1"
+          }
+        }
+      },
+      "MoonSharp.Interpreter/2.0.0.0": {
+        "runtime": {
+          "MoonSharp.Interpreter.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
+      "NetScriptAssembly/0.0.0.0": {
+        "runtime": {
+          "NetScriptAssembly.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "XNATypes/1.0.0.0": {
+        "runtime": {
+          "XNATypes.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Mechtrauma.plugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "0Harmony/2.2.2.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DedicatedServer/0.21.6.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Mono.Cecil/0.11.4.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MonoGame.Framework.Windows.NetStandard/3.7.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MonoMod.Common/22.6.3.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MoonSharp.Interpreter/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetScriptAssembly/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "XNATypes/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

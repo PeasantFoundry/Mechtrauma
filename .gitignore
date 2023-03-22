@@ -35,6 +35,11 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
+!bin/
+
+[Bb]in/*
+!bin/Client/Standard/
+!bin/Server/Standard/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/

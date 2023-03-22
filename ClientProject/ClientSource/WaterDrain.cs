@@ -38,7 +38,7 @@ namespace Mechtrauma
 
         partial void UpdateProjSpecific(float deltaTime)
         {
-            if (FlowPercentage < 0.0f)
+            if (FlowPercentage < -0.3f)
             {
                 foreach (var (position, emitter) in pumpOutEmitters)
                 {
@@ -62,7 +62,7 @@ namespace Mechtrauma
                         velocityMultiplier: MathHelper.Lerp(0.5f, 1.0f, -FlowPercentage / 100.0f));
                 }
             }
-            else if (FlowPercentage > 0.0f)
+            else if (FlowPercentage > 0.3f)
             {
                 foreach (var (position, emitter) in pumpInEmitters)
                 {

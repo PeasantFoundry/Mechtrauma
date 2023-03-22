@@ -3061,6 +3061,7 @@
   </Item>
 
   <!-- Advance water system -->
+  <!-- TODO: Replace place holder models, damage and status effects-->
   <Item name="Water Drain" identifier="waterdrain" category="Machine" tags="" scale="0.5" linkable="true">
     <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <Sprite texture="Content/Items/Alien/Legacy/AlienRuin_Legacy.png" depth="0.91" sourcerect="203,512,53,52" />
@@ -3125,16 +3126,6 @@
       <PumpOutEmitter particle="bubbles" particlespersecond="5" position="157,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
       <PumpOutEmitter particle="bubbles" particlespersecond="5" position="260,-150" anglemin="0" anglemax="360" velocitymin="0" velocitymax="0" />
 
-      <!-- Activate the pump if there is a viable electric motor. -->      
-      <StatusEffect type="Always" target="This" targetslot="0" duration="1.0" stackable="false" tags="hasmotor" setvalue="true" isactive="true" checkconditionalalways="true" disabledeltatime="true" Comparison="And">
-        <RequiredItem items="electric_motor" targetcontainer="true" type="Contained" targetslot="0" mincondition="1.0" />         
-      </StatusEffect>  
-      
-      <!-- Deactivate the pump if there isn't a viable electric motor. --> 
-      <StatusEffect type="Always" target="This" delay="2" stackable="false" setvalue="true" isactive="false" checkconditionalalways="false" disabledeltatime="false" Comparison="And">
-        <Conditional HasStatusTag="neq hasmotor" targetitemcomponent="CentralPump" />   
-      </StatusEffect>  
-
     </CentralPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" msg="MotorMount">
@@ -3142,14 +3133,8 @@
        <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
        
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">      
-
-        <!-- Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22-->        
-        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.25" Comparison="And">
-          <Conditional CurrFlow="neq 0.0" targetcontainer="true" targetitemcomponent="CentralPump"/>
-        </StatusEffect>
-
-        </Containable>
+       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+       </Containable>
      </ItemContainer>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
@@ -3163,6 +3148,7 @@
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
       <input name="power_in" displayname="connection.powerin" />
+	  <input name="waterGate_in" displayname="connection.watergatein1" />
       <input name="toggle" displayname="connection.togglestate" />
       <input name="set_active" displayname="connection.setstate" />
       <input name="set_speed" displayname="connection.setpumpingspeed" />
