@@ -132,6 +132,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <!-- SCBA PROTECTION:  -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
@@ -267,6 +273,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <!-- SCBA PROTECTION: -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
@@ -506,6 +518,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <!-- SCBA PROTECTION:  -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
@@ -660,6 +678,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <!-- SCBA PROTECTION:  -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
@@ -869,6 +893,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <!-- SCBA PROTECTION:  -->
       <StatusEffect type="OnWearing" setvalue="true" target="This,Character">
         <Conditional condition="gte 1" />
@@ -1009,6 +1039,12 @@
         <Conditional condition="gte 1" />
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+  
       <StatusEffect type="OnWearing" target="This,Character" HideFace="true" ObstructVision="true" SpeedMultiplier="0.5" PropulsionSpeedMultiplier="0.5" LowPassMultiplier="0.2" setvalue="true" disabledeltatime="true">
         <!-- <Conditional Condition="gt 50.0" targetcontainer="true" targetitemcomponent="wearable"/> -->
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="500" loop="true"/>
@@ -1142,6 +1178,12 @@
       <!-- PRESSURE PROTECTION: Modest pressure protection when non broken -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="6000.0" disabledeltatime="true">
         <Conditional condition="gte 1" />         
+      </StatusEffect>
+  
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
       </StatusEffect>
   
       <!-- SCBA PROTECTION:  -->
@@ -1613,6 +1655,12 @@
       <!-- PRESSURE PROTECTION: Modest pressure protection when non broken -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="2500.0" disabledeltatime="true">
         <Conditional condition="gte 1" />         
+      </StatusEffect>
+
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" condition="-4">
+          <Conditional condition="lte 5.0" targetcontainer="true" />
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
       </StatusEffect>
   
       <!-- SCBA PROTECTION:  -->
