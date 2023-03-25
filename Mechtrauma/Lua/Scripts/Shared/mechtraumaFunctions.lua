@@ -31,7 +31,7 @@ function MT.F.divingSuit(item)
             if pressureProtectionMultiplier > 1 and (item.ParentInventory.Owner.AnimController.CurrentHull == null or item.ParentInventory.Owner.AnimController.CurrentHull.LethalPressure >= 80.0) then
                 pressureDamagePD = pressureProtectionMultiplier^4 -- make pressure damage exponential                            
             end
-            -- low poressure (<= 2500 protection) diving suits receive 50% deterioration dammage per delta
+            -- low pressure (<= 2500 protection) diving suits receive 50% deterioration dammage per delta
             if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
             -- apply deterioration and pressure damage to divingsuit for this update. 
             item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
@@ -44,7 +44,12 @@ function MT.F.fuseBox(item)
     local fuseWaterDamage = 0
     local fuseOvervoltDamage = 0
     local fuseDeteriorationDamage = 0    
-    local voltage = item.GetComponentString("PowerTransfer").Voltage
+    local component = MTUtils.GetComponentByName(item, "PowerTransfer")
+    if component == nil then
+        print("Component is nil")  
+        return
+    end
+    local voltage = component.Voltage
     
     
     --if MT.itemCache[item].counter < 0 then MT.itemCache[item].counter = 10 end
@@ -55,11 +60,11 @@ function MT.F.fuseBox(item)
     if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
         
         --fuse present logic
-        item.GetComponentString("Repairable").DeteriorationSpeed = 0.0 -- disable fuseBfox deterioration
-        item.GetComponentString("PowerTransfer").CanBeOverloaded = false -- disable overvoltage 
-        item.GetComponentString("PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
+        MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed = 0.0 -- disable fuseBfox deterioration
+        MTUtils.GetComponentByName(item, "PowerTransfer").CanBeOverloaded = false -- disable overvoltage 
+        MTUtils.GetComponentByName(item, "PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
         -- enable RelayComponent if present
-        if item.GetComponentString("RelayComponent") then item.GetComponentString("RelayComponent").SetState(true, false) end
+        if MTUtils.GetComponentByName(item, "RelayComponent") then MTUtils.GetComponentByName(item, "RelayComponent").SetState(true, false) end
 
         -- DEBUG PRINTING:
         if voltage > 1.7 then print(item.name, "voltage: ", voltage) end
@@ -67,7 +72,7 @@ function MT.F.fuseBox(item)
         -- set water, overvoltage, and deterioration damage amounts
         if item.InWater then fuseWaterDamage = 1.0 end
         
-        if item.GetComponentString("PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.FuseboxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.FuseboxDeterioration 
+        if MTUtils.GetComponentByName(item, "PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.FuseboxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.FuseboxDeterioration 
 
         if voltage > 1.7 then
             -- use the item counter to track how long the item has been overvolted
@@ -85,14 +90,14 @@ function MT.F.fuseBox(item)
     else
         
         -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires.         
-        item.GetComponentString("Repairable").DeteriorationSpeed = MT.Config.FuseboxDeterioration --enable deterioration        
-        item.GetComponentString("PowerTransfer").CanBeOverloaded = true -- enable overvoltage
-        item.GetComponentString("PowerTransfer").FireProbability = 0.9 -- increase fire probability 
+        MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed = MT.Config.FuseboxDeterioration --enable deterioration        
+        MTUtils.GetComponentByName(item, "PowerTransfer").CanBeOverloaded = true -- enable overvoltage
+        MTUtils.GetComponentByName(item, "PowerTransfer").FireProbability = 0.9 -- increase fire probability 
         -- disable RelayComponent if present
-        if item.GetComponentString("RelayComponent") then item.GetComponentString("RelayComponent").SetState(false, false) end  
+        if MTUtils.GetComponentByName(item, "RelayComponent") then MTUtils.GetComponentByName(item, "RelayComponent").SetState(false, false) end  
         -- DEBUG PRINTING:
         -- print("ITEM: ", item.name)
-        -- print("deterioration speed: ", item.name, item.GetComponentString("Repairable").DeteriorationSpeed)
+        -- print("deterioration speed: ", item.name, MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed)
         -- print("condition percentage: ", item.ConditionPercentage) 
     end
 end
@@ -100,13 +105,13 @@ end
 -- CENTRAL COMPUTER: Ships computer
 --MT.tagKeys.centralComputer = function(item)
 function MT.F.centralComputer(item)
-    if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
         CentralComputer.online  = true
-        item.GetComponentString("RelayComponent").SetState(true, false)        
+        MTUtils.GetComponentByName(item, "RelayComponent").SetState(true, false)        
         --print("Central computer online.")
     else
         CentralComputer.online  = false
-        item.GetComponentString("RelayComponent").SetState(false, false)
+        MTUtils.GetComponentByName(item, "RelayComponent").SetState(false, false)
         --print("Central computer offline.")
     end
 end
@@ -119,17 +124,17 @@ end
 -- CENTRAL COMPUTER: Ships computer
 function MT.F.centralComputerNeeded(item)    
     if CentralComputer.online  then
-        if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = true end
-        if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = true end
-        if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = true end
-        if item.GetComponentString("MiniMap") ~= nil then item.GetComponentString("MiniMap").CanBeSelected = true end
-        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = true end     
+        if MTUtils.GetComponentByName(item, "Steering") ~= nil then MTUtils.GetComponentByName(item, "Steering").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Sonar") ~= nil then MTUtils.GetComponentByName(item, "Sonar").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "CustomInterface").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "MiniMap") ~= nil then MTUtils.GetComponentByName(item, "MiniMap").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Fabricator").CanBeSelected = true end     
     elseif not CentralComputerOnline then        
-        if item.GetComponentString("Steering") ~= nil then item.GetComponentString("Steering").CanBeSelected = false end
-        if item.GetComponentString("Sonar") ~= nil then item.GetComponentString("Sonar").CanBeSelected = false end
-        if item.GetComponentString("CustomInterface") ~= nil then item.GetComponentString("CustomInterface").CanBeSelected = false end
-        if item.GetComponentString("MiniMap") ~= nil then item.GetComponentString("MiniMap").CanBeSelected = false end
-        if item.GetComponentString("Fabricator") ~= nil then item.GetComponentString("Fabricator").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Steering") ~= nil then MTUtils.GetComponentByName(item, "Steering").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Sonar") ~= nil then MTUtils.GetComponentByName(item, "Sonar").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "CustomInterface").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "MiniMap") ~= nil then MTUtils.GetComponentByName(item, "MiniMap").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Fabricator").CanBeSelected = false end
     end
 end
 
@@ -138,7 +143,7 @@ function MT.F.steamBoiler(item)
     local index = 0
 
     -- OPERATION: if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
         local curculatorItems = {}
         local curculatorSlots = 2 -- temporarily hardcoded        
         local circulatorCount = 0
@@ -183,7 +188,7 @@ function MT.F.steamTurbine(item)
     -- -0.05 deterioration per 2 second when powered
     local index = 0
     -- if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
         local bearingItems = {}
         local bladeCount = 0
         local bearingSlots = 4 -- temporarily hardcoded
@@ -226,7 +231,7 @@ function MT.F.steamTurbine(item)
         item.Condition = item.Condition - frictionDamage
 
         -- <!-- DISABLE: Cannot transmit power without turbine blades, right? -->       
-        item.GetComponentString("RelayComponent").SetState(bladeCount >= 4, false)
+        MTUtils.GetComponentByName(item, "RelayComponent").SetState(bladeCount >= 4, false)
        
     else 
        
@@ -245,7 +250,7 @@ end
 function MT.F.reductionGear(item)
     local index = 0
     -- if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and item.GetComponentString("Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
         -- oil
         local oilItems = {}
         local oilVol = 0
@@ -258,7 +263,7 @@ function MT.F.reductionGear(item)
         local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local driveGearCount = 0
 
-        local forceStrength = MT.HF.Round(item.GetComponentString("Engine").Force, 2)
+        local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Engine").Force, 2)
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
 
         --loop through the Reduction Gear inventory        

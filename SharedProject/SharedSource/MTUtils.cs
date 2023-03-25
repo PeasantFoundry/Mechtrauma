@@ -6,11 +6,15 @@ namespace Mechtrauma;
 
 public static class MTUtils
 {
-    private static readonly MethodInfo MGetComponentsByNameInternal =
-        AccessTools.DeclaredMethod(typeof(Barotrauma.Item), "GetComponent");
-    
-    public static object GetComponentsByName(Item item, string name)
+    public static object GetComponentByName(Item item, string name)
     {
-        throw new NotImplementedException();
+#if DEBUG
+        Utils.Logging.PrintMessage($"MTUtils::GetComponentByName() | SearchName: { name }");
+#endif
+        var type = AssemblyUtils.GetAllTypesInLoadedAssemblies()
+            .FirstOrDefault(t => t?.FullName?.EndsWith(name) ?? t?.Name.EndsWith(name) ?? false, null);
+        if (type is null)
+            return null!;
+        return item.Components.FirstOrDefault(c =>c?.GetType().IsAssignableTo(type) ?? false, null)!;
     }
 }

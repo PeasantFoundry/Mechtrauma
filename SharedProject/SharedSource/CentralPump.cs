@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
+#pragma warning disable CS8625
 
 namespace Mechtrauma
 {

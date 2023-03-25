@@ -16,7 +16,7 @@ function MT.HF.findComponent(item, value)
 function MT.HF.MechtraumaClean()
     for k, item in pairs(Item.ItemList) do        
         --if item.ParentInventory == nil then print("THIS ITEM IS LOOSE!", item) end
-        if item.GetComponentString("Pickable") and item.GetComponentString("Pickable").IsAttached == false and item.parentInventory == nil and not item.GetComponentString("Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
+        if MTUtils.GetComponentByName(item, "Pickable") and MTUtils.GetComponentByName(item, "Pickable").IsAttached == false and item.parentInventory == nil and not MTUtils.GetComponentByName(item, "Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
             print("Item is cleanable: ", item)
             MT.HF.RemoveItem(item)
             print("REMOVED: ", item)

@@ -22,13 +22,13 @@ namespace Mechtrauma
 
         public void Initialize()
         {
-            changePowerRules();
             Utils.Logging.PrintMessage("Mechtrauma starting...");
+            ChangePowerRules();
             InitUserData();
+            Utils.Logging.PrintMessage(UserData.GetDescriptorForType(typeof(MTUtils), false).ToString());
 
 #if SERVER
             //GameMain.Server?.SendChatMessage("Started Mechtrauma");
-
 #elif CLIENT
             //GameMain.Client?.SendChatMessage("Started Mechtrauma");
             ClientInitialize();
@@ -55,12 +55,18 @@ namespace Mechtrauma
             UserData.RegisterType<SimpleGenerator>();
             UserData.RegisterType<WaterDrain>();
 
+            UserData.RegisterType(typeof(MTUtils));
+
+            GameMain.LuaCs.Lua.Globals["MTUtils"] = UserData.CreateStatic(typeof(MTUtils));
             GameMain.LuaCs.Lua.Globals["MTConfig"] = Configuration.Instance;
         }
 
         private void UnloadUserData()
         {
             GameMain.LuaCs.Lua.Globals["MTConfig"] = null;
+            GameMain.LuaCs.Lua.Globals["MTUtils"] = null;
+
+            UserData.RegisterType(typeof(MTUtils));
 
             UserData.UnregisterType<Configuration.Settings_Experimental>();
             UserData.UnregisterType<Configuration.Settings_Advanced>();
@@ -82,10 +88,8 @@ namespace Mechtrauma
             // stopping code, e.g. save custom data
 #if SERVER
             // server-side code
-
-#elif CLIENT
-                // client-side code
-                
+#elif CLIENT 
+            // client-side code
 #endif
         }
         
@@ -99,7 +103,7 @@ namespace Mechtrauma
         };
 
         // Change the power connection rules to isolate the steam, power and kinetic networks.
-        private void changePowerRules()
+        private void ChangePowerRules()
         {
             // Changes the power connections limits to create steam and kinetic grids as well as the power grid.
             GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered",
