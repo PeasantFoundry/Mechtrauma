@@ -11,10 +11,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
+#pragma warning disable CS8625
 
-namespace Barotrauma.Items.Components 
+namespace Mechtrauma 
 {
-    class ControllablePowerContainer : PowerContainer {
+    public class ControllablePowerContainer : PowerContainer {
 
         [Editable, Serialize(true, IsPropertySaveable.Yes, description: "Turn the power container output on and off", alwaysUseInstanceValues: true)]
         public bool IsOn { 

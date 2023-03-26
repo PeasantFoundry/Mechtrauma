@@ -5,7 +5,7 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
         local samplePrefab = ItemPrefab.GetItemPrefab("bacterial_sample_a4")
      
         local outcome = math.random(250)
-        local terminal = item.GetComponentString("Terminal")
+        local terminal = MTUtils.GetComponentByName(item, "Terminal")
         
         
      
@@ -29,7 +29,7 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
             terminal.ShowMessage = "No known compound has been identified."    
 
         print("failure, not spawning an item with an outcome of:", outcome)
-        print(item.GetComponentString("ItemContainer"))      
+        print(MTUtils.GetComponentByName(item, "ItemContainer"))      
         end    
   
 end)
