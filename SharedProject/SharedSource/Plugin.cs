@@ -86,6 +86,7 @@ namespace Mechtrauma
         {
             UnloadUserData();
             // stopping code, e.g. save custom data
+            MTUtils.PurgeTypeCache();
 #if SERVER
             // server-side code
 #elif CLIENT 
@@ -240,5 +241,7 @@ namespace Mechtrauma
             // Remove the power_in pin from the relay check as it causes an uncessary warning that doesn't affect it's functionality
             RelayComponent.connectionPairs.Remove("power_in");
         }
+        
+        
     }
 }

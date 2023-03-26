@@ -9,7 +9,7 @@ function MT.F.relayIgnition(item)
 end
 
 function MT.F.sGeneratorIgnition(item)
-    local ignition = MT.HF.findComponent(item, "SimpleGenerator").IsOn
+    local ignition = MTUtils.GetComponentByName(item, "SimpleGenerator").IsOn
     return ignition
 end
 
