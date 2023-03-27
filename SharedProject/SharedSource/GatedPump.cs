@@ -60,7 +60,7 @@ namespace Mechtrauma
                 FlowPercentage = ((float)TargetLevel - hullPercentage) * 10.0f;
             }
 
-            Item? battery = getBackupBattery();
+            Item? battery = GetBackupBattery();
             if (!HasPower)
             {
                 if (BatteryPowerable && battery != null && battery.Condition > 0.0f)
