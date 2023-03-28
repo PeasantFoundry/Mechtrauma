@@ -14,22 +14,12 @@ using System.Linq;
 
 namespace Mechtrauma 
 {
-    partial class WaterGate : Powered {
+    public partial class WaterGate : Powered {
 
-        public float MaxFlow
-        {
-            get => maxFlow;
-            set => maxFlow = value;
-        }
-        private float maxFlow = 100.0f;
+        public float MaxFlow { get; set; } = 100.0f;
 
         [Serialize(false, IsPropertySaveable.Yes, alwaysUseInstanceValues: true)]
-        public bool IsInfected 
-        {
-            get => isInfected;
-            set => isInfected = value;
-        }
-        private bool isInfected = false;
+        public bool IsInfected { get; set; }
 
         partial void InitProjSpecific(ContentXElement element);
 

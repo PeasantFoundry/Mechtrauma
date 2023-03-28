@@ -87,7 +87,7 @@ namespace Mechtrauma
                 FlowPercentage = ((float)TargetLevel - hullPercentage) * 10.0f;
             }
 
-            Item? battery = getBackupBattery();
+            Item? battery = GetBackupBattery();
             if (!HasPower)
             {
                 if (BatteryPowerable && battery != null && battery.Condition > 0.0f)
@@ -149,7 +149,7 @@ namespace Mechtrauma
             if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }
 
-        protected Item? getBackupBattery()
+        protected Item? GetBackupBattery()
         {
             ItemInventory inv = item.OwnInventory;
             if (inv != null)
