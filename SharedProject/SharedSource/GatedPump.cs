@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Mechtrauma
 {
-    class GatedPump : BatteryPump
+    public class GatedPump : BatteryPump
     {
         [Editable, Serialize(false, IsPropertySaveable.No, description: "Should an external water gate be required to function", alwaysUseInstanceValues: true)]
         public bool NeedWaterGate

@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace Mechtrauma 
 {
-    partial class WaterGate : Powered {
+    public partial class WaterGate : Powered {
 
         public float MaxFlow { get; set; } = 100.0f;
 
