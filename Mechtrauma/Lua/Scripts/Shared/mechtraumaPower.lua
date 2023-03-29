@@ -4,13 +4,11 @@ MT.gridCyclestime = MT.GridUpdateInterval/60 -- Time in seconds that transpires 
 
 -- engine ignition types
 function MT.F.relayIgnition(item)
-    local ignition = MTUtils.GetComponentByName(item, "RelayComponent").IsOn
-    return ignition
+    return MTUtils.GetComponentByName(item, "RelayComponent").IsOn
 end
 
 function MT.F.sGeneratorIgnition(item)
-    local ignition = MTUtils.GetComponentByName(item, "SimpleGenerator").IsOn
-    return ignition
+    return MTUtils.GetComponentByName(item, "SimpleGenerator").IsOn
 end
 
 --table for dieselEngine models
@@ -84,7 +82,6 @@ MT.DE = {
 function MT.F.dieselGenerator(item)
     -- convert load(kW) to targetPower(HP) 1.341022   
     local simpleGenerator = MTUtils.GetComponentByName(item, "SimpleGenerator")
-    local powered = MTUtils.GetComponentByName(item, "Powered")
     local targetPower = MT.HF.Clamp(simpleGenerator.GridLoad, 0, simpleGenerator.MaxPowerOut)
     
     -- print(simpleGenerator.IsOn)
@@ -204,7 +201,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         item.Condition = item.Condition - frictionDamage
 
         -- DEBUG PRINTING: 
-        print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
+        -- print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
         -- DEBUG PRINTING: print("Filration will last for: ", (oilFiltrationVol / MT.Config.OilFilterDPS) / 60 ) -- no need to calculate the deltaTime here since calc is in dps
 
