@@ -22,7 +22,7 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
     -- check if you're a junctionbox or a fusepanel   
     if item.HasTag("junctionbox") then -- need to add fuse panel support later  
       -- i don't know why an item would have a junctionbox tag but no PowerTransfer Component but this makes the code harder to break
-      local powerComponent = MTUtils.GetComponentByName(item, "PowerTransfer");
+      local powerComponent = MTUtils.GetComponentByName(item, ".PowerTransfer");
       local electrocutionStrength = MT.HF.Clamp((powerComponent.PowerLoad/100 or 2000) * (powerComponent.Voltage or 1), 1, 200) 
       print("electrocutionStrength: ", electrocutionStrength)
       
@@ -132,7 +132,7 @@ end)
 -- MEDICAL TABLET: Hematology Report
 Hook.Add("medicalTablet_hR.OnUse", "MT.hematologyReport", function(effect, deltaTime, item, targets, worldPosition, client)
   --local containedItem = item.OwnInventory.GetItemAt(0)
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local bloodBankInventory = {}
   if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
@@ -194,7 +194,7 @@ end)
 -- MEDICAL TABLET: Pharmacy Report
 Hook.Add("medicalTablet_pR.OnUse", "MT.pharmacyReport", function(effect, deltaTime, item, targets, worldPosition, client)
   --local containedItem = item.OwnInventory.GetItemAt(0)  
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local pharmacyInventory = {}
   --local itemStack = {}
   if CentralComputer.online then
@@ -248,7 +248,7 @@ end)
 -- MAINTENANCE TABLET
 Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(effect, deltaTime, item, targets, worldPosition, client)
  
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local poweredList = {}
   local totalPowerConsumption = 0
   local hull = "ERROR"
@@ -267,12 +267,12 @@ Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(ef
       end 
     end
 
-    table.sort(poweredList, function (k1, k2) return MTUtils.GetComponentByName(k1, "Powered").CurrPowerConsumption < MTUtils.GetComponentByName(k2, "Powered").CurrPowerConsumption end )
+    table.sort(poweredList, function (k1, k2) return MTUtils.GetComponentByName(k1, ".Powered").CurrPowerConsumption < MTUtils.GetComponentByName(k2, "Powered").CurrPowerConsumption end )
 
     for k, item in pairs(poweredList) do
       hull = "ERROR"
       if item.FindHull() ~= nil then hull = item.FindHull().DisplayName.Value end      
-      terminal.ShowMessage = "[Power: " .. MT.HF.Round(MTUtils.GetComponentByName(item, "Powered").CurrPowerConsumption, 2) .. "kW | Fixture: " .. item.name .. " | Location: " .. hull .. "]"            
+      terminal.ShowMessage = "[Power: " .. MT.HF.Round(MTUtils.GetComponentByName(item, ".Powered").CurrPowerConsumption, 2) .. "kW | Fixture: " .. item.name .. " | Location: " .. hull .. "]"            
     end
     
     terminal.TextColor = Color(255, 69, 0, 255)
@@ -293,7 +293,7 @@ end)
 
 Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)
   --local containedItem = item.OwnInventory.GetItemAt(0)
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local co2FilterList = {}
   local co2FilterCount = 0
   local co2FilterExpiredCount = 0
@@ -348,7 +348,7 @@ end)
 
 Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, deltaTime, item, targets, worldPosition, client)
   --local containedItem = item.OwnInventory.GetItemAt(0)
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local terminalItem = item
   local property = terminal.SerializableProperties[Identifier("TextColor")]
   local pumpList = {}
@@ -418,7 +418,7 @@ end)
 
 Hook.Add("maintenanceTablet_fsr.OnUse", "MT.fuseStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)
   -- terminal goodness
-  local terminal = MTUtils.GetComponentByName(item, "Terminal")
+  local terminal = MTUtils.GetComponentByName(item, ".Terminal")
   local property = terminal.SerializableProperties[Identifier("TextColor")]
 
   local fuseList = {}

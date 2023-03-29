@@ -44,12 +44,13 @@ function MT.F.fuseBox(item)
     local fuseWaterDamage = 0
     local fuseOvervoltDamage = 0
     local fuseDeteriorationDamage = 0    
-    local component = MTUtils.GetComponentByName(item, "PowerTransfer")
-    if component == nil then
-        print("Component is nil")  
+    local powerComponent = MTUtils.GetComponentByName(item, ".PowerTransfer")
+    local repairableComponent = MTUtils.GetComponentByName(item, ".Repairable")
+    local relayComponent = MTUtils.GetComponentByName(item, ".RelayComponent")
+    if powerComponent == nil or repairableComponent == nil then
         return
     end
-    local voltage = component.Voltage
+    local voltage = powerComponent.Voltage
     
     
     --if MT.itemCache[item].counter < 0 then MT.itemCache[item].counter = 10 end
@@ -60,11 +61,11 @@ function MT.F.fuseBox(item)
     if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
         
         --fuse present logic
-        MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed = 0.0 -- disable fuseBfox deterioration
-        MTUtils.GetComponentByName(item, "PowerTransfer").CanBeOverloaded = false -- disable overvoltage 
-        MTUtils.GetComponentByName(item, "PowerTransfer").FireProbability = 0.1 -- reduce fire probability 
+        repairableComponent.DeteriorationSpeed = 0.0 -- disable fuseBfox deterioration
+        powerComponent.CanBeOverloaded = false -- disable overvoltage 
+        powerComponent.FireProbability = 0.1 -- reduce fire probability 
         -- enable RelayComponent if present
-        if MTUtils.GetComponentByName(item, "RelayComponent") then MTUtils.GetComponentByName(item, "RelayComponent").SetState(true, false) end
+        if relayComponent then relayComponent.SetState(true, false) end
 
         -- DEBUG PRINTING:
         if voltage > 1.7 then print(item.name, "voltage: ", voltage) end
@@ -72,14 +73,14 @@ function MT.F.fuseBox(item)
         -- set water, overvoltage, and deterioration damage amounts
         if item.InWater then fuseWaterDamage = 1.0 end
         
-        if MTUtils.GetComponentByName(item, "PowerTransfer").PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.FuseboxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.FuseboxDeterioration 
+        if powerComponent.PowerLoad ~= 0 then fuseDeteriorationDamage = MT.Config.FuseboxDeterioration * 0.1 end  --detiorate the fuse at 10% of MT.Config.FuseboxDeterioration 
 
         if voltage > 1.7 then
             -- use the item counter to track how long the item has been overvolted
             MT.itemCache[item].counter = MT.itemCache[item].counter + 1
             -- only apply overvoltage damage if overvoltage has lasted for more than 1 update
             if MT.itemCache[item].counter > 1 then
-                fuseOvervoltDamage = MT.Config.FuseOvervoltDamage * voltage-- this needs to scale with load overvoltage on 10,000kw should do more damage than on 100kw     
+                fuseOvervoltDamage = MT.Config.FuseboxOvervoltDamage * voltage-- this needs to scale with load overvoltage on 10,000kw should do more damage than on 100kw     
             end         
         else
             MT.itemCache[item].counter = 0
@@ -90,14 +91,14 @@ function MT.F.fuseBox(item)
     else
         
         -- fuseBox: if the fuse is missing enable deterioration, overvoltage, and fires.         
-        MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed = MT.Config.FuseboxDeterioration --enable deterioration        
-        MTUtils.GetComponentByName(item, "PowerTransfer").CanBeOverloaded = true -- enable overvoltage
-        MTUtils.GetComponentByName(item, "PowerTransfer").FireProbability = 0.9 -- increase fire probability 
+        repairableComponent.DeteriorationSpeed = MT.Config.FuseboxDeterioration --enable deterioration        
+        powerComponent.CanBeOverloaded = true -- enable overvoltage
+        powerComponent.FireProbability = 0.9 -- increase fire probability 
         -- disable RelayComponent if present
-        if MTUtils.GetComponentByName(item, "RelayComponent") then MTUtils.GetComponentByName(item, "RelayComponent").SetState(false, false) end  
+        if relayComponent then relayComponent.SetState(false, false) end  
         -- DEBUG PRINTING:
         -- print("ITEM: ", item.name)
-        -- print("deterioration speed: ", item.name, MTUtils.GetComponentByName(item, "Repairable").DeteriorationSpeed)
+        -- print("deterioration speed: ", item.name, repairableComponent.DeteriorationSpeed)
         -- print("condition percentage: ", item.ConditionPercentage) 
     end
 end
@@ -122,7 +123,7 @@ end
 
 
 -- CENTRAL COMPUTER: Ships computer
-function MT.F.centralComputerNeeded(item)    
+function MT.F.centralComputerNeeded(item)
     if CentralComputer.online  then
         if MTUtils.GetComponentByName(item, "Steering") ~= nil then MTUtils.GetComponentByName(item, "Steering").CanBeSelected = true end
         if MTUtils.GetComponentByName(item, "Sonar") ~= nil then MTUtils.GetComponentByName(item, "Sonar").CanBeSelected = true end

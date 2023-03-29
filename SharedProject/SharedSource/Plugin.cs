@@ -25,8 +25,6 @@ namespace Mechtrauma
             Utils.Logging.PrintMessage("Mechtrauma starting...");
             ChangePowerRules();
             InitUserData();
-            Utils.Logging.PrintMessage(UserData.GetDescriptorForType(typeof(MTUtils), false).ToString());
-
 #if SERVER
             //GameMain.Server?.SendChatMessage("Started Mechtrauma");
 #elif CLIENT
