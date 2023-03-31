@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace Mechtrauma 
 {
-    partial class WaterDrain : Powered {
+    public partial class WaterDrain : Powered {
 
         [Editable, Serialize(80.0f, IsPropertySaveable.No, description: "How fast the item pumps water in/out when operating at 100%.", alwaysUseInstanceValues: true)]
         public float MaxFlow
@@ -56,6 +56,7 @@ namespace Mechtrauma
         public WaterDrain(Item item, ContentXElement element) : base(item, element) 
         {
             IsActive = true;
+            PowerConsumption = MaxFlow;
             InitProjSpecific(element);
         }
 
@@ -68,13 +69,19 @@ namespace Mechtrauma
                 return;
             }
 
+            PowerConsumption = MaxFlow;
+            if (Voltage > 1)
+            {
+                Voltage -= deltaTime * 5;
+            }
+
             UpdateProjSpecific(deltaTime);
 
             ApplyStatusEffects(ActionType.OnActive, deltaTime, null);
 
             if (item.CurrentHull == null) { return; }
 
-            currFlow = MaxFlow * (Voltage - float.Epsilon);
+            currFlow = CurrPowerConsumption * (Voltage - float.Epsilon);
             item.CurrentHull.WaterVolume += currFlow * deltaTime * Timing.FixedUpdateRate;
             if (item.CurrentHull.WaterVolume > item.CurrentHull.Volume) { item.CurrentHull.Pressure += 30.0f * deltaTime; }
         }

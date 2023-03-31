@@ -11,7 +11,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Barotrauma.Items.Components;
 
-namespace Barotrauma.Items.Components 
+namespace Mechtrauma
 {
     public class FusedJB : PowerTransfer {
         public bool BrokenFuse { 

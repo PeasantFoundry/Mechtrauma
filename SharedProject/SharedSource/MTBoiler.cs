@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 
-namespace Barotrauma.Items.Components 
+namespace Mechtrauma
 {
-    class MTBoiler : PowerContainer {
+    public class MTBoiler : PowerContainer {
 
         public MTBoiler(Item item, ContentXElement element) : base(item, element) {
             // call base constructor

@@ -4,13 +4,11 @@ MT.gridCyclestime = MT.GridUpdateInterval/60 -- Time in seconds that transpires 
 
 -- engine ignition types
 function MT.F.relayIgnition(item)
-    local ignition = item.GetComponentString("RelayComponent").IsOn
-    return ignition
+    return MTUtils.GetComponentByName(item, "RelayComponent").IsOn
 end
 
 function MT.F.sGeneratorIgnition(item)
-    local ignition = MT.HF.findComponent(item, "SimpleGenerator").IsOn
-    return ignition
+    return MTUtils.GetComponentByName(item, "SimpleGenerator").IsOn
 end
 
 --table for dieselEngine models
@@ -83,8 +81,7 @@ MT.DE = {
 -- called by updateItems
 function MT.F.dieselGenerator(item)
     -- convert load(kW) to targetPower(HP) 1.341022   
-    local simpleGenerator = MT.HF.findComponent(item, "SimpleGenerator")
-    local powered = item.GetComponentString("Powered")
+    local simpleGenerator = MTUtils.GetComponentByName(item, "SimpleGenerator")
     local targetPower = MT.HF.Clamp(simpleGenerator.GridLoad, 0, simpleGenerator.MaxPowerOut)
     
     -- print(simpleGenerator.IsOn)

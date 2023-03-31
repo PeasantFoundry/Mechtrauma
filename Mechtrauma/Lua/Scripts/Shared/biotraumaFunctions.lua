@@ -6,7 +6,7 @@ function BT.F.oxygenVentSpawn(item)
     local fungusPrefab = ItemPrefab.GetItemPrefab("spore_fungus")
     
     --if disabled in config do nothing.    
-    if MT.Config.VentSpawnRate > 0 and item.GetComponentString("Vent").OxygenFlow > 0 then
+    if MT.Config.VentSpawnRate > 0 and MTUtils.GetComponentByName(item, ".Vent").OxygenFlow > 0 then
         -- spawn events take MT.oxygenVentCount into consideration because spawn event probability is shared between the vents
         -- probability: target spawns per hour / spawn chances per hour
         
