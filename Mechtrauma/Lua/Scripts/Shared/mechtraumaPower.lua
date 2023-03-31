@@ -204,7 +204,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         item.Condition = item.Condition - frictionDamage
 
         -- DEBUG PRINTING: 
-        print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
+        -- print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
         -- DEBUG PRINTING: print("Filration will last for: ", (oilFiltrationVol / MT.Config.OilFilterDPS) / 60 ) -- no need to calculate the deltaTime here since calc is in dps
 
