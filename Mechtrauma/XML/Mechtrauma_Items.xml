@@ -328,6 +328,9 @@
 <!-- DIESEL FUEL CAN: -->
   <Item name="Diesel Fuel Can" identifier="diesel_fuel_can" Category="Fuel" Tags="mediumitem,diesel_fuel" maxstacksize="1" cargocontaineridentifier="metalcrate" health="2000" scale="0.25">
     <PreferredContainer primary="reactorcab"/>
+    <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
+		<PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
+		<PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="2" spawnprobability="0.5"/>
     
     <Price baseprice="50" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -389,6 +392,9 @@
   <!-- SCRAP COPPER: -->
   <Item name="Scrap Copper" identifier="scrap_copper" Category="material" Tags="smallitem,material,mechanical" maxstacksize="64" cargocontaineridentifier="metalcrate" health="10" scale="0.25">
     <PreferredContainer primary="mechcab"/>
+    <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="10" spawnprobability="0.5"/>
+		<PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="10" spawnprobability="0.5"/>
+		<PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="10" spawnprobability="0.5"/>
     <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="64,320,56,64" depth="0.55" origin="0.5,0.5" />
     <Body width="64" height="64" density="60" />
     <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"/>
@@ -960,6 +966,9 @@
   <!-- OIL CAN: -->
   <Item name="Oil Can" identifier="oil_can" Category="Fuel" Tags="smallitem,oil,deciliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="400" scale="0.25">
       <PreferredContainer primary="reactorcab"/>    
+      <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
+		  <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
+		  <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="2" spawnprobability="0.5"/>
       <Price baseprice="50" displaynonempty="true" minavailable="2">
         <Price storeidentifier="merchantoutpost" />
         <Price storeidentifier="merchantcity" minavailable="3" />
