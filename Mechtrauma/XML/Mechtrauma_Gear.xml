@@ -1111,7 +1111,7 @@
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="250" loop="true"/>
       </StatusEffect>
 
-      <!-- PRESSURE PROTECTION: Modest pressure protection when non broken -->
+      <!-- PRESSURE PROTECTION:  -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="10000.0" disabledeltatime="true">
         <Conditional condition="gte 1" />         
       </StatusEffect>
@@ -1657,7 +1657,6 @@
     </ItemContainer>
     <aitarget maxsightrange="1500" />  
   </Item>
-
   
   <!-- DRY SUIT: -->
   <Item name="" identifier="dry_suit" category="Equipment" tags="provocative,deepdiving,diving,mtupdate" scale="0.5" fireproof="false" description="" allowdroppingonswapwith="diving,scba" impactsoundtag="impact_metal_heavy">

@@ -12,7 +12,7 @@
 <Item name="" identifier="textdisplaylarge" category="Electrical" scale="0.5" Tags="mediumitem,logic" impactsoundtag="impact_metal_light" resizehorizontal="true" cargocontaineridentifier="metalcrate" isshootable="true" spritecolor="136,142,166,100">
     <sprite texture="Content/Items/Labels/labels.png" sourcerect="0,48,240,48" depth="0.65"/>
     <ItemLabel scrollable="true" padding="0,2,0,2" textcolor="1,1,1,255">
-      <LightComponent range="0.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false">
+      <LightComponent range="0.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false" alphablend="false">
         <sprite texture="Content/Items/Labels/labels.png" sourcerect="0,48,240,48"  depth="0.025" origin="0.5,0.5" alpha="1.0"/>
       </LightComponent>
     </ItemLabel>
@@ -29,7 +29,7 @@
   <Item name="" identifier="textdisplay_short_tight" category="Electrical" scale="0.5" Tags="mediumitem,logic" impactsoundtag="impact_metal_light" cargocontaineridentifier="metalcrate" isshootable="true" spritecolor="136,142,166,100">
     <sprite texture="Content/Items/Labels/labels.png" sourcerect="0,0,60,20" depth="0.65"/>
     <ItemLabel scrollable="true" padding="0,0,0,0" textcolor="1,1,1,1">
-      <LightComponent range="0.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false">
+      <LightComponent range="0.0" lightcolor="255,255,255,0" IsOn="true" castshadows="false" alphablend="false">
         <sprite texture="Content/Items/Labels/labels.png" sourcerect="0,0,60,20"  depth="0.025" origin="0.5,0.5" alpha="1.0"/>
       </LightComponent>
     </ItemLabel>
