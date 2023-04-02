@@ -126,7 +126,15 @@
       <sprite name="FatBoy Left Leg" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.4,0.52" inheritsourcerect="false" sourcerect="92,130,56,128" inheritdepth="false" depth="0.40" />
       <sprite name="FatBoy Left Shoe" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="FatBoy Right Shoe" texture="%ModDir%/Images/gear/fatboy.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
- 
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="4000.0" disabledeltatime="true">
         <Conditional condition="gte 1" />
@@ -261,6 +269,14 @@
       <sprite name="Expedition Diving Suit Left Leg" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="96,132,46,118"  />
       <sprite name="Expedition Diving Suit Left Shoe" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Expedition Diving Suit Right Shoe" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="4000.0" disabledeltatime="true">
@@ -500,7 +516,15 @@
       <sprite name="Armored Diving Suit Left Leg" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="96,132,46,116" />
       <sprite name="Armored Diving Suit Left Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Armored Diving Suit Right Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-     
+           
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
+
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="5000.0" disabledeltatime="true">
         <Conditional condition="gte 1" />
@@ -653,6 +677,14 @@
       <StatusEffect type="OnWearing" target="Character" HideFace="true" UseHullOxygen="true" ObstructVision="true" SpeedMultiplier="0.7" PropulsionSpeedMultiplier="0.9" LowPassMultiplier="0.2" setvalue="true" disabledeltatime="true">
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="500" loop="true"/>
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="500" loop="true"/>
+      </StatusEffect>
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
       </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
@@ -863,6 +895,14 @@
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="500" loop="true"/>
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="500" loop="true"/>
       </StatusEffect>
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="4000.0" disabledeltatime="true">
@@ -1003,6 +1043,14 @@
         <Conditional condition="gte 1" />
         <Affliction identifier="SCBA" amount="5" />        
       </StatusEffect>
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Conditionlal on the suit not being broken. -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="10000.0" disabledeltatime="true">
@@ -1109,6 +1157,14 @@
       <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" SpeedMultiplier="0.4" PropulsionSpeedMultiplier="0.25" setvalue="true" disabledeltatime="true">
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="250" loop="true"/>
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="250" loop="true"/>
+      </StatusEffect>
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
       </StatusEffect>
 
       <!-- PRESSURE PROTECTION:  -->
@@ -1262,6 +1318,14 @@
       <StatusEffect type="OnWearing" target="Character" HideFace="true" ObstructVision="true" SpeedMultiplier="0.95" PropulsionSpeedMultiplier="1.4" LowPassMultiplier="0.2" setvalue="true" disabledeltatime="true">
         <Sound file="Content/Items/Diving/DivingSuitLoop1.ogg" range="500" loop="true"/>
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="500" loop="true"/>
+      </StatusEffect>
+      
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
       </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Modest pressure protection when non broken -->
@@ -1733,6 +1797,13 @@
         <Sound file="Content/Items/Diving/DivingSuitLoop2.ogg" range="500" loop="true"/>
       </StatusEffect>
 
+      <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
+      <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
+          <Conditional condition="lte 5.0" targetcontainer="true" />          
+          <RequiredItem items="oxygensource" type="Contained" matchonempty="false" targetslot="0" />
+          <ParticleEmitter particle="steamspray" particlespersecond="40" anglemin="0" anglemax="45" velocitymin="150" velocitymax="300" highqualitycollisiondetection="true"/>
+          <Sound file="Content/Items/Diving/ITEMS_divingSuitOxygenLeakLoop.ogg" range="200" loop="true" dontmuffle="true"/>
+      </StatusEffect>
          
       <!-- PRESSURE PROTECTION: Modest pressure protection when non broken -->
       <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="2500.0" disabledeltatime="true">
