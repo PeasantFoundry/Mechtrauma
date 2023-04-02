@@ -331,7 +331,7 @@
     <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
 		<PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
 		<PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="2" spawnprobability="0.5"/>
-    
+
     <Price baseprice="50" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" minavailable="3" />
@@ -561,7 +561,7 @@
 
   <!-- DIESEL FUEL BARREL: -->
   <Item name="Diesel Fuel Barrel" identifier="diesel_fuel_barrel" Category="Fuel" Tags="largeitem,handtruck,diesel_fuel" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.4">
-    <PreferredContainer primary="reactorcab"/>    
+    <PreferredContainer primary="wreckstoragecab"/>    
     <Price baseprice="250" displaynonempty="true" minavailable="8">
       <Price storeidentifier="merchantoutpost" multiplier="1.1" />
       <Price storeidentifier="merchantcity" multiplier="2" minavailable="10" />
@@ -591,7 +591,8 @@
 
   <!-- OIL BARREL: -->
   <Item name="Oil Barrel" identifier="oil_barrel" Category="Fuel" Tags="largeitem,handtruck,oil,deciliter" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.4">
-    <PreferredContainer primary="reactorcab"/>    
+    <PreferredContainer primary="wreckstoragecab"/>    
+    
     <Price baseprice="250" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" minavailable="3" />
