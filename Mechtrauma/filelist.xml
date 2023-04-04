@@ -4,6 +4,7 @@
   <Item file="%ModDir%/XML/Mechtrauma_Gear.xml" />
   <Item file="%ModDir%/XML/Mechtrauma_Generators.xml" />
   <Item file="%ModDir%/XML/Mechtrauma_Pumps.xml" />
+  <Structure file="%ModDir%/XML/Mechtrauma_Prefabs.xml" />
   <UpgradeModules file="%ModDir%/XML/Mechtrauma_UpgradeModules.xml" />  
   <Missions file="%ModDir%/XML/Mechtrauma_Missions.xml" />
   <Afflictions file="%ModDir%/XML/Mechtrauma_Afflictions.xml" />

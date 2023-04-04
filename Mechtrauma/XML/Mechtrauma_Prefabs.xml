@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<prefabs>
+  <OpDeco name="Boiler Top" identifier="boiler_top" nameidentifier="Boiler Top" width="370" height="208" scale="0.5" noninteractable="true" category="Decorative">
+   <Sprite name="Boiler" texture="%Moddir%/Images/boiler.png" depth="0.5" sourcerect="0,0,370,208"/>
+  </OpDeco>
+
+</prefabs>
