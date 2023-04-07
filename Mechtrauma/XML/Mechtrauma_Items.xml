@@ -2199,7 +2199,7 @@
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,768,302,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,256,302,232" depth="0.8" maxcondition="0" origin="0.5,0.5" />
     <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
-      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,496,302,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,512,302,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
     </LightComponent>
     <MiniMap MinVoltage="0.5" PowerConsumption="100" canbeselected="true" msg="ItemMsgInteractSelect" allowuioverlap="false">
       <GuiFrame relativesize="0.5,0.5" minsize="600,475" anchor="TopCenter" relativeoffset="0.0,0.0" style="ItemUI" allowuioverlap="false" /> 
