@@ -1527,7 +1527,6 @@
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" />
     <!-- SPRITE: Powered -->
     <LightComponent range="10.0" lightcolor="120,250,220,1" powerconsumption="1" IsOn="true" depth="0.75" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/Images/oxygen.png" sourcerect="768,0,112,112" depth="0.82" origin="0.3,1.35" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="PowerTransfer" overload="eq False" /> -->
     </LightComponent>
 
@@ -1756,6 +1755,153 @@
       </StatusEffect>
     </Repairable>
   </Item>
+
+<!-- OXYGEN STATION: Compresses oxygen and uses it to fill smaller tanks or releases it in the event of an O2 shortage. --> 
+  <Item name="Oxygen Station CoProd" identifier="oxygen_station_cp" tags="oxygengenerator,oxygentankrefiller" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite texture="%ModDir%/Images/coprod.png" sourcerect="416,557,379,399 " depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/coprod.png" sourcerect="416,557,379,399 " origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/coprod.png" sourcerect="416,557,379,399 " origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" />
+
+ 
+    <Powered powerconsumption="30" currpowerconsumption="30" isactive="true">
+      <!-- <GuiFrame relativesize="0.18,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0,-0.1" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
+    
+     
+    <!-- Release oxygen in emergency (Statuseffect tags need to have a duration applied) -->
+    <StatusEffect type="Always" targettype="This" target="This,Hull" setvalue="false" duration="10" stackable="false" Oxygen="5000" checkconditionalalways="false" Comparison="And"> 
+       <Requireditem items="oxygentank_large" type="contained" excludebroken="true" targetslot="0" /> 
+       <Conditional HasStatusTag="lowhulloxygen"/>
+       <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="0" anglemax="0" velocitymin="1500" velocitymax="2000" highqualitycollisiondetection="true"/>
+    </StatusEffect> 
+
+  <!-- Remove Atmosphere Oxygen when filling slot0 - WHAT IS THIS FOR??? 10/31/2022  
+    <StatusEffect type="Always" targettype="This" target="This,Hull" setvalue="false" Oxygen="-1000" checkconditionalalways="true" Comparison="And"> 
+       <Conditional HullOxygenPercentage="gte 50" />
+       <Conditional InWater="false" />
+    </StatusEffect>  -->
+
+    <!-- Compress 02 (Statuseffect tags need to have a duration applied) -->
+    <StatusEffect type="Always" targettype="This" target="This,Hull" setvalue="false" Oxygen="-250" checkconditionalalways="true" Comparison="And"> 
+       <Requireditem items="oxygentank_large" type="contained" excludefullcondition="true" targetslot="0" /> 
+       <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" /> 
+       <Conditional HullOxygenPercentage="gt 80" />
+       <Conditional Voltage="gt 0.1" />
+       <Conditional InWater="false" />    
+       <Sound file="%ModDir%/Sound/electric_compressor.ogg" range="750" loop="true" />    
+    </StatusEffect> 
+
+    <!-- CHECK: LOW HULL OXYGEN-->
+     <StatusEffect type="Always" targettype="This" target="This,Hull" duration="1" stackable="false" tags="lowhulloxygen" checkconditionalalways="true" Comparison="And"> 
+       <Conditional HullOxygenPercentage="lte 65" />
+       <Conditional InWater="false" />
+    </StatusEffect> 
+
+     <!-- Refil main o2 tank  -->
+        <StatusEffect type="Always" targettype="Contained" targetslot="0" targetitemtype="SubContainer" targetitemcomponent="SubContainer" duration="1" stackable="false" condition="10" Comparison="And"> 
+          <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" /> 
+          <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" /> 
+          <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered"/>
+          <Conditional InWater="false" />
+          <Conditional HullOxygenPercentage="gt 80" />                      
+        </StatusEffect>
+    </Powered>
+ 
+    <ItemContainer capacity="0" maxstacksize="1" slotsperrow="1" canbeselected="true" hideitems="true" itempos="31,-260" allowdraganddrop="false" iteminterval="44.5,0" msg="ItemMsgOxygenRefill">
+      <GuiFrame relativesize="0.25,0.4" anchor="Center" style="ItemUI" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/oxygentank_compressor.png" sourcerect="116,0,26,64" origin="0.5,0.45" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />  
+
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false">
+      <Containable items="oxygentank_large">
+       
+      <!-- Release oxygen in emergency from reserve tank  -->
+        <StatusEffect type="OnContaining" targettype="Contained" targetslot="0" duration="10" stackable="false" checkconditionalalways="false" setvalue="false" condition="-100" Comparison="And"> 
+          <Requireditem items="oxygentank_large" type="contained" excludebroken="true" targetslot="0" />  
+          <Conditional HasStatusTag="lowhulloxygen" targetcontainer="true"/>
+          
+          <!-- <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />   -->
+        </StatusEffect>
+
+          <!-- Check for a non empty oxygentank in slot0  (Statuseffect tags need to have a duration applied) -->
+          <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="oxygenavailibleinslot0" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
+            <Requireditem items="oxygentank_large" type="contained" targetslot="0"/>            
+          </StatusEffect>
+
+        <!-- Empty main o2 tank for bottle refill  -->
+        <StatusEffect type="OnContaining" target="Contained" targetitemtype="SubContainer" targetitemcomponent="SubContainer" targetslot="0" condition="-20" Comparison="And"> 
+          <Conditional HasStatusTag="tanktofillinslot1" targetcontainer="true" />                         
+          <Requireditem items="oxygentank_large" type="contained" excludebroken="true" targetslot="0" />              
+          <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-90" anglemax="-90" velocitymin="150" velocitymax="200" position="5,5" highqualitycollisiondetection="true"/>
+ 
+        </StatusEffect>
+
+          
+
+      </Containable>
+      </SubContainer>
+
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false">
+        <Containable items="oxygentank,refillableoxygensource" excludebroken="false" excludefullcondition="true">
+                 
+        <!-- Check for a fillable tank in slot 1  (Statuseffect tags need to have a duration applied) -->
+          <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="tanktofillinslot1" targetslot="1" duration="0.1" stackable="false" Comparison="And"> 
+            
+          </StatusEffect>
+
+        <!-- Fill Oxygen Tank in slot1 -->
+        <StatusEffect type="OnContaining" targettype="Contained" targetslot="1" Condition="20.0" Comparison="And">
+            
+            <Conditional HasStatusTag="oxygenavailibleinslot0" targetcontainer="true"/>             
+            <Sound file="%ModDir%/Sound/remove_tank.ogg" range="1000" loop="false" />
+        </StatusEffect>
+
+        
+
+        </Containable>
+      </SubContainer>
+
+      <!-- Slot2 -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false">
+        <Containable items="electric_motor" >
+        
+        <!-- Deteriorate electric motor when compressing air -->
+        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.5" Comparison="And"> 
+          <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" />  
+          <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" /> 
+          <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered"/>
+          <Conditional InWater="false" />
+          <Conditional HullOxygenPercentage="gt 80" />               
+        </StatusEffect>
+
+        </Containable>
+      </SubContainer>
+
+
+    </ItemContainer>
+    
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.125" mindeteriorationdelay="120" maxdeteriorationdelay="750" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="15" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+  </Item>
+
 
  <!-- OXYGENTANK COMPRESSOR: Compresses hull oxygen into tank. -->
   <Item name="Oxygen Tank Compressor" identifier="oxygentank_compressor" category="Diving" tags="container,oxygentankcontainer,oxygentankrefiller" pickdistance="50" scale="0.5">
@@ -2136,12 +2282,12 @@
 <!-- STATUS CONSOLE: -->
 <Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor,mobileradio" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command_console" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="64,987,28,20" origin="0.5,0.45" />  
-    <Sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" maxcondition="0" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,298,233" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,298,233" depth="0.8" maxcondition="80" fadein="true" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,298,233" depth="0.8" maxcondition="0" origin="0.5,0.5" />
     
     <LightComponent range="10.0" lightcolor="120,255,180,0" powerconsumption="5" Flicker="0.5" FlickerSpeed="0.2" IsOn="true" castshadows="false" allowingameediting="false">      
-      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1280,296,232" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+      <sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1280,298,233" depth="0.025" origin="0.5,0.5" alpha="1.0" />
     </LightComponent>
 
 
@@ -2260,7 +2406,10 @@
       <MaintainPosOriginIndicator texture="Content/Items/Command/NavUI.png" sourcerect="0,0,50,54" />
       <SteeringIndicator texture="Content/Items/Command/NavUI.png" sourcerect="0,135,362,16" origin="0,0.5"/>
       <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">        
-        <sprite  texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="318,896,454,276" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+        <sprite  texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="318,895,454,276" depth="0.025" origin="0.5,0.5" alpha="1.0" />
+      </LightComponent>
+            <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" blinkfrequency="1" allowingameediting="false">        
+        <sprite  texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="318,1227,454,276" depth="0.025" origin="0.5,0.5" alpha="1.0" />
       </LightComponent>
       <!-- Interact Sound -->
       <StatusEffect type="OnPicked" target="This" >          
