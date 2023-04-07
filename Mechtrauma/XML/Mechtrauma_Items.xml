@@ -2133,7 +2133,7 @@
     </CustomInterface>
   </Item>
 
-<!-- STATUS CONSOLE-->
+<!-- STATUS CONSOLE: -->
 <Item name="Status Console" identifier="status_console" tags="mtu,ccn,command,statusmonitor,mobileradio" aliases="MiniMap" category="Machine" linkable="true" scale="0.5" allowedlinks="navterminal,command_console" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="64,987,28,20" origin="0.5,0.45" />  
     <Sprite texture="%ModDir%/Images/mechtrauma_command_final.png" sourcerect="0,1024,296,232" depth="0.8" origin="0.5,0.5" />
@@ -2212,9 +2212,8 @@
     </MiniMap>
     <ItemContainer capacity="3" maxstacksize="1" itemsperrow="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.79">
       <GuiFrame relativesize="0.1,0.5" anchor="TopCenter" allowuioverlap="false" style="ItemUI" relativeoffset="0.1,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
-      <Containable items="mt_maintenance_tablet,handheldstatusmonitor,handheldelectricalmonitor" excludebroken="false" excludefullcondition="false" >
-     
-      </Containable>
+      <Containable items="mt_maintenance_tablet,handheldstatusmonitor,handheldelectricalmonitor" excludebroken="false" excludefullcondition="false" >     
+    </Containable>
       
     </ItemContainer>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
@@ -2462,6 +2461,7 @@
     </Repairable>
   </Item>
 
+<!-- EMERGENCY DISCONNECT: Electrical -->
 <Item name="Emergency Disconnect" identifier="emergency_disconnect" category="Electrical" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="125" minavailable="4">
       <Price storeidentifier="merchantoutpost" />
@@ -2470,8 +2470,7 @@
       <Price storeidentifier="merchantmilitary" />
       <Price storeidentifier="merchantmine" />
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="10"/>
-    </Price>
-    <Sprite texture="Content/Items/Button/button.png" sourcerect="64,1,63,62" depth="0.79" origin="0.5,0.5" />
+    </Price>     
     <Deconstruct time="10">
       <Item identifier="plastic" amount="2" />
       <Item identifier="copper" />
@@ -2481,27 +2480,50 @@
       <RequiredItem identifier="fpgacircuit" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
+    
+    <!--<Sprite texture="Content/Items/Button/button.png" sourcerect="64,1,63,62" depth="0.79" origin="0.5,0.5" />-->
+    <Sprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="0,256,64,114" depth="0.79" origin="0.5,0.5" />
+    
+    <!-- DISCONNECTED LIGHT -->
+    <LightComponent range="10.0" lightcolor="200,255,200,50" powerconsumption="0" MinVoltage="0.0" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="64,256,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq False" />    
+    </LightComponent>
+    
+    <!-- DISCONNECTED LEVER -->
+    <DecorativeSprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="320,256,64,114" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq False" />
+    </DecorativeSprite>
+
+    <!-- CONNECTED LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,200,200,50" powerconsumption="0" IsOn="False" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="128,256,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq True" />    
+    </LightComponent>
+
+    <!-- CONNECTED LEVER -->
+    <DecorativeSprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="256,256,64,114" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq True" />
+    </DecorativeSprite>
+   
     <Body width="18" height="31" density="20" />
-    <Controller direction="None" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
       <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
       <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
     </Controller>
-    <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="185,129,70,97" depth="0.795" origin="0.5,0.6"/>
-    <DecorativeSprite texture="Content/Items/Button/button.png" sourcerect="64,63,63,62" depth="0.78" origin="0.5,0.5">
-      <IsActiveConditional targetitemcomponent="Controller" State="eq True" />
-    </DecorativeSprite>
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
       <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
-    
-     
+
       <!-- ON: -->
-      <StatusEffect type="Always" targettype="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="ON" checkconditionalways="true" IsOn="True" Comparison="And">
-         <Conditional State="eq False" targetitemcomponent="Controller" />       
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="False" Comparison="And">
+        <Conditional State="eq False" targetitemcomponent="Controller" />       
       </StatusEffect> 
 
       <!-- OFF: -->
-      <StatusEffect type="Always" targettype="This" delay="1" stackable="false" IsOn="False">
-        <Conditional HasStatusTag="neq ON" />        
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="True">
+        <!--<Conditional HasStatusTag="neq ON" /> -->
+        <Conditional State="eq True" targetitemcomponent="Controller" />       
       </StatusEffect>      
 
     </RelayComponent>
@@ -2518,6 +2540,168 @@
     </Holdable>
   </Item>
 
+    
+<!-- STEAM SHUT OFF VALVE: Steam -->
+<Item name="Steam Valve" identifier="steam_valve" category="Electrical" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+    <Price baseprice="125" minavailable="4">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" sold="false" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="10"/>
+    </Price>     
+    <Deconstruct time="10">
+      <Item identifier="plastic" amount="2" />
+      <Item identifier="copper" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="25" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>
+    
+    
+    <Sprite texture="%ModDir%/Images/mechtrauma_plumbing.png" sourcerect="0,0,64,114" depth="0.79" origin="0.5,0.5" />
+    
+    <!-- CLOSED LIGHT -->
+    <LightComponent range="10.0" lightcolor="200,255,200,50" powerconsumption="0" MinVoltage="0.0" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_plumbing.png" sourcerect="64,0,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq False" />    
+    </LightComponent>
+    
+    <!-- DISCONNECTED LEVER 
+    <DecorativeSprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="320,256,64,114" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq False" />
+    </DecorativeSprite>-->
+
+    <!-- OPEN LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,200,200,50" powerconsumption="0" IsOn="False" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_plumbing.png" sourcerect="128,0,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq True" />    
+    </LightComponent>
+
+    <!-- CONNECTED LEVER 
+    <DecorativeSprite texture="%ModDir%/Images/Electrical/mechtrauma_electrical.png" sourcerect="256,256,64,114" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq True" />
+    </DecorativeSprite>-->
+   
+    <Body width="18" height="31" density="20" />
+    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+      <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
+      <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
+    </Controller>
+
+
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+      <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
+
+      <!-- ON: -->
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="False" Comparison="And">
+        <Conditional State="eq False" targetitemcomponent="Controller" />       
+      </StatusEffect> 
+
+      <!-- OFF: -->
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="True">
+        <!--<Conditional HasStatusTag="neq ON" /> -->
+        <Conditional State="eq True" targetitemcomponent="Controller" />       
+      </StatusEffect>      
+
+    </RelayComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="steam_out" displayname="connection.steamout" />
+        <input name="steam_in" displayname="connection.steamin" />
+        <input name="signal_in" displayname="connection.singalin" />
+      <output name="signal_out" displayname="connection.signalout" />
+    </ConnectionPanel>
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+      <requireditem identifier="wrench" type="Equipped" />
+    </Holdable>
+  </Item>
+
+<!-- Mechanical Clutch: Kinnetic Disconnect -->
+<Item name="Mechanical Clutch" identifier="kinetic_clutch" category="Machine" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+    <Price baseprice="125" minavailable="4">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" sold="false" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="10"/>
+    </Price>     
+    <Deconstruct time="10">
+      <Item identifier="Steel" amount="2" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="steel" amount="4"/>            
+    </Fabricate>
+    
+    
+    <Sprite texture="%ModDir%/Images/reduction_gear.png" sourcerect="1408,0,192,192" depth="0.79" origin="0.5,0.5" />
+    
+    <!-- CLOSED LIGHT 
+    <LightComponent range="10.0" lightcolor="200,255,200,50" powerconsumption="0" MinVoltage="0.0" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_plumbing.png" sourcerect="64,0,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq False" />    
+    </LightComponent>-->
+    
+    <!-- DISCONNECTED LEVER -->
+    <DecorativeSprite texture="Content/Items/Button/button.png" sourcerect="64,1,63,62" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq True" />
+    </DecorativeSprite>
+   
+    <!-- CONNECTED LEVER -->
+    <DecorativeSprite  texture="Content/Items/Button/button.png" sourcerect="64,63,63,62" depth="0.77" origin="0.5,0.5">
+      <IsActiveConditional targetitemcomponent="Controller" State="eq False" />
+    </DecorativeSprite>
+   
+
+    <!-- OPEN LIGHT
+    <LightComponent range="10.0" lightcolor="255,200,200,50" powerconsumption="0" IsOn="False" castshadows="false" allowingameediting="false">      
+      <sprite texture="%ModDir%/Images/mechtrauma_plumbing.png" sourcerect="128,0,64,114" depth="0.78" origin="0.5,0.5" alpha="250.0" />      
+      <IsActive targetitemcomponent="Controller" State="eq True" />    
+    </LightComponent> -->
+
+   
+    <Body width="18" height="31" density="20" />
+    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+      <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
+      <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
+    </Controller>
+
+
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+      <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
+
+      <!-- ON: -->
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="False" Comparison="And">
+        <Conditional State="eq False" targetitemcomponent="Controller" />       
+      </StatusEffect> 
+
+      <!-- OFF: -->
+      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="True">
+        <!--<Conditional HasStatusTag="neq ON" /> -->
+        <Conditional State="eq True" targetitemcomponent="Controller" />       
+      </StatusEffect>      
+
+    </RelayComponent>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />
+      <output name="kinetic_out" displayname="connection.kineticout" />
+        <input name="kinetic_in" displayname="connection.kineticin" />
+        <input name="signal_in" displayname="connection.singalin" />
+      <output name="signal_out" displayname="connection.signalout" />
+    </ConnectionPanel>
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+      <requireditem identifier="wrench" type="Equipped" />
+    </Holdable>
+  </Item>
+  
+  <!-- AVERAGE COMPONENT: -->
    <Item name="Average Component" identifier="average_component" category="Electrical" tags="command" scale="0.6" impactsoundtag="impact_metal_light" isshootable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
         <Sprite texture="%ModDir%/Images/Mechtrauma.png" sourcerect="332,192,30,26" depth="0.7" origin="0.5,0.5" />
         <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
