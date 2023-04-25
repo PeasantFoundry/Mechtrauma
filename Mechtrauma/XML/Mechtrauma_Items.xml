@@ -179,7 +179,7 @@
     <Deconstruct time="10">
       <Item identifier="scrap_aluminium" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="10" outcondition="0">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="10" outcondition="0">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="aluminium" />     
     </Fabricate>
@@ -438,7 +438,7 @@
       <Price storeidentifier="merchantmine" />
       <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
     </Price>
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="5">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="8" requiredtime="5">
       <RequiredItem identifier="grease_can" />
     </Fabricate>
 
@@ -467,7 +467,7 @@
       <Item identifier="scrap_copper" />
     </Deconstruct> 
    <!-- SEALED BEARING: Make a new set of bearings. -->
-    <Fabricate suitablefabricators="CNC,fabricator" amount="8" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="8" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="steel" amount="2"/>
       <RequiredItem identifier="bearing_sleeve" amount="8"/>
@@ -504,7 +504,7 @@
     </Deconstruct>
 
     <!-- ELECTRIC MOTOR: From scratch! -->
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="55" />
       <RequiredSkill identifier="electrical" level="35" />
       <RequiredItem identifier="steel" amount="1"/>
@@ -512,7 +512,7 @@
       <RequiredItem identifier="sealed_bearing" />   
     </Fabricate>
     <!-- ELECTRIC MOTOR: Recycle the motor housing by replacing the bearing and adding new windings. -->
-    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="15"> 
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" displayname="recycleitem" requiredtime="15"> 
       <RequiredSkill identifier="electrical" level="35" />
       <RequiredSkill identifier="electrical" level="25" />
       <RequiredItem identifier="electric_motor" mincondition="0.0" usecondition="false"/>
@@ -545,7 +545,7 @@
       <Item identifier="scrap_copper" />
       <Item identifier="scrap_copper" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="8" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="copper" />
     </Fabricate>
@@ -681,7 +681,7 @@
   </Item> 
 
  <!-- STORAGE CONTAINER: Single. -->
- <Item name="Storage Container" identifier="storage_container_single" tags="container,suppliescontainer,locker" allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed,fabricator,cncfab" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
+ <Item name="Storage Container" identifier="storage_container_single" tags="container,suppliescontainer,locker" allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed,fabricator,cncfab,cncfab_cp" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
     <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />    
     <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.45" anchor="Center" relativeoffset="-0.01,0.0" style="ItemUI" /> 
@@ -1020,7 +1020,7 @@
       <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
     <!-- OIL FILTER: Make a new filter.  -->
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="4" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="organicfiber" />
@@ -1053,12 +1053,12 @@
       <Item identifier="steel" />
       <Item identifier="steel" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="240">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="240">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="steel" amount="8" />      
     </Fabricate>
     <!-- RECYCLE: Rebuild the gears -->
-    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="120"> 
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" displayname="recycleitem" requiredtime="120"> 
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="drive_gear" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />   
@@ -1090,12 +1090,12 @@
       <Item identifier="scrap_steel" />
       <Item identifier="scrap_steel" />      
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="steel" amount="2" />
      </Fabricate>
     <!-- RECYCLE: Repurpose the existing turbine materials. -->
-    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="15"> 
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" displayname="recycleitem" requiredtime="15"> 
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="turbine_blade" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />
@@ -1126,13 +1126,13 @@
       <Item identifier="scrap_steel" />
       <Item identifier="scrap_steel" />      
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="steel" />
       <RequiredItem identifier="bearing_sleeve" />
     </Fabricate>
     <!-- BEARING: Recycle the bearing housing by putting in a new copper sleeve. -->
-    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="15"> 
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" displayname="recycleitem" requiredtime="15"> 
       <RequiredSkill identifier="mechanical" level="25" />
       <RequiredItem identifier="bearing_sleeve" />
       <RequiredItem identifier="bearing" mincondition="0.0" usecondition="false"/>
@@ -1163,7 +1163,7 @@
     <Deconstruct time="10">
       <Item identifier="scrap_copper" />
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="8" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="copper" />
     </Fabricate>
@@ -1194,7 +1194,7 @@
     </Deconstruct>
 
      <!-- CIRCULATOR PUMP: Home made, from scratch! Just like grandma used to make. -->
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" requiredtime="30">
       <RequiredSkill identifier="electrical" level="55" />
       <RequiredSkill identifier="mechanical" level="55" />
       <RequiredItem identifier="steel" />
@@ -1204,7 +1204,7 @@
     </Fabricate>
 
     <!-- CIRCULATOR PUMP: Recycle the pump housing by putting in new sealed bearings and rewinidng the motor. -->
-    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="15"> 
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" displayname="recycleitem" requiredtime="15"> 
       <RequiredSkill identifier="mechanical" level="25" />
       <RequiredItem identifier="copper_windings" />
       <RequiredItem identifier="sealed_bearing" />
@@ -1412,7 +1412,7 @@
       <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
     <!-- Co2 CARTRIDGE: Make a new scrubber cartridges.  -->
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="5">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="8" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="calcium" />
@@ -2995,7 +2995,7 @@
     <!-- It's Garbage People! -->
     <Deconstruct time="10">
     </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" amount="24" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab,cncfab_cp" amount="24" requiredtime="30">
       <RequiredSkill identifier="electrical" level="35" />
       <RequiredItem identifier="plastic" />
       <RequiredItem identifier="copper" />
