@@ -467,7 +467,7 @@
       <Item identifier="scrap_copper" />
     </Deconstruct> 
    <!-- SEALED BEARING: Make a new set of bearings. -->
-    <Fabricate suitablefabricators="CNC,fabricator" amount="8" requiredtime="30">
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="30">
       <RequiredSkill identifier="mechanical" level="35" />
       <RequiredItem identifier="steel" amount="2"/>
       <RequiredItem identifier="bearing_sleeve" amount="8"/>
