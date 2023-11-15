@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunConfig>
+<!--Options: "None" / "Forced" (always) / "Standard" (when enabled)-->
+  <Server>Standard</Server>
+  <Client>Standard</Client>
+  <Dependencies>
+    <Dependency>
+      <PackageName>modding toolkit</PackageName>
+    </Dependency>
+  </Dependencies>
+</RunConfig>

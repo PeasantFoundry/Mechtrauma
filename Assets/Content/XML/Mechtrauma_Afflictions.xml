@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Afflictions>
+
+<Affliction name="" identifier="electrocution" description="" healableinmedicalclinic="false" limbspecific="false" indicatorlimb="Torso" showiconthreshold="1" showinhealthscannerthreshold="1" targets="human" type="burn" isbuff="false" maxstrength="100">
+  <icon texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
+</Affliction>
+
+<!-- Steam Burn! -->
+  <Burn
+    name="Steam Burn"
+    identifier="steam_burn"
+    description="The area is blistered and red, and skin is already beginning to peel away in sheets. The patient is in a great deal of pain."
+    type="burn"
+    causeofdeathdescription="Steamed to death. Nasty Business."
+    selfcauseofdeathdescription="You have burned to death."
+    limbspecific="true"
+    maxstrength="200"
+    burnoverlayalpha="1"
+    healcostmultiplier="2.25">
+    <Effect minstrength="0" maxstrength="200" multiplybymaxvitality="true"
+      minvitalitydecrease="0"
+      maxvitalitydecrease="2"/>
+    <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="768,640,128,128" color="195,104,60,255" origin="0,0"/>
+  </Burn>
+
+<!-- THE BELOVED SPORE INFECTION! -->
+<!-- smyptoms have been moved to humanupdate.lua -->
+    <Affliction name="Spore Infection" identifier="spore_infection" description="A spore infection from a fungus or mold." type="poison" activationthreshold="25" causeofdeathdescription="Died from a spore infection." selfcauseofdeathdescription="You have died from a spore infection." limbspecific="false" indicatorlimb="Torso" showiconthreshold="225" showinhealthscannerthreshold="50" maxstrength="400">
+     
+      <!-- We have not passed the point of no reqturn -->
+      <Effect minstrength="1" maxstrength="25" strengthchange="-0.1">
+      </Effect>
+
+      <!-- Starts out with minimal effects -->
+      <Effect minstrength="25" maxstrength="100" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
+      </Effect>
+
+      <!-- Starts to become serious when strength is above 100 -->
+      <Effect minstrength="100" maxstrength="250"  minvitalitydecrease="0" maxvitalitydecrease="10" minscreendistort="2.0" maxscreendistort="0.0" strengthchange="0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
+      </Effect> 
+
+      <!-- FINAL STAGES: Better it goes quickly -->
+      <Effect minstrength="250" maxstrength="300"  minvitalitydecrease="10" maxvitalitydecrease="100" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
+      </Effect> 
+      
+      <!-- NATURAL IMMUNITY: Congratulations, your body fought off the infection for you -->
+      <Effect minstrength="301" maxstrength="310"  minscreendistort="0.0" maxscreendistort="0.0" strengthchange="0.5" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
+        <StatusEffect target="character" disabledeltatime="true" comparison="and">
+          <conditional ishuman="true" />      
+          <ReduceAffliction identifier="spore_infection" amount="1000" />
+        </StatusEffect>
+      </Effect> 
+     
+
+      <!-- Respiratory Irritation -->
+      <PeriodicEffect mininterval="10" maxinterval="30">
+          <StatusEffect target="Character" comparison="and">
+            <Conditional ishuman="true" />
+            <Conditional spore_infection="gte 200"/>
+            <Conditional hasspecifiertag="male"/>
+            <Sound file="Content/Sounds/HUMAN_chokeMale1.ogg" selectionmode="Random" />
+            <Sound file="Content/Sounds/HUMAN_chokeMale2.ogg" />
+            <Sound file="Content/Sounds/HUMAN_chokeMale3.ogg" />
+          </StatusEffect>
+          <StatusEffect target="Character" comparison="and">
+            <Conditional ishuman="true" />
+            <Conditional hasspecifiertag="female"/>
+            <Conditional spore_infection="gte 200"/>
+            <Sound file="Content/Sounds/HUMAN_chokeFemale1.ogg" selectionmode="Random" />
+            <Sound file="Content/Sounds/HUMAN_chokeFemale2.ogg" />
+            <Sound file="Content/Sounds/HUMAN_chokeFemale3.ogg" />
+          </StatusEffect>
+          <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="896,896,128,128" color="103,103,103,255" origin="0,0" />
+      </PeriodicEffect>
+
+      <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="0,384,128,128" color="103,103,103,255" origin="0,0" />
+    </Affliction>
+
+    <!-- CO2 POISONING: -->
+    <Affliction name="Carbon Dioxide Poisoning" identifier="co2_poisoning" description="Carbon Dioxide Poisoning." type="poison" causeofdeathdescription="Died from Carbon Dioxide Poisoning." selfcauseofdeathdescription="You have died from Carbon Dioxide Poisoning." limbspecific="false" indicatorlimb="Torso" showiconthreshold="10" showinhealthscannerthreshold="10" maxstrength="1000">
+      <!-- Minimal effects at this level -->
+      <Effect minstrength="1" maxstrength="50" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
+      </Effect>
+      <!-- Starts to become serious when strength is above 50 -->
+      <Effect minstrength="51" maxstrength="99" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.5" minradialdistort="0.5" maxradialdistort="0.5"  minscreenblur="0.1" maxscreenblur="1.0" >          
+      </Effect>
+      <!-- Starts to become lethal when strength is above 100 -->
+      <Effect minstrength="100" maxstrength="1000" minvitalitydecrease="0" maxvitalitydecrease="20.0" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
+      </Effect>    
+   </Affliction>
+
+    <!-- =============< RESISTANCE >=============  -->
+    <Affliction name="Spore Infection Resistance" identifier="spore_infection_resistance" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
+    <Effect minstrength="0" maxstrength="100" strengthchange="-1.0" >
+      <Conditional ishuman="true" />
+      <ReduceAffliction identifier="spore_infection" amount="10" />
+    </Effect>
+      <icon texture="Content/UI/MainIconsAtlas.png" sourcerect="384,896,128,128" color="10,193,114,255" origin="0,0"/>
+    </Affliction>
+
+    <Affliction name="SCBA" identifier="scba" healableinmedicalclinic="false" targets="human" description="SCBA gives resistance against airborne afflictions such as carbon dioxide poisoning and spore infections. " type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
+      <!-- Prevents airborn poisons -->
+      <Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="spore_infection,co2_poisoning" minresistance="1" maxresistance="1"/>
+      <Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="contamination" minresistance="1" maxresistance="150"/>
+      <icon texture="Content/UI/CommandUIBackground.png" sourcerect="384,896,128,128" color="0,65,50,255" origin="0,0"/>
+    </Affliction>
+
+    <!--<Effect minstrength="1" maxstrength="100" strengthchange="-100" resistancefor="radiationsickness" minresistance="0.0" maxresistance="1.0"/>-->
+   
+
+    <Affliction name="Buckled" identifier="buckled" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
+      <!-- Prevents Stun. You won't be knocked out of your chair -->
+      <Effect minstrength="0" maxstrength="100" strengthchange="-100"/>
+      <ReduceAffliction identifier="stun" amount="1" />      
+      <icon texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,128,128,128" color="255,255,255,255" origin="0,0"/>
+    </Affliction>
+
+</Afflictions>

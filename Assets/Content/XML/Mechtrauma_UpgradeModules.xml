@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UpgradeModules>
+    <UpgradeCategory name="" identifier="Generators" items="Generator" />
+
+    <UpgradeModule identifier="generatorefficiency" maxlevel="6" categories="generators" increaseontooltip="20">
+    <Price baseprice="2000" increaselow="+0%" increasehigh="+400%"/>
+    <!-- TODO ResourceCost item="steel" amount="5" -->   
+    <Sprite texture="Content/UI/CampaignUIAtlas2.png" sourcerect="640,640,128,128" origin="0.5,0.5"/>
+  </UpgradeModule>
+</UpgradeModules>

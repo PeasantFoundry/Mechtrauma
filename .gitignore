@@ -3,13 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-# Custom -- Barotrauma, Project and Solution Files/Folders
-*.sln
-*.csproj
-[Ww]indows[Cc]lient/
-[Ww]indows[Ss]erver/
-Refs/
-AssetRefs/
+[Rr]efs/
+*.DotSettings.user
 
 # User-specific files
 *.rsuser
@@ -17,6 +12,7 @@ AssetRefs/
 *.user
 *.userosscache
 *.sln.docstates
+*.DotSettings
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -36,16 +32,9 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-!bin/
-
-[Bb]in/*
-!bin/Client/Standard/
-!bin/Server/Standard/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-[Rr]efs/[Cc]lient/
-[Rr]efs/[Ss]erver/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -412,7 +401,3 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .idea/*
-/ClientProject/Properties
-/ServerProject/Properties
-*.shproj
-*.projitems

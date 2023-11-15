@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<infotexts language="Castilian Spanish" nowhitespace="false" translatedname="Castellano">
+
+<entityname.copper_pipe_h>Tubería de cobre horizontal</entityname.copper_pipe_h>
+<entitydescription.copper_pipe_h>Tubería de cobre horizontal reestrizable.</entitydescription.copper_pipe_h>
+<entityname.bacteria_analyzer>Analizador microscópico</entityname.bacteria_analyzer>
+<entitydescription.bacteria_analyzer>Biotrauma: analizador microscópico para bacterias, moho, hongos, etc.</entitydescription.bacteria_analyzer>
+<entityname.bacterial_sample_a4>Muestra bacteriana A4</entityname.bacterial_sample_a4>
+<entitydescription.bacterial_sample_a4>Una muestra bacteriana refinada de A4.</entitydescription.bacterial_sample_a4>
+<entityname.antibacterial_a4>A4 antibacteriano</entityname.antibacterial_a4>
+<entitydescription.antibacterial_a4>Un antibacteriano para bacterias A4.</entitydescription.antibacterial_a4>
+<entityname.spore_fungus>Hongo</entityname.spore_fungus>
+<entitydescription.spore_fungus>Un hongo desconocido.</entitydescription.spore_fungus>
+<entityname.textdisplaylarge>textDisplayLarge</entityname.textdisplaylarge>
+<entitydescription.textdisplaylarge>textDisplayLarge</entitydescription.textdisplaylarge>
+<entityname.textdisplay_short_tight>textdisplay_short_tight</entityname.textdisplay_short_tight>
+<entitydescription.textdisplay_short_tight>Diseñado para un número corto como condición de 3 dígitos.</entitydescription.textdisplay_short_tight>
+<entityname.lcd>televisión LCD</entityname.lcd>
+<entitydescription.lcd>televisión LCD</entitydescription.lcd>
+<entityname.average_component>Componente promedio</entityname.average_component>
+<entitydescription.average_component>Emite el promedio de las señales de entrada combinadas. Requiere lua.</entitydescription.average_component>
+<entityname.peasantprime>Caja de envios por volumen.</entityname.peasantprime>
+<entitydescription.peasantprime>Esta caja contiene paquetes sellados, su contenido: un peluche de un Perruso.</entitydescription.peasantprime>
+<entityname.airrifle>Rifle de aire comprimido.</entityname.airrifle>
+<entitydescription.airrifle>Un arma de baja potencia, altamente accesible y fácilmente replente.</entitydescription.airrifle>
+<entityname.leadpellet>Pellet</entityname.leadpellet>
+<entitydescription.leadpellet>Munición de rifle de aire.</entitydescription.leadpellet>
+<entityname.gunners_chair>Silla de artillero.</entityname.gunners_chair>
+<entitydescription.gunners_chair>Alternativa de mechtrauma al periscopio.</entitydescription.gunners_chair>
+<entityname.mt_coilgun>Mt Coilgun</entityname.mt_coilgun>
+<entitydescription.mt_coilgun>Color alternativo para el cañon gaus.</entitydescription.mt_coilgun>
+<entityname.50cal_turret>Torreta de calibre .50 (12,7 × 99 mm).</entityname.50cal_turret>
+<entitydescription.50cal_turret>Requiere de materiales mas complejos para su uso, pero no depende de una fuente de energia para funcionar.</entitydescription.50cal_turret>
+<entityname.50cal_loader>Cargador de municion .50 (12,7 × 99 mm).</entityname.50cal_loader>
+<entitydescription.50cal_loader>Requiere una caja de municion .50 (12,7 × 99 mm) para funcionar.</entitydescription.50cal_loader>
+<entityname.50cal_ammobox>Caja de cartuchos .50 (12,7 × 99 mm).</entityname.50cal_ammobox>
+<entitydescription.50cal_ammobox>En la caja se puede leer, "100 CRTG .50 CAL LINK M9 4 - BALL M33 1 - TRACER M17"</entitydescription.50cal_ammobox>
+<entityname.50cal_bolt>Perno de 50 cal</entityname.50cal_bolt>
+<entitydescription.50cal_bolt>Perno de 50 cal</entitydescription.50cal_bolt>
+<entityname.fuse_panel>Panel de fusibles.</entityname.fuse_panel>
+<entitydescription.fuse_panel>Panel electrico con espacio para un fusible, este se rompe si el panel recibe sobretencion.</entitydescription.fuse_panel>
+<entityname.electrical_panel>Panel electrico</entityname.electrical_panel>
+<entitydescription.electrical_panel>Panel electrico.</entitydescription.electrical_panel>
+<entityname.key_button>Boton con llave.</entityname.key_button>
+<entitydescription.key_button>Permite la utilizacion de una llave para limitar el uso al boton.</entitydescription.key_button>
+<entityname.battery_bank>Banco de baterias.</entityname.battery_bank>
+<entitydescription.battery_bank>Baterias de gran capacidad y gran volumen. No funcionan bajo el agua.</entitydescription.battery_bank>
+<entityname.battery_bank_wr>Banco de batería</entityname.battery_bank_wr>
+<entitydescription.battery_bank_wr>Vast Capacidad de almacenamiento con una salida máxima de 5000kW (no se puede cambiar en el editor). No funcionará cuando esté sumergido.</entitydescription.battery_bank_wr>
+<entityname.fuse>Fusible</entityname.fuse>
+<entitydescription.fuse>Fusible para utilizar en el panel electrio y el panel de fusibles</entitydescription.fuse>
+<entityname.sealed_bearing>Rodamiento blindado.</entityname.sealed_bearing>
+<entitydescription.sealed_bearing>Componente mecánico para la fabricación de piezas.</entitydescription.sealed_bearing>
+<entityname.bearing_sleeve>Casquillo de cojinete</entityname.bearing_sleeve>
+<entitydescription.bearing_sleeve>Para reacondicionar los rodamientos usados.</entitydescription.bearing_sleeve>
+<entityname.grease_can>Lata de grasa</entityname.grease_can>
+<entitydescription.grease_can>Una lata de grasa. Fabricarse en paquetes de grasa individuales.</entitydescription.grease_can>
+<entityname.grease_packet>Paquete de grasa</entityname.grease_packet>
+<entitydescription.grease_packet>Paquete de grasa para reparaciones y fabricación mecánicas.</entitydescription.grease_packet>
+<entityname.copper_windings>Devanados de cobre</entityname.copper_windings>
+<entitydescription.copper_windings>Devanados de cobre para reparar motores eléctricos.</entitydescription.copper_windings>
+<entityname.oil_filter>Filtro de aceite</entityname.oil_filter>
+<entitydescription.oil_filter>Salva el oro negro.</entitydescription.oil_filter>
+<entityname.bearing>Llevando</entityname.bearing>
+<entitydescription.bearing>Rodamiento para reparaciones mecánicas.</entitydescription.bearing>
+<entityname.electric_motor>Motor eléctrico</entityname.electric_motor>
+<entitydescription.electric_motor>Parte mecánica para reparaciones de la máquina.</entitydescription.electric_motor>
+<entityname.circulator_pump>Bomba de circulación</entityname.circulator_pump>
+<entitydescription.circulator_pump>Bomba de circulación para máquinas.</entitydescription.circulator_pump>
+<entityname.drive_gear>Engranaje impulsor</entityname.drive_gear>
+<entitydescription.drive_gear>Para su uso en máquinas como un engranaje de reducción.</entitydescription.drive_gear>
+<entityname.turbine_blade>Ensamble de turbina.</entityname.turbine_blade>
+<entitydescription.turbine_blade>Para uso en máquinas como la turbina de vapor.</entitydescription.turbine_blade>
+<entityname.scrap_steel>Chatarra de acero</entityname.scrap_steel>
+<entitydescription.scrap_steel>¡No olvides reciclar!.</entitydescription.scrap_steel>
+<entityname.scrap_aluminium>Chatarra de aluminio.</entityname.scrap_aluminium>
+<entitydescription.scrap_aluminium>¡No olvides reciclar!.</entitydescription.scrap_aluminium>
+<entityname.scrap_copper>Chatarra de cobre</entityname.scrap_copper>
+<entitydescription.scrap_copper>¡No olvides reciclar!.</entitydescription.scrap_copper>
+<entityname.water_pump_small>Bomba de agua pequeña</entityname.water_pump_small>
+<entitydescription.water_pump_small>Para bombear agua.</entitydescription.water_pump_small>
+<entityname.water_pump>Bomba de agua.</entityname.water_pump>
+<entitydescription.water_pump>Para mover agua.</entitydescription.water_pump>
+<entityname.water_pump_gate>Nodo de entrada para bomba de agua.</entityname.water_pump_gate>
+<entitydescription.water_pump_gate>Requiere de un flujo de agua.</entitydescription.water_pump_gate>
+<entityname.oxygentank_compressor>Compresor de tanques de oxigeno.</entityname.oxygentank_compressor>
+<entitydescription.oxygentank_compressor>Comprime el oxigeno del interior del submarino para su uso.</entitydescription.oxygentank_compressor>
+<entityname.oxygentank_fr>Tanque de oxígeno resistente al fuego</entityname.oxygentank_fr>
+<entitydescription.oxygentank_fr>Tanque de oxígeno resistente al fuego</entitydescription.oxygentank_fr>
+<entityname.oxygentank_large>Tanque de oxígeno grande</entityname.oxygentank_large>
+<entitydescription.oxygentank_large>Tanque de oxígeno de gran tamaño, solo para su uso en estaciones de oxígeno.</entitydescription.oxygentank_large>
+<entityname.oxygen_station>Estación de tanque de oxígeno</entityname.oxygen_station>
+<entitydescription.oxygen_station>Libera oxígeno en una emergencia y rellena tanques de oxígeno rapidamente.</entitydescription.oxygen_station>
+<entityname.oxygen_vent>Ventilación de oxígeno</entityname.oxygen_vent>
+<entitydescription.oxygen_vent>Limpiar y reemplazar el filtro de Co2 regularmente.</entitydescription.oxygen_vent>
+<entityname.co2_cartridge>Filtro de CO2</entityname.co2_cartridge>
+<entitydescription.co2_cartridge>Filtro para remover el Co2 acumulado en el interior del submarino.</entitydescription.co2_cartridge>
+<entityname.oxygen_supply>Suministro de oxígeno</entityname.oxygen_supply>
+<entitydescription.oxygen_supply>Alternativa de mechtrauma al generador de oxígeno.</entitydescription.oxygen_supply>
+<entityname.oil_can>Lata de aceite</entityname.oil_can>
+<entitydescription.oil_can>Oro negro.</entitydescription.oil_can>
+<entityname.oil_barrel>Barril de petróleo</entityname.oil_barrel>
+<entitydescription.oil_barrel>Oro negro.</entitydescription.oil_barrel>
+<entityname.oil_station>Estación de petróleo</entityname.oil_station>
+<entitydescription.oil_station>Oro negro.</entitydescription.oil_station>
+<entityname.mechweldingtool>Soldador</entityname.mechweldingtool>
+<entitydescription.mechweldingtool>Un soldador eléctrico que usa gas argón.</entitydescription.mechweldingtool>
+<entityname.handtruck>Camión de mano</entityname.handtruck>
+<entitydescription.handtruck>Usa esto para mover cosas pesadas. No te lastimes la espalda.</entitydescription.handtruck>
+<entityname.closet>Armario de almacenamiento</entityname.closet>
+<entitydescription.closet>¡Limpia después de ti mismo! Este es un espacio para almacenar artículos grandes y voluminosos.</entitydescription.closet>
+<entityname.storage_container_single>Contenedor de almacenamiento</entityname.storage_container_single>
+<entitydescription.storage_container_single>Contenedor de almacenamiento, más grande que un gabinete.</entitydescription.storage_container_single>
+<entityname.shipping_container_open>Contenedor de carga abierto.</entityname.shipping_container_open>
+<entitydescription.shipping_container_open>¡Limpia después de ti mismo!.</entitydescription.shipping_container_open>
+<entityname.shipping_container_closed>Contenedor de carga cerrado.</entityname.shipping_container_closed>
+<entitydescription.shipping_container_closed>¡Limpia después de ti mismo!.</entitydescription.shipping_container_closed>
+<entityname.cargo_crane>Grúa de carga.</entityname.cargo_crane>
+<entitydescription.cargo_crane>¡Alzate a los hombres de carga!</entitydescription.cargo_crane>
+<entityname.cargo_hatch>Escotilla de carga.</entityname.cargo_hatch>
+<entitydescription.cargo_hatch>A veces, necesitas mover cosas grandes.</entitydescription.cargo_hatch>
+<entityname.mechcab>Gabinete rápido</entityname.mechcab>
+<entitydescription.mechcab>Acceso rápido para emergencias.</entitydescription.mechcab>
+<entityname.cncfab>Fabricante mecánico de CNC</entityname.cncfab>
+<entitydescription.cncfab>¡MECH la realidad de tu sueño!.</entitydescription.cncfab>
+<entityname.repairtable>Tabla de reparación</entityname.repairtable>
+<entitydescription.repairtable>Fabricante dedicado para reparar trajes de buceo y equipo.</entitydescription.repairtable>
+<entityname.argon_tank>Tanque de argón</entityname.argon_tank>
+<entitydescription.argon_tank>Rellenar.</entitydescription.argon_tank>
+<entityname.extinguisher_station>Estación de extinción</entityname.extinguisher_station>
+<entitydescription.extinguisher_station>Rellenar.</entitydescription.extinguisher_station>
+<entityname.extinguisher_tank>Extintería</entityname.extinguisher_tank>
+<entitydescription.extinguisher_tank>Rellenar.</entitydescription.extinguisher_tank>
+<entityname.S5_Extinguisher>S5_extinguisher</entityname.S5_Extinguisher>
+<entitydescription.S5_Extinguisher>Un pequeño extintor de 5 segundos que se puede usar en su cinturón.</entitydescription.S5_Extinguisher>
+<entityname.l100_extinguisher>L100-Extinger</entityname.l100_extinguisher>
+<entitydescription.l100_extinguisher>Un extintor grande para usar en equipo de Turnour.</entitydescription.l100_extinguisher>
+<entityname.argon_station>Estación de argón</entityname.argon_station>
+<entitydescription.argon_station>Rellenar.</entitydescription.argon_station>
+<entityname.boiler>Caldera de vapor</entityname.boiler>
+<entitydescription.boiler>Genera vapor.</entitydescription.boiler>
+<entityname.steam_turbine>Turbina de vapor</entityname.steam_turbine>
+<entitydescription.steam_turbine>Convierte la energía de vapor en engery cinética.</entitydescription.steam_turbine>
+<entityname.reduction_gear>Engranaje reductor</entityname.reduction_gear>
+<entitydescription.reduction_gear>Convierte un par bajo de alta velocidad en un par alto de alta velocidad.</entitydescription.reduction_gear>
+<entityname.gear_locker>Casillero</entityname.gear_locker>
+<entitydescription.gear_locker>Para almacenar equipo.</entitydescription.gear_locker>
+<entityname.plague_doctor_mask>Máscara de doctor de peste</entityname.plague_doctor_mask>
+<entitydescription.plague_doctor_mask>Máscara de doctor de peste</entitydescription.plague_doctor_mask>
+<entityname.radiation_suit2>Traje de radiación</entityname.radiation_suit2>
+<entitydescription.radiation_suit2>La mejor protección para la radiación.</entitydescription.radiation_suit2>
+<entityname.radiation_suit>Traje de radiación</entityname.radiation_suit>
+<entitydescription.radiation_suit>Traje de radiación</entitydescription.radiation_suit>
+<entityname.turnout_gear2>Engranaje de participación</entityname.turnout_gear2>
+<entitydescription.turnout_gear2>Equipe con un tanque de oxígeno resistente al fuego y un extintor L100.</entitydescription.turnout_gear2>
+<entityname.dry_suit>Traje de buceo</entityname.dry_suit>
+<entitydescription.dry_suit>Traje de baja presión. Útil para hacer reparaciones en el submarino y reducir el desgaste de los trajes de buceo.</entitydescription.dry_suit>
+<entityname.expedition_divingsuit>Traje de buceo de expedición</entityname.expedition_divingsuit>
+<entitydescription.expedition_divingsuit>Traje de buceo de expedición</entitydescription.expedition_divingsuit>
+<entityname.armored_divingsuit>Traje de buceo blindado</entityname.armored_divingsuit>
+<entitydescription.armored_divingsuit>Diseñado para combate, fuction sobre forma.</entitydescription.armored_divingsuit>
+<entityname.armored_suit>Armadura</entityname.armored_suit>
+<entitydescription.armored_suit>Una reliquia de mediados del siglo XV de la Tierra. ¡Esto es una pieza de arte!</entitydescription.armored_suit>
+<entityname.plague_doctor_kit>Kit de doctor de peste</entityname.plague_doctor_kit>
+<entitydescription.plague_doctor_kit>Kit de doctor de peste</entitydescription.plague_doctor_kit>
+<entityname.kit_utility>Kit de servicios públicos</entityname.kit_utility>
+<entitydescription.kit_utility>Kit de servicios públicos.</entitydescription.kit_utility>
+<entityname.captains_kit>Kit de capitanes</entityname.captains_kit>
+<entitydescription.captains_kit>Es bueno ser el capitán.</entitydescription.captains_kit>
+<entityname.diesel_fuel_can>El combustible diesel puede</entityname.diesel_fuel_can>
+<entitydescription.diesel_fuel_can>Una lata de 5Gallon de combustible diesel.</entitydescription.diesel_fuel_can>
+<entityname.diesel_fuel_barrel>Barril de combustible diesel</entityname.diesel_fuel_barrel>
+<entitydescription.diesel_fuel_barrel>Un barril de 50Gallon de combustible diesel.</entitydescription.diesel_fuel_barrel>
+<entityname.diesel_fuel_tank>Tanque de combustible diesel</entityname.diesel_fuel_tank>
+<entitydescription.diesel_fuel_tank>Tanque de combustible diesel del barco. Recarga las latas de los barriles.</entitydescription.diesel_fuel_tank>
+<entityname.s1500D>Generador de diesel</entityname.s1500D>
+<entitydescription.s1500D>Del carbono, potencia. 1500kW</entitydescription.s1500D>
+<entityname.S5000D>S5000D</entityname.S5000D>
+<entitydescription.S5000D>Del carbono, potencia.</entitydescription.S5000D>
+<entityname.pdg500>Generador diesel portátil</entityname.pdg500>
+<entitydescription.pdg500>¡Poder sobre la marcha!</entitydescription.pdg500>
+<entityname.keys>Llaves</entityname.keys>
+<entitydescription.keys>No salgas de casa sin ellos.</entitydescription.keys>
+<entityname.trash_can>Bote de basura</entityname.trash_can>
+<entitydescription.trash_can>¡Cuentas de identificación de adiós!</entitydescription.trash_can>
+<entityname.incinerator>Incinerador</entityname.incinerator>
+<entitydescription.incinerator>Deseche los artículos no deseados a mitad de la ronda.</entitydescription.incinerator>
+<entityname.trashcan>Basura de mechtrauma</entityname.trashcan>
+<entitydescription.trashcan>Deseche los artículos no deseados a mitad de la ronda.</entitydescription.trashcan>
+<entityname.mechanic_toolkit>Chaleco de herramienta mecánica</entityname.mechanic_toolkit>
+<entitydescription.mechanic_toolkit>Un mecánico lleva muchas herramientas y piezas.</entitydescription.mechanic_toolkit>
+<entityname.engineer_toolkit>Mochila de ingeniería</entityname.engineer_toolkit>
+<entitydescription.engineer_toolkit>Un ingeniero lleva muchas herramientas y piezas.</entitydescription.engineer_toolkit>
+<missionname.cargopeasantprime>Envío de Pesant -Prime</missionname.cargopeasantprime>
+<missiondescription.peasantprime>Si tiene espacio adicional en su transporte, estamos buscando a alguien entregando cajas de PesantPrime de carga a [Location2] para obtener una recompensa de las marcas [de recompensa].</missiondescription.peasantprime>
+<missionsuccess.cargopeasantprime>¡Las cajas de PesantPrime se han entregado con éxito! Has hecho tu parte para habilitar el consumismo desenfrenado.</missionsuccess.cargopeasantprime>
+<entityname.boiler_p>Caldera de vapor para campesinos</entityname.boiler_p>
+<entitydescription.boiler_p>Genera vapor. -50% Velocidad de deterioro de la parte.</entitydescription.boiler_p>
+<entityname.steam_turbine_p>Turbina de vapor para campesinos</entityname.steam_turbine_p>
+<entitydescription.steam_turbine_p>Convierte la energía de vapor en engery cinética. -50% Velocidad de deterioro de la parte.</entitydescription.steam_turbine_p>
+<entityname.reduction_gear_p>Equipo de reducción para campesinos</entityname.reduction_gear_p>
+<entitydescription.reduction_gear_p>Convierte un par bajo de alta velocidad en un par alto de alta velocidad. -50% Velocidad de deterioro de la parte.</entitydescription.reduction_gear_p>
+<entityname.fatboy>Gordo</entityname.fatboy>
+<entitydescription.fatboy>Traje de presión muy protegido para trabajos peligrosos. Profundidad nominal: 4.500. Resistente al fuego, la radiación y las heridas de carne.</entitydescription.fatboy>
+<entityname.storage_cabinet>Armario de almacenamiento</entityname.storage_cabinet>
+<entitydescription.storage_cabinet>Para almacenar artículos pequeños.</entitydescription.storage_cabinet>
+<entityname.emergency_disconnect>Desconexión de emergencia</entityname.emergency_disconnect>
+<entitydescription.emergency_disconnect>Desconexión de potencia de emergencia.</entitydescription.emergency_disconnect>
+<entityname.oxygen_transfer_tank>Tanque de transferencia de oxígeno</entityname.oxygen_transfer_tank>
+<entitydescription.oxygen_transfer_tank>Un gran tanque de oxígeno portátil, útil para proporcionar oxígeno de respaldo a motores de combustión.</entitydescription.oxygen_transfer_tank>
+<entityname.diesel_transfer_truck>Camión de transferencia diesel</entityname.diesel_transfer_truck>
+<entitydescription.diesel_transfer_truck>Estación de transferencia diesel móvil.</entitydescription.diesel_transfer_truck>
+<entityname.oil_transfer_truck>Camión de transferencia de petróleo</entityname.oil_transfer_truck>
+<entitydescription.oil_transfer_truck>Estación de transferencia de aceite móvil.</entitydescription.oil_transfer_truck>
+<Override>
+<entityname.pucs>Gordo</entityname.pucs>
+<entitydescription.pucs>Traje de presión muy protegido para trabajos peligrosos. Profundidad nominal: 4.500. Resistente al fuego, la radiación y las heridas de carne.</entitydescription.pucs>
+</Override>
+<connection.steamin1>Steam_Inlet</connection.steamin1>
+<connection.steamout>Steam_Out</connection.steamout>
+<connection.kineticin1>Kinetic_Inlet</connection.kineticin1>
+<connection.kineticout>Kinetic_Out</connection.kineticout>
+
+
+</infotexts>

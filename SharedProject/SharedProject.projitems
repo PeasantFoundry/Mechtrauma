@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3c1540c8-8235-4e85-8bff-9af5fe32fe99</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\AdvanceOxygenGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\BatteryPump.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\CentralPump.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\ControllablePowerContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\FusedJB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GatedPump.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\global.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GridAbsorber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTBoiler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\SimpleGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterDrain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterGate.cs" />
+  </ItemGroup>
+</Project>

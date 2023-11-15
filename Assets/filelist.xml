@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contentpackage name="Mechtrauma" modversion="1.1.2.2" corepackage="False" steamworkshopid="2855458020" gameversion="0.19.14.0" altnames="Mechtrauma">
+  <Item file="%ModDir%/XML/Mechtrauma_Items.xml" />
+  <Item file="%ModDir%/XML/Mechtrauma_Gear.xml" />
+  <Item file="%ModDir%/XML/Mechtrauma_Generators.xml" />
+  <Item file="%ModDir%/XML/Mechtrauma_Pumps.xml" />
+  <UpgradeModules file="%ModDir%/XML/Mechtrauma_UpgradeModules.xml" />  
+  <Missions file="%ModDir%/XML/Mechtrauma_Missions.xml" />
+  <Afflictions file="%ModDir%/XML/Mechtrauma_Afflictions.xml" />
+  <Text file="%ModDir%/Localization/English/English.xml" />
+  <Text file="%ModDir%/Localization/Russian/Russian.xml" />
+  <Text file="%ModDir%/Localization/Chinese/MechtraumaSCtext.xml" />
+  <Text file="%ModDir%/Localization/BrazilianPortuguese/BrazilianPortuguese.xml" />
+  <Text file="%ModDir%/Localization/CastilianSpanish/CastilianSpanish.xml" />
+  <Text file="%ModDir%/Localization/French/French.xml" />
+  <Text file="%ModDir%/Localization/German/German.xml" />
+  <Text file="%ModDir%/Localization/Japanese/Japanese.xml" />
+  <Text file="%ModDir%/Localization/Korean/Korean.xml" />
+  <Text file="%ModDir%/Localization/LatinamericanSpanish/LatinamericanSpanish.xml" />
+  <Text file="%ModDir%/Localization/Polish/Polish.xml" />
+  <Text file="%ModDir%/Localization/Turkish/Turkish.xml" /> 
+</contentpackage>

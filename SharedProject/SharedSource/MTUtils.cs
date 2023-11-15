@@ -13,8 +13,7 @@ public static class MTUtils
         Type t;
         if (!TypeLookupRef.ContainsKey(name))
         {
-            var type = AssemblyUtils.GetAllTypesInLoadedAssemblies()
-                .FirstOrDefault(t => t?.FullName?.EndsWith(name) ?? t?.Name.EndsWith(name) ?? false, null);
+            var type = LuaCsSetup.AssemblyManager.GetTypesByName(name).FirstOrDefault(defaultValue: null);
             if (type is null)
                 return null!;
             TypeLookupRef[name] = type;
