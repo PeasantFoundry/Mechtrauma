@@ -81,8 +81,6 @@ namespace Mechtrauma
         public void Dispose()
         {
             UnloadUserData();
-            // stopping code, e.g. save custom data
-            MTUtils.PurgeTypeCache();
 #if SERVER
             // server-side code
 #elif CLIENT 

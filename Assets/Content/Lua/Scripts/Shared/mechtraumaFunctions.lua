@@ -44,9 +44,9 @@ function MT.F.fuseBox(item)
     local fuseWaterDamage = 0
     local fuseOvervoltDamage = 0
     local fuseDeteriorationDamage = 0    
-    local powerComponent = MTUtils.GetComponentByName(item, ".PowerTransfer")
-    local repairableComponent = MTUtils.GetComponentByName(item, ".Repairable")
-    local relayComponent = MTUtils.GetComponentByName(item, ".RelayComponent")
+    local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
+    local repairableComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Repairable")
+    local relayComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent")
     if powerComponent == nil or repairableComponent == nil then
         return
     end
@@ -106,13 +106,13 @@ end
 -- CENTRAL COMPUTER: Ships computer
 --MT.tagKeys.centralComputer = function(item)
 function MT.F.centralComputer(item)
-    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered").Voltage > 0.5 then
         CentralComputer.online  = true
-        MTUtils.GetComponentByName(item, "RelayComponent").SetState(true, false)        
+        MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent").SetState(true, false)        
         --print("Central computer online.")
     else
         CentralComputer.online  = false
-        MTUtils.GetComponentByName(item, "RelayComponent").SetState(false, false)
+        MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent").SetState(false, false)
         --print("Central computer offline.")
     end
 end
@@ -125,17 +125,17 @@ end
 -- CENTRAL COMPUTER: Ships computer
 function MT.F.centralComputerNeeded(item)
     if CentralComputer.online  then
-        if MTUtils.GetComponentByName(item, "Steering") ~= nil then MTUtils.GetComponentByName(item, "Steering").CanBeSelected = true end
-        if MTUtils.GetComponentByName(item, "Sonar") ~= nil then MTUtils.GetComponentByName(item, "Sonar").CanBeSelected = true end
-        if MTUtils.GetComponentByName(item, "CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "CustomInterface").CanBeSelected = true end
-        if MTUtils.GetComponentByName(item, "MiniMap") ~= nil then MTUtils.GetComponentByName(item, "MiniMap").CanBeSelected = true end
-        if MTUtils.GetComponentByName(item, "Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Fabricator").CanBeSelected = true end     
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Steering") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Steering").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Sonar") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Sonar").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.CustomInterface").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.MiniMap") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.MiniMap").CanBeSelected = true end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Fabricator").CanBeSelected = true end     
     elseif not CentralComputerOnline then        
-        if MTUtils.GetComponentByName(item, "Steering") ~= nil then MTUtils.GetComponentByName(item, "Steering").CanBeSelected = false end
-        if MTUtils.GetComponentByName(item, "Sonar") ~= nil then MTUtils.GetComponentByName(item, "Sonar").CanBeSelected = false end
-        if MTUtils.GetComponentByName(item, "CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "CustomInterface").CanBeSelected = false end
-        if MTUtils.GetComponentByName(item, "MiniMap") ~= nil then MTUtils.GetComponentByName(item, "MiniMap").CanBeSelected = false end
-        if MTUtils.GetComponentByName(item, "Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Fabricator").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Steering") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Steering").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Sonar") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Sonar").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.CustomInterface") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.CustomInterface").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.MiniMap") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.MiniMap").CanBeSelected = false end
+        if MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Fabricator") ~= nil then MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Fabricator").CanBeSelected = false end
     end
 end
 
@@ -144,7 +144,7 @@ function MT.F.steamBoiler(item)
     local index = 0
 
     -- OPERATION: if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 0 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 0 and MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered").Voltage > 0.5 then
         local curculatorItems = {}
         local curculatorSlots = 2 -- temporarily hardcoded        
         local circulatorCount = 0
@@ -189,7 +189,7 @@ function MT.F.steamTurbine(item)
     -- -0.05 deterioration per 2 second when powered
     local index = 0
     -- if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered").Voltage > 0.5 then
         local bearingItems = {}
         local bladeCount = 0
         local bearingSlots = 4 -- temporarily hardcoded
@@ -232,7 +232,7 @@ function MT.F.steamTurbine(item)
         item.Condition = item.Condition - frictionDamage
 
         -- <!-- DISABLE: Cannot transmit power without turbine blades, right? -->       
-        MTUtils.GetComponentByName(item, "RelayComponent").SetState(bladeCount >= 4, false)
+        MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent").SetState(bladeCount >= 4, false)
        
     else 
        
@@ -251,7 +251,7 @@ end
 function MT.F.reductionGear(item)
     local index = 0
     -- if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered").Voltage > 0.5 then
         -- oil
         local oilItems = {}
         local oilVol = 0
@@ -264,7 +264,7 @@ function MT.F.reductionGear(item)
         local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local driveGearCount = 0
 
-        local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Engine").Force, 2)
+        local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Engine").Force, 2)
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
 
         --loop through the Reduction Gear inventory        
