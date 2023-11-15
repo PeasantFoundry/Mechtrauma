@@ -1,12 +1,4 @@
-﻿using ModdingToolkit;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Barotrauma;
+﻿using Barotrauma;
 using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -80,7 +72,7 @@ namespace Mechtrauma
                     GUI.DrawString(spriteBatch, labelPos, text, GUIStyle.TextColorBright, font: GUIStyle.SmallFont);
 
                     // Draw the connection sprite
-                    float connectorSpriteScale = (35.0f / Connection.connectionSprite.SourceRect.Width) * panel.Scale;
+                    float connectorSpriteScale = (35.0f / Connection.connectionSprite.SourceRect.Width) * panel.Item.Scale;
                     Connection.connectionSprite.Draw(spriteBatch, position, scale: connectorSpriteScale);
 
                     // Prevent the original method from running

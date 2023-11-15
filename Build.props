@@ -1,0 +1,9 @@
+<Project>
+    <PropertyGroup>
+        <!-- IMPORTANT: Should point to <Barotrauma_Install>\LocalMods\<MyModName>\ -->
+        <!-- IMPORTANT: ModDeplyDir Path must end with '\' -->
+        <ModDeployDir>..\ContentPackage\</ModDeployDir>
+        <!-- IMPORTANT: Avoid the use of special (IE: / : ; , \ < > ?) (periods "." are good) and non-english characters in the AssemblyName.-->
+        <AssemblyName>Mechtrauma</AssemblyName>
+    </PropertyGroup>
+</Project>

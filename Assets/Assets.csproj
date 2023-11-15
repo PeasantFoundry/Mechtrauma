@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>ModAssets</RootNamespace>
+    </PropertyGroup>
+
+    <Import Project="../Build.props"/>
+
+    <ItemGroup>
+      <Folder Include="Content" />
+    </ItemGroup>
+
+    <Target Name="CopyFiles" AfterTargets="Build">
+        <ItemGroup>
+            <FileList Include="$(ProjectDir)filelist.xml" />
+            <RunConfig Include="$(ProjectDir)RunConfig.xml" />
+            <Content Include="$(ProjectDir)Content\**\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(FileList)" DestinationFiles="$(ModDeployDir)filelist.xml" />
+        <Copy SourceFiles="@(RunConfig)" DestinationFiles="$(ModDeployDir)CSharp\RunConfig.xml" />
+        <Copy SourceFiles="@(Content)" DestinationFolder="$(ModDeployDir)%(RecursiveDir)" />
+    </Target>
+
+
+</Project>
