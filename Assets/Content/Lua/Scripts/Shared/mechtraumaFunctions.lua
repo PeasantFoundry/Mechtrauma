@@ -144,7 +144,7 @@ function MT.F.steamBoiler(item)
     local index = 0
 
     -- OPERATION: if operational (condition) and operating (powered)
-    if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
+    if item.ConditionPercentage > 0 and MTUtils.GetComponentByName(item, "Powered").Voltage > 0.5 then
         local curculatorItems = {}
         local curculatorSlots = 2 -- temporarily hardcoded        
         local circulatorCount = 0
@@ -171,7 +171,7 @@ function MT.F.steamBoiler(item)
 
         -- check for leaks
         if item.ConditionPercentage <= 50 then
-            print(item.CurrentHull.WaterVolume)
+            --print(item.CurrentHull.WaterVolume)
             item.CurrentHull.WaterVolume = item.CurrentHull.WaterVolume + 3000
         end
     else
