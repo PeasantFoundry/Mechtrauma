@@ -84,7 +84,7 @@ namespace Mechtrauma
                 }
             }
 
-            float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValue(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
+            float flow = FlowPercentage / 100.0f * item.StatManager.GetAdjustedValueMultiplicative(ItemTalentStats.PumpMaxFlow, MaxFlow) * powerFactor;
 
             //Prevent water flow if there is no water gates connected
             if (!HasMotor || (NeedWaterGate && (waterGateIn == null || waterGateIn.Grid == null || waterGateIn.Grid.Voltage < 0.5f)))
@@ -97,7 +97,7 @@ namespace Mechtrauma
                 flow *= 1f + repairable.TinkeringStrength * 4.0f;
             }
 
-            flow = item.StatManager.GetAdjustedValue(ItemTalentStats.PumpSpeed, flow);
+            flow = item.StatManager.GetAdjustedValueMultiplicative(ItemTalentStats.PumpSpeed, flow);
 
             //less effective when in a bad condition
             flow *= MathHelper.Lerp(0.5f, 1.0f, item.Condition / item.MaxCondition);
