@@ -49,6 +49,15 @@ MT.DE = {
         name="s2500Db",
         ignitionType=MT.F.sGeneratorIgnition
     },
+        sC2500Dc={
+        maxHorsePower=2500*1.5,
+        oilSlots=2,
+        filterSlots=1,
+        dieselFuelSlots=3,
+        auxOxygenSlots=3,
+        name="s2500Dc",
+        ignitionType=MT.F.sGeneratorIgnition
+    },
     s1500D={
         maxHorsePower=1500*1.5,
         oilSlots=1,

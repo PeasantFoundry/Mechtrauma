@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsServer", "ServerProj
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedSource", "SharedProject\SharedSource.shproj", "{3C1540C8-8235-4E85-8BFF-9AF5FE32FE99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinuxClient", "ClientProject\LinuxClient.csproj", "{DE15522F-1F5E-4055-BD43-8BABAD659532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinuxClient", "ClientProject\LinuxClient.csproj", "{DE15522F-1F5E-4055-BD43-8BABAD659532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinuxServer", "ServerProject\LinuxServer.csproj", "{1F5F3384-4CD3-4E42-8145-54FB226C3FB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinuxServer", "ServerProject\LinuxServer.csproj", "{1F5F3384-4CD3-4E42-8145-54FB226C3FB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assets", "Assets\Assets.csproj", "{22A1E1DA-BE10-45E0-8D2A-0FE65E773FF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assets", "Assets\Assets.csproj", "{22A1E1DA-BE10-45E0-8D2A-0FE65E773FF7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Linux", "Linux", "{35C69328-1676-4ACD-825C-9B3732501A75}"
 EndProject
@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{A43F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OSX", "OSX", "{FB4AF98D-A8B6-43EA-95FC-4A635E4315B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSXClient", "ClientProject\OSXClient.csproj", "{8C80A256-914B-41AC-84E7-6EA528AF60D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSXClient", "ClientProject\OSXClient.csproj", "{8C80A256-914B-41AC-84E7-6EA528AF60D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSXServer", "ServerProject\OSXServer.csproj", "{59E72B4B-FCFF-4B33-81BC-A148B63CE4B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSXServer", "ServerProject\OSXServer.csproj", "{59E72B4B-FCFF-4B33-81BC-A148B63CE4B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,20 +63,24 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A2B1E2A9-2467-4672-B674-863A567E8484} = {A43FEDB3-075D-4468-8FFE-55ACE8302253}
+		{918708B2-21AA-4151-A9C1-403B8E422411} = {A43FEDB3-075D-4468-8FFE-55ACE8302253}
+		{DE15522F-1F5E-4055-BD43-8BABAD659532} = {35C69328-1676-4ACD-825C-9B3732501A75}
+		{1F5F3384-4CD3-4E42-8145-54FB226C3FB4} = {35C69328-1676-4ACD-825C-9B3732501A75}
+		{8C80A256-914B-41AC-84E7-6EA528AF60D4} = {FB4AF98D-A8B6-43EA-95FC-4A635E4315B6}
+		{59E72B4B-FCFF-4B33-81BC-A148B63CE4B0} = {FB4AF98D-A8B6-43EA-95FC-4A635E4315B6}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E27B0EAB-13FF-47B7-A220-FC2E86D315C9}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedProject\SharedProject.projitems*{1f5f3384-4cd3-4e42-8145-54fb226c3fb4}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{3c1540c8-8235-4e85-8bff-9af5fe32fe99}*SharedItemsImports = 13
+		SharedProject\SharedProject.projitems*{59e72b4b-fcff-4b33-81bc-a148b63ce4b0}*SharedItemsImports = 5
+		SharedProject\SharedProject.projitems*{8c80a256-914b-41ac-84e7-6ea528af60d4}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{918708b2-21aa-4151-a9c1-403b8e422411}*SharedItemsImports = 5
 		SharedProject\SharedProject.projitems*{a2b1e2a9-2467-4672-b674-863a567e8484}*SharedItemsImports = 5
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DE15522F-1F5E-4055-BD43-8BABAD659532} = {35C69328-1676-4ACD-825C-9B3732501A75}
-		{1F5F3384-4CD3-4E42-8145-54FB226C3FB4} = {35C69328-1676-4ACD-825C-9B3732501A75}
-		{A2B1E2A9-2467-4672-B674-863A567E8484} = {A43FEDB3-075D-4468-8FFE-55ACE8302253}
-		{918708B2-21AA-4151-A9C1-403B8E422411} = {A43FEDB3-075D-4468-8FFE-55ACE8302253}
-		{8C80A256-914B-41AC-84E7-6EA528AF60D4} = {FB4AF98D-A8B6-43EA-95FC-4A635E4315B6}
-		{59E72B4B-FCFF-4B33-81BC-A148B63CE4B0} = {FB4AF98D-A8B6-43EA-95FC-4A635E4315B6}
+		SharedProject\SharedProject.projitems*{de15522f-1f5e-4055-bd43-8babad659532}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
