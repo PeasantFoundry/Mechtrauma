@@ -34,9 +34,17 @@ MT.tagfunctions = {
         tags={"steamturbine"},
         update=MT.F.steamTurbine
     },
+    steamValve={
+        tags={"steamValve"},
+        update=MT.F.steamValve
+    },
     reductionGear={
         tags={"reductionGear"},
         update=MT.F.reductionGear
+    },
+    mechanicalClutch={
+        tags={"mechanicalClutch"},
+        update=MT.F.mechanicalClutch
     },
     centralComputer={
         tags={"centralcomputer"},

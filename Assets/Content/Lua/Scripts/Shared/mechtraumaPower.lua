@@ -99,7 +99,7 @@ function MT.F.dieselGenerator(item)
 
     -- check for a diesel series index
     if MT.DE[item.Prefab.Identifier.Value] ~= nil then
-        -- Results: Pass the ingition type, diesel series, and target power to the dieslEngine function to attempt combustion
+        -- Results: Pass the ingition type, diesel series, and target power to the dieselEngine function to attempt combustion
         local result = MT.F.dieselEngine(item, MT.DE[item.Prefab.Identifier.Value].ignitionType(item), MT.DE[item.Prefab.Identifier.Value], targetPower)
         
         -- Generate Power: need to add the HP to kW conversion at some point
@@ -148,11 +148,16 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local oilFiltrationItems = {}
     local oilfiltrationSlots = dieselSeries.filterSlots
     local oilFiltrationVol = 0
-    -- Damage and Reduction
+    -- damage and reduction
     local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
     local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for capacity    
 
-
+    -- diagnostics
+    local terminal = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Terminal")
+    local terminalItem = item
+    --local property = terminal.SerializableProperties[Identifier("TextColor")]
+    local diagnosticData ={}
+    
     -- INVENTORY: loop through the inventory and see what we have
     local index = 0
     while(index < item.OwnInventory.Capacity) do
@@ -173,7 +178,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
             oilDeterioration = oilDeterioration - oilDeterioration * (MT.Config.OilFiltrationM / oilfiltrationSlots) -- FILTER: reduce *possible* oil damage for this filter slot  
             oilFiltrationVol = oilFiltrationVol + containedItem.Condition
         -- get aux oxygen item(s)    
-        elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then 
+        elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then
             table.insert(auxOxygenItems, containedItem)
             auxOxygenVol = auxOxygenVol + containedItem.Condition
         end
@@ -182,9 +187,21 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     end
          
     -- fuelCheck
-    if dieselFuelVol > dieselFuelNeededCL then dieselEngine.fuelCheck = true end
+    if dieselFuelVol > dieselFuelNeededCL then
+        -- fuelCheck passed
+        dieselEngine.fuelCheck = true
+    else
+        -- fuelCheck failed
+        table.insert(diagnosticData, "*DC106: INSUFFICIENT FUEL*")
+    end
     -- oxygenCheck
-    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then dieselEngine.oxygenCheck = true end
+    if hullOxygenPercentage > 75 or auxOxygenVol > oxygenNeeded then
+        --oxygenCheck passed
+        dieselEngine.oxygenCheck = true
+    else
+        -- oxygenCheck failed
+        table.insert(diagnosticData, "*DC105: INSUFFICIENT OXYGEN*")
+    end
     
     -- attempt combustion
     if item.Condition > 0 and ignition and dieselEngine.fuelCheck and dieselEngine.oxygenCheck  then
@@ -219,13 +236,26 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
             -- print(item,": ", item.IsOn)
         end
-
+        -- diagnostics - only display if there is a terminal, ignition is implicit
+        if terminal then
+            MT.HF.SendTerminalColorMessage(item, terminal, Color(250, 125, 15, 255), "*COMBUSTION SUCCESS: " .. dieselEngine.powerGenerated .. "kW GENERATED*")
+        end
         return dieselEngine
     else
         -- combustion failed        
         dieselEngine.combustion = false
         dieselEngine.powerGenerated = 0
 
+        -- turn off generator when combustion fails 
+        MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator").IsOn = false
+
+        -- diagnostics - only display if the ignition is on and there is a terminal 
+        if ignition and terminal then
+            MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 35, 35, 255), "*****COMBUSTION FAILED*****")
+            for k, dCode in pairs(diagnosticData) do
+                terminal.ShowMessage = dCode
+            end
+        end
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end

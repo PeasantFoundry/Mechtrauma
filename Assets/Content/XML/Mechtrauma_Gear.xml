@@ -136,7 +136,7 @@
       </StatusEffect>
 
       <!-- PRESSURE PROTECTION: Conditional on the suit not being broken. -->
-      <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="4000.0" disabledeltatime="true">
+      <StatusEffect type="OnWearing" target="This,Character" setvalue="true" PressureProtection="3950.0" disabledeltatime="true">
         <Conditional condition="gte 1" />
       </StatusEffect>
 

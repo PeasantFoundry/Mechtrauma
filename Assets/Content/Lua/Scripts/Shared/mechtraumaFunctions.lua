@@ -33,7 +33,11 @@ function MT.F.divingSuit(item)
             end
             -- low pressure (<= 2500 protection) diving suits receive 50% deterioration dammage per delta
             if item.ParentInventory.Owner.PressureProtection <= 2500 then deteriorationDamagePD = deteriorationDamagePD * 0.5 end
-            -- apply deterioration and pressure damage to divingsuit for this update. 
+
+            -- high pressure (>= 4000) diving suits receive 50% more deterioration damage when NOT in water
+            if item.ParentInventory.Owner.PressureProtection >= 4000 and not item.InWater then deteriorationDamagePD = deteriorationDamagePD * 1.5 end
+
+            -- apply deterioration and pressure damage to divingsuit for this delta.
             item.Condition = item.Condition - (deteriorationDamagePD + pressureDamagePD)
         end
     end
@@ -81,7 +85,7 @@ function MT.F.fuseBox(item)
             -- only apply overvoltage damage if overvoltage has lasted for more than 1 update
             if MT.itemCache[item].counter > 1 then
                 fuseOvervoltDamage = MT.Config.FuseboxOvervoltDamage * voltage-- this needs to scale with load overvoltage on 10,000kw should do more damage than on 100kw     
-            end         
+            end
         else
             MT.itemCache[item].counter = 0
         end
@@ -256,6 +260,7 @@ function MT.F.reductionGear(item)
         local oilItems = {}
         local oilVol = 0
         local oilSlots = 4 -- temporarily hardcoded, need to fix
+        local oilCapacity = oilSlots * 1
         -- filtration
         local oilFiltrationItems = {}
         local oilfiltrationSlots = 2 -- temporarily hardcoded, need machine table or handle in loop
@@ -265,6 +270,7 @@ function MT.F.reductionGear(item)
         local driveGearCount = 0
 
         local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Engine").Force, 2)
+        
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
 
         --loop through the Reduction Gear inventory        
@@ -315,4 +321,39 @@ function MT.F.reductionGear(item)
             index = index + 1
             end
         end        
+end
+
+-- MECHANICAL CLUTCH:
+function MT.F.mechanicalClutch(item)
+    local relayComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent")
+    local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
+    local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
+    -- if the controller swtich is on, engage the clutch
+    if controllerComponent.state == true then
+        --print(" Clutch powered load:", powerComponent.PowerLoad)
+        --print(" Clutch relay load:", relayComponent.DisplayLoad)
+        --rint(" Clutch relay power out:", relayComponent.powerOut)
+        relayComponent.SetState(true, false)
+    -- if the controller swtich is off, disengage the clutch
+    else
+        --print("clutch is off!")
+        relayComponent.SetState(false, false)
+    end
+
+end
+
+-- STEAM VALVE:
+function MT.F.steamValve(item)
+    local relayComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent")
+    local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
+    local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
+    -- if the controller swtich is on, open the valve
+    if controllerComponent.state == true then   
+        relayComponent.SetState(true, false)
+    
+        -- if the controller swtich is off, close the valve
+    else        
+        relayComponent.SetState(false, false)
+    end
+
 end

@@ -20,7 +20,7 @@ Hook.Add("mechtraumaBacteriaAnalyze.OnUse", "BT.bacteriaAnalyze", function(effec
         local samplePrefab = ItemPrefab.GetItemPrefab("bacterial_sample_a4")
      
         local outcome = math.random(250)
-        local terminal = MTUtils.GetComponentByName(item, ".Terminal")
+        local terminal = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Terminal")
         
         
      

@@ -43,8 +43,24 @@
       </StatusEffect> 
     </LightComponent>
     
+    <!-- Diagnostic Terminal -->
+    <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
+      <GuiFrame relativesize="0.25,0.2" relativeoffset="0.36,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" />
+    </Terminal>
+
+    <!-- Controls -->
+    <CustomInterface canbeselected="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.25,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
+      </Button>      
+    </CustomInterface>
+
     <SimpleGenerator MaxPowerOut="5000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
-      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
+      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Left" style="ItemUI" />
     </SimpleGenerator>
    
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
@@ -76,18 +92,7 @@
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
         <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
       </SubContainer>               
-    </ItemContainer>
-
-    <!-- Controls -->
-    <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
-      <Button text="Engine On">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
-      </Button>
-      <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
-    </CustomInterface>
+    </ItemContainer>   
         
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
@@ -275,9 +280,14 @@
       </SubContainer>               
     </ItemContainer>
 
+    <!-- Diagnostic Terminal -->
+    <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
+      <GuiFrame relativesize="0.25,0.2" relativeoffset="0.36,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" />
+    </Terminal>
+
     <!-- Controls -->
     <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.25,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
@@ -457,7 +467,7 @@
       <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">        
         <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="800" loop="true" />    
+          
       </StatusEffect> 
     </LightComponent>
 
@@ -466,7 +476,8 @@
       <!-- Power on! -->
       <StatusEffect type="Always" target="This" IsOn="true" disabledeltatime="true" Comparison="And">
         <RequiredItem items="keys,screwdriver" type="Contained" mincondition="5.0" />     
-        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />   
+        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />  
+        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />   
       </StatusEffect>  
 
       <!-- Power off! -->
@@ -564,7 +575,7 @@
       <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="800" loop="true" />    
+        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />    
       </StatusEffect> 
     </LightComponent>
 

@@ -134,7 +134,7 @@
 
   
  <!-- SMALL EXTINGUISHER: NEW AND IMPROVED! -->   
-<Item name="S5-Extinguisher" identifier="s5_extinguisher" category="Equipment" Tags="smallitem,extinguisher,provocative" cargocontaineridentifier="metalcrate" description="S5-Extinguisher" health="10" Scale="0.3" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
+<Item name="S5-Extinguisher" identifier="s5_extinguisher" category="Equipment" Tags="smallitem,fireextinguisher,provocative" cargocontaineridentifier="metalcrate" description="S5-Extinguisher" health="10" Scale="0.3" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
    <PreferredContainer primary="extinguisherholder" spawnprobability="1.0"/>
     <PreferredContainer secondary="engcab,reactorcab"/>
     <Price baseprice="25" displaynonempty="true">
@@ -166,7 +166,7 @@
 
   
  <!-- LARGE EXTINGUISHER: For use with turnout gear. -->   
-<Item name="L100-Extinguisher" identifier="l100_extinguisher" category="Equipment" Tags="mediumitem,extinguisher,provocative" cargocontaineridentifier="metalcrate" description="L100-Extinguisher" health="120" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
+<Item name="L100-Extinguisher" identifier="l100_extinguisher" category="Equipment" Tags="mediumitem,fireextinguisher,provocative" cargocontaineridentifier="metalcrate" description="L100-Extinguisher" health="120" Scale="0.5" impactsoundtag="impact_metal_light" donttransferbetweensubs="true">
    <PreferredContainer primary="extinguisherholder" spawnprobability="1.0"/>
     <PreferredContainer secondary="engcab,reactorcab"/>
     <Price baseprice="100" displaynonempty="true">
@@ -685,7 +685,7 @@
     <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />    
     <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
       <GuiFrame relativesize="0.25,0.45" anchor="Center" relativeoffset="-0.01,0.0" style="ItemUI" /> 
-      <Containable identifiers="smallitem"/>
+      <Containable identifiers="smallitem,mediumitem"/>
     </ItemContainer>
   </Item> 
 
@@ -1328,29 +1328,25 @@
       <!-- Co2 CARTRIDGE: Slot0 -->
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="co2_cartridge" excludebroken="false" excludefullcondition="false" >
-
+          
           <!-- Co2 CARTRIDGE present: Check for any co2 cartridge in slot0  (Statuseffect tags need to have a duration applied) -->
           <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="co2_cartridge" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
-            <Requireditem items="co2_cartridge" type="contained" targetslot="0" excludebroken="false" excludefullcondition="false"/>             
+            <Requireditem items="co2_cartridge" type="contained" targetslot="0" excludebroken="false" excludefullcondition="false"/>                           
           </StatusEffect>
 
           <!-- Co2 CARTRIDGE vialbe: Check for a viable co2 cartridge in slot0 (Statuseffect tags need to have a duration applied) -->
-          <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="co2_cartridge_viable" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
-            <Requireditem items="co2_cartridge" type="contained" mincondition="1.0"/>      
-            
+          <StatusEffect type="OnContaining" target="This" Tags="co2_cartridge_viable" targetslot="0" duration="0.1" stackable="false" Comparison="And"> 
+            <Requireditem items="co2_cartridge" type="contained" mincondition="1.0"/>                             
           </StatusEffect>     
         
-         <!-- DETERIORATE Co2 CARTRIDGE: -->
-        <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.1" Comparison="And"> 
-          <Requireditem items="co2_cartridge" type="contained" targetslot="0"/>             
-          <Conditional InWater="false" />
-              
-        </StatusEffect>
-
-        
+          <!-- DETERIORATE Co2 CARTRIDGE: -->
+          <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.1" Comparison="And"> 
+            <Requireditem items="co2_cartridge" type="contained" targetslot="0"/>             
+          <Conditional InWater="false" />              
+        </StatusEffect>        
         </Containable>
-      </SubContainer>
-      
+      </SubContainer>      
+
       <!-- VENT: Slot1 -->
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="spore_fungus" >
@@ -1359,40 +1355,25 @@
     </ItemContainer>
     
     <Vent>
-      <!-- HOOK: When the vent is active, trigger the LUA hook MOVED TO LUA 11/18/22 
-      <StatusEffect type="OnActive" targettype="This" interval="5" stackable="false">
-        <LuaHook name="mechtraumaVentInterval.OnActive" />
-      </StatusEffect>-->
-      
       <!-- Spore Infection: If there is a spore fungus in an active vent, poison nearby victims. (TO DO: Make players with SCBA immune) -->
       <StatusEffect type="OnActive" target="This" interval="5" duration="2" stackable="false" comparison="And">
         <Requireditem items="spore_fungus" type="contained" targetslot="1" /> 
         <Explosion range="1000" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="1" stackable="false">
           <Affliction identifier="spore_infection" strength="0.1" />        
-        </Explosion>
-          <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="5.0" scalemax="10.0" colormultiplier="45,60,0,100"/> 
+        </Explosion>          
+          <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="5.0" scalemax="10.0" colormultiplier="45,60,0,100"/>
       </StatusEffect> 
 
-
-       <!-- Co2 Poisoning: (TO DO: Make players with independent oxygen supply immune - DONE) -->
-          <StatusEffect type="Always" target="This" delay="1" stackable="false" disabledeltatime="false" comparison="And">
-            <Conditional HasStatusTag="neq co2_cartridge_viable" />  
-            <Conditional InWater="false" />
-             <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="0" anglemax="90" velocitymin="500" velocitymax="1000" highqualitycollisiondetection="true"/>
-            <Explosion range="1000" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="1" stackable="false">
-              <Affliction identifier="co2_poisoning" strength="0.25" />    <!-- reduced from .5 to .35 on 10/1-->    
-            </Explosion>
-            
-          </StatusEffect>
-
-      
-      <!-- Remove Atmosphere Oxygen when filling slot0
-      <StatusEffect type="OnActive" targettype="This" target="This,Hull" setvalue="false" Oxygen="-1000" checkconditionalalways="true" Comparison="And"> 
-       
-      </StatusEffect>  -->
+      <!-- Co2 Poisoning: (TO DO: Make players with independent oxygen supply immune - DONE) -->
+      <StatusEffect type="Always" target="This" delay="1" stackable="false" disabledeltatime="false" comparison="And">
+        <Conditional HasStatusTag="!eq co2_cartridge_viable" />  
+        <Conditional InWater="false" />            
+        <Explosion range="1000" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="1" stackable="false">
+          <Affliction identifier="co2_poisoning" strength="0.25" />    <!-- reduced from .5 to .35 on 10/1-->    
+        </Explosion>            
+      </StatusEffect>
       <sound file="Content/Items/OxygenGenerator/Ventilation.ogg" type="OnActive" range="400.0" volumeproperty="OxygenFlow" volume="0.0005f" loop="true"/>
-    </Vent>
-          
+    </Vent>          
   </Item>
 
   
@@ -2084,7 +2065,7 @@
     <BrokenSprite texture="%ModDir%/Images/mechtrauma_command.png" sourcerect="384,384,236,368" depth="0.8" maxcondition="0" origin="0.5,0.5" />
 
     <Powered powerconsumption="250" minvoltage="0.5" isactive="true"/>
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="250" canbeoverloaded="true" IsOn="False"/>
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="250" canbeoverloaded="true" IsOn="False" AllowInGameEditing="false"/>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
@@ -2142,9 +2123,9 @@
       <GuiFrame relativesize="0.35,0.55" relativeoffset="0.0,0.0" anchor="TopCenter" style="ItemUI" />
     </Terminal>
 
-      <!-- There is no way to completly close a window, at least i couldnt find a way, gui frame cant use status effects inside it -->
+      <!-- There is no way to completly close a window, at least i couldnt find a way, gui frame cant seem use status effects inside it -->
         <MiniMap enableitemfinder="false" enablehullstatus="true" enablehullcondition="true" enableelectricalview="false" drawhudwhenequipped="true" displaybordersize="0.0" characterusable="false" allowuioverlap="false">
-            <GuiFrame relativesize="0.2,0.2" anchor="TopCenter" pivotr="TopRight" relativeoffset="-0.63,0.0" style="ItemUI"/>
+            <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivotr="TopLeft" relativeoffset="0.01,0.0" style="ItemUI"/>
         
             <StatusEffect type="OnWearing" target="This" enablehullstatus="false" enablehullcondition="false" setvalue="true"/>
             <StatusEffect type="OnWearing" target="This" enablehullstatus="true" enablehullcondition="true" setvalue="true" comparison="and">
@@ -2212,7 +2193,7 @@
     </CustomInterface>
   </Item>
 
-  <!-- MAINTENANCE TABLET:-->
+  <!-- MEDICAL TABLET:-->
   <Item name="Medical Tablet" identifier="mt_medical_tablet" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">      
       <Price storeidentifier="merchantcity" multiplier="0.5" />
@@ -2249,7 +2230,7 @@
       <!-- REPORT: TBD -->
       <Button text="REPORT TBD">
         <StatusEffect type="OnUse" target="This" >
-          <LuaHook name="maintenanceTablet_pr.OnUse" /> 
+          
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
@@ -2271,7 +2252,7 @@
       <!-- REPORT: TBD -->
       <Button text="REPORT TBD">
         <StatusEffect type="OnUse" target="This">
-          <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
+          
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
@@ -2661,7 +2642,7 @@
       <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
     </Controller>
 
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False" AllowInGameEditing="false">
       <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
 
       <!-- ON: -->
@@ -2691,7 +2672,7 @@
 
     
 <!-- STEAM SHUT OFF VALVE: Steam -->
-<Item name="Steam Valve" identifier="steam_valve" category="Electrical" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+<Item name="Steam Valve" identifier="steam_valve" category="Electrical" tags="mtu,steamValve,smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="125" minavailable="4">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" sold="false" />
@@ -2736,13 +2717,13 @@
     </DecorativeSprite>-->
    
     <Body width="18" height="31" density="20" />
-    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect" allowingameediting="false">
       <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
       <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
     </Controller>
 
 
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False" AllowInGameEditing="false">
       <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
 
       <!-- ON: -->
@@ -2765,13 +2746,13 @@
         <input name="signal_in" displayname="connection.singalin" />
       <output name="signal_out" displayname="connection.signalout" />
     </ConnectionPanel>
-    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true" canbepicked="false">
       <requireditem identifier="wrench" type="Equipped" />
     </Holdable>
   </Item>
 
 <!-- Mechanical Clutch: Kinnetic Disconnect -->
-<Item name="Mechanical Clutch" identifier="kinetic_clutch" category="Machine" tags="smallitem,switch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
+<Item name="Mechanical Clutch" identifier="kinetic_clutch" category="Machine" tags="mtu,smallitem,switch,mechanicalClutch" allowedlinks="door" linkable="true" cargocontaineridentifier="metalcrate" scale="0.5" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="125" minavailable="4">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" sold="false" />
@@ -2815,39 +2796,48 @@
     </LightComponent> -->
 
    
-    <Body width="18" height="31" density="20" />
-    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect">
+    
+    <Controller direction="None" state="true" canbepicked="true" istoggle="true" msg="ItemMsgPressSelect" AllowInGameEditing="false">
       <sound file="Content/Items/Button/Switch1.ogg" type="OnUse" range="250.0" />
       <sound file="Content/Items/Button/Switch2.ogg" type="OnUse" range="250.0" />
     </Controller>
 
 
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" canbeoverloaded="false" IsOn="False">
-      <!-- <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> -->
-
-      <!-- ON: -->
-      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="False" Comparison="And">
-        <Conditional State="eq False" targetitemcomponent="Controller" />       
-      </StatusEffect> 
-
-      <!-- OFF: -->
-      <StatusEffect type="Always" target="This" targetitemcomponent="RelayComponent" delay="1" stackable="false" checkconditionalways="true" IsOn="True">
-        <!--<Conditional HasStatusTag="neq ON" /> -->
-        <Conditional State="eq True" targetitemcomponent="Controller" />       
-      </StatusEffect>      
-
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxpower="10000" maxoutput="10000" condition="100" canbeoverloaded="false" IsOn="False" AllowInGameEditing="false">
+      <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Left" style="ItemUI" />
     </RelayComponent>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredItem identifier="screwdriver" type="Equipped" />
       <output name="kinetic_out" displayname="connection.kineticout" />
-        <input name="kinetic_in" displayname="connection.kineticin" />
-        <input name="signal_in" displayname="connection.singalin" />
-      <output name="signal_out" displayname="connection.signalout" />
+      <input name="kinetic_in" displayname="connection.kineticin" />
+      <output name="state_out" displayname="connection.stateout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
     </ConnectionPanel>
-    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="10.0" aimpos="35,-10" handle1="0,0" attachable="true" attachedbydefault="true" aimable="true">
-      <requireditem identifier="wrench" type="Equipped" />
-    </Holdable>
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="90" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,200" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="DarkSmoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="8" scalemin="1.8" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- SAFETY PROCEDURE: Repair reduction gear when powered off. -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional Voltage="lte 0.5" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+
+      <!-- Don't stick your arm in a gearbox when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Conditional Voltage="gt 0.5" targetitemcomponent="RelayComponent"/>
+        <LuaHook name="mechtraumaAmputation.OnFailure" /> <!-- I WILL HAVE MY AMPUTATIONS! -->      
+      </StatusEffect>
+
+    </Repairable>
   </Item>
   
   <!-- AVERAGE COMPONENT: -->
@@ -3034,7 +3024,7 @@
 
     <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,384,112,174" depth="0.815" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
-    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="10000" canbeoverloaded="false" IsOn="True">
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="10000" canbeoverloaded="false" IsOn="True" AllowInGameEditing="false">
       <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />     
     
      
@@ -3051,23 +3041,25 @@
     </RelayComponent>
 
     <!-- POWER LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
       <IsActive targetitemcomponent="RelayComponent" overload="eq False" />
     </LightComponent>
     <!-- OVERVOLTAGE LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
       <IsActive targetitemcomponent="RelayComponent" overload="eq True" />
     </LightComponent>
+
     <!-- FUSE LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
       <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />      
-      <RequiredItem items="fuse" type="Contained" mincondition="1.0" />        
+      <IsActive targetitemcomponent="RelayComponent" IsOn="eq True" />          
     </LightComponent>
 
+
     <Body width="112" height="174" density="30" />
-    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="5.0" aimpos="65,-10" handle1="0,0" attachable="true" aimable="true">
+    <Holdable selectkey="Select" pickkey="Use" slots="Any,RightHand,LeftHand" msg="ItemMsgDetachWrench" PickingTime="5.0" aimpos="65,-10" handle1="0,0" attachable="true" aimable="true" canbepicked="false">
       <RequiredItem items="wrench" type="Equipped" />
     </Holdable>
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
@@ -3119,7 +3111,7 @@
   </Item>
 
 
-<!-- ELECTRICAL PANEL -->
+<!-- ELECTRICAL PANEL: -->
   <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" hideinmenus="true">
     <InventoryIcon  texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
@@ -3129,24 +3121,7 @@
     <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
     <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
     <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
-        <!-- POWER LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
-      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="FusedJB" overload="eq False" />
-    </LightComponent>
-    <!-- OVERVOLTAGE LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
-      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="FusedJB" overload="eq True" />
-    </LightComponent>
-    <!-- FUSE LIGHT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />   
-      <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
-        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />   
-      </StatusEffect>   
-    </LightComponent>
-    
+   
     <!-- LABEL-->
     <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
     <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect">
@@ -3169,6 +3144,25 @@
         <Conditional HasStatusTag="neq yesfuse" />
       </StatusEffect>
     </PowerTransfer>
+
+    <!-- POWER LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+    </LightComponent>
+    <!-- OVERVOLTAGE LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
+    </LightComponent>
+    <!-- FUSE LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />   
+      <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
+        <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />   
+      </StatusEffect>   
+    </LightComponent>
+
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -3221,7 +3215,7 @@
   </Item>
 
   
-<!-- ELECTRICAL PANEL -->
+<!-- ELECTRICAL PANEL V2:  -->
   <Item name="Electrical Panel" identifier="electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <InventoryIcon  texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
@@ -3231,15 +3225,15 @@
     <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
     <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
     <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
-        <!-- POWER LIGHT -->
+    <!-- POWER LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="FusedJB" overload="eq False" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
     </LightComponent>
     <!-- OVERVOLTAGE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">      
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="FusedJB" overload="eq True" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
     </LightComponent>
     <!-- FUSE LIGHT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
@@ -3259,6 +3253,12 @@
       </StatusEffect>
     </PowerTransfer>
 
+  <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+      <Upgrade gameversion="0.9.600.0" lightcolor="255,255,255,0"/>
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+    </LightComponent>
+      
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
       <RequiredSkill identifier="electrical" level="55" />
@@ -3299,8 +3299,8 @@
     </Repairable>
   </Item>
 
-  <!-- ELECTRICAL PANEL -->
-  <Item name="Safety Electrical Panel" identifier="s_electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+  <!-- SAFETY ELECTRICAL PANEL: -->
+  <Item name="Safety Electrical Panel" identifier="s_electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="Disables with no fuse." scale="0.5" allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <InventoryIcon  texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
     <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60"/>
@@ -4801,16 +4801,16 @@
       </SubContainer>
            
       <SubContainer capacity="1" maxstacksize="1" itemsperrow="1" hideitems="true">
-        <Containable items="extinguisher,s5_extinguisher" excludebroken="false" excludefullcondition="True">
+        <Containable items="fireextinguisher,s5_extinguisher" excludebroken="false" excludefullcondition="True">
                      
           <!-- Check for a tank inslot1 (Statuseffect tags need to have a duration applied) -->
           <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="tanktofillinslot1" targetslot="1" excludefullcondition="true" duration="0.1" stackable="false" Comparison="And">
-           <Requireditem items="extinguisher" type="contained" targetslot="1"/>      
+           <Requireditem items="fireextinguisher" type="contained" targetslot="1"/>      
           </StatusEffect>
 
            <!-- Check for a tank inslot1 (Statuseffect tags need to have a duration applied) -->
           <StatusEffect type="OnContaining" targettype="This" targetitemtype="SubContainer" targetitemcomponent="SubContainer" tags="tanktofillinslot1" targetslot="1" excludefullcondition="true" duration="0.1" stackable="false" Comparison="And">
-            <Requireditem items="extinguisher,s5_extinguisher" type="contained" targetslot="1"/>
+            <Requireditem items="fireextinguisher,s5_extinguisher" type="contained" targetslot="1"/>
           </StatusEffect>
                           
           <!-- Fill the welding tank in slot1 -->
@@ -5078,7 +5078,7 @@
     
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false" />
     
-    <RelayComponent canbeselected="true" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false">
+    <RelayComponent canbeselected="true" vulnerabletoemp="false" maxPower="6000" canbeoverloaded="false" AllowInGameEditing="false">
       <GuiFrame relativesize="0.25,0.15" minsize="450,160" anchor="Center" style="ItemUI" /> 
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
 
@@ -5205,7 +5205,7 @@
       <!-- <GuiFrame relativesize="0.2,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
     </Powered>
-     <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
+     <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false" AllowInGameEditing="false">
       <GuiFrame relativesize="0.2,0.15" minsize="450,160" anchor="Center" style="ItemUI" />
       <!-- Am I on? -->
       <StatusEffect type="Always" targettype="This" Comparison="And" isOn="true">
@@ -5308,7 +5308,7 @@
       <!-- <GuiFrame relativesize="0.2,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
       <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
     </Powered>
-    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false">
+    <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false" AllowInGameEditing="false">
       <GuiFrame relativesize="0.2,0.15" minsize="450,160" anchor="Center" style="ItemUI" />
       <!-- Am I on? -->
       <StatusEffect type="Always" targettype="This" Comparison="And" isOn="true">
