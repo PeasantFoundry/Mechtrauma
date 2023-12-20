@@ -3,7 +3,7 @@ BT = {} -- Biotrauma
 
 
 MT.Name="Mechtrauma"
-MT.Version = "1.2.0"
+MT.Version = "1.3.2.4 UNSTABLE"
 MT.VersionNum = 01020000 -- seperated into groups of two digits: 01020304 -> 1.2.3h4; major, minor, patch, hotfix
 MT.Path = table.pack(...)[1]
 
