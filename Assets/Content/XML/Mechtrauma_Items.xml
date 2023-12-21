@@ -4,7 +4,6 @@
   
  <!-- =============< ITEMS >=============  -->
 
-
 <!-- COPPER PIPE: Horizontal resizevertical="true" --> 
 <Item name="Copper Pipe Horizontal" identifier="copper_pipe_h" Tags="decorative" resizehorizontal="true"  cargocontaineridentifier="metalcrate" scale="0.5">
    <Sprite texture="%ModDir%/Images/copper_pipe_h.png" sourcerect="0,0,16,34" depth="0.845" />
@@ -2098,6 +2097,29 @@
       </StatusEffect>
     </Repairable>
   </Item>
+  
+  <!-- ADVANCED TERMINAL STYLE-B -->
+  <Item name="Handheld Advanced Terminal" identifier="handheldadvterminal" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+    <Upgrade gameversion="0.9.9000.0" scale="0.25" />
+    <Price baseprice="100" sold="false" />
+    <PreferredContainer primary="reactorcab" secondary="engcab" />
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="149,371,69,93" depth="0.8" origin="0.5,0.5" />
+    <Body width="60" height="90" density="15" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,0,255,255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+  </Item>
+  
 
 <!-- MECHTRAUMA TABLET:-->
   <Item name="Mechtrauma Tablet" identifier="mt_tablet" category="Electrical" Tags="smallitem,logic,tablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
