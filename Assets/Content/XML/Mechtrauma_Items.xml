@@ -5799,7 +5799,7 @@
     </Repairable>
   </Item>
 
-  <!-- REDUCTION GEAR: -->
+  <!-- REDUCTION GEAR V2: -->
   <Item name="Reduction Gear V2" identifier="reduction_gearv2" aliases="reduction_gear_P" tags="engine,mtpriority,reductiongear,mtupdate" category="Machine" Scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <Sprite texture="%ModDir%/Images/reduction_gear.png" sourcerect="0,768,580,512" depth="0.8" canflipx="true" origin="0.5,0.5" scale="0.25"/>
     <!-- <DecorativeSprite texture="%ModDir%/Images/reduction_gear.png" depth="0.7999" sourcerect="0,317,1613,592" canflipx="true" origin="0.5,0.5" offset="5,5" offsetanim="Noise" offsetanimspeed="5.0">
@@ -5834,12 +5834,19 @@
         <Conditional HasStatusTag="neq drive_gears"/>
       </StatusEffect>  
 
-      <!-- It's bad when a turbine breaks and is still running, right? -->
+      <!-- It's bad when a big heavy machine breaks and is still running, right? -->
       <StatusEffect type="OnBroken" targettype="This" isOn="false" Comparison="or">
-        <Fire size="15"/>
+        <sound file="Content/Items/Weapons/ExplosionMedium1.ogg" range="20000" volume="3"/>
+        <sound file="Content/Items/Weapons/ExplosionMedium2.ogg" range="20000" volume="3"/>
+        <sound file="Content/Items/Weapons/ExplosionMedium3.ogg" range="20000" volume="3"/>
+        <Explosion range="750.0" structuredamage="20" levelwalldamage="20" itemdamage="250" force="5" severlimbsprobability="0.25" debris="true" decal="explosion" decalsize="0.5">
+          <Affliction identifier="explosiondamage" strength="150" />
+          <Affliction identifier="bleeding" strength="100" />
+          <Affliction identifier="bleeding" strength="50" probability="0.1" dividebylimbcount="false" />          
+        </Explosion>
         <Conditional Voltage="gt 0.1" />
       </StatusEffect> 
-        
+
     </Engine>
 
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true" msg="GearBox">
@@ -5989,8 +5996,7 @@
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
-      
-       <Button text="Scan Bacteria">
+      <Button text="Scan Bacteria">
         <StatusEffect type="OnUse" target="This">
         </StatusEffect>
       </Button>

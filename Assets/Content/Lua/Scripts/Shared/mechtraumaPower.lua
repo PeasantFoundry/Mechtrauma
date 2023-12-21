@@ -146,7 +146,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     local oilVol = 0
     -- filtration
     local oilFiltrationItems = {}
-    local oilfiltrationSlots = dieselSeries.filterSlots
+    local oilFiltrationSlots = dieselSeries.filterSlots
     local oilFiltrationVol = 0
     -- damage and reduction
     local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * dieselSeries.oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
@@ -154,7 +154,6 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
 
     -- diagnostics
     local terminal = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Terminal")
-    local terminalItem = item
     --local property = terminal.SerializableProperties[Identifier("TextColor")]
     local diagnosticData ={}
     
@@ -171,11 +170,13 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
             table.insert(oilItems, containedItem)
             oilVol = oilVol + containedItem.Condition
-            frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+            -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+            frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime
         -- get oil filtration item(s)
         elseif containedItem.HasTag("oilfilter") and containedItem.Condition > 0 then
             table.insert(oilFiltrationItems, containedItem)
-            oilDeterioration = oilDeterioration - oilDeterioration * (MT.Config.OilFiltrationM / oilfiltrationSlots) -- FILTER: reduce *possible* oil damage for this filter slot  
+            -- FILTER: reduce possible oil damage for this filter slot.   
+            oilDeterioration = oilDeterioration - (((MT.Config.OilBaseDPS * MT.Deltatime * dieselSeries.oilSlots) * MT.Config.OilFiltrationM) / oilFiltrationSlots)
             oilFiltrationVol = oilFiltrationVol + containedItem.Condition
         -- get aux oxygen item(s)    
         elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then
@@ -208,8 +209,8 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- combustion succeeded
         dieselEngine.combustion = true
         -- set the generated amount to be returned
-        dieselEngine.powerGenerated = MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower)
-
+        dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower), 2)
+        
         -- DETERIORATION: 
         -- burn oxygen       
         if hullOxygenPercentage >= 75 then  -- burn hull oxygen when above 75%
@@ -221,11 +222,12 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         MT.HF.subFromListSeq (dieselFuelNeededCL, dieselFuelItems) -- burn diesel sequentially, improves resource management 
         -- burn oil
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
+     
         -- deteriorate filter(s)
         MT.HF.subFromListAll((MT.Config.OilFilterDPS * MT.Deltatime), oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deterioration
         -- friction damage
         item.Condition = item.Condition - frictionDamage
-
+      
         -- DEBUG PRINTING: 
         -- print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
         -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)

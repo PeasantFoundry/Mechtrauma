@@ -260,13 +260,14 @@ function MT.F.reductionGear(item)
         local oilItems = {}
         local oilVol = 0
         local oilSlots = 4 -- temporarily hardcoded, need to fix
-        local oilCapacity = oilSlots * 1
+        local oilCapacity = oilSlots * 1 -- shouldn't this be in l?
         -- filtration
         local oilFiltrationItems = {}
-        local oilfiltrationSlots = 2 -- temporarily hardcoded, need machine table or handle in loop
+        local oilFiltrationSlots = 2 -- temporarily hardcoded, need machine table or handle in loop
         -- Damage and Reduction
         local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
         local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
+        local oilDeteriorationPS = oilDeterioration / oilFiltrationSlots
         local driveGearCount = 0
 
         local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Engine").Force, 2)
@@ -292,18 +293,20 @@ function MT.F.reductionGear(item)
                 elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
                     table.insert(oilItems, containedItem)
                     oilVol = oilVol + containedItem.Condition
-                    frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+                    -- LUBRICATE: reduce *possible* friction damage for this oil slot  
+                    frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime
                 
-                    -- check for filters
-                elseif containedItem.HasTag("oilfilter") then
+                -- check for filters
+                elseif containedItem.HasTag("oilfilter") and containedItem.Condition > 0 then
                     table.insert(oilFiltrationItems, containedItem)
-                    oilDeterioration =  oilDeterioration - MT.Config.OilBaseDPS * MT.Config.OilFiltrationM / oilfiltrationSlots -- LUBRICATE: reduce *possible* oil damage for this filter slot  
+                    -- FILTER: reduce oil damage for this filter slot  
+                    oilDeterioration = oilDeterioration - (((MT.Config.OilBaseDPS * MT.Deltatime * oilSlots) * MT.Config.OilFiltrationM) / oilFiltrationSlots)
                 end
             end
             index = index + 1
         end
 
-        -- deteriorate oil
+        -- deteriorate oil        
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate filter(s)
         MT.HF.subFromListAll(MT.Config.OilFilterDPS * MT.Deltatime, oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
