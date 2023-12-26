@@ -20,7 +20,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\global.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GridAbsorber.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTBoiler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTEvents.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\SimpleGenerator.cs" />

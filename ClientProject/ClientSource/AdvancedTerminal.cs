@@ -121,6 +121,8 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// Causes some alignment artifacts, should be kept off unless needed. 
     /// </summary>
     public bool MessageLayoutStretch { get; protected set; }
+    
+    public Vector2 DesignResolution { get; protected set; }
 
     private bool _shouldSelectInputBox = true;
     private bool _clearOperationRequested;
@@ -157,6 +159,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             TerminalSize = msgAreaElement.GetAttributeVector2("RelativeSize", Vector2.One);
             ShowInputBox = msgAreaElement.GetAttributeBool("ShowInputBox", true);
             TextColor = msgAreaElement.GetAttributeColor("TextColor", Color.Green);
+            DesignResolution = msgAreaElement.GetAttributeVector2("DesignResolution", new Vector2(1920, 1080));
             
             // parse font name
             string fontName = msgAreaElement.GetAttributeString("MessageFont", "Font");
@@ -182,6 +185,9 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
     protected virtual void DrawOuterSprite(SpriteBatch spriteBatch, GUICustomComponent component)
     {
+        // scale tablet based on design resolution
+        
+        
         OuterSprite?.Draw(spriteBatch, 
             new Vector2(component.RectTransform.Rect.X, component.RectTransform.Rect.Y), scale: OuterSpriteLinearScale);
     }
@@ -304,7 +310,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             MessageHistoryBox.ScrollBar.BarScrollValue = 1f;
         }
         
-        MTEvents.Instance.SendEventLocal(EVENT_ONNEWMESSAGE, this, text, color);
+        GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
     }
 
     public override bool Select(Character character)

@@ -59,7 +59,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         MessagesHistory.Add(new AdvTerminalMsg(text, color));
         TrimHistory(0);
         item.SendSignal(text, "signal_out");
-        MTEvents.Instance.SendEventLocal(EVENT_ONNEWMESSAGE, this, text, color);
+        GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
     }
 
     public override partial void OnItemLoaded()
