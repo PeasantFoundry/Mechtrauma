@@ -290,6 +290,37 @@ end
 
 end)
 
+Hook.Add("securityControl_auth.OnUse", "MT.idScan", function(effect, deltaTime, item, targets, worldPosition, client)
+  local terminal = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Terminal")
+
+  if item.OwnInventory.GetItemAt(0) ~= nil then
+    local scannedItem = item.OwnInventory.GetItemAt(0)
+    if scannedItem.Prefab.Identifier.Value == "idcard" then
+      local idCard = MTUtils.GetComponentByName(scannedItem, "Barotrauma.Items.Components.IdCard")
+      
+      MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******AUTHORIZATION REQUEST*******")
+      terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Requestor: " .. idCard.OwnerName
+      terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Employee ID: " .. idCard.SubmarineSpecificID
+      terminal.ShowMessage = idCard.OwnerTags
+      local linkedItems = {}
+      for k, linkedItem in pairs(item.linkedTo) do
+        if linkedItem.HasTag("door") then MTUtils.GetComponentByName(linkedItem, "Barotrauma.Items.Components.Door").TrySetState(true, false)
+        end
+      end
+
+      --terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Tags: " .. idCard.OwnerTags
+      --terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Description: " .. idCard.Description
+      terminal.ShowMessage = idCard.OwnerJob
+
+      item.SendSignal("test", "dataout")
+    else
+      MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******UNKNOWN REQUEST*******")
+    end  
+  -- Request with no ID   
+  else
+    MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******INSERT AUTHORIZATION CARD*******")
+  end
+end)
 
 Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)
   --local containedItem = item.OwnInventory.GetItemAt(0)
@@ -299,8 +330,7 @@ Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(eff
   local co2FilterExpiredCount = 0
   local oxygenVentCount = 0
   local filterLocation
-  
-  
+
   if CentralComputer.online then
     MT.HF.BlankTerminalLines(terminal, 20) -- create some space
     -- begin report
@@ -371,7 +401,7 @@ Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, 
         mtPumpCount = mtPumpCount + 1
         
         -- look for an Electric Motor in slot 0
-        if item.OwnInventory.GetItemAt(0) ~= nil then           
+        if item.OwnInventory.GetItemAt(0) ~= nil then
           electricMotorCount = electricMotorCount + 1
           if item.OwnInventory.GetItemAt(0).ConditionPercentage == 0 then brokenElectricMotorCount = brokenElectricMotorCount + 1 end
           table.insert(pumpList, item)

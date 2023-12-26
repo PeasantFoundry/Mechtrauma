@@ -72,7 +72,7 @@ function MT.F.fuseBox(item)
         if relayComponent then relayComponent.SetState(true, false) end
 
         -- DEBUG PRINTING:
-        if voltage > 1.7 then print(item.name, "voltage: ", voltage) end
+        --if voltage > 1.7 then print(item.name, "voltage: ", voltage) end
         
         -- set water, overvoltage, and deterioration damage amounts
         if item.InWater then fuseWaterDamage = 1.0 end
@@ -258,9 +258,10 @@ function MT.F.reductionGear(item)
     if item.ConditionPercentage > 1 and MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered").Voltage > 0.5 then
         -- oil
         local oilItems = {}
-        local oilVol = 0
+        local oilVol = 0 -- stored in centiliters
         local oilSlots = 4 -- temporarily hardcoded, need to fix
-        local oilCapacity = oilSlots * 1 -- shouldn't this be in l?
+        local oilCapacity = oilSlots * 400 -- shouldn't this be in l?
+        local oilLevel = 0
         -- filtration
         local oilFiltrationItems = {}
         local oilFiltrationSlots = 2 -- temporarily hardcoded, need machine table or handle in loop
@@ -268,10 +269,10 @@ function MT.F.reductionGear(item)
         local frictionDamage = MT.Config.FrictionBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for oil capacity    
         local oilDeterioration = MT.Config.OilBaseDPS * MT.Deltatime * oilSlots -- convert baseDPS to DPD and multiply for capacity
         local oilDeteriorationPS = oilDeterioration / oilFiltrationSlots
-        local driveGearCount = 0
-
-        local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Engine").Force, 2)
-        
+        local driveGears = {}
+        -- Possible overdrive mode?
+        --print(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Repairable").IsTinkering)
+        local forceStrength = MT.HF.Round(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Engine").Force, 2)        
         if forceStrength < 0 then forceStrength = forceStrength * -1 end
 
         --loop through the Reduction Gear inventory        
@@ -281,18 +282,20 @@ function MT.F.reductionGear(item)
                 local containedItem = item.OwnInventory.GetItemAt(index)
                 -- check for drive gears
                 if containedItem.Prefab.Identifier.Value == "drive_gear" and containedItem.Condition > 0 then
-                    driveGearCount = driveGearCount + 1
-                    -- damage the gears if the condition is below 25 and if the propeller is engaged 
+                    table.insert(driveGears, containedItem)
+                    -- seriously damage the gears if the condition is below 25 and if the propeller is engaged                     
                     if item.ConditionPercentage < 40 and forceStrength ~= 0 then containedItem.Condition = containedItem.Condition - forceStrength^0.5 end -- make this damage exponential to force someday                    
-
+                             
                     -- disable hot swapping
-                    item.OwnInventory.GetItemAt(index).HiddenInGame = true 
+                    item.OwnInventory.GetItemAt(index).HiddenInGame = true
                     if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
 
                 -- check for oil    
                 elseif containedItem.HasTag("oil") and containedItem.Condition > 0 then
                     table.insert(oilItems, containedItem)
                     oilVol = oilVol + containedItem.Condition
+                    oilLevel = oilVol / oilCapacity * 100
+
                     -- LUBRICATE: reduce *possible* friction damage for this oil slot  
                     frictionDamage = frictionDamage - MT.Config.FrictionBaseDPS * MT.Deltatime
                 
@@ -310,7 +313,8 @@ function MT.F.reductionGear(item)
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate filter(s)
         MT.HF.subFromListAll(MT.Config.OilFilterDPS * MT.Deltatime, oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
-
+        -- grind the gears - but only while we're moving
+        if forceStrength ~= 0 then MT.HF.subFromListAll((oilLevel^-0.5)*10-1, driveGears) end
         -- apply frictionDamage
         item.Condition = item.Condition - frictionDamage
 
@@ -318,12 +322,12 @@ function MT.F.reductionGear(item)
         -- machine is off - all parts can now be swapped
         while(index < item.OwnInventory.Capacity) do
             if item.OwnInventory.GetItemAt(index) ~= nil then
-                item.OwnInventory.GetItemAt(index).HiddenInGame = false 
-                if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end                
+                item.OwnInventory.GetItemAt(index).HiddenInGame = false
+                if SERVER then MT.HF.SyncToClient("HiddenInGame", item.OwnInventory.GetItemAt(index)) end
             end
             index = index + 1
             end
-        end        
+        end
 end
 
 -- MECHANICAL CLUTCH:
@@ -335,7 +339,7 @@ function MT.F.mechanicalClutch(item)
     if controllerComponent.state == true then
         --print(" Clutch powered load:", powerComponent.PowerLoad)
         --print(" Clutch relay load:", relayComponent.DisplayLoad)
-        --rint(" Clutch relay power out:", relayComponent.powerOut)
+        --print(" Clutch relay power out:", relayComponent.powerOut)
         relayComponent.SetState(true, false)
     -- if the controller swtich is off, disengage the clutch
     else
@@ -355,6 +359,22 @@ function MT.F.steamValve(item)
         relayComponent.SetState(true, false)
     
         -- if the controller swtich is off, close the valve
+    else        
+        relayComponent.SetState(false, false)
+    end
+
+end
+
+-- ELECTRICAL DISCONEECT:
+function MT.F.electricalDisconnect(item)
+    local relayComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent")
+    local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
+    local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
+    -- if the controller swtich is on, connect the power
+    if controllerComponent.state == true then   
+        relayComponent.SetState(true, false)
+    
+        -- if the controller swtich is off, disconnect the power
     else        
         relayComponent.SetState(false, false)
     end

@@ -128,7 +128,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
     -- HP:diesel(l) 1:0.2        
     local gridCycles = 60
     local dieselEngine = {}
-    local dieselFuelNeededCL = MT.Config.DieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime --min power is idle speed
+    local dieselFuelNeededCL = MT.Config.DieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime --100 min power is idle speed
     local oxygenNeeded = dieselFuelNeededCL * MT.Config.DieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condtion of diesel    
     
     -- oxygen    
@@ -209,7 +209,7 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         -- combustion succeeded
         dieselEngine.combustion = true
         -- set the generated amount to be returned
-        dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower), 2)
+        dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower), 2)
         
         -- DETERIORATION: 
         -- burn oxygen       
@@ -220,27 +220,32 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
         end
         -- burn diesel
         MT.HF.subFromListSeq (dieselFuelNeededCL, dieselFuelItems) -- burn diesel sequentially, improves resource management 
-        -- burn oil
+        -- deteriorate oil
         MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
-     
         -- deteriorate filter(s)
         MT.HF.subFromListAll((MT.Config.OilFilterDPS * MT.Deltatime), oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deterioration
-        -- friction damage
+        -- engine friction damage
         item.Condition = item.Condition - frictionDamage
-      
-        -- DEBUG PRINTING: 
-        -- print("Diesel Fuel will last for: ",(dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime/ 60, " minutes.")
-        -- DEBUG PRINTING: print("Oil will last for: ", oilVol / oilDeterioration * MT.Deltatime / 60)
-        -- DEBUG PRINTING: print("Filration will last for: ", (oilFiltrationVol / MT.Config.OilFilterDPS) / 60 ) -- no need to calculate the deltaTime here since calc is in dps
 
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
-            -- print(item,": ", item.IsOn)
         end
+
+        -- calculate consumables time remaining
+        dieselEngine.fuelTime = MT.HF.Round((dieselFuelVol / dieselFuelNeededCL) * MT.Deltatime / 60, 1)
+        dieselEngine.oilTime = MT.HF.Round((oilVol / oilDeterioration) * MT.Deltatime / 60, 1)
+        dieselEngine.filterTime = MT.HF.Round((oilFiltrationVol / MT.Config.OilFilterDPS) / 60, 1) -- no need to calculate the deltaTime here since calc is already in dps
+        dieselEngine.oxygenTime = MT.HF.Round((auxOxygenVol / oxygenNeeded) * MT.Deltatime / 60, 1)
+ 
         -- diagnostics - only display if there is a terminal, ignition is implicit
         if terminal then
             MT.HF.SendTerminalColorMessage(item, terminal, Color(250, 125, 15, 255), "*COMBUSTION SUCCESS: " .. dieselEngine.powerGenerated .. "kW GENERATED*")
+            --terminal.ShowMessage = "At current consumption resoureces will last:"
+            terminal.ShowMessage = dieselEngine.fuelTime .. " minutes of Diesel Fuel remaining."
+            terminal.ShowMessage = dieselEngine.oilTime .. " minutes of Oil remaining."
+            terminal.ShowMessage = dieselEngine.filterTime .. " minutes of Filtration remaining."
+            terminal.ShowMessage = dieselEngine.oxygenTime .. " minutes of Oxygen remaining."
         end
         return dieselEngine
     else
@@ -265,6 +270,47 @@ function MT.F.dieselEngine(item, ignition, dieselSeries, targetPower)
 
         return dieselEngine
     end
-
 end
 
+-- Steam Generator Component hook - drafted, hopefully isn't necessary
+Hook.Add("signalReceived.mt_steam_generator", "MT.steam_generator", function(signal, connection)
+    if buffer[connection.Item] == nil then buffer[connection.Item] = {} end
+    local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
+    local itemBuffer = buffer[connection.Item]
+    local connectionSum = 0
+    local connectionCount = 0
+    if connection.Name == "*input_1" then
+        itemBuffer[1] = signal.value
+    end
+
+    if connection.Name == "input_2" then
+        itemBuffer[2] = signal.value
+    end
+
+    if connection.Name == "input_3" then
+        itemBuffer[3] = signal.value
+    end
+
+    if connection.Name == "input_4" then
+        itemBuffer[4] = signal.value
+    end
+
+    if connection.Name == "input_5" then
+        itemBuffer[5] = signal.value
+    end
+
+    if connection.Name == "input_6" then
+        itemBuffer[6] = signal.value
+    end
+    
+    -- *input_1 is the trigger signal, we will only calculate and send the output when the trigger signal is received
+    if itemBuffer[1] ~= nil then
+    for k, v in pairs(itemBuffer) do        
+        connectionSum = connectionSum + v
+        connectionCount = connectionCount + 1
+    end
+    connection.Item.SendSignal(tostring(math.floor(connectionSum / connectionCount)), "output")
+    end
+    -- clear input_1 from storage so that the output will not be triggered until *input_1 is received again
+    itemBuffer[1] = nil
+end)

@@ -53,6 +53,10 @@ MT.tagfunctions = {
     keyIgnition={
         tags={"keyignition"},
         update=MT.F.keyIgnition
+    },
+    electricalDisconnect={
+        tags={"electricalDisconnect"},
+        update=MT.F.electricalDisconnect
     }
 }
 

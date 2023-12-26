@@ -14,7 +14,6 @@ function BT.F.oxygenVentSpawn(item)
         -- print(MT.Config.ventSpawnRate,"/",(3600 / MT.Deltatime * MT.oxygenVentCount))
         if MT.HF.Probability(MT.Config.VentSpawnRate, (3600 / MT.Deltatime * MT.oxygenVentCount)) then
             Entity.Spawner.AddItemToSpawnQueue(fungusPrefab, item.OwnInventory, nil, nil, function(item) end)
-            print("WE HAVE FUNGUS!")            
         end
     end
 end
