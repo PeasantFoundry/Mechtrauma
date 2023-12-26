@@ -51,13 +51,11 @@ namespace Mechtrauma
             UserData.RegisterType<SimpleGenerator>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();
-            UserData.RegisterType<MTEvents>();
 
             UserData.RegisterType(typeof(MTUtils));
 
             GameMain.LuaCs.Lua.Globals["MTUtils"] = UserData.CreateStatic(typeof(MTUtils));
             GameMain.LuaCs.Lua.Globals["MTConfig"] = Configuration.Instance;
-            GameMain.LuaCs.Lua.Globals["MTEvents"] = MTEvents.Instance;
         }
 
         private void UnloadUserData()
