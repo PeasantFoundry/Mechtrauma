@@ -14,6 +14,7 @@ public partial class AdvancedTerminal : ItemComponent
     
     //--- SYMBOLS
     public static readonly string EVENT_ONNEWMESSAGE = "Mechtrauma.AdvancedTerminal::NewMessage"; // args: (this, text, color)
+    public static readonly string EVENT_ONNEWPLAYERMESSAGE = "Mechtrauma.AdvancedTerminal::NewPlayerMessage"; // args: (this, text, color)
 
     //--- CVARS
     

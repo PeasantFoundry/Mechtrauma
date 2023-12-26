@@ -261,6 +261,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
                 OnEnterPressed = ((box, text) =>
                 {
                     SendMessage(box.Text, TextColor);
+                    GameMain.LuaCs.Hook.Call(EVENT_ONNEWPLAYERMESSAGE, this, box.Text, TextColor);
                     box.Text = string.Empty;
                     return true;
                 })
