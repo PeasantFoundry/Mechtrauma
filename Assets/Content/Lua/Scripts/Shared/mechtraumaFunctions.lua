@@ -380,3 +380,13 @@ function MT.F.electricalDisconnect(item)
     end
 
 end
+
+-- STEAM HEATSINK:
+function MT.F.steamHeatsink(item)
+    local relayComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.RelayComponent")
+    local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
+    local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
+    -- if the controller swtich is on, open the valve
+  
+
+end

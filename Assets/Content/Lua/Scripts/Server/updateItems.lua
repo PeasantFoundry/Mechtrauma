@@ -38,6 +38,10 @@ MT.tagfunctions = {
         tags={"steamValve"},
         update=MT.F.steamValve
     },
+    steamHeatsink={
+        tags={"steamHeatsink"},
+        update=MT.F.steamHeatsink
+    },
     reductionGear={
         tags={"reductionGear"},
         update=MT.F.reductionGear
