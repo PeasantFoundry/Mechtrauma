@@ -15,4 +15,8 @@ global using ModdingToolkit;
  * that are not included in LuaCsForBarotrauma's Metadata References at compile.
  * To avoid namespace conflicts, only .NET Base Class Libraries should be referenced here.
  */
+
+[assembly: IgnoresAccessChecksTo("Barotrauma")]
+[assembly: IgnoresAccessChecksTo("DedicatedServer")]
+
 namespace Mechtrauma;
