@@ -44,6 +44,12 @@ public partial class AdvancedTerminal : ItemComponent
 
     public static readonly int MaxCharsPerLine = 255;
     
+    public string ShowMessage
+    {
+        get => "";
+        set => SendMessage(value, TextColor);
+    }
+    
     public Color TextColor { get; protected set; } = Color.Green;
 
     /// <summary>
