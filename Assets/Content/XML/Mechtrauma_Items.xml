@@ -3890,6 +3890,78 @@
   </Item>
 
   <!-- =============< MACHINES >=============  -->
+
+  <!-- STEAM HEAT SINK:  --> 
+  <Item name="Steam Heat Sink" identifier="mt_steam_heatsink" tags="mtu,steam,heatsink" type="Machine" hideinmenus="false" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">        
+    <Sprite texture="%ModDir%/Images/Steam/steam_machines.png" sourcerect="0,192,384,192" origin="0.5,0.5" depth="0.81" />
+    <UpgradePreviewSprite scale="3.0" texture="Content/UI/WeaponUI.png" sourcerect="0,960,3,64" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Steam/steam_machines.png" sourcerect="384,192,384,192" depth="0.8" origin="0.5,0.5" maxcondition="40" />
+    <BrokenSprite texture="%ModDir%/Images/Steam/steam_machines.png" sourcerect="768,192,384,192" depth="0.8" origin="0.5,0.5" maxcondition="0" />
+    <aitarget sightrange="500" soundrange="4000" />   
+
+    <!-- Power Light -->
+    <LightComponent range="10.0" lightcolor="255,255,255,150" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false">
+      
+      <Sprite texture="%ModDir%/Images/Steam/steam_machines.png" sourcerect="1152,0,384,192" origin="0.5,0.5" depth="0.8" />     
+      <StatusEffect type="Always" target="This" IsOn="true">
+        <Conditional voltage="gt 0.5"/>
+      </StatusEffect>
+    
+    </LightComponent>
+
+    <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
+      <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" /> <!--minsize="350,160" maxsize="420,190"-->
+    </PowerTransfer>
+
+    <!-- stuff
+
+   
+
+      <IsActive targetitemcomponent="PowerContainer" currpowerconsumption="gt 500" />
+      <StatusEffect type="OnActive" target="This" Condition="-1.0">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" angle="270" distance="30" />
+      </StatusEffect>
+    -->
+    <!-- Heatsink 
+
+
+     <RelayComponent canbeselected="true" vulnerabletoemp="false" maxPower="6000" powerconsumption="50" canbeoverloaded="true" AllowInGameEditing="false">
+      <GuiFrame relativesize="0.25,0.15" minsize="450,160" anchor="Center" style="ItemUI" /> 
+      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
+
+   
+      <StatusEffect type="OnBroken" targettype="This" isOn="false" Comparison="and">
+        <Fire size="15" />
+        <Conditional voltage="gt 0.5" targetitemcomponent="RelayComponent"/>
+      </StatusEffect>
+     
+      <StatusEffect type="OnPicked" target="This" >          
+        <Sound file="%ModDir%/Sound/item_interact3.ogg" range="1000" /> 
+      </StatusEffect>
+
+    </RelayComponent>-->
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem identifier="screwdriver" type="Equipped" />      
+      <input name="steam_in" displayname="connection.steamin" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.125" mindeteriorationdelay="120" maxdeteriorationdelay="720" MinDeteriorationCondition="10" minsabotagecondition="10" RepairThreshold="50" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <RequiredItem items="screwdriver" type="equipped" />
+      <ParticleEmitter particle="damagebubbles" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemax="360" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="DarkSmoke" particlespersecond="8" scalemin="1.8" scalemax="2.5" anglemax="360" distancemax="60" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particlespersecond="2" scalemin="1.0" scalemax="2.5" anglemax="360" distancemax="60" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" force="1.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+    </Repairable>
+  </Item>
   
   <!-- MT REACTOR: PF5000 --> 
   <Item name="PF5000 Reactor" identifier="mt_reactor_pf5000" tags="reactor" type="Reactor" hideinmenus="true" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">        
@@ -5355,11 +5427,8 @@
     
     <!-- Steam Generator -->
   
-    <Powered powerconsumption="1" currpowerconsumption="1" minvoltage="0.5" isactive="true">
-      <!-- <GuiFrame relativesize="0.2,0.15" minsize="350,160" maxsize="420,192" anchor="Center" relativeoffset="0.5,-0.5" style="ItemUI" msg="ItemMsgInteractSelect" /> -->
-      <poweronsound file="Content/Items/PowerOnLight2.ogg" range="1500" loop="false" />
-    </Powered>
-     <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="false" AllowInGameEditing="false">
+
+     <RelayComponent canbeselected="true" powerconsumption="5.0" minvoltage="0.5" vulnerabletoemp="false" maxPower="10000" canbeoverloaded="true" AllowInGameEditing="false">
       <GuiFrame relativesize="0.2,0.15" minsize="450,160" anchor="Center" style="ItemUI" />
       <!-- Am I on? -->
       <StatusEffect type="Always" targettype="This" Comparison="And" isOn="true">
@@ -5380,18 +5449,18 @@
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-15" anglemax="-55" velocitymin="500" velocitymax="1500" position="5,5" highqualitycollisiondetection="true" />
         <ParticleEmitter particle="steamspray" particlespersecond="80" anglemin="-125" anglemax="-165" velocitymin="500" velocitymax="1500" position="5,5" highqualitycollisiondetection="true" />
         <Sound file="%ModDir%/Sound/pressure_relief.ogg" range="1000" loop="true" />
-        <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">
+        <!-- <Explosion range="200" structuredamage="0" force="0.001" flames="false" sparks="false" shockwave="false" camerashake="0" ignorecover="false" smoke="false" flashrange="0" underwaterbubble="false" delay="0" stackable="false">
           <Affliction identifier="burn" strength="25" />
-        </Explosion>
+        </Explosion> -->
       </StatusEffect>     
       <!-- It's bad when a boiler blows up, right? -->
       <StatusEffect type="OnBroken" targettype="This" Comparison="or" isOn="false" comparaison="and">
         <Conditional voltage="gt 0.9" targetitemcomponent="RelayComponent" />
-        <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
+        <!-- <Explosion range="800" structuredamage="200" force="5.0" camerashake="200" flashrange="10000" flashduration="5.0" screencolor="255,255,255,255" screencolorrange="5000" screencolorduration="3.0">
           <Affliction identifier="steam_burn" strength="200" />
           <Affliction identifier="explosiondamage" strength="50" />
           <Affliction identifier="stun" strength="5" />
-        </Explosion>
+        </Explosion> -->
       </StatusEffect>
        <!-- Aftermath -->
       <StatusEffect type="Always" targettype="This" delay="1.0" duration="5.0" stackable="false" Comparison="And">
