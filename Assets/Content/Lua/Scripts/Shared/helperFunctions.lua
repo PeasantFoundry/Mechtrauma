@@ -3,6 +3,24 @@ MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neu
 -- LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.Items."], "isWire")
 -- Mechtrauma exclusive functions:
 
+--[[ split string by delimiter - need to figure out why this dosent work
+function MT.HF.string:split( inSplitPattern, outResults )
+    if not outResults then
+      outResults = { }
+    end
+    local theStart = 1
+    local theSplitStart, theSplitEnd = string.find( self, inSplitPattern, theStart )
+    while theSplitStart do
+      table.insert( outResults, string.sub( self, theStart, theSplitStart-1 ) )
+      theStart = theSplitEnd + 1
+      theSplitStart, theSplitEnd = string.find( self, inSplitPattern, theStart )
+    end
+    table.insert( outResults, string.sub( self, theStart ) )
+    return outResults
+  end 
+  --]]
+
+  
 function MT.HF.findComponent(item, value)
     for comp in item.Components do      
         if tostring(comp) == "Barotrauma.Items.Components." .. value then

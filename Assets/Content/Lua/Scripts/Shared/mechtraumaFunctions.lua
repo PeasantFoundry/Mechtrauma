@@ -1,4 +1,5 @@
 MT.F = {}
+MT.F.reportTypes = {}
 CentralComputer = {}
 CentralComputer.online = true
 
@@ -387,6 +388,336 @@ function MT.F.steamHeatsink(item)
     local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
     local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
     -- if the controller swtich is on, open the valve
+end
+
+
+-- ********** REPORTS: **********
+function MT.F.reportTypes.fuse(item, terminal, message, command, argument)
+     -- terminal goodness
+  local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+  local property = terminal.SerializableProperties[Identifier("TextColor")]
+
+  local fuseList = {}
+  local weakFuses = 0
+  local fuseYellowCondition = 50
+  local fuseRedCondition = 10 --
+  local fuseBoxCount = 0
+  local fuseLocation = "ERROR" -- inca
+  --local hull
+  MT.HF.BlankTerminalLines(terminal, 20)
+  if CentralComputer.online then
+    terminal.SendMessage("*******REPORT: FUSE STATUS*******", Color(0, 255, 0, 255))
+    -- loop through the item list to find our fuse boxes(later make this loop through mtuItems?)
+    for k, item in pairs(Item.ItemList) do
+      
+      -- CHECK: does the item have a fusebox?
+      if item.HasTag("fusebox") then 
+        fuseBoxCount = fuseBoxCount + 1
+      -- check for a fuse
+        if item.OwnInventory.GetItemAt(0) ~= nil then -- this assumes that items with fuseboxes always put the fuse in slot 0. This is currently true but somewhat brittle.
+          -- if true - add the item to the fuseList
+          table.insert(fuseList, item.OwnInventory.GetItemAt(0))                             
+        else
+          -- if false - report a missing fuse 
+          if item.FindHull() ~= nil then fuseLocation = item.FindHull().DisplayName.Value else fuseLocation = "UNKNOWN" end              
+            terminal.SendMessage("[!NO FUSE!] Fixture: " .. item.name .. " Location: " .. fuseLocation, Color(255, 69, 0, 255))
+        end
+      end
+    end
+
+    table.sort(fuseList, function (k1, k2) return k1.ConditionPercentage >  k2.ConditionPercentage end )
+
+    -- loop through the fuseList
+    for k, fuse in pairs(fuseList) do
+      
+      -- CHECK: does the item have a hull? if false - report fuseLocation as "UNKNOWN"
+      if fuse.FindHull() ~= nil then fuseLocation = fuse.FindHull().DisplayName.Value else fuseLocation = "UNKNOWN" end  
+      -- CHECK: what condition is the fuse in? count weak fuses and set report color.
+      if fuse.ConditionPercentage < fuseRedCondition then
+        --weak fuse 
+        terminal.SendMessage("Fuse at: " .. MT.HF.Round(fuse.ConditionPercentage, 2) .. "% in: " .. fuseLocation, Color(255, 69, 0, 255))
+        weakFuses = weakFuses + 1        
+      elseif fuse.ConditionPercentage < fuseYellowCondition then
+        -- bad fuse
+        terminal.SendMessage("Fuse at: " .. MT.HF.Round(fuse.ConditionPercentage, 2) .. "% in: " .. fuseLocation, Color.Yellow)
+      else
+        -- good fuse
+        terminal.SendMessage("Fuse at: " .. MT.HF.Round(fuse.ConditionPercentage, 2) .. "% in: " .. fuseLocation, Color.Lime)        
+      end
+    end
+    terminal.SendMessage("------------------------------", Color.Lime)
+    terminal.SendMessage("TOTAL FUSE BOXES:" .. fuseBoxCount, Color.Lime)
+    if weakFuses > 0 then terminal.SendMessage("FUSES WEAK:" .. weakFuses, Color(255, 69, 0, 255)) else terminal.SendMessage("FUSES WEAK:" .. weakFuses, Color.Lime) end
+    if fuseBoxCount - #fuseList > 1 then terminal.SendMessage("FUSES MISSING:" .. fuseBoxCount - #fuseList, Color(255, 69, 0, 255)) else terminal.SendMessage("FUSES MISSING:" .. fuseBoxCount - #fuseList, Color.Lime) end
+   
+    terminal.SendMessage("**************END REPORT**************", Color(255, 69, 0, 255))
+  else
+    terminal.SendMessage("**************NO CONNECTION**************", Color.Red)
+  end
+
+end
+
+function MT.F.reportTypes.power(item, terminal, message, command, argument)
+
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local poweredList = {}
+    local totalPowerConsumption = 0
+    local hull = "ERROR"
+    --print(item.GetComponent.Powered())
+
+    if CentralComputer.online then
+        
+        terminal.SendMessage("*******REPORT: GRID POWER CONSUMPTION*******", Color(0, 255, 0, 255))
+
+        for k, item in pairs(Item.ItemList) do
+        if item.FindHull() ~= nil then hull = item.FindHull().DisplayName.Value else hull = "EXTERIOR"  end
+        local poweredComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Powered")
+        if poweredComponent ~= nil and poweredComponent.CurrPowerConsumption > 0.5 and item.HasTag("fusebox") == false then
+            totalPowerConsumption = totalPowerConsumption + poweredComponent.CurrPowerConsumption           
+            table.insert(poweredList, item)
+        end
+        end
+
+        table.sort(poweredList, function (k1, k2) return MTUtils.GetComponentByName(k1, "Barotrauma.Items.Components.Powered").CurrPowerConsumption < MTUtils.GetComponentByName(k2, "Barotrauma.Items.Components.Powered").CurrPowerConsumption end )
+
+        for k, item in pairs(poweredList) do
+        hull = "ERROR"
+        if item.FindHull() ~= nil then hull = item.FindHull().DisplayName.Value end      
+        terminal.SendMessage("[Power: " .. MT.HF.Round(MTUtils.GetComponentByName(item, ".Barotrauma.Items.Components.Powered").CurrPowerConsumption, 2) .. "kW | Fixture: " .. item.name .. " | Location: " .. hull .. "]", Color(0, 255, 0, 255))
+        end
+
+        --terminal.TextColor = Color(255, 69, 0, 255)
+        terminal.SendMessage("-----------------TOTAL-----------------", Color(255, 69, 0, 255))
+        terminal.SendMessage("ESTIMATED POWER CONSUMPTION:" .. MT.HF.Round(totalPowerConsumption, 2) .. "kW", Color(255, 69, 0, 255))
+        terminal.SendMessage("**************END REPORT**************", Color(255, 69, 0, 255))
+
+    else
+        terminal.SendMessage("**************NO CONNECTION**************", Color(255, 69, 0, 255))
+    end
+
+end
+
+function MT.F.reportTypes.blood(item, terminal, message, command, argument)
+     --local containedItem = item.OwnInventory.GetItemAt(0)
+  local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+  local bloodBankInventory = {}
+  if CentralComputer.online then
+    MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+    -- begin report
+    terminal.SendMessage("*******REPORT: HEMATOLOGY*******", Color.Blue)
+
+    -- Do nothing if NT isn't enabled
+    if not NT then return end
+
+    -- populate the bloodBank
+    for k, item in pairs(item.ItemList) do
+      -- identify by tag
+      if item.HasTag("container") and item.HasTag("bloodbank") then
+        local index = 0
+        while(index < item.OwnInventory.Capacity) do
+          -- make sure the slot isn't empty
+          if item.OwnInventory.GetItemAt(index) ~= nil then
+            -- grab all the items in the slot            
+            for bloodpack, value in (item.OwnInventory.GetItemsAt(index)) do
+              -- if the blood IS NOT in the bloodBankInventory, add it
+              if not bloodBankInventory[bloodpack.name] then
+                bloodBankInventory[bloodpack.name] = {}
+                bloodBankInventory[bloodpack.name].count = 1
+              else
+                -- if the pharmaceutical IS in the pharmacyInventory, increase the count
+                bloodBankInventory[bloodpack.name].count = bloodBankInventory[bloodpack.name].count + 1                
+              end
+            end
+          end
+          -- increment the slot index
+          index = index + 1
+        end
+      end
+        end
+
+    -- HEMATOLOGY REPORT
+    terminal.ShowMessage = "-------------CREW MANIFEST-------------"
+    for k, character in pairs(Character.CharacterList) do
+      -- CHECK: for donor card
+      if character.Inventory.GetItemInLimbSlot(InvSlotType.Card).OwnInventory.GetItemAt(0) ~= nil then bloodType = character.Inventory.GetItemInLimbSlot(InvSlotType.Card).OwnInventory.GetItemAt(0).name else bloodType = "UNKNOWN" end      
+      terminal.ShowMessage = "NAME: " .. character.Name  .. " | " .. "BLOOD TYPE: " .. bloodType
+    end    
+    terminal.ShowMessage = "-------------BLOOD BANK-------------"
+    for bloodpack, value in pairs(bloodBankInventory) do      
+      terminal.ShowMessage = "BLOODPACK: " .. bloodpack .. " | x"  .. bloodBankInventory[bloodpack].count
+    end    
+    terminal.ShowMessage = "------------------------------"
+    terminal.ShowMessage = "**************END REPORT**************"
+  else
+    terminal.ShowMessage = "**************NO CONNECTION**************"
+  end
+end
+
+function MT.F.reportTypes.pharmacy(item, terminal, message, command, argument)
+
+--local containedItem = item.OwnInventory.GetItemAt(0)  
+local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+local pharmacyInventory = {}
+--local itemStack = {}
+if CentralComputer.online then
+  MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+  -- begin report
+  terminal.SendMessage("*******REPORT: PHARMACY*******", Color(200, 35, 35, 255))
+  
+  -- look for Pharmacy Containers
+  for k, item in pairs(item.ItemList) do
+    -- identify by tag
+    if item.HasTag("container") and item.HasTag("pharmacy") then
+      local index = 0
+      while(index < item.OwnInventory.Capacity) do
+        -- make sure the slot isn't empty
+        if item.OwnInventory.GetItemAt(index) ~= nil then
+          -- grab all the items in the slot            
+          for pharmaceutical, value in (item.OwnInventory.GetItemsAt(index)) do
+            -- if the pharmaceutical IS NOT in the pharmacyInventory, add it
+            if not pharmacyInventory[pharmaceutical.name] then
+              pharmacyInventory[pharmaceutical.name] = {}
+              pharmacyInventory[pharmaceutical.name].count = 1
+            else
+              -- if the pharmaceutical IS in the pharmacyInventory, increase the count
+              pharmacyInventory[pharmaceutical.name].count = pharmacyInventory[pharmaceutical.name].count + 1                
+            end
+          end
+        end
+        -- increment the slot index
+        index = index + 1
+      end
+    end
+  end
+
+  -- PHARMACY REPORT    
+  for pharmaceutical, value in pairs(pharmacyInventory) do      
+    terminal.ShowMessage = "PHARMACEUTICAL: " .. pharmaceutical .. " | x"  .. pharmacyInventory[pharmaceutical].count
+  end    
+  terminal.ShowMessage = "------------------------------"
+  terminal.ShowMessage = "**************END REPORT**************"
+  else
+  terminal.ShowMessage = "**************NO CONNECTION**************"
+end
+
+if SERVER then
+  terminal.SyncHistory()
+end
+end
+function MT.F.reportTypes.pump(item, terminal, message, command, argument)
+    --local containedItem = item.OwnInventory.GetItemAt(0)
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local terminalItem = item
+    local property = terminal.SerializableProperties[Identifier("TextColor")]
+    local pumpList = {}
+    local electricMotorList = {}
+    local mtPumpCount = 0
+    local pumpGateCount = 0
+    local pumpGateCondition = 0
+    local electricMotorCount = 0
+    local brokenElectricMotorCount = 0  
+    local pumpLocation
+
+    if CentralComputer.online then    
+        MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+        -- begin report
+        terminal.SendMessage("*******REPORT: WATER PUMP STATUS*******", Color(65, 115, 205, 255))
+        for k, item in pairs(Item.ItemList) do   
+            -- CHECK: Is this item Mechtrauma pump? Avoiding identifiers for compatibility.
+            if item.HasTag("mtpump") then
+            mtPumpCount = mtPumpCount + 1
+
+            -- look for an Electric Motor in slot 0
+                if item.OwnInventory.GetItemAt(0) ~= nil then
+                    electricMotorCount = electricMotorCount + 1
+                        if item.OwnInventory.GetItemAt(0).ConditionPercentage == 0 then brokenElectricMotorCount = brokenElectricMotorCount + 1 end
+                        table.insert(pumpList, item)
+                else
+                    -- report missing electric motor
+                    if item.FindHull() ~= nil then pumpLocation = item.FindHull().DisplayName.Value else pumpLocation = "UNKNOWN" end
+                    terminal.ShowMessage = "[!ELECTIC MOTOR MISSING!] For: " .. item.Name .. " in " .. pumpLocation          
+                end
+            -- Check for a mechtrauma pump gate tag. Avoiding identifiers for compatibility.
+            elseif item.HasTag("pumpgate") then
+                pumpGateCount = pumpGateCount + 1
+                pumpGateCondition = pumpGateCondition + item.ConditionPercentage
+            end
+        end
+
+        table.sort(pumpList, function (k1, k2) return k1.ConditionPercentage >  k2.ConditionPercentage end )
+
+        -- loop through the pumpList
+        for k, item in pairs(pumpList) do      
+            -- CHECK: does the item have a hull? if false - report fuseLocation as "UNKNOWN"
+            if item.FindHull() ~= nil then pumpLocation = item.FindHull().DisplayName.Value else pumpLocation = "UNKNOWN" end  
+            terminal.ShowMessage = "[" .. MT.HF.Round(item.ConditionPercentage, 0) .. "% PUMP | " .. MT.HF.Round(item.OwnInventory.GetItemAt(0).ConditionPercentage, 0) .. "% EM]" .. " - [" .. item.Name .. " in " .. pumpLocation .. "]"
+            
+        end
+  
+        terminal.ShowMessage = "-----------------PUMPS-----------------"
+        terminal.ShowMessage = "TOTAL WATER PUMPS:" .. mtPumpCount
+        terminal.ShowMessage = "FAILED ELECTRIC MOTORS:" .. brokenElectricMotorCount
+        terminal.ShowMessage = "MISSING ELECTRIC MOTORS: " .. mtPumpCount - electricMotorCount
+        terminal.ShowMessage = "-----------------GATES-----------------"
+        terminal.ShowMessage = "TOTAL PUMP GATES: " .. pumpGateCount
+        terminal.ShowMessage = "AVERAGE CONDITION: " .. MT.HF.Round(pumpGateCondition / pumpGateCount, 2) .. "%"
+        terminal.ShowMessage = "PUMP CAPCITY REDUCED BY: " ..  MT.HF.Round(pumpGateCondition / pumpGateCount - 100, 2) .. "%"
+        terminal.ShowMessage = "**************END REPORT**************"
+    else
+        terminal.ShowMessage = "**************NO CONNECTION**************"
+    end
+
+end
+
+function MT.F.reportTypes.c02(item, terminal, message, command, argument)
+  --local containedItem = item.OwnInventory.GetItemAt(0)
+  local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+  local co2FilterList = {}
+  local co2FilterCount = 0
+  local co2FilterExpiredCount = 0
+  local oxygenVentCount = 0
+  local filterLocation
+
+  MT.HF.BlankTerminalLines(terminal, 20) -- create some space
+  if CentralComputer.online then
+    -- begin report
+    terminal.SendMessage("*******REPORT: CO2 FILTER STATUS*******", Color.Lime)
+    -- find the vents and filters
+    for k, item in pairs(Item.ItemList) do   
+      if item.Prefab.Identifier.Value == "oxygen_vent" then 
+        oxygenVentCount = oxygenVentCount + 1        
+        if item.OwnInventory.GetItemAt(0) ~= nil then 
+          co2FilterCount = co2FilterCount + 1
+          table.insert(co2FilterList, item.OwnInventory.GetItemAt(0))
+          if item.OwnInventory.GetItemAt(0).ConditionPercentage < 1 then co2FilterExpiredCount = co2FilterExpiredCount + 1 end
+        else 
+          if item.FindHull() ~= nil then filterLocation = item.FindHull().DisplayName.Value else filterLocation = "ERROR" end
+          terminal.ShowMessage = "[!Co2 FILTER MISSING!] " .. filterLocation  
+        end
+      end
+    end
+
+    table.sort(co2FilterList, function (k1, k2) return k1.ConditionPercentage > k2.ConditionPercentage end)
+
+    for k, co2Filter in pairs(co2FilterList) do
+      if co2Filter.FindHull() ~= nil then filterLocation = co2Filter.FindHull().DisplayName.Value else filterLocation = "ERROR" end
+      terminal.ShowMessage = "Co2 Filter at: " .. MT.HF.Round(co2Filter.ConditionPercentage, 2) .. "% in: " .. filterLocation  
+      
+    end
+
+    
+    terminal.SendMessage("------------------------------", Color.Lime)
+    terminal.SendMessage("TOTAL FILTERED OXYGEN VENTS:" .. oxygenVentCount, Color.Lime)
+    terminal.SendMessage("Co2 FILTERS EXPIRED:" .. co2FilterExpiredCount, Color.Lime)
+    terminal.SendMessage("Co2 FILTERS MISSING:" .. oxygenVentCount - co2FilterCount, Color.Lime)
+    terminal.SendMessage("**************END REPORT**************", Color.Lime)
   
 
+  else
+    terminal.ShowMessage = "**************NO CONNECTION**************"
+  end
+  -- legacy?
+  if SERVER then
+    terminal.SyncHistory()
+  end
 end
