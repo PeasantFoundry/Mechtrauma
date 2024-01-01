@@ -51,7 +51,7 @@ public partial class AdvancedTerminal : ItemComponent
         set => SendMessage(value, TextColor);
     }
     
-    public Color TextColor { get; protected set; } = Color.Green;
+    public Color TextColor { get; set; } = Color.Green;
 
     /// <summary>
     /// For use by Status Effects to send messages to the terminal. Name inherited from vanilla.
@@ -90,6 +90,7 @@ public partial class AdvancedTerminal : ItemComponent
     public override partial void OnItemLoaded();
     public partial void SendMessage(string text, Color color, bool overrideReadonly);
     public partial void SendMessage(string text, Color color);
+    public void SendMessage(string text) => SendMessage(text, TextColor);
     public partial void ClearHistory();
     private partial void ClearHistoryLocal();
     private partial void TrimHistory(int excess);

@@ -122,11 +122,18 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// </summary>
     public bool MessageLayoutStretch { get; protected set; }
     
-    public Vector2 DesignResolution { get; protected set; }
+    
+    public bool UseDesignScale { get; protected set; }
+    
+    /// <summary>
+    /// The render ratio (width / height) that the tablet was designed at. Used to adjust vanilla GUI so it fits the
+    /// sprite texture at different resolutions. Default is 1920/1080.
+    /// </summary>
+    public float DesignScale { get; protected set; }
 
     private bool _shouldSelectInputBox = true;
     private bool _clearOperationRequested;
-    
+
     #endregion
     partial void InitializeXml(ContentXElement? element)
     {
@@ -159,7 +166,8 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             TerminalSize = msgAreaElement.GetAttributeVector2("RelativeSize", Vector2.One);
             ShowInputBox = msgAreaElement.GetAttributeBool("ShowInputBox", true);
             TextColor = msgAreaElement.GetAttributeColor("TextColor", Color.Green);
-            DesignResolution = msgAreaElement.GetAttributeVector2("DesignResolution", new Vector2(1920, 1080));
+            UseDesignScale = msgAreaElement.GetAttributeBool("UseDesignScale", false);
+            DesignScale = msgAreaElement.GetAttributeFloat("DesignScale", 1920f / 1080f);
             
             // parse font name
             string fontName = msgAreaElement.GetAttributeString("MessageFont", "Font");
@@ -186,17 +194,24 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     protected virtual void DrawOuterSprite(SpriteBatch spriteBatch, GUICustomComponent component)
     {
         // scale tablet based on design resolution
-        
-        
+        float scaling = OuterSpriteLinearScale * GUI.Scale;
         OuterSprite?.Draw(spriteBatch, 
-            new Vector2(component.RectTransform.Rect.X, component.RectTransform.Rect.Y), scale: OuterSpriteLinearScale);
+            new Vector2(component.RectTransform.Rect.X, component.RectTransform.Rect.Y), scale: scaling);
     }
 
     protected virtual void InitializeGUI()
     {
         var tgtGuiFrame = AlternateGUIFrame ?? GuiFrame;
         var tgtRectTransform = tgtGuiFrame.RectTransform;
-
+        
+        // render ratio only causes issues if under the design scale
+        if (UseDesignScale && GUI.HorizontalAspectRatio < DesignScale - 0.001f)
+        {
+            var y = GUI.VerticalAspectRatio;
+            var size = tgtGuiFrame.RectTransform.RelativeSize;
+            size.X *= GUI.HorizontalAspectRatio / DesignScale;
+        }
+        
         if (TerminalFrameColor is not null)
         {
             tgtGuiFrame.Color = TerminalFrameColor.Value;
