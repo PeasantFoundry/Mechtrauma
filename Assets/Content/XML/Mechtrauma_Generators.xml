@@ -2,10 +2,10 @@
 <Items>
 
   <!-- GENERATOR MOUNT: -->
-  <Item name="Generator Hookup" description="" identifier="generator_mount" Tags="generator,generator_mount" showinstatusmonitor="false" category="Machine,Generator" interactthroughwalls="true" Scale="0.5" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" linkable="true" allowedlinks="diesel_fuel_tank">
+  <Item name="Diesel Generator Hookup" description="" identifier="large_generator_mount" Tags="generator,generator_mount" showinstatusmonitor="false" category="Machine,Generator" interactthroughwalls="true" Scale="0.5" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" linkable="true" allowedlinks="diesel_fuel_tank">
     <Sprite texture="Content/Items/Weapons/Loaders.png" depth="0.01" sourcerect="0,262,256,84" canflipy="false" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
-    <SwappableItem price="0" origin="128,78" swapidentifier="basicturret">
+    <SwappableItem price="0" origin="128,78" swapidentifier="generator_diesel_large">
       <SchematicSprite texture="Content/UI/WeaponUI.png" sourcerect="0,425,256,117" />      
     </SwappableItem>
     <StaticBody width="80" radius="80" />
@@ -22,14 +22,13 @@
   </Item>
 
 
-<!-- DIESEL GENERATOR S5000D: Standard. -->
- <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
+  <!-- DIESEL GENERATOR S5000D: Standard. -->
+  <Item name="s5000D" identifier="s5000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     
-    <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="large_dg">
+    <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
       <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
     </SwappableItem>
 
@@ -43,16 +42,30 @@
       </StatusEffect> 
     </LightComponent>
     
-    <!-- Diagnostic Terminal -->
+    <!-- Diagnostic Terminal 
     <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
       <GuiFrame relativesize="0.25,0.2" relativeoffset="0.36,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" />
-    </Terminal>
+    </Terminal>-->
+
+    <!-- Diagnostic Terminal -->
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
 
     <!-- Controls -->
     <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.25,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+        <LuaHook name="maintenanceTablet_pcr.OnUse" /> 
       </Button>
       <Button text="Engine Off">
         <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
@@ -65,18 +78,18 @@
    
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="9" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="10" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
-      <SlotIcon slotindex="11" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
       <!-- SLOT 0-1 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
       <!-- SLOT 2 Oil Filter -->  
@@ -133,12 +146,11 @@
 
 <!-- DIESEL GENERATOR S3000D: Standard. -->
  <Item name="s3000D" identifier="s3000D" tags="Power,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,986,400" depth="0.8" origin="0.5,0.5" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/Images/Series5000D.png" sourcerect="0,0,980,400" origin="0.5,0.5" depth="0.8" maxcondition="0" />
-
-    <SwappableItem canbebought="true" price="3000" replacementonuninstall="turrethardpoint" origin="128,215" swapidentifier="large_dg">
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    
+    <SwappableItem canbebought="true" price="3000" replacementonuninstall="turrethardpoint" origin="128,215" swapidentifier="generator_diesel_large">
       <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
     </SwappableItem>
     
@@ -158,14 +170,14 @@
    
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
 
       <!-- SLOT 0 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
@@ -233,11 +245,18 @@
     </Repairable>
   </Item>
 
- <!-- DIESEL GENERATOR S2500Da: Yellow Cabinet. -->
- <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" /> 
-    <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
+  <!-- DIESEL GENERATOR S3000Da: Standard. -->
+ <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtupdate,mtpriority,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
+    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    
+
+    <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
+    </SwappableItem>
+    
+    <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
     <!-- Sound Light -->
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
@@ -247,21 +266,196 @@
       </StatusEffect> 
     </LightComponent>
     
+    <!-- Diesel Generator -->
+    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >
+      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
+    </SimpleGenerator>
+   
+    <!-- Diagnostic Terminal -->
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+
+    <!-- Controls -->
+    <CustomInterface canbeselected="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
+      </Button>      
+    </CustomInterface>
+
+    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,128,64,64" origin="0.5,0.5" /> <!-- engine block -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> <!-- oil -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> <!-- oil filter -->      
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- diesel fuel -->
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" /> <!-- fuel filter -->
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" /> <!-- fuel pump -->      
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" /> <!-- battery -->
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> <!-- starter motor -->
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" /> <!-- dcm -->
+      <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="704,128,64,64" origin="0.5,0.5" />  <!-- exhaust manifold -->
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />  <!-- aux 02 -->      
+      <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" /> <!-- air filter -->
+      <!-- SLOT 0 Engine Block -->  
+      <Containable items="mt_engine_block" excludebroken="false" excludefullcondition="false"/>           
+      <!-- SLOT 1 Oil -->  
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>             
+      </SubContainer>      
+      <!-- SLOT 2 Oil Filter -->  
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+      </SubContainer>      
+      <!-- SLOT 3 Diesel Fuel -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>      
+      <!-- SLOT 4 Fuel Filter -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_fuel_filter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 5 Fuel Pump -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_fuel_pump" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>      
+      <!-- SLOT 6 Battery -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_battery_lead_acid" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 7 Starter Motor -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_starter_motor,electric_motor" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 8 DCM -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_dcm" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOTs 9 Exhaust Manifold -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_eb_exhaust_manifold" excludebroken="true" excludefullcondition="false"/>  
+      </SubContainer>            
+      <!-- SLOTs 10 Oxygen -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
+      </SubContainer>      
+      <!-- SLOT 11 Air Filter -->  
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_air_filter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>    
+               
+    </ItemContainer>
+
+        
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <input name="set_state" displayname="connection.setstate" />
+      <input name="toggle" displayname="connection.togglestate" />
+      <output name="power_out" displayname="connection.powerout" />      
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="power_generated" displayname="connection.powergenerated" />      
+    </ConnectionPanel>
+    
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <RequiredSkill identifier="electrical" level="55"/>
+      <RequiredItem items="screwdriver" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      
+      <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+      
+      <!-- At least you followed protocal -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+    
+    </Repairable>
+  </Item>
+
+ <!-- DIESEL GENERATOR S2500Da: Yellow Cabinet. -->
+ <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" /> 
+    <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
+
+    <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
+    </SwappableItem>
+
+
+    <!-- Sound Light -->
+    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
+        <Conditional IsOn="true" target="This"/>      
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
+      </StatusEffect> 
+    </LightComponent>
+    
+    <!-- Diesel Generator -->
     <SimpleGenerator MaxPowerOut="2500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>   
+    <!-- Diagnostic Terminal -->
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
    
+   
+    <!-- Controls -->
+    <CustomInterface canbeselected="true" allowuioverlap="true">
+      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
+      </Button>      
+    </CustomInterface>
+
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
-      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />  <!-- OIL -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />  <!-- OIL FILTER -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- DIESEL FUEL -->
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
 
       <!-- SLOT 0-1 Oil -->  
       <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
@@ -278,23 +472,8 @@
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
         <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
       </SubContainer>               
-    </ItemContainer>
-
-    <!-- Diagnostic Terminal -->
-    <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
-      <GuiFrame relativesize="0.25,0.2" relativeoffset="0.36,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" />
-    </Terminal>
-
-    <!-- Controls -->
-    <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.25,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
-      <Button text="Engine On">
-        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
-      </Button>
-      <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
-    </CustomInterface>
+    </ItemContainer> 
+  
         
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
@@ -333,24 +512,24 @@
 
   <!-- DIESEL GENERATOR S2500Db: Blue Cabinet. -->
   <Item name="Series C-2500Db Diesel Generator" identifier="sC2500Db" variantof="sC2500Da" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
   </Item>
 
   <!-- DIESEL GENERATOR S2500Dc: Red Cabinet. -->
   <Item name="Series C-2500Dc Diesel Generator" identifier="sC2500Dc" variantof="sC2500Da" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/generators/seriesC.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/generators/seriesC.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
   </Item>
 
 
   <!-- DIESEL GENERATOR S1500D: Emergency power. -->
 
  <Item name="s1500D" identifier="s1500D" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-  <InventoryIcon texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="0,768,212,256" origin="0.5,0.5" />
-  <Sprite name="Diesel Generator" texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="0,768,212,256" depth="0.81" origin="0.5,0.5" />
-  <BrokenSprite texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
-  <BrokenSprite texture="%ModDir%/Images/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="0" />
+  <InventoryIcon texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,768,212,256" origin="0.5,0.5" />
+  <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,768,212,256" depth="0.81" origin="0.5,0.5" />
+  <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
+  <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="0" />
   
   <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
         
@@ -369,12 +548,12 @@
   
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.4" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
       
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>       
@@ -494,11 +673,11 @@
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
       <!-- Oil -->
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>           
@@ -601,11 +780,11 @@
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
       <!-- Oil -->
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>           

@@ -336,7 +336,7 @@ function PrintChat(msg)
         -- use client method
         Game.ChatBox.AddMessage(ChatMessage.Create("", msg, ChatMessageType.Server, nil))
     end
-    
+
 end
 
 function MT.HF.DMClient(client,msg,color)
@@ -350,7 +350,14 @@ function MT.HF.DMClient(client,msg,color)
         PrintChat(msg)
     end
 end
-
+-- accuracy modification
+function MT.HF.Tolerance(tolerance)
+    -- randomly select a modifier from a rage based on tolerance %. EX: 95% accuracy creates a range from -5 to 5 that becomes a .95 to 1.05 modifier
+    local lowRange = (100 - tolerance) *-1
+    local highRange = (100 - tolerance)
+    local result = (math.random(lowRange,highRange) * 0.003 + 1)
+    return result
+end
 -- % chance
 function MT.HF.Chance(chance)
     return math.random() < chance

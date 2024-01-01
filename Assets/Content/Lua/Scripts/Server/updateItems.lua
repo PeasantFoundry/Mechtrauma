@@ -1,7 +1,9 @@
 
 -- Establish Mechtrauma item cache
-MT.itemCache = {}
-MT.itemCacheCount = 0
+--MT.itemCache = {}
+--MT.itemCacheCount = 0
+--MT.inventoryCache = {parts={}}
+--MT.inventoryCacheCount = 0
 MT.oxygenVentCount = 0
 
 --table of tag functions - this is for mapping items to update functions
@@ -25,6 +27,10 @@ MT.tagfunctions = {
     dieselGenerator={
         tags={"dieselGenerator"},
        update=MT.F.dieselGenerator
+    },
+    airFilter={
+        tags={"airFilter"},
+       update=MT.F.airFilter
     },
     steamBoiler={
         tags={"steamBoiler"},
@@ -67,7 +73,7 @@ MT.tagfunctions = {
 -- run once per MT.Deltatime (2 seconds) by updateCounter.lua
 function MT.updateItems()
     local updateItemsCounter = 0
-
+    GlobalTest = "PASS"
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
     for key, value in pairs(MT.itemCache) do
         -- make sure the items still exists 
@@ -77,7 +83,7 @@ function MT.updateItems()
                     MT.UpdateItem(key)
                     updateItemsCounter = updateItemsCounter + 1
                 end
-            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)        
+            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)
         end
     end
 end
@@ -95,7 +101,7 @@ function MT.UpdateItem(item)
             end
         end
         -- call the function if all required tags are present
-        if hasalltags then                        
+        if hasalltags then
             tagfunctiondata.update(item)
         end
     end
@@ -104,13 +110,14 @@ end
 
 -- adds eligible items to the item cache
 function MT.CacheItem(item)
-    
+    -- populate the item update cache
     if not MT.itemCache[item] then
         -- CHECK: should this item be in the cache
        if item.HasTag("mtu") or item.HasTag("mtupdate") then
         -- CHECK: if the item is already in the cache, if not - add it.   
             MT.itemCache[item] = {}
-            MT.itemCache[item].counter = 0                
+            MT.itemCache[item].counter = 0
+            if item.HasTag("diagnostics") then MT.itemCache[item].diagnosticData ={errorCodes={},warningCodes={},statusCodes={}} end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
             -- this is here so that we don't double up execute on initialization and item creation
@@ -121,11 +128,25 @@ function MT.CacheItem(item)
 
         elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this but it's for compatability
                 MT.itemCache[item] = {}
-                MT.itemCache[item].counter = 0
-                MT.itemCacheCount = MT.itemCacheCount + 1        
+                MT.itemCache[item].counter = 0                
+                MT.itemCacheCount = MT.itemCacheCount + 1
         end
         
     end
+    -- populate the parts inventory
+    if not MT.inventoryCache[item] then
+        -- add the parts to the inventoryCache
+        if item.HasTag("part") then
+            MT.inventoryCache.parts[item] = {}
+            MT.inventoryCacheCount = MT.inventoryCacheCount + 1
+            --print("added ", item.Prefab.Identifier.Value, " to the parts inventory.")
+        end
+    end
+
+end
+-- remove items from the inventoryCache when they are deleted
+function MT.RemoveCacheItem(item)
+    if MT.inventoryCache[item] then table.remove(MT.inventoryCache,item) end
 end
 
 
@@ -144,18 +165,23 @@ end
     
 
 
- Hook.Add("roundStart", "MT.roundStart2", function()
+Hook.Add("roundStart", "MT.roundStart2", function()
     
     -- this is how many items we found in the MT.itemCache
     print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")     
     print("There are: ", MT.oxygenVentCount, " oxygen vents.")
  end)
 
- -- check new items and add matches to the MT.itemCache
- Hook.add("item.created", "MT.newItem", function(item)
-     MT.CacheItem(item)
+-- new items
+Hook.add("item.created", "MT.newItem", function(item)
+    -- maintain the item cache 
+    MT.CacheItem(item)
  end)
- 
+-- item removed 
+Hook.add("item.removed", "MT.removeItem", function(item)
+    -- maintain the item cache
+    MT.RemoveCacheItem(item)
+end)
  -- end of round housekeeping
  Hook.Add("roundEnd", "MT.roundEnd", function()
      -- clear the update item cache so we don't carry anything over accidentally

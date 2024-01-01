@@ -128,7 +128,13 @@ Hook.Add("signalReceived.average_component", "MT.averageComponent", function(sig
   itemBuffer[1] = nil
 end)
 
+-- DIESEL GENERATOR: Engine On - wtf is this? 12/31/23
+--[[Hook.Add("dieselGenerator_on.OnUse", "MT.dieselGenerator_on", function(effect, deltaTime, item, targets, worldPosition, client)
+  -- call the blood report function
+  MT.F.reportTypes.blood(item)
 
+end)
+]]
 -- MEDICAL TABLET: Hematology Report
 Hook.Add("medicalTablet_hR.OnUse", "MT.hematologyReport", function(effect, deltaTime, item, targets, worldPosition, client)
   -- call the blood report function
@@ -175,19 +181,23 @@ Hook.Add("securityControl_auth.OnUse", "MT.idScan", function(effect, deltaTime, 
   end
 end)
 
--- MAINTENANCE TABLET
+-- ***** MAINTENANCE TABLET *****
+
+-- ----- REPORT POWER -----
 Hook.Add("maintenanceTablet_pcr.OnUse", "MT.powerConsumptionReport", function(effect, deltaTime, item, targets, worldPosition, client)
   -- call the power report function
   MT.F.reportTypes.power(item)
 end)
 
-Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)
-  -- call the c02 report function
+
+
+-- ----- REPORT c02 -----
+Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)  
   MT.F.reportTypes.c02(item)
 end)
 
-Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, deltaTime, item, targets, worldPosition, client)
-  -- call the pump report function
+-- ----- REPORT PUMP -----
+Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, deltaTime, item, targets, worldPosition, client)  
   MT.F.reportTypes.pump(item)
 end)
 

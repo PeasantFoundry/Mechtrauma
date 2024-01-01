@@ -452,7 +452,7 @@
   </Item>
 
   <!-- SEALED BEARING: This is a sealed bearing for use in machines. -->
-  <Item name="Sealed Bearing" identifier="sealed_bearing" Category="Equipment" Tags="smallitem,bearing" maxstacksize="16" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+  <Item name="Sealed Bearing" identifier="sealed_bearing" Category="Equipment" Tags="smallitem,bearing,part" maxstacksize="16" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="50" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -485,7 +485,7 @@
   </Item>
 
   <!-- ELECTRIC MOTOR: This is an electric motor for use in machines. -->
-  <Item name="Electric Motor" identifier="electric_motor" Category="Equipment" Tags="smallitem,electricmotor" maxstacksize="2" cargocontaineridentifier="metalcrate" health="500" scale="0.25">
+  <Item name="Electric Motor" identifier="electric_motor" Category="Equipment" Tags="smallitem,electricmotor,part" maxstacksize="2" cargocontaineridentifier="metalcrate" health="500" scale="0.25">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="150" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -520,7 +520,7 @@
       <RequiredItem identifier="sealed_bearing" />
     </Fabricate>
     
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,128,128,112" depth="0.55"/>
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1216,512,128,89" depth="0.55"/>
     <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,256,128,112" origin="0.5,0.5" depth="0.55" maxcondition="20" fadein="false" />
     <Body width="128" height="105" density="60" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
@@ -529,6 +529,7 @@
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
   </Item>
+  
 
    <!-- COPPER WINDINGS: Copper windings for repairing electric motors -->
   <Item name="Copper Windings" identifier="copper_windings" Category="Equipment" Tags="smallitem,mechanical" maxstacksize="16" cargocontaineridentifier="metalcrate" health="100" scale="0.3">
@@ -1006,7 +1007,7 @@
 
 
 <!-- OIL FILTER: -->
-  <Item name="Oil Filter" identifier="oil_filter" Category="Fuel" Tags="smallitem,oilfilter" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+  <Item name="Oil Filter" identifier="oil_filter" Category="Fuel" Tags="smallitem,oilfilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
     <PreferredContainer primary="reactorcab"/>    
     <Price baseprice="50" displaynonempty="true" minavailable="5">
       <Price storeidentifier="merchantoutpost"  />
@@ -1036,8 +1037,137 @@
     </Quality>
   </Item>
 
+  <!-- AIR FILTER: -->
+  <Item name="Air Filter" identifier="mt_air_filter" Category="Fuel" Tags="mtu,smallitem,airfilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+    </Deconstruct>
+    <!-- AIR FILTER: Make a new filter.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="640,640,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="640,640,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="704,640,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+        <Containable items="smallitem" excludebroken="false" excludefullcondition="false" />
+    </ItemContainer>
+  </Item>
+  
+  <!-- FUEL FILTER: -->
+  <Item name="Fuel Filter" identifier="mt_fuel_filter" Category="Fuel" Tags="smallitem,airfilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+    </Deconstruct>
+    <!-- FUEL FILTER: Make a new filter.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,640,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,640,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="576,640,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
+  <!-- FUEL PUMP: -->
+  <Item name="Fuel Pump" identifier="mt_fuel_pump" Category="Fuel" Tags="smallitem,fuelPump,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+      <Item identifier="scrap_copper" amount="1" />
+    </Deconstruct>
+    <!-- FUEL FILTER: Make a new pump.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="704,512,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="704,512,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,512,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
+  <!-- LEAD ACID BATTERY: -->
+  <Item name="Lead Acid Battery" identifier="mt_battery_lead_acid" Category="Fuel" Tags="smallitem,battery,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+    </Deconstruct>
+    <!-- FUEL FILTER: Make a new filter.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
 <!-- DRIVE GEAR: Steal worm drive gear -->
-  <Item name="" identifier="drive_gear" Category="Misc" Tags="largeitem,handtruck,gear,crate" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="" identifier="drive_gear" Category="Misc" Tags="largeitem,handtruck,gear,crate,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="350" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1076,7 +1206,7 @@
   </Item>
   
   <!-- TURBINE BLADE: For use in machines such as a steam turbine -->
-  <Item name="" identifier="turbine_blade" Category="Fuel" Tags="largeitem,handtruck,crate" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="" identifier="turbine_blade" Category="Fuel" Tags="largeitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="250" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1109,6 +1239,216 @@
     <Quality>
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
+  </Item>
+
+  <!-- ENGINE BLOCK: For use in machines such as a diesel engine -->
+  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="largeitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="250" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">
+      <Item identifier="steel" />
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="8" />
+     </Fabricate>
+    <!-- RECYCLE: Rebuild the engine block. -->
+    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="30"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="4" />
+    </Fabricate>
+     <!-- REPAIR: Rebuild the engine block. -->
+    <Fabricate suitablefabricators="repairtable" displayname="repairitem" requiredtime="15" outcondition="0"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="448,768,128,120" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="576,768,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <Body width="128" height="120" density="100" />
+    <Holdable handle1="0,0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.0" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <!-- Engine Parts -->
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="DCM" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="128,192,64,64" origin="0.5,0.5" /> <!-- cylinder head -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,128,64,64" origin="0.5,0.5" /> <!-- crank assembly -->         
+      <!-- SLOT 0 Cylinder Head -->      
+      <Containable items="cylinderHead" excludebroken="false" excludefullcondition="false" />
+      <!-- SLOT 1 Crank Assembly -->      
+      <SubContainer slots="1">
+        <Containable items="mt_eb_crank_assembly" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>
+
+  <!-- CRANK ASSEMBLY: diesel engine block  -->
+  <Item name="EB Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="100" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">      
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <!-- RECYCLE: no rebuild, cannot be salvaged. -->  
+    <!-- REPAIR: no repair, cannot be salvaged. -->
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
+    <Body width="128" height="100" density="80" />
+    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+  <!-- CYLINDER HEAD: For use in machines such as a diesel engine -->
+  <Item name="Cylinder Head" identifier="mt_eb_cylinder_head" Category="Fuel" Tags="mediumitem,handtruck,cylinderHead,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="100" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">      
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <!-- RECYCLE: Rebuild the Cylinder Head. -->
+    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="30"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="4" />
+    </Fabricate>
+     <!-- REPAIR: Repair the Cylinder Head. -->
+    <Fabricate suitablefabricators="repairtable" displayname="repairitem" requiredtime="15" outcondition="50"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,0,128,64" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="128" height="100" density="80" />
+    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Head" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
+      <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
+    </ItemContainer>
+  </Item>
+
+  <!-- EXHAUST MANIFOLD: For use in machines such as a diesel engine -->
+  <Item name="Exhaust Manifold" identifier="mt_eb_exhaust_manifold" Category="Fuel" Tags="mediumitem,exhaustManifold,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="100" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">      
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <!-- RECYCLE: Rebuild the Exhaust Manifold. -->
+    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="30"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="4" />
+    </Fabricate>
+     <!-- REPAIR: Repair the Exhaust Manifold. -->
+    <Fabricate suitablefabricators="repairtable" displayname="repairitem" requiredtime="15" outcondition="50"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="1024,704,128,100" />
+    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,832,128,100" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <Body width="128" height="100" density="80" />
+    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
+      <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
+    </ItemContainer>
+  </Item>
+
+   <!-- GASKET: generic -->
+  <Item name="Gasket" identifier="mt_gasket" Category="Fuel" Tags="mtu,smallitem,gasket,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+    <Deconstruct time="5">
+      <Item identifier="carbon"/> 
+    </Deconstruct>
+    <!-- GASKET: Make a new gasket.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="organicfiber" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1152,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>    
   </Item>
 
   <!-- BEARING: This is a copper sleeved steel bearing for use in a steam turbine and other machines -->
@@ -1178,7 +1518,7 @@
   </Item>
 
   <!-- CIRCULATOR PUMP: This is a circulator pump for use in machines such as a boiler -->
-  <Item name="" identifier="circulator_pump" Category="Fuel" Tags="smallitem,circulatorPump" maxstacksize="2" cargocontaineridentifier="metalcrate" health="100" scale="0.35">
+  <Item name="" identifier="circulator_pump" Category="Fuel" Tags="smallitem,circulatorPump,part" maxstacksize="2" cargocontaineridentifier="metalcrate" health="100" scale="0.35">
     <PreferredContainer primary="reactorcab"/>
     
     <Price baseprice="150" displaynonempty="true" minavailable="2">
@@ -1210,8 +1550,9 @@
       <RequiredItem identifier="sealed_bearing" />
       <RequiredItem identifier="circulator_pump" mincondition="0.0" usecondition="false"/>
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,128,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="512,128,128,128" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" depth="0.55"  />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" depth="0.55"  maxcondition="80" fadein="true" />
     <Body radius="6" height="55" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -1221,7 +1562,7 @@
     </Quality>
   </Item>
 
-  <!-- OXYGEN TANK LARGE: TO DO: Make a tank spawn in the oxygen station is there isn't one. -->
+  <!-- OXYGEN TANK LARGE: TO DO: Make a tank spawn in the oxygen station if there isn't one. -->
   <Item name="Oxygentank Large" identifier="oxygentank_large" Category="Equipment" Tags="largeitem,oxygen,handtruck" hiddeningame="True" spritecolor="255,255,255,255" maxstacksize="1" cargocontaineridentifier="handtruck" health="5000" scale="0.5">
     <PreferredContainer primary="oxygen_station"/>     
     <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,0,128,128" origin="0.5,0.5" />
@@ -1378,7 +1719,7 @@
 
   
 <!-- Co2 CARTRIDGE: Filter-->
-  <Item name="Co2 Filter" identifier="co2_cartridge" Category="Fuel" Tags="smallitem,c02" maxstacksize="4" cargocontaineridentifier="metalcrate" health="800" scale="0.5">
+  <Item name="Co2 Filter" identifier="co2_cartridge" Category="Fuel" Tags="smallitem,c02,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="800" scale="0.5">
     <PreferredContainer primary="reactorcab"/>
     
     <Price baseprice="25" displaynonempty="true" minavailable="2">
@@ -2057,7 +2398,7 @@
     </ConnectionPanel>
   </Item>
 
-<!-- CENTRAL COMPUTER:-->   
+  <!-- CENTRAL COMPUTER:-->   
   <Item name="Central Computer" identifier="central_computer" tags="mtu,centralcomputer,machine,command" linkable="true" allowedlinks="statusmonitor" scale="0.5" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="128,960,64,64" origin="0.5,0.45" />
     <Sprite texture="%ModDir%/Images/mechtrauma_command.png" sourcerect="384,384,236,368" depth="0.8" origin="0.5,0.5" />
@@ -2066,6 +2407,18 @@
 
     <Powered powerconsumption="250" minvoltage="0.5" isactive="true"/>
     <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="250" canbeoverloaded="true" IsOn="False" AllowInGameEditing="false"/>
+
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,0,255,255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
@@ -2099,7 +2452,7 @@
   </Item>
   
   <!-- ADVANCED TERMINAL STYLE-B -->
-  <Item name="Handheld Advanced Terminal" identifier="handheldadvterminal" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="Handheld Advanced Terminal" identifier="handheldadvterminal" hideinmenus="true" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
     <Upgrade gameversion="0.9.9000.0" scale="0.25" />
     <Price baseprice="100" sold="false" />
     <PreferredContainer primary="reactorcab" secondary="engcab" />
@@ -2156,13 +2509,130 @@
           <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
-      </Button>
-      
+      </Button>      
     </CustomInterface>
   </Item>
-  
 
-<!-- MECHTRAUMA TABLET:-->
+<!-- DCM: Diesel Control Module: -->
+  <Item name="DCM" identifier="mt_dcm" Category="Fuel" Tags="mtu,smallitem,dcm,part" maxstacksize="1" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+    </Deconstruct>
+    <!-- DCM: Make a new DCM.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="organicfiber"/>
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,352,160,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,352,160,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,352,160,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <!-- DCM expansion slots -->
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="DCM" />
+      <!--<SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" />  unknown -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" /> <!-- hard drive -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" /> <!-- oxygen sensor -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" /> <!-- pressure sensor -->      
+      <!-- SLOT 0 UNKOWN -->      
+      <Containable items="smallitem" excludebroken="false" excludefullcondition="false" />
+      <!-- SLOT 1 Hard Drive -->      
+      <SubContainer slots="1">
+        <Containable items="mt_data_box" />
+      </SubContainer>
+      <!-- SLOT 2 Oxygen Sensor -->
+      <SubContainer slots="1">
+        <Containable items="mt_oxygen_sensor" />
+      </SubContainer>
+      <!-- SLOT 3 Pressure Sensor -->
+      <SubContainer slots="1">
+        <Containable items="mt_pressure_sensor" />
+      </SubContainer>
+    </ItemContainer>
+  </Item>  
+
+  <!-- Oxygen Sensor: DCM expansion -->
+  <Item name="Oxygen Sensor" identifier="mt_oxygen_sensor" Category="Fuel" Tags="smallitem,o2sensor,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+      <Item identifier="scrap_copper" amount="1" />
+    </Deconstruct>
+    <!-- Oxygen Sensor: Make a new sensor.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,352,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,352,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="320,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
+  <!-- Pressure Sensor: DCM expansion -->
+  <Item name="Pressure Sensor" identifier="mt_Pressure_sensor" Category="Fuel" Tags="smallitem,pressureSensor,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <PreferredContainer primary="reactorcab"/>    
+    <Price baseprice="50" displaynonempty="true" minavailable="5">
+      <Price storeidentifier="merchantoutpost"  />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+    </Price>
+      <Deconstruct time="10">
+      <Item identifier="scrap_aluminium" amount="1" />
+      <Item identifier="scrap_copper" amount="1" />
+    </Deconstruct>
+    <!-- Pressure Sensor: Make a new sensor.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="30">
+      <RequiredSkill identifier="mechanical" level="40" />
+      <RequiredItem identifier="aluminium" />
+      <RequiredItem identifier="copper" />
+      <RequiredItem identifier="plastic" />
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,352,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,352,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="192,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="64" height="128" density="20" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
+  <!-- MECHTRAUMA TABLET:-->
   <Item name="Mechtrauma Tablet" identifier="mt_tablet" category="Electrical" Tags="smallitem,logic,tablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
@@ -2261,7 +2731,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2325,7 +2795,7 @@
     </Price>
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
-    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.8" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.6" origin="0.5,0.5" />
     <Body width="128" height="128" density="8" />
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
     
@@ -2342,7 +2812,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2378,9 +2848,9 @@
       <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="-0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
      
       <!-- REPORT: POWER CONSUMPTION: -->
-      <Button text="Power Consumption Report">
+      <Button text="PARTS INVENTORY">
         <StatusEffect type="OnUse" target="This" >
-          <LuaHook name="maintenanceTablet_pcr.OnUse" /> 
+          <LuaHook name="maintenanceTablet_rparts.OnUse" /> 
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>    
       </Button>
@@ -2436,7 +2906,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,-0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Red0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -3216,7 +3686,7 @@
     </Item>
 
   <!-- FUSE: -->
-  <Item name="Fuse" identifier="fuse" Category="Fuel" Tags="smallitem,fuse" maxstacksize="64" cargocontaineridentifier="metalcrate" health="100" scale="0.5">
+  <Item name="Fuse" identifier="fuse" Category="Fuel" Tags="smallitem,fuse,part" maxstacksize="64" cargocontaineridentifier="metalcrate" health="100" scale="0.5">
      
     <Price baseprice="5" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -4047,7 +4517,7 @@
   </Item>
   
   <!-- MT REACTOR: PF5000 --> 
-  <Item name="PF5000 Reactor" identifier="mt_reactor_pf5000" tags="reactor" type="Reactor" hideinmenus="true" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">        
+  <Item name="PF5000 Reactor" identifier="mt_reactor_pf5000" tags="mtu,pfreactor,reactor" type="Reactor" hideinmenus="true" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">        
     <Sprite texture="Content/Items/reactor/reactor.png" sourcerect="0,0,528,336" origin="0.5,0.45" depth="0.8" />
     <UpgradePreviewSprite scale="3.0" texture="Content/UI/WeaponUI.png" sourcerect="0,960,64,64" origin="0.5,0.45" />
     <BrokenSprite texture="Content/Items/reactor/reactor.png" sourcerect="0,338,528,336" depth="0.8" origin="0.5,0.45" maxcondition="40" />
@@ -4060,27 +4530,15 @@
     </SimpleGenerator>
 
     <!-- Left Terminal-->
-     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
                       ReadOnly="false">
-      <MessageAreaGui Margin="0.0" Offset="-0.0,-0.0" TopPadding="0.0" HistoryBoxSize="1.0,0.75" InputBoxSize="0.5,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,35,35,255" 
+      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255" 
                       MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.25,0.35" relativeoffset="-0.01,0.0" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
-      <OuterSprite Offset="0.5,1.0" Size="1.0,1.0" Scale="2.0">
-         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/command_final.png" sourcerect="0,0,150,234" origin="0.5,0.5"/>
-      </OuterSprite>
-    </AdvancedTerminal>
-
-    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
-                      ReadOnly="true">
-      <MessageAreaGui Margin="0.0" Offset="-0.3,-0.3" TopPadding="-2.0" HistoryBoxSize="1.0,0.75" InputBoxSize="0.5,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,35,35,255" 
-                      MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.01,0.0" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
-      <OuterSprite Offset="0.225,1.0" Size="1.0,1.0" Scale="2.0">
-         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/command_final.png" sourcerect="150,0,150,234" origin="0.5,0.5"/> 
+      <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
    

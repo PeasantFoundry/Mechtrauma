@@ -41,6 +41,7 @@ end]]
 dofile(MT.Path.."/Lua/Scripts/Shared/helperFunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/biotraumaFunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaFunctions.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaDiesel.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaComputers.lua")
 
 -- SHARED: client/server code

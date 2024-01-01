@@ -2,9 +2,16 @@ MT.F = {}
 MT.F.reportTypes = {}
 CentralComputer = {}
 CentralComputer.online = true
+-- Establish Mechtrauma item cache
+MT.itemCache = {}
+MT.itemCacheCount = 0
+MT.inventoryCache = {parts={}}
+MT.inventoryCacheCount = 0
+GlobalTest = "FAIL"
+
 
 -- LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
-
+ 
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second. 
 -- human breaths 700 oxygen/second and that requires to 0.3 
 
@@ -372,7 +379,7 @@ function MT.F.electricalDisconnect(item)
     local controllerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.Controller")
     local powerComponent = MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.PowerTransfer")
     -- if the controller swtich is on, connect the power
-    if controllerComponent.state == true then   
+    if controllerComponent.state == true then
         relayComponent.SetState(true, false)
     
         -- if the controller swtich is off, disconnect the power
@@ -390,8 +397,113 @@ function MT.F.steamHeatsink(item)
     -- if the controller swtich is on, open the valve
 end
 
+function MT.F.airFilter(item)
+    -- did I get wet?
+    if item.InWater then
+        item.AddTag("wet")
+        MT.itemCache[item].counter = 15
+    end
+
+    if item.HasTag("wet") and MT.itemCache[item].counter < 1 then
+        print("removed wet tag!")
+        item.ReplaceTag("wet","")
+        
+    elseif MT.itemCache[item].counter > 0 then
+        print(MT.itemCache[item].counter)
+        MT.itemCache[item].counter = MT.itemCache[item].counter - 1
+    end
+    -- if there is something inside the filter, plug it.
+    if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
+end
+
 
 -- ********** REPORTS: **********
+function MT.F.reportTypes.parts(item, terminal, message, command, argument)
+    terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    -- machine parts and crafting items    
+    local partsCount = {new = {}, used = {}, broken = {}}
+    local partsTotalNew = 0
+    local partsTotalUsed = 0
+    local partsTotalBroken = 0
+    -- count up the parts
+    --if MT.inventoryCache.parts then terminal.SendMessage("FOUND THE CACHE!", Color.Lime) end
+   
+    for k, v in pairs(MT.inventoryCache.parts) do        
+        --if k then terminal.SendMessage(tostring(k) .. " | " .. k.Prefab.Identifier.Value, Color.Orange) end
+        
+        if k.ConditionPercentage > 95 then
+            -- new parts
+            if partsCount.new[k.Prefab.Identifier.Value] then
+                -- part type already exists, increment the totals
+                partsCount.new[k.Prefab.Identifier.Value].count = partsCount.new[k.Prefab.Identifier.Value].count + 1
+                partsTotalNew = partsTotalNew + 1
+            else
+                -- new part, add an entry and a counter
+                partsCount.new[k.Prefab.Identifier.Value] = {}
+                partsCount.new[k.Prefab.Identifier.Value].count = 1
+                partsCount.new[k.Prefab.Identifier.Value].name = k.name
+                partsTotalNew = 1
+            end
+        elseif k.ConditionPercentage < 5 then
+            -- broken
+            if partsCount.broken[k.Prefab.Identifier.Value] then
+                -- part type already exists, increment the totals
+                partsCount.broken[k.Prefab.Identifier.Value].count = partsCount.broken[k.Prefab.Identifier.Value].count + 1
+                partsTotalBroken = partsTotalBroken + 1
+            else
+                -- new part, add an entry and a counter
+                partsCount.broken[k.Prefab.Identifier.Value] = {}
+                partsCount.broken[k.Prefab.Identifier.Value].count = 1
+                partsCount.broken[k.Prefab.Identifier.Value].name = k.name
+                partsTotalBroken = 1
+            end
+        else
+            --used
+            if partsCount.used[k.Prefab.Identifier.Value] then
+                -- part type already exists, increment the totals
+                partsCount.used[k.Prefab.Identifier.Value].count = partsCount.used[k.Prefab.Identifier.Value].count + 1
+                partsTotalUsed = partsTotalUsed + 1
+            else
+                -- new part, add an entry and a counter
+                partsCount.used[k.Prefab.Identifier.Value] = {}
+                partsCount.used[k.Prefab.Identifier.Value].count = 1
+                partsCount.used[k.Prefab.Identifier.Value].name = k.name
+                partsTotalUsed = 1
+            end
+
+        end
+    end
+    
+    terminal.SendMessage("*******REPORT: PARTS INVENTORY*******", Color(65, 115, 205, 255))
+    -- Print totals for new parts
+    
+        terminal.SendMessage("NEW PARTS:", Color.Lime)
+        terminal.SendMessage("-------------------------------------", Color.Lime)        
+        for k, v in pairs(partsCount.new) do
+            if v.count then terminal.SendMessage(v.count .. " NEW " .. v.name .. "(s)", Color.Lime) end
+        end
+        terminal.SendMessage("-------------------------------------", Color.Lime)
+    
+    -- Print totals for used parts
+    if partsTotalUsed > 0 then
+        terminal.SendMessage("USED PARTS:", Color.Orange)
+        terminal.SendMessage("-------------------------------------", Color.Orange)        
+        for k, v in pairs(partsCount.used) do        
+            if v.count then terminal.SendMessage(v.count .. " USED " .. v.name .. "(s)", Color.Orange) end
+        end
+        terminal.SendMessage("-------------------------------------", Color.Orange)
+    end
+    -- Print totals for broken parts
+    if partsTotalBroken > 0 then 
+        terminal.SendMessage("BROKEN PARTS:", Color(255, 50, 10, 255))
+        terminal.SendMessage("-------------------------------------", Color(255, 50, 10, 255))
+        for k, v in pairs(partsCount.broken) do
+            if v.count then terminal.SendMessage(v.count .. " BROKEN " .. v.name .. "(s)", Color(255, 50, 10, 255)) end
+        end
+        terminal.SendMessage("-------------------------------------", Color(255, 50, 10, 255))
+    end
+    terminal.SendMessage("******* END REPORT *******", Color(65, 115, 205, 255))
+end
 function MT.F.reportTypes.fuse(item, terminal, message, command, argument)
      -- terminal goodness
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
@@ -600,9 +712,6 @@ if CentralComputer.online then
   terminal.ShowMessage = "**************NO CONNECTION**************"
 end
 
-if SERVER then
-  terminal.SyncHistory()
-end
 end
 function MT.F.reportTypes.pump(item, terminal, message, command, argument)
     --local containedItem = item.OwnInventory.GetItemAt(0)
@@ -715,9 +824,5 @@ function MT.F.reportTypes.c02(item, terminal, message, command, argument)
 
   else
     terminal.ShowMessage = "**************NO CONNECTION**************"
-  end
-  -- legacy?
-  if SERVER then
-    terminal.SyncHistory()
   end
 end

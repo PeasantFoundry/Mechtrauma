@@ -26,30 +26,71 @@ function MT.C.report(item, terminal, message, command, argument)
   end
 end
 
+function MT.C.cleanShip(item, terminal, message, command, argument)
+  -- call the clean function
+  MT.HF.MechtraumaClean()
+end
+
 function MT.C.help(item, terminal, message, command, argument)
-  -- loop through the commands and 
+  -- loop through the commands and display the help text
   for terminalCommand, v in pairs(MT.terminalCommands) do
-    terminal.SendMessage(terminalCommand .. "-----" .. v.help, Color.Red)
+    -- only include commands with help text
+    if v.help then terminal.SendMessage(terminalCommand .. "-----" .. v.help, Color.Red) end
   end
 end
 
+function MT.C.setPower(item, terminal, message, command, argument)
+  local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
+  simpleGenerator.PowerToGenerate = MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut)
+  terminal.SendMessage("Power target set to: " .. MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut), Color.Lime)
+end
+
+function MT.C.diagnostics(item, terminal, message, command, argument)
+  -- convert the argument to a boolean 
+  print(GlobalTest)
+  print(item)
+  if argument == "on" or argument == "true" then argument = true
+  elseif argument == "off" or argument == "false" then argument = false end
+
+  MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator").DiagnosticMode = argument
+    --MT.HF.SyncToClient("DiagnosticMode", item)
+  -- OLD? set the result for the item in the item cache
+  --MT.itemCache[item].diagnostics = argument
+  
+end
 --table of terminal commands functions - this is for mapping items to update functions
 MT.terminalCommands = {
-  sample={
-    help="SAMPLE",
-    commands={"sample","samp"}, -- idea here is to allow different versions of the command?
-    arguments={"test1","test2"},
-    identifiers={}, -- idea here is to limit certain commands by item identifier 
-    requireCCN=true,
-    functionToCall=MT.C.report
+  diagnostics={
+    help="Enable/Disable diagnostics - Ex: diagnostics > on",
+    commands={"report"},
+    requireCCN=false,
+    functionToCall=MT.C.diagnostics,
+  },
+  cleanship={
+    commands={"cleanship", "clean ship"},
+    requireCCN=false,
+    functionToCall=MT.C.cleanShip,
+    allowedItems={"mt_maintenance_tablet"},
+  },
+  setpower={
+    help="Power to be generated. Ex: setpower > 1000",
+    commands={"report"},
+    allowedItems={"mt_reactor_pf5000"},
+    requiredComponent="simpleGenerator",
+    requireCCN=false,
+    functionToCall=MT.C.setPower,
   },
   report={
     help="runs a report. Example: report > pump",
     commands={"report"},
     allowedItems={},
     requireCCN=true,
-    functionToCall=MT.C.report,
+    functionToCall=MT.C.report,  
     reportTypes={
+      parts={
+        functionToCall=MT.F.reportTypes.parts,
+        allowedItems={"mt_maintenance_tablet","terminal"},
+      },
       c02={
         functionToCall=MT.F.reportTypes.c02,
         allowedItems={"mt_maintenance_tablet","terminal"},
@@ -81,7 +122,7 @@ MT.terminalCommands = {
     commands={"help"},
     requireCCN=false,
     functionToCall=MT.C.help
-}
+  }
 }
 
 -- split string by delimiter
@@ -103,55 +144,47 @@ end
 
 -- advanced terminal command hook
 Hook.Add("Mechtrauma.AdvancedTerminal::NewPlayerMessage", "terminalCommand", function(terminal, message, color)
+  MT.C.terminalCommand(terminal.item, terminal, message)
+end)
+
+
+--called once for each terminal message sent by a player
+function MT.C.terminalCommand(item, terminal, message)
+  -- convert the message to lower case and parse out the command and argument 
+  message = string.lower(message)
   local messageTable = message:split(" > ")
   local command = messageTable[1]
   local argument = messageTable[2]
-  
-  MT.HF.BlankTerminalLines(terminal, 5) -- create some space
+
+  MT.HF.BlankTerminalLines(terminal, 1) -- create some space
   terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
   -- check too see if the terminal message includes a valid command
   if MT.terminalCommands[command] then
-    -- give a little validation 
-    -- terminal.SendMessage(command .. " command recognized.", Color.Lime)
-
     -- check if the command requires the central computer to be online
     if MT.terminalCommands[command].requireCCN then
       -- check if the central computer is online
       if CentralComputer.online then
         -- if the central computer is online, run the command            
-        MT.terminalCommands[command].functionToCall(terminal.item, terminal, message, command, argument)
+        MT.terminalCommands[command].functionToCall(item, terminal, message, command, argument)
       else
-        -- the central computer is offline
+        -- the central computer is required and is offline
         terminal.SendMessage("**************NO CONNECTION**************", Color.Red)
       end
           
     else
-      -- the central computer isn't required, run the command
-      MT.terminalCommands[command].functionToCall(terminal.item, terminal, message, command, argument)  
+      -- the central computer isn't required, just run the command
+      MT.terminalCommands[command].functionToCall(item, terminal, message, command, argument)
     end
       -- the command wasn't valid  
   else
     terminal.SendMessage("INVALID COMMAND: " .. command, Color.Red)
   end
+
+end
+
+-- ----- REPORT PARTS -----
+Hook.Add("maintenanceTablet_rparts.OnUse", "MT.partsInventoryReport", function(effect, deltaTime, item, targets, worldPosition, client)
+  MT.F.reportTypes.parts(item)
 end)
 
-
---[[ called once for each terminal message sent by a player
-function MT.C.terminalCommand(item, terminal, message, command, argument)
-  -- loop through the tag functions to see if we have a matching function for the item tag(s)
-
-  if MT.terminalCommands[command] then
-    terminal.SendMessage("This is a good valid command.", Color.Lime)
-
-    print(command)
-    print(MT.terminalCommands[command.update])
-    
-    MT.C.report(item, terminal, message, command, argument)
-    
-  else
-    terminal.SendMessage("-" .. command .. "- is NOT a bad valid command.", Color.Red)
-  end
-
-
-end ]]
 

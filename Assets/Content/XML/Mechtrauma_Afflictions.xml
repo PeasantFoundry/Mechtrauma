@@ -89,6 +89,20 @@
       </Effect>    
    </Affliction>
 
+    <!-- Carbon Monoxide Poisoning: -->
+    <Affliction name="Carbon Monoxide Poisoning" identifier="cm_poisoning" description="Carbon Monoxide Poisoning." type="poison" causeofdeathdescription="Died from Carbon Monoxide Poisoning." selfcauseofdeathdescription="You have died from Carbon Monoxide Poisoning." limbspecific="false" indicatorlimb="Torso" showiconthreshold="10" showinhealthscannerthreshold="10" maxstrength="1000">
+      <!-- Minimal effects at this level -->
+      <Effect minstrength="1" maxstrength="50" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="1.0">
+      </Effect>
+      <!-- Starts to become serious when strength is above 50 -->
+      <Effect minstrength="51" maxstrength="99" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.5" minradialdistort="0.5" maxradialdistort="0.5"  minscreenblur="0.1" maxscreenblur="1.0" >          
+      </Effect>
+      <!-- Starts to become lethal when strength is above 100 -->
+      <Effect minstrength="100" maxstrength="1000" minvitalitydecrease="0" maxvitalitydecrease="20.0" minscreendistort="0.0" maxscreendistort="0.0" strengthchange="-0.1" minchromaticaberration="0.0" maxchromaticaberration="0.0" minradialdistort="0.0" maxradialdistort="0.0" >
+      </Effect>    
+   </Affliction>
+
+
     <!-- =============< RESISTANCE >=============  -->
     <Affliction name="Spore Infection Resistance" identifier="spore_infection_resistance" healableinmedicalclinic="false" targets="human" description="" type="resistance" isbuff="true" limbspecific="false" maxstrength="100">
     <Effect minstrength="0" maxstrength="100" strengthchange="-1.0" >

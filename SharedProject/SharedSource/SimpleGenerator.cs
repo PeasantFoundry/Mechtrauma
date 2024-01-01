@@ -19,7 +19,20 @@ namespace Mechtrauma
     public class SimpleGenerator : Powered {
 
         public override bool UpdateWhenInactive => true;
-        
+
+        public float Efficiency = 100.0f;
+        public float Reliability = 100.0f;
+        public float Accuracy = 100.0f;
+
+        // diagnosticMode for the generator
+        private bool diagnosticMode = false;
+        [Editable, Serialize(false, IsPropertySaveable.Yes, description: "Diagnostic Mode.", alwaysUseInstanceValues: true)]     
+        public bool DiagnosticMode{
+            get => diagnosticMode;
+            set => diagnosticMode = value;
+        }
+
+
         private bool isOn = false;
         [Editable, Serialize(false, IsPropertySaveable.Yes, description: "Is the generator on.", alwaysUseInstanceValues: true)]
         public bool IsOn {

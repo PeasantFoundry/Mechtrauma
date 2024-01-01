@@ -58,8 +58,19 @@ public sealed class Configuration
     public float OilBaseDPS => _test.Setting_OilBaseDPS.Value;
     public float OilFilterDPS => GetDPS(_general.Setting_OilFilterServiceLife.Value);
     public float OilFilterServiceLife => _general.Setting_OilFilterServiceLife.Value;
+    public float FuelFilterDPS => GetDPS(_general.Setting_FuelFilterServiceLife.Value);
+    public float FuelFilterServiceLife => _general.Setting_FuelFilterServiceLife.Value;
+    public float FuelPumpDPS => GetDPS(_general.Setting_FuelPumpServiceLife.Value);
+    public float FuelPumpServiceLife => _general.Setting_FuelPumpServiceLife.Value;
     public float OilFiltrationEP => _general.Setting_OilFiltrationEfficiencyRating.Value;
     public float OilFiltrationM => _general.Setting_OilFiltrationEfficiencyRating.Value / 100f;
+    public float EngineBlockDPS => GetDPS(_general.Setting_EngineBlockServiceLife.Value);
+    public float EngineBlockServiceLife => _general.Setting_EngineBlockServiceLife.Value;
+    public float ExhaustManifoldDPS => GetDPS(_general.Setting_ExhaustManifoldServiceLife.Value);
+    public float ExhaustManifoldServiceLife => _general.Setting_ExhaustManifoldServiceLife.Value;
+    public float ExhaustManifoldGasketDPS => GetDPS(_general.Setting_ExhaustManifoldGasketServiceLife.Value);
+    public float ExhaustManifoldGasketServiceLife => _general.Setting_ExhaustManifoldGasketServiceLife.Value;
+
     public float PumpGateDeteriorationRate => _experimental.Setting_PumpGateDeteriorationRate.Value;
     public float VentSpawnRate => _biotrauma.Setting_FungusSpawnRate.Value;
 
@@ -72,6 +83,7 @@ public sealed class Configuration
     public Configuration()
     { 
         _general = new(this);
+        _deterioration = new(this);
         _advanced = new(this);
         _experimental = new(this);
         _biotrauma = new(this);
@@ -81,11 +93,16 @@ public sealed class Configuration
     public sealed class Settings_General
     {
         public readonly IConfigRangeFloat
-            Setting_CirculatorServiceLife,            
+            Setting_CirculatorServiceLife,
             Setting_DivingSuitExtPressProtection,
             Setting_OilFilterServiceLife,
             Setting_OilFiltrationEfficiencyRating,
-            Setting_ThrustbearingServiceLife;
+            Setting_FuelFilterServiceLife,
+            Setting_FuelPumpServiceLife,
+            Setting_ThrustbearingServiceLife,
+            Setting_EngineBlockServiceLife,
+            Setting_ExhaustManifoldServiceLife,
+            Setting_ExhaustManifoldGasketServiceLife;
 
         public readonly IConfigRangeInt
             Setting_DivingSuitServiceLife;
@@ -95,16 +112,16 @@ public sealed class Configuration
             Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
                 "CirculatorServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority, 
+                NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Circulator Service Life (min)",
                     DisplayCategory: "General"
                     ));
-            
+
             Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
                 "DivingSuitServiceLife", ModName,
                 60, 0, 120, GetStepCount(0, 120, 10),
-                NetworkSync.ServerAuthority, 
+                NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Diving Suit Service Life (min)",
                     DisplayCategory: "General"
@@ -115,16 +132,16 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, displayData: new DisplayData(
                     DisplayName: "Diving Suit Extended Pressure Protection (multiplier)",
                     DisplayCategory: "General",
-                    #if DEBUG
+#if DEBUG
                     MenuCategory: Category.Gameplay
-                    #else
+#else
                     MenuCategory: Category.Ignore
-                    #endif
+#endif
                     ));
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
                 "OilFilterServiceLife", ModName,
                 6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority, 
+                NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Oil Filter Service Life (min)",
                     DisplayCategory: "General"
@@ -132,19 +149,70 @@ public sealed class Configuration
             Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
                 "OilFilterEfficiencyRating", ModName,
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
-                NetworkSync.ServerAuthority, 
+                NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Oil Filter Efficiency Rating (%)",
+                    DisplayCategory: "General"
+                    ));
+            Setting_FuelFilterServiceLife = ConfigManager.AddConfigRangeFloat(
+                "FuelFilterServiceLife", ModName,
+                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Fuel Filter Service Life (min)",
+                    DisplayCategory: "General"
+                    ));
+            Setting_FuelPumpServiceLife = ConfigManager.AddConfigRangeFloat(
+                "FuelPumpServiceLife", ModName,
+                30f, 1f, 120f, GetStepCount(1f, 120f, 1f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Fuel Pump Service Life (min)",
                     DisplayCategory: "General"
                     ));
             Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ThrustBearingServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority, 
+                NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Thrust Bearing Service Life (min)",
                     DisplayCategory: "General"
                     ));
+            Setting_EngineBlockServiceLife = ConfigManager.AddConfigRangeFloat(
+                "EngineBlockServiceLife", ModName,
+                300f, 5f, 500f, GetStepCount(100f, 100f, 4.0f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Engine Block Service Life (min)",
+                    DisplayCategory: "General"
+                    ));
+            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeFloat(
+                "ExhaustManifoldServiceLife", ModName,
+                150f, 5.0f, 500f, GetStepCount(50f, 500f, 4.0f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
+                    DisplayCategory: "General"
+                    ));
+            Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
+                "ExhaustManifoldGasketServiceLife", ModName,
+                30f, 1.0f, 150f, GetStepCount(15f, 150f, 1.0f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
+                    DisplayCategory: "General"
+                    ));
+        }
+    }
+
+    public sealed class Settings_Deterioration
+    {
+        public readonly IConfigEntry<bool> Setting_EnableElectrocution;
+        public readonly IConfigRangeFloat Setting_PumpGateDeteriorationRate;
+
+        public Settings_Deterioration(Configuration instance)
+        {
+           
         }
     }
 
@@ -303,6 +371,7 @@ public sealed class Configuration
 
     // Settings Containers //
     private readonly Settings_General _general;
+    private readonly Settings_Deterioration _deterioration;
     private readonly Settings_Advanced _advanced;
     private readonly Settings_Experimental _experimental;
     private readonly Settings_Biotrauma _biotrauma;
