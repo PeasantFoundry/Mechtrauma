@@ -76,28 +76,24 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         switch (evtCode)
         {
             case 0:
-                EnqueueIncomingMessages();
                 break;
             case 1:
                 _synchroRequestReceived = true;
-                EnqueueIncomingMessages();
                 break;
             case 2:
-                ClearHistory();
+                _synchroRequestReceived = true;
+                ClearHistoryLocal();
                 break;
         }
 
-        void EnqueueIncomingMessages()
+        ushort msgCount = msg.ReadUInt16();
+        for (int i = 0; i < msgCount; i++)
         {
-            ushort msgCount = msg.ReadUInt16();
-            for (int i = 0; i < msgCount; i++)
-            {
-                string text = msg.ReadString();
-                Color color = msg.ReadColorR8G8B8A8();
-                ToProcess.Enqueue(new AdvTerminalMsg(text, color));
-            }
-            item.CreateServerEvent(this);   
+            string text = msg.ReadString();
+            Color color = msg.ReadColorR8G8B8A8();
+            ToProcess.Enqueue(new AdvTerminalMsg(text, color));
         }
+        item.CreateServerEvent(this);   
     }
 
 #pragma warning disable CS8625
