@@ -364,9 +364,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
     public partial void ClearHistory()
     {
-        // client-side clear
-        MessagesHistory.Clear();
-        ToProcess.Clear();
+        ClearHistoryLocal();
      
         if (GameMain.NetworkMember is null)
             return;
@@ -381,7 +379,10 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         MessagesHistory.Clear();
         ToProcess.Clear();
         
-        // TODO: Clear GUI
+        while (MessageHistoryBox?.Content.CountChildren > 0)
+        {
+            MessageHistoryBox.RemoveChild(MessageHistoryBox.Content.Children.First());
+        }
     }
 
     public override partial void OnItemLoaded()
@@ -415,29 +416,22 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         // Notes for networking:
         // event code : 0=message, 1=synchronize(clear history + message) as byte
         // message format: [ event-code | message count=ushort | array:<Message,Color=RGBA 8bit> ]
-        byte evtcode = msg.ReadByte();
-        switch (evtcode)
+        byte evtCode = msg.ReadByte();
+        switch (evtCode)
         {
-            case 0: 
-                NewMessage();
+            case 0:
                 break;
             case 1: 
                 ClearHistoryLocal();  // clear then process messages
-                NewMessage();
                 break;
         }
 
-        void NewMessage()
+        ushort msgCount = msg.ReadUInt16();
+        for (int i = 0; i < msgCount; i++)
         {
-            ushort msgCount = msg.ReadUInt16();
-            if (msgCount < 1)
-                return;
-            for (int i = 0; i < msgCount; i++)
-            {
-                var text = msg.ReadString();
-                var color = msg.ReadColorR8G8B8A8();
-                SendMessageLocal(text, color);
-            }
+            var text = msg.ReadString();
+            var color = msg.ReadColorR8G8B8A8();
+            SendMessageLocal(text, color);
         }
     }
     
@@ -447,12 +441,10 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         // event code : 0=message, 1=synchronize(clear history + message), 2=deletehistory as byte
         if (_clearOperationRequested)
-        {
-            msg.WriteByte(2);
-            return;
-        }
-        
-        msg.WriteByte(0);   //evt code
+            msg.WriteByte(2);   // clear and sync
+        else
+            msg.WriteByte(0);   //normal
+
         msg.WriteUInt16((ushort)ToProcess.Count); // message count
         while (ToProcess.Count > 0) // messages
         {
