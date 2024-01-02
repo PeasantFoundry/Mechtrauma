@@ -26,18 +26,32 @@ function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
     return airFilterCheck
 end
 
-function MT.DF.compressionCheck(item, dieselSeries, engineBlock)
+function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, crankAssembly)
     local compressionCheck = true -- defaults to true for dieselSeries with no engineBlock
     if dieselSeries.engineBlockLocation then
-        if engineBlock == nil then
+        if engineBlock == nil or cylinderHead == nil or crankAssembly == nil then
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")
             compressionCheck = false
-        elseif engineBlock.ConditionPercentage < 1 or engineBlock.HasTag("cracked") then
+        elseif engineBlock.ConditionPercentage < 1 or engineBlock.HasTag("cracked") or cylinderHead.ConditionPercentage < 1 or crankAssembly.ConditionPercentage < 1 then
             compressionCheck = false
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")        
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")
         end
     end
     return compressionCheck
+end
+
+-- (DTC) P0385 stands for “Crankshaft Position Sensor B Circuit Malfunction.”
+function MT.DF.dcmCheck(item, dieselSeries, dcm, oxygenSensor, pressureSensor)
+    local dcmCheck = {dcm = true, oxygenSensor = true, pressureSensor = true} -- defualt to true for dieselSeries with no dcm
+    if dcm == nil or dcm.ConditionPercentage < 1 then
+        dcmCheck.dcm = false
+        dcmCheck.oxygenSensor = false
+        dcmCheck.pressureSensor = false
+    else
+        if oxygenSensor == nil or oxygenSensor.ConditionPercentage < 1 then dcmCheck.oxygenSensor = false end
+        if pressureSensor == nil or pressureSensor.ConditionPercentage < 1 then dcmCheck.pressureSensor = false end
+    end
+    return dcmCheck
 end
 
 function MT.DF.exhaustCheck(item, dieselSeries, exhaustManifold, exhaustManifoldGasket)
@@ -67,16 +81,17 @@ function MT.DF.exhaustCheck(item, dieselSeries, exhaustManifold, exhaustManifold
     return exhaustCheck
 end
 
-function MT.DF.fuelCheck(item, dieselVol, dieselFuelNeededCL)
-    local fuelCheck 
-    if dieselVol > dieselFuelNeededCL then        
-        fuelCheck = true
+function MT.DF.dieselCheck(item, dieselVol, dieselFuelNeededCL)
+    local dieselCheck = false
+    if dieselVol > dieselFuelNeededCL then
+        dieselCheck = true
     else
         table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1060: INSUFFICIENT FUEL*")
     end
-    return fuelCheck
+    return dieselCheck
 end
 
+-- (DTC) P228C indicates “Fuel Pressure Regulator 1 Exceeded Control Limits – Pressure Too Low.”
 function MT.DF.fuelPressureCheck(item, dieselSeries, fuelFilter, fuelPump)
     local fuelPressureCheck = true
 
@@ -133,29 +148,46 @@ function MT.DF.getFluids(item, dieselSeries)
     return fluids
 end
 
-function MT.DF.getFuel(item, DieselSeries)
+function MT.DF.getFuels(item, DieselSeries)
     local index = 0
     local fuels = {dieselItems = {}, dieselVol = 0, auxOxygenItems = {}, auxOxygenVol = 0}
-
-    -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
-    while(index < item.OwnInventory.Capacity) do
-    if item.OwnInventory.GetItemAt(index) ~= nil then
-        local containedItem = item.OwnInventory.GetItemAt(index)
-        -- get diesel item(s) - need to add support for linked tanks
-        if containedItem.HasTag("diesel_fuel") and containedItem.Condition > 0 then
-            table.insert(fuels.dieselItems, containedItem)
-            fuels.dieselVol = fuels.dieselVol + containedItem.Condition
-        -- get aux oxygen item(s)    
-        elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then
-            table.insert(fuels.auxOxygenItems, containedItem)
-            fuels.auxOxygenVol = fuels.auxOxygenVol + containedItem.Condition
+    -- DYNAMIC INVENTORY: auxDiesel
+    if item.linkedTo ~= nil then
+        for k, linkedItem in pairs(item.linkedTo) do
+            while(index < linkedItem.OwnInventory.Capacity) do
+                if linkedItem.OwnInventory.GetItemAt(index) ~= nil then
+                    local containedItem = linkedItem.OwnInventory.GetItemAt(index)
+                    -- get diesel item(s) - need to add support for linked tanks
+                    if containedItem.HasTag("diesel_fuel") and containedItem.Condition > 0 then
+                        table.insert(fuels.dieselItems, containedItem)
+                        fuels.dieselVol = fuels.dieselVol + containedItem.Condition
+                    end
+                end
+                index = index + 1
+            end
         end
     end
+
+    -- DYNAMIC INVENTORY: local diesel 
+    index = 0
+    while(index < item.OwnInventory.Capacity) do
+        if item.OwnInventory.GetItemAt(index) ~= nil then
+            local containedItem = item.OwnInventory.GetItemAt(index)
+            -- get diesel item(s) - need to add support for linked tanks
+            if containedItem.HasTag("diesel_fuel") and containedItem.Condition > 0 then
+                table.insert(fuels.dieselItems, containedItem)
+                fuels.dieselVol = fuels.dieselVol + containedItem.Condition
+            -- get aux oxygen item(s)    
+            elseif containedItem.HasTag("refillableoxygensource") and containedItem.Condition > 0 then
+                table.insert(fuels.auxOxygenItems, containedItem)
+                fuels.auxOxygenVol = fuels.auxOxygenVol + containedItem.Condition
+            end
+        end
     index = index + 1
     end
-
     return fuels
 end
+
 
 function MT.DF.getParts(item, dieselSeries)
     local index = 0
@@ -175,12 +207,26 @@ function MT.DF.getParts(item, dieselSeries)
     if dieselSeries.batteryLocation and item.OwnInventory.GetItemAt(dieselSeries.batteryLocation) ~= nil then parts.battery = item.OwnInventory.GetItemAt(dieselSeries.batteryLocation) end
     -- starterMotor (if any)
     if dieselSeries.starterMotorLocation and item.OwnInventory.GetItemAt(dieselSeries.starterMotorLocation) ~= nil then parts.starterMotor = item.OwnInventory.GetItemAt(dieselSeries.starterMotorLocation) end
-    -- engineBlock (if any)
-    if dieselSeries.engineBlockLocation and item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation) ~= nil then parts.engineBlock = item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation) end
     -- exhaustManifold (if any)
     if dieselSeries.exhaustManifoldLocation and item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation) ~= nil then parts.exhaustManifold = item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation) end
     -- exhaustManifoldGasket (if any)
     if dieselSeries.exhaustManifoldLocation and parts.exhaustManifold ~= nil and parts.exhaustManifold.OwnInventory.GetItemAt(0) ~= nil then parts.exhaustManifoldGasket = parts.exhaustManifold.OwnInventory.GetItemAt(0) end
+    -- dcm (if any)
+    if dieselSeries.dcmLocation and item.OwnInventory.GetItemAt(dieselSeries.dcmLocation) ~= nil then
+        parts.dcm = item.OwnInventory.GetItemAt(dieselSeries.dcmLocation)
+        if parts.dcm.OwnInventory.GetItemAt(2) ~= nil then parts.oxygenSensor = parts.dcm.OwnInventory.GetItemAt(2) end
+        if parts.dcm.OwnInventory.GetItemAt(3) ~= nil then parts.pressureSensor = parts.dcm.OwnInventory.GetItemAt(3) end
+    end
+    -- engineBlock (if any)
+    if dieselSeries.engineBlockLocation and item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation) ~= nil then
+        parts.engineBlock = item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation)
+        if dieselSeries.cylinderHeadLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation) then
+            parts.cylinderHead = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation)
+        end
+        if dieselSeries.crankAssemblyLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation) then
+            parts.crankAssembly = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation)
+        end
+    end
 
     -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
     while(index < item.OwnInventory.Capacity) do

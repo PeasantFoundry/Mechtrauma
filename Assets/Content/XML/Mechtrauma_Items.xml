@@ -1072,7 +1072,7 @@
   </Item>
   
   <!-- FUEL FILTER: -->
-  <Item name="Fuel Filter" identifier="mt_fuel_filter" Category="Fuel" Tags="smallitem,airfilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+  <Item name="Fuel Filter" identifier="mt_fuel_filter" Category="Fuel" Tags="smallitem,fuelFilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
     <PreferredContainer primary="reactorcab"/>    
     <Price baseprice="50" displaynonempty="true" minavailable="5">
       <Price storeidentifier="merchantoutpost"  />
@@ -1149,15 +1149,15 @@
       <Deconstruct time="10">
       <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
-    <!-- FUEL FILTER: Make a new filter.  -->
+    <!-- FUEL FILTER: Make a new battery.  -->
     <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>    
-    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,640,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="640,0,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="640,0,128,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="768,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -1242,7 +1242,7 @@
   </Item>
 
   <!-- ENGINE BLOCK: For use in machines such as a diesel engine -->
-  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="largeitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="largeitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="250" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1284,8 +1284,8 @@
     <!-- Engine Parts -->
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="DCM" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="128,192,64,64" origin="0.5,0.5" /> <!-- cylinder head -->
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="768,128,64,64" origin="0.5,0.5" /> <!-- crank assembly -->         
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,192,64,64" origin="0.5,0.5" /> <!-- cylinder head -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,128,64,64" origin="0.5,0.5" /> <!-- crank assembly -->         
       <!-- SLOT 0 Cylinder Head -->      
       <Containable items="cylinderHead" excludebroken="false" excludefullcondition="false" />
       <!-- SLOT 1 Crank Assembly -->      
@@ -1327,7 +1327,7 @@
     </Quality>
   </Item>
   <!-- CYLINDER HEAD: For use in machines such as a diesel engine -->
-  <Item name="Cylinder Head" identifier="mt_eb_cylinder_head" Category="Fuel" Tags="mediumitem,handtruck,cylinderHead,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Cylinder Head" identifier="mt_eb_cylinder_head" Category="Fuel" Tags="mediumitem,handtruck,cylinderHead,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1368,7 +1368,7 @@
     </Quality>
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Head" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
       <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
     </ItemContainer>
   </Item>
@@ -1415,7 +1415,7 @@
     </Quality>
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- gasket -->
       <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
     </ItemContainer>
   </Item>
@@ -2545,10 +2545,10 @@
     <!-- DCM expansion slots -->
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="DCM" />
-      <!--<SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" />  unknown -->
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" /> <!-- hard drive -->
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" /> <!-- oxygen sensor -->
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mechtrauma_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" /> <!-- pressure sensor -->      
+      <!--<SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" />  unknown -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" /> <!-- hard drive -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" /> <!-- oxygen sensor -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" /> <!-- pressure sensor -->      
       <!-- SLOT 0 UNKOWN -->      
       <Containable items="smallitem" excludebroken="false" excludefullcondition="false" />
       <!-- SLOT 1 Hard Drive -->      
@@ -2633,7 +2633,7 @@
   </Item>
 
   <!-- MECHTRAUMA TABLET:-->
-  <Item name="Mechtrauma Tablet" identifier="mt_tablet" category="Electrical" Tags="smallitem,logic,tablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+  <Item name="Mechtrauma Tablet" identifier="mt_tablet" category="Electrical" Tags="smallitem,logic,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -2717,6 +2717,40 @@
 
   </Item>
 
+  <!-- Repair Kit -->
+  <Item name="Repair Kit" identifier="mt_repair_kit" tags="repairkit" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+    <Deconstruct time="5"/>
+    <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
+    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
+    <Body width="240" height="128" density="25" />
+    <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="true" msg="ItemMsgPickUpSelect" />
+    
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopRight" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
+     
+      <!-- BUTTON: ATTEMPT REPAIR -->
+      <Button text="Attempt Repair">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="repairKit_attemptRepair.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+
+      <!-- REPORT: Co2 FILTER STATUS-->
+       <Button text="Co2 Filter Status Report">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+      
+    </CustomInterface>
+
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+      <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mttablet" />
+    </ItemContainer>
+  </Item>
+
   <!-- TECHNICAL TABLET:-->
   <Item name="Technical Tablet" identifier="mt_technical_tablet" variantof="mt_tablet">    
 
@@ -2731,7 +2765,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2807,41 +2841,18 @@
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
                       ReadOnly="false">
-      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255" 
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
-      <!-- There is no way to completly close a window, at least i couldnt find a way, gui frame cant seem use status effects inside it -->
-        <MiniMap enableitemfinder="false" enablehullstatus="true" enablehullcondition="true" enableelectricalview="false" drawhudwhenequipped="true" displaybordersize="0.0" characterusable="false" allowuioverlap="false">
-            <GuiFrame relativesize="0.2,0.2" anchor="TopRight" pivot="TopRight" relativeoffset="0.0,0.0" style="ItemUI"/>
-        
-            <StatusEffect type="OnWearing" target="This" enablehullstatus="false" enablehullcondition="false" setvalue="true"/>
-            <StatusEffect type="OnWearing" target="This" enablehullstatus="true" enablehullcondition="true" setvalue="true" comparison="and">
-                <RequiredItems items="handheldstatusmonitor" type="Contained" />           
-            </StatusEffect>        
-        
-            <StatusEffect type="OnWearing" target="This" enableelectricalview="false" setvalue="true"/>
-            <StatusEffect type="OnWearing" target="This" enableelectricalview="true" setvalue="true" comparison="and">
-                <RequiredItem items="handheldelectricalmonitor" type="Contained"/>                
-            </StatusEffect>
-        </MiniMap>
-
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">    
-        <Containable items="handheldstatusmonitor" excludebroken="true" excludefullcondition="false" >
-
-          <!-- Status Monitor Expansion -->
-          <StatusEffect type="OnContaining" targettype="This" targetitemcomponent="minimap" targetslot="0" drawhudwhenequipped="true" setvalue="true" Comparison="And"/>            
-          <StatusEffect type="OnContaining" targettype="This" tags="statusMonitorExpansion" duration="0.1" stackable="false" setvalue="true" targetslot="0" Comparison="And">            
-           
-          </StatusEffect>
-        
-        </Containable>
-     
+        <Containable items="smallitem">                
+        </Containable>     
     </ItemContainer>
     
     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
@@ -2859,6 +2870,115 @@
        <Button text="Co2 Filter Status Report">
         <StatusEffect type="OnUse" target="This">
           <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+      
+    </CustomInterface>
+     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
+     
+      <!-- REPORT: BALLAST PUMPS: -->
+      <Button text="Pump Status Report">
+        <StatusEffect type="OnUse" target="This" >
+          <LuaHook name="maintenanceTablet_pr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>    
+      </Button>
+      
+      <!-- Report 4: -->
+       <Button text="FUSE STATUS REPORT">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>      
+    </CustomInterface>
+  
+    <!-- There is no way to completly close a window, at least i couldnt find a way, gui frame cant seem use status effects inside it -->
+      <MiniMap enableitemfinder="false" enablehullstatus="true" enablehullcondition="true" enableelectricalview="false" drawhudwhenequipped="true" displaybordersize="0.0" characterusable="false" allowuioverlap="false">
+          <GuiFrame relativesize="0.2,0.2" anchor="TopRight" pivot="TopRight" relativeoffset="0.0,0.0" style="ItemUI"/>
+      
+          <StatusEffect type="OnWearing" target="This" enablehullstatus="false" enablehullcondition="false" setvalue="true"/>
+          <StatusEffect type="OnWearing" target="This" enablehullstatus="true" enablehullcondition="true" setvalue="true" comparison="and">
+              <RequiredItems items="handheldstatusmonitor" type="Contained" />           
+          </StatusEffect>        
+      
+          <StatusEffect type="OnWearing" target="This" enableelectricalview="false" setvalue="true"/>
+          <StatusEffect type="OnWearing" target="This" enableelectricalview="true" setvalue="true" comparison="and">
+              <RequiredItem items="handheldelectricalmonitor" type="Contained"/>                
+          </StatusEffect>
+      </MiniMap>
+  </Item>
+
+  <!-- DIAGNOSTIC TABLET:-->
+  <Item name="Diagnostic Tablet" identifier="mt_diagnostic_tablet" category="Electrical" Tags="smallitem,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" />
+    </Price>
+    <PreferredContainer primary="engineering_console" secondary="engcab" />
+    <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
+    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.6" origin="0.5,0.5" />
+    <Body width="128" height="128" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
+    
+      <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">            
+        <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
+      </StatusEffect> 
+    </Holdable>
+    <DataBox/>    
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,320,384,288" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+
+     <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <!-- <Sound file="%ModDir%/Lualinker.ogg" type="OnUse" range="1000" /> -->
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="luaLinker.onUse" />
+      </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" keepopenwhenequipped="true" movableframe="true" msg="ItemMsgOxygenRefill">         
+    <!-- <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2"  style="ItemUI" linkuitocomponent="ItemContainer" /> -->
+    <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,192,64,64" origin="0.5,0.5" />      
+        <Containable items="smallitem">
+        </Containable>     
+    </ItemContainer>
+    
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="-0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
+     
+      <!-- ACTION: DIAGNOSE ITEM -->
+      <Button text="DIAGNOSE ITEM">
+        <StatusEffect type="OnUse" target="This" >
+          <LuaHook name="diagnosticTablet_diagnoseItem.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>    
+      </Button>
+
+      <!-- ACTION: LINK -->
+       <Button text="Co2 Filter Status Report">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="diagnosticTablet_linkDiagnostics.OnUse" /> 
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
@@ -2901,12 +3021,12 @@
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
                       ReadOnly="false">
-      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,35,35,255" 
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,-0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -5278,13 +5398,9 @@
     </CustomInterface>
 
   </Item>
-  
-
-
-    
 
  <!-- DIESEL FUEL TANK: For storing diesel barrels and refilling diesel cans -->
- <Item name="Diesel Fuel Tank" identifier="diesel_fuel_tank" tags="diesel,fuel" category="Machine" linkable="false" damagedbyexplosions="true" explosiondamagemultiplier="1.2" scale="0.5">
+ <Item name="Diesel Fuel Tank" identifier="diesel_fuel_tank" tags="diesel,dieseltank,fuel" category="Machine" linkable="true" allowedlinks="dieselgenerator,dieselengine" damagedbyexplosions="true" explosiondamagemultiplier="1.2" scale="0.5">
     <Sprite name="Diesel Fuel Tank" texture="%ModDir%/Images/diesel_fuel_tank.png" sourcerect="0,0,800,444" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/diesel_fuel_tank.png" sourcerect="0,0,800,444"  origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/diesel_fuel_tank.png" sourcerect="0,0,800,444"  origin="0.5,0.5" depth="0.8" maxcondition="0" />

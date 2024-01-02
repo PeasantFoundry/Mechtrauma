@@ -7,7 +7,7 @@ MT.itemCache = {}
 MT.itemCacheCount = 0
 MT.inventoryCache = {parts={}}
 MT.inventoryCacheCount = 0
-GlobalTest = "FAIL"
+
 
 
 -- LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
@@ -415,9 +415,49 @@ function MT.F.airFilter(item)
     -- if there is something inside the filter, plug it.
     if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
 end
+-- -------------------------------------------------------------------------- --
+--                                   ACTIONS                                  --
+-- -------------------------------------------------------------------------- --
 
+function MT.F.attemptRepair (item, targetItem)
+    if targetItem ~= nil and item.ParentInventory.Owner ~= nil then
+        local character = item.ParentInventory.Owner
+        local mechanicalSkill = MT.HF.Round(character.GetSkillLevel("mechanical"), 0)
+        local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")
+        local diagnosticTags = false
+        local problems = {}
+        local totalT = 0
+        local totalF = 0
 
--- ********** REPORTS: **********
+        for k, tag in pairs(tagTable) do
+            -- can any of these tags be fixed?
+            if MT.C.diagnosticTags[tag] and MT.C.diagnosticTags[tag].fixable == true and targetItem.Condition > 0 then
+                -- attemptRepair - mechanical
+                if MT.C.diagnosticTags[tag].fixSkill == "mechanical" then
+                    print("REPAIR CHANCE: ", mechanicalSkill / 100)
+                    for i = 1, 100 do
+                        if MT.HF.Chance(mechanicalSkill / 100) then print("TRUE!") totalT = totalT + 1 else print("FALSE!") totalF = totalF + 1 end
+                      end
+                      
+                      print("Total PASS: ", totalT)
+                      print("Total FAIL: ", totalF) 
+                    if MT.HF.Chance(mechanicalSkill / 100) then
+                        targetItem.ReplaceTag(MT.C.diagnosticTags[tag].tag, "")
+                        print("FIXED THE PROBLEM!")
+                        targetItem.Condition = targetItem.Condition - 25
+                    else
+                        print("FAILED TO FIX THE PROBLEM!")
+                        targetItem.Condition = 0
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+--                                   REPORTS                                  --
+-- -------------------------------------------------------------------------- --
 function MT.F.reportTypes.parts(item, terminal, message, command, argument)
     terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     -- machine parts and crafting items    
