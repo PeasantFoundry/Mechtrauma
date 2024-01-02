@@ -51,6 +51,7 @@ namespace Mechtrauma
             UserData.RegisterType<SimpleGenerator>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();
+            UserData.RegisterType<LuaNetEventDispatcher>();
 
             UserData.RegisterType(typeof(MTUtils));
 
@@ -77,6 +78,8 @@ namespace Mechtrauma
             UserData.UnregisterType<MTBoiler>();
             UserData.UnregisterType<SimpleGenerator>();
             UserData.UnregisterType<WaterDrain>();
+            UserData.UnregisterType<AdvancedTerminal>();
+            UserData.UnregisterType<LuaNetEventDispatcher>();
         }
 
         public void Dispose()
