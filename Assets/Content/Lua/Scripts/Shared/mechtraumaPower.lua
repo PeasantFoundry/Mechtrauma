@@ -38,6 +38,8 @@ MT.DE = {
     s3000Da={
         maxHorsePower=3000*1.5,
         engineBlockLocation = 0,
+        cylinderHeadLocation = 0,
+        crankAssemblyLocation = 1,
         oilSlots = 1,
         oilFilterSlots = 1,
         dieselFuelSlots = 1,
@@ -45,12 +47,13 @@ MT.DE = {
         fuelPumpLocation = 5,
         batteryLocation = 6, -- container slot in XML
         starterMotorLocation = 7,
+        dcmLocation = 8,
         exhaustManifoldLocation = 9,
         airFilterLocation = 11,
         auxOxygenSlots= 1,
         name="s3000Da",
         maxReliability = 90,
-        maxEfficiency = 95,
+        maxEfficiency = 1.0,
         ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Da={
@@ -190,8 +193,9 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
 
     -- INVENTORY
     local fluids = MT.DF.getFluids(item, dieselSeries)
-    local fuels = MT.DF.getFuel(item, dieselSeries)
+    local fuels = MT.DF.getFuels(item, dieselSeries)
     local parts = MT.DF.getParts(item, dieselSeries)
+    
     
     -- damage and reduction
     -- need to rework friction damage to apply to enginge block items instead of the generator itself    
@@ -205,15 +209,15 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
 
     -- CHECK FUELS
     dieselEngine.oxygenCheck = MT.DF.oxygenCheck(item, hullOxygenPercentage, fuels.auxOxygenVol, oxygenNeeded)
-    dieselEngine.fuelCheck = MT.DF.fuelCheck(item, fuels.dieselVol, dieselFuelNeededCL)
-
+    dieselEngine.dieselCheck = MT.DF.dieselCheck(item, fuels.dieselVol, dieselFuelNeededCL)
     -- CHECK FLUIDS
 
     -- CHECK: PARTS 
     dieselEngine.airFilterCheck = MT.DF.airFilterCheck(item, dieselSeries, parts.airFilter)
-    dieselEngine.compressionCheck = MT.DF.compressionCheck(item, dieselSeries, parts.engineBlock)
+    dieselEngine.compressionCheck = MT.DF.compressionCheck(item, dieselSeries, parts.engineBlock, parts.cylinderHead, parts.crankAssembly)
     dieselEngine.exhaustCheck = MT.DF.exhaustCheck(item, dieselSeries, parts.exhaustManifold, parts.exhaustManifoldGasket)
     dieselEngine.fuelPressureCheck = MT.DF.fuelPressureCheck(item, dieselSeries, parts.fuelFilter, parts.fuelPump)
+    dieselEngine.dcmCheck = MT.DF.dcmCheck(item, dieselSeries, parts.dcm, parts.oxygenSensor, parts.pressureSensor)
 
     -- reset ignition if the generator is off    
     if MT.itemCache[item].isRunning == false then dieselEngine.ignition = false end
@@ -261,7 +265,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     if item.Condition > 0 and
        dieselEngine.ignition and
        dieselEngine.airFilterCheck and
-       dieselEngine.fuelCheck and
+       dieselEngine.dieselCheck and
        dieselEngine.oxygenCheck and
        dieselEngine.fuelPressureCheck and
        dieselEngine.compressionCheck
@@ -281,9 +285,16 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         
         -- adjust the targetPower based on the generator accuracy (over or under produce power)
         targetPower = targetPower * MT.HF.Tolerance(simpleGenerator.Accuracy)
-        
+        print("oxygen needed before: ", oxygenNeeded)
+        -- calculate efficiency
+        simpleGenerator.Efficiency = dieselSeries.maxEfficiency
+        if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate 
+        print((1 - simpleGenerator.Efficiency + 1))
+        oxygenNeeded = oxygenNeeded * (1 - simpleGenerator.Efficiency + 1)
+        dieselFuelNeededCL = dieselFuelNeededCL * (1 - simpleGenerator.Efficiency + 1)
+        print("oxygen needed after: ", oxygenNeeded)
         -- GENERATE POWER:        
-        dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower), 2)         
+        dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower), 2)
         if parts.battery then parts.battery.Condition = parts.battery.condition + 0.1 end -- charge the battery (if any)
         
         -- CONSUMPTION AND DETERIORATION: 
@@ -294,8 +305,9 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         else
             MT.HF.subFromListSeq (oxygenNeeded, fuels.auxOxygenItems) -- burn auxOxygen
         end
-        -- burn diesel
+        -- burn diesel        
         MT.HF.subFromListSeq (dieselFuelNeededCL, fuels.dieselItems) -- burn diesel sequentially, improves resource management 
+        
         -- deteriorate oil
         MT.HF.subFromListEqu(oilDeterioration, fluids.oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate oil filter(s)
@@ -336,7 +348,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         end
     end
     -- ***** DIAGNOSTICS ***** 
-    if terminal and simpleGenerator.diagnosticMode then
+    if terminal and simpleGenerator.diagnosticMode and parts.dcm ~= nil and parts.dcm.ConditionPercentage > 1 then
         MT.HF.BlankTerminalLines(terminal, 10)
         -- DIAGNOSTICS: Status - only display if there is a terminal, ignition is implicit
         if dieselEngine.combustion == true then

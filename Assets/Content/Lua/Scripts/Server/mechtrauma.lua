@@ -25,7 +25,7 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
       local powerComponent = MTUtils.GetComponentByName(item, ".PowerTransfer");
       local electrocutionStrength = MT.HF.Clamp((powerComponent.PowerLoad/100 or 2000) * (powerComponent.Voltage or 1), 1, 200) 
       print("electrocutionStrength: ", electrocutionStrength)
-      
+
       -- explosion
       MT.HF.AddAffliction(character,"stun",0.25)    
       local explosion = Explosion(50, 100, 0, 0, 0, 0, 0)
@@ -50,7 +50,7 @@ end)
 
 
 Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, deltaTime, item, targets, worldPosition)
-  
+
   local character
   -- if the human target isn't 6, loop through the targets and find the human
   if tostring(targets[6]) == "Human" then
@@ -179,6 +179,27 @@ Hook.Add("securityControl_auth.OnUse", "MT.idScan", function(effect, deltaTime, 
   else
     MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******INSERT AUTHORIZATION CARD*******")
   end
+end)
+
+-- ***** REPAIR KIT  *****
+
+Hook.Add("repairKit_attemptRepair.OnUse", "MT.attemptRepair", function(effect, deltaTime, item, targets, worldPosition, client)  
+  MT.F.attemptRepair(item, item.OwnInventory.GetItemAt(0))
+end)
+-- --
+
+-- ***** DIAGNOSTIC TABLET *****
+
+Hook.Add("diagnosticTablet_linkDiagnostics.OnUse", "MT.linkTablet", function(effect, deltaTime, item, targets, worldPosition, client)
+  print("WE GOT HERE!")
+  terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+  terminal.IsActive = false
+end)
+-- ----- DIAGNOSE ITEM -----
+Hook.Add("diagnosticTablet_diagnoseItem.OnUse", "MT.diagnoseItem", function(effect, deltaTime, item, targets, worldPosition, client)
+
+  MT.C.tabletDiagnoseItem(item, item.OwnInventory.GetItemAt(0))
+
 end)
 
 -- ***** MAINTENANCE TABLET *****

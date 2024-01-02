@@ -1,4 +1,17 @@
 MT.C = {}
+
+
+-- table of item tags that will be discovered by item diagnosticTags
+MT.C.diagnosticTags = {
+  blocked = {
+    tag = "blocked",
+    description = " appears to be blocked.",
+    fixable = true,
+    fixSkill = "mechanical"
+  }
+
+}
+
 -- validates the argument of the report command and runs the requested report (if allowed)
 function MT.C.report(item, terminal, message, command, argument)
   local reportInstalled
@@ -46,9 +59,7 @@ function MT.C.setPower(item, terminal, message, command, argument)
 end
 
 function MT.C.diagnostics(item, terminal, message, command, argument)
-  -- convert the argument to a boolean 
-  print(GlobalTest)
-  print(item)
+  -- convert the argument to a boolean
   if argument == "on" or argument == "true" then argument = true
   elseif argument == "off" or argument == "false" then argument = false end
 
@@ -56,9 +67,10 @@ function MT.C.diagnostics(item, terminal, message, command, argument)
     --MT.HF.SyncToClient("DiagnosticMode", item)
   -- OLD? set the result for the item in the item cache
   --MT.itemCache[item].diagnostics = argument
-  
 end
---table of terminal commands functions - this is for mapping items to update functions
+
+
+-- table of terminal commands functions - this is for mapping items to update functions
 MT.terminalCommands = {
   diagnostics={
     help="Enable/Disable diagnostics - Ex: diagnostics > on",
@@ -125,34 +137,63 @@ MT.terminalCommands = {
   }
 }
 
--- split string by delimiter
-function string:split( inSplitPattern, outResults )
-  if not outResults then
-    outResults = { }
-  end
-  local theStart = 1
-  local theSplitStart, theSplitEnd = string.find( self, inSplitPattern, theStart )
-  while theSplitStart do
-    table.insert( outResults, string.sub( self, theStart, theSplitStart-1 ) )
-    theStart = theSplitEnd + 1
-    theSplitStart, theSplitEnd = string.find( self, inSplitPattern, theStart )
-  end
-  table.insert( outResults, string.sub( self, theStart ) )
-  return outResults
-end
-
-
 -- advanced terminal command hook
 Hook.Add("Mechtrauma.AdvancedTerminal::NewPlayerMessage", "terminalCommand", function(terminal, message, color)
   MT.C.terminalCommand(terminal.item, terminal, message)
 end)
+
+-- function to test an item contained in a mechtrauma tablet
+
+function MT.C.tabletDiagnoseItem(item, targetItem, terminal)
+  local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+  local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
+  --print(dataBox.DB1)
+  --print(dataBox.DB2)
+  --print(dataBox.DB3)
+  terminal.TextColor = Color.Gray
+  MT.HF.BlankTerminalLines(terminal, 10)  
+  terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
+  MT.HF.BlankTerminalLines(terminal, 1)
+  terminal.TextColor = Color(250,100,60,255)
+  --Timer.Wait(MT.HF.BlankTerminalLines(terminal, 1),1000)
+  --Timer.Wait(MT.HF.BlankTerminalLines(terminal, 1),1000)
+  --Timer.Wait(MT.HF.BlankTerminalLines(terminal, 1),1000)
+
+  -- check for an item to diagnose
+  if targetItem ~= nil then
+    local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")
+    local diagnosticTags = false
+
+   --terminal.TextColor = Color(250,100,60,255)
+    terminal.SendMessage("*****DIAGNOSTIC RESULT*****")
+      if targetItem.ConditionPercentage < 1 then terminal.SendMessage(targetItem.name .. " is not functional.") end
+
+      -- diagnostic tags
+      --terminal.TextColor = Color(250,100,60,255)
+      for k, tag in pairs(tagTable) do
+        if MT.C.diagnosticTags[tag] then
+          diagnosticTags = true
+          terminal.SendMessage(targetItem.name .. MT.C.diagnosticTags[tag].description, Color(250,100,60,255))
+        end
+      end
+      if not diagnosticTags and targetItem.ConditionPercentage > 1 then terminal.SendMessage(targetItem.name .. " appears to be functional.") end
+      terminal.SendMessage("**********END REPORT**********")
+  else
+    -- nothing to diagnose
+    terminal.TextColor = Color(250,100,60,255)
+    terminal.SendMessage("******DIAGNOSTICS RESULT******")
+    terminal.SendMessage("!THERE IS NOTHING TO DIAGNOSE!")
+    terminal.SendMessage("**********END REPORT**********")
+  end
+end
+
 
 
 --called once for each terminal message sent by a player
 function MT.C.terminalCommand(item, terminal, message)
   -- convert the message to lower case and parse out the command and argument 
   message = string.lower(message)
-  local messageTable = message:split(" > ")
+  local messageTable = MT.HF.Split(message," > ")
   local command = messageTable[1]
   local argument = messageTable[2]
 
@@ -179,7 +220,6 @@ function MT.C.terminalCommand(item, terminal, message)
   else
     terminal.SendMessage("INVALID COMMAND: " .. command, Color.Red)
   end
-
 end
 
 -- ----- REPORT PARTS -----

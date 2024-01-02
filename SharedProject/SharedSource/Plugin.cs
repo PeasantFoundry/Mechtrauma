@@ -49,6 +49,7 @@ namespace Mechtrauma
             UserData.RegisterType<GridAbsorber>();
             UserData.RegisterType<MTBoiler>();
             UserData.RegisterType<SimpleGenerator>();
+            UserData.RegisterType<DataBox>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();
 
@@ -76,6 +77,7 @@ namespace Mechtrauma
             UserData.UnregisterType<GridAbsorber>();
             UserData.UnregisterType<MTBoiler>();
             UserData.UnregisterType<SimpleGenerator>();
+            UserData.UnregisterType<DataBox>();
             UserData.UnregisterType<WaterDrain>();
         }
 

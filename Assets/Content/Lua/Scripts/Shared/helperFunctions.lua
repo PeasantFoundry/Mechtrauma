@@ -21,6 +21,24 @@ function MT.HF.string:split( inSplitPattern, outResults )
   --]]
 
   
+  function MT.Net.ServerEventWrite(component, msg, client)
+    if component.Name == "AdvancedTerminal" then
+          -- search component.item for the adv terminal and get values from it.
+          msg.WriteString("RunCommand")
+          msg.WriteString("argument1")
+      end
+  end
+  
+  function MT.Net.ClientEventRead(component, msg, sendingTime)
+      if component.Name == "AdvancedTerminal" then
+          local command = msg.ReadString()
+          local argument = msg.ReadString()
+  
+          -- do something with it.
+      end
+  end
+  
+
 function MT.HF.findComponent(item, value)
     for comp in item.Components do      
         if tostring(comp) == "Barotrauma.Items.Components." .. value then
@@ -91,6 +109,23 @@ function MT.HF.BlankTerminalLines(terminal, lines)
         terminal.ShowMessage = "-"
     end
 end
+
+-- split string by delimiter
+function MT.HF.Split(string, inSplitPattern, outResults )
+    if not outResults then
+      outResults = { }
+    end
+    local theStart = 1
+    local theSplitStart, theSplitEnd = string.find( string, inSplitPattern, theStart )
+    while theSplitStart do
+      table.insert( outResults, string.sub( string, theStart, theSplitStart-1 ) )
+      theStart = theSplitEnd + 1
+      theSplitStart, theSplitEnd = string.find( string, inSplitPattern, theStart )
+    end
+    table.insert( outResults, string.sub( string, theStart ) )
+    return outResults
+  end
+  
 
 -- colored terminal message
 function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
@@ -350,6 +385,7 @@ function MT.HF.DMClient(client,msg,color)
         PrintChat(msg)
     end
 end
+
 -- accuracy modification
 function MT.HF.Tolerance(tolerance)
     -- randomly select a modifier from a rage based on tolerance %. EX: 95% accuracy creates a range from -5 to 5 that becomes a .95 to 1.05 modifier
