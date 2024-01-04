@@ -7,12 +7,32 @@
         <RootNamespace>ModAssets</RootNamespace>
     </PropertyGroup>
 
-    <Import Project="../Build.props"/>
+    <Import Project="../Build.props" />
 
     <ItemGroup>
       <Folder Include="Content" />
     </ItemGroup>
 
+    <Target Name="DeleteFiles" BeforeTargets="Build">
+        <ItemGroup>
+            <ImagesToDelete Include="$(ModDeployDir)Images\**\*.*" />
+            <LocalesToDelete Include="$(ModDeployDir)Localization\**\*.*" />
+            <LuaToDelete Include="$(ModDeployDir)Lua\**\*.*" />
+            <SoundToDelete Include="$(ModDeployDir)Sound\**\*.*" />
+            <XMLToDelete Include="$(ModDeployDir)XML\**\*.*" />
+        </ItemGroup>
+        <Message Text="Deleting Images @(ImagesToDelete)" />
+        <Delete Files="@(ImagesToDelete)" />
+        <Message Text="Deleting Localizations @(LocalesToDelete)" />
+        <Delete Files="@(LocalesToDelete)" />
+        <Message Text="Deleting Lua @(LuaToDelete)" />
+        <Delete Files="@(LuaToDelete)" />
+        <Message Text="Deleting Sounds @(SoundToDelete)" />
+        <Delete Files="@(SoundToDelete)" />
+        <Message Text="Deleting XML @(XMLToDelete)" />
+        <Delete Files="@(XMLToDelete)" />
+        <Message Text="Deleted files. Continuing build process." />
+    </Target>
     <Target Name="CopyFiles" AfterTargets="Build">
         <ItemGroup>
             <FileList Include="$(ProjectDir)filelist.xml" />
