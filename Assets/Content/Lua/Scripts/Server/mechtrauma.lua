@@ -1,6 +1,12 @@
 
 local buffer = {} -- signal buffer
 
+Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerRead", "MT.Net.SR", MT.Net.ServerEventRead)
+Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerWrite", "MT.Net.SW", MT.Net.ServerEventWrite)
+Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientRead", "MT.Net.CW", MT.Net.ClientEventWrite)
+Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientWrite", "MT.Net.CR", MT.Net.ClientEventWrite)
+
+
 Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(effect, deltaTime, item, targets, worldPosition)
   local character
   -- if the human target isn't 10, loop through the targets and find the human
@@ -27,7 +33,7 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
       print("electrocutionStrength: ", electrocutionStrength)
 
       -- explosion
-      MT.HF.AddAffliction(character,"stun",0.25)    
+      MT.HF.AddAffliction(character,"stun",0.25)
       local explosion = Explosion(50, 100, 0, 0, 0, 0, 0)
       explosion.Explode(item.WorldPosition - Vector2(0, 50), item)
 

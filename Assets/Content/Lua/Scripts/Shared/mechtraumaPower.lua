@@ -36,7 +36,10 @@ MT.DE = {
         ignitionType=MT.F.sGeneratorIgnition
     },
     s3000Da={
-        maxHorsePower=3000*1.5,
+        autoStart = false, -- (NI)
+        maxHorsePower = 3000, -- includes overdrive
+        maxCooling = 150000, -- 3000hp * 1.25 * 40 - can cool 125% of maxHP
+        maxOverdive = 1.5,
         engineBlockLocation = 0,
         cylinderHeadLocation = 0,
         crankAssemblyLocation = 1,
@@ -140,7 +143,7 @@ function MT.F.dieselGenerator(item)
       -- check for a valid diesel series index
       if dieselSeries ~= nil then
         
-        -- DIESEL ENGINE: call dieselEngine and store the results
+        -- DIESEL ENGINE: call dieselEngine and store the results        
         local result = MT.F.dieselEngine(item, dieselSeries, targetPower)
         
         -- Generate Power: need to add the HP to kW conversion at some point
@@ -154,6 +157,7 @@ function MT.F.dieselGenerator(item)
         
         -- set power to generate and send it to clients
         simpleGenerator.PowerToGenerate = result.powerGenerated
+
         if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(simpleGenerator.SerializableProperties[Identifier("PowerToGenerate")], simpleGenerator)) end
 
         else
@@ -177,15 +181,18 @@ end
 function MT.F.dieselEngine(item, dieselSeries, targetPower)
     --ADVANCED DIESEL DESIGN
     -- HP:kW = 1:0.75
+    -- HP:BTU/h 1:2500 
+    -- HP:BTU 1:40 ~ 
     -- HP:diesel(l) 1:0.2   
     -- general         
     local gridCycles = 60
     local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
     local dieselEngine = {}
     local dieselFuelNeededCL = MT.Config.DieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime -- 100 min hp is idle speed
-    local oxygenNeeded = dieselFuelNeededCL * MT.Config.DieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condtion of diesel    
-    local ignition
+    local oxygenNeeded = dieselFuelNeededCL * MT.Config.DieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condition of diesel    
+    
     -- oxygen    
     local hullOxygenPercentage = 0
     -- set hullOxygenPercentage to 0 when submerged or outside of a hull.
@@ -203,65 +210,63 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     -- calculates total possible oil deterioration and then reduces for each viable filter
     local oilDeterioration = MT.HF.Round((MT.Config.OilBaseDPS * MT.Deltatime * dieselSeries.oilSlots) - (MT.Config.OilBaseDPS * MT.Deltatime * MT.Config.OilFiltrationM * parts.oilFilterCount),0)
 
-    -- diagnostics
+    -- DIAGNOSTICS
     MT.itemCache[item].diagnosticData = nil -- clear out the old codes
     MT.itemCache[item].diagnosticData ={errorCodes={},warningCodes={},statusCodes={}} -- redefine the item 
 
-    -- CHECK FUELS
-    dieselEngine.oxygenCheck = MT.DF.oxygenCheck(item, hullOxygenPercentage, fuels.auxOxygenVol, oxygenNeeded)
-    dieselEngine.dieselCheck = MT.DF.dieselCheck(item, fuels.dieselVol, dieselFuelNeededCL)
-    -- CHECK FLUIDS
+    -- -------------------------------------------------------------------------- --
+    --                          !CHECK IGNITION SYSTEMS!                          --
+    -- -------------------------------------------------------------------------- --
 
-    -- CHECK: PARTS 
-    dieselEngine.airFilterCheck = MT.DF.airFilterCheck(item, dieselSeries, parts.airFilter)
-    dieselEngine.compressionCheck = MT.DF.compressionCheck(item, dieselSeries, parts.engineBlock, parts.cylinderHead, parts.crankAssembly)
-    dieselEngine.exhaustCheck = MT.DF.exhaustCheck(item, dieselSeries, parts.exhaustManifold, parts.exhaustManifoldGasket)
-    dieselEngine.fuelPressureCheck = MT.DF.fuelPressureCheck(item, dieselSeries, parts.fuelFilter, parts.fuelPump)
-    dieselEngine.dcmCheck = MT.DF.dcmCheck(item, dieselSeries, parts.dcm, parts.oxygenSensor, parts.pressureSensor)
+    -- if the generator isn't running, reset the ignition and check the ignition systems
+    if MT.itemCache[item].isRunning == false then
+        dieselEngine.ignition = false
 
-    -- reset ignition if the generator is off    
-    if MT.itemCache[item].isRunning == false then dieselEngine.ignition = false end
-    local batteryCheck
-    local starterMotorCheck
-    -- ***** ATTEMPT IGNITION *****    
-    -- batteryCheck
-    if dieselSeries.batteryLocation and dieselEngine.ignition == false then -- do I need a battery?           
-        if parts.battery and parts.battery.Condition > 9 then
-            if parts.starterMotor and parts.starterMotor.Condition > 0 then parts.battery.Condition = parts.battery.condition - 10 end --drain the battery if there is a working starter
-            batteryCheck = true
-        elseif not parts.battery then
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1070: NO BATTERY CONNECTED*")
-            batteryCheck = false
-        else
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1080: DEAD BATTERY CONNECTED*")
-            batteryCheck = false
-        end
+        -- CHECK: IGNITION SYSTEMS 
+        dieselEngine.starterCheck = MT.DF.starterCheck(item, dieselSeries, parts.starterMotor)
+        dieselEngine.voltageCheck = MT.DF.voltageCheck(item, dieselSeries, parts.battery)
     end
-    -- starterMotorCheck
-    if dieselSeries.starterMotorLocation and dieselEngine.ignition == false then -- do I need a starterMotor?        
-        if parts.starterMotor and parts.starterMotor.Condition > 0 then
-            if parts.battery and parts.battery.Condition > 9 then parts.starterMotor.Condition = parts.starterMotor.Condition - 1 end -- deteriorate the starterMotor if there is a charged battery
-            starterMotorCheck = true
-        elseif not parts.starterMotor then
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1016: NO STARTER MOTOR INSTALLED*")
-            starterMotorCheck = false
-        else
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1017: STARTER MOTOR FAILED*")
-            starterMotorCheck = false
-        end
-    end
-    -- ignitionCheck
+
+    -- -------------------------------------------------------------------------- --
+    --                        ***** ATTEMPT IGNITION *****                        --
+    -- -------------------------------------------------------------------------- --
+
+    -- ignitionCheck -- need to add probability of failure
     if dieselSeries.batteryLocation and dieselSeries.starterMotorLocation and dieselEngine.ignition == false then
-        if batteryCheck and starterMotorCheck then
+        if dieselEngine.voltageCheck and dieselEngine.starterCheck then
+            parts.starterMotor.Condition = parts.starterMotor.Condition - 1 -- deteriorate the starterMotor
+            parts.battery.Condition = parts.battery.condition - 10 -- drain the battery 
+
             dieselEngine.ignition = true
         else
             dieselEngine.ignition = false
         end
     else
-        dieselEngine.ignition = true -- ignition always true if batter and starterMotor are not required
+        dieselEngine.ignition = true -- ignition always true if battery and starterMotor are not required
     end
 
-    -- ***** ATTEMPT COMBUSTION *****
+    -- -------------------------------------------------------------------------- --
+    --                         !CHECK COMBUSTION SYSTEMS!                         --
+    -- -------------------------------------------------------------------------- --
+
+    -- CHECK: FUELS
+    dieselEngine.oxygenCheck = MT.DF.oxygenCheck(item, hullOxygenPercentage, fuels.auxOxygenVol, oxygenNeeded)
+    dieselEngine.dieselCheck = MT.DF.dieselCheck(item, fuels.dieselVol, dieselFuelNeededCL)
+    
+    -- CHECK: FLUIDS
+        -- Oil
+        -- Coolant
+
+    -- CHECK: PARTS 
+    dieselEngine.airFilterCheck = MT.DF.airFilterCheck(item, dieselSeries, parts.airFilter)
+    dieselEngine.compressionCheck = MT.DF.compressionCheck(item, dieselSeries, parts.engineBlock, parts.cylinderHead, parts.crankAssembly)
+    dieselEngine.dcmCheck = MT.DF.dcmCheck(item, dieselSeries, parts.dcm, parts.oxygenSensor, parts.pressureSensor)
+    dieselEngine.exhaustCheck = MT.DF.exhaustCheck(item, dieselSeries, parts.exhaustManifold, parts.exhaustManifoldGasket)
+    dieselEngine.fuelPressureCheck = MT.DF.fuelPressureCheck(item, dieselSeries, parts.fuelFilter, parts.fuelPump)
+
+    -- -------------------------------------------------------------------------- --
+    --                       ***** ATTEMPT COMBUSTION *****                       --
+    -- -------------------------------------------------------------------------- --
     if item.Condition > 0 and
        dieselEngine.ignition and
        dieselEngine.airFilterCheck and
@@ -270,10 +275,14 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
        dieselEngine.fuelPressureCheck and
        dieselEngine.compressionCheck
     then
-        -- ***** COMBUSTION SUCCEDED *****
+
+    -- -------------------------------------------------------------------------- --
+    --                       ***** COMBUSTION *****                               --
+    -- -------------------------------------------------------------------------- --
         MT.itemCache[item].isRunning = true
         dieselEngine.combustion = true
         
+          
         --[[
         print("accuracy: ", simpleGenerator.Accuracy)
         print("efficiency: ", simpleGenerator.Efficiency)
@@ -285,19 +294,75 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         
         -- adjust the targetPower based on the generator accuracy (over or under produce power)
         targetPower = targetPower * MT.HF.Tolerance(simpleGenerator.Accuracy)
-        print("oxygen needed before: ", oxygenNeeded)
+        
         -- calculate efficiency
         simpleGenerator.Efficiency = dieselSeries.maxEfficiency
-        if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate 
-        print((1 - simpleGenerator.Efficiency + 1))
+        if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate         
         oxygenNeeded = oxygenNeeded * (1 - simpleGenerator.Efficiency + 1)
         dieselFuelNeededCL = dieselFuelNeededCL * (1 - simpleGenerator.Efficiency + 1)
-        print("oxygen needed after: ", oxygenNeeded)
+
+        -- calculate reliability
+        simpleGenerator.Reliability = item.ConditionPercentage / 100
+        
         -- GENERATE POWER:        
         dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower), 2)
         if parts.battery then parts.battery.Condition = parts.battery.condition + 0.1 end -- charge the battery (if any)
         
-        -- CONSUMPTION AND DETERIORATION: 
+        -- -------------------------------------------------------------------------- --
+        --                           TEMPERATURE AND COOLING                          --
+        -- -------------------------------------------------------------------------- --
+        --  range      |        zone            | effects
+        --   60f       | default temperature    |   
+        -- < 180       | low temperature        | reduced efficiency
+        -- > 180 - 220 | operating temperature  |    
+        -- > 220 - 240 | high temperature       | reduced efficiency        
+        -- > 240 - 260 | over temperature       | risk engine damage   
+        -- > 260 - 300 | critical temperatue    | risk engine failure  
+        -- = 300       | critical failure       | engine destroyed 
+
+        -- -------------------------------------------------------------------------- --
+        --                           !CHECK COOLING SYSTEMS!                          --
+        -- -------------------------------------------------------------------------- --
+
+        -- (NI)
+
+
+        -- store current temperature in the item cache so it persists between cycles
+        if not dataBox.TemperatureF then dataBox.TemperatureF = 200 end -- default temp
+        for _, part in pairs(parts.thermalParts) do
+            local partDataBox = MTUtils.GetComponentByName(part, "Mechtrauma.DataBox")
+            partDataBox.TemperatureF = MT.HF.Round(dataBox.TemperatureF, 0)
+            print(part , " temperature is " ..  partDataBox.TemperatureF)
+        end
+        dieselEngine.operatingTemperature = 200
+        dieselEngine.heatGenerated = dieselEngine.powerGenerated * 120 -- HP:BTU is 1:40 but toal heat output is 3x HP     
+        -- exhaust system handes 1/3 heat
+        -- power generation handles 1/3
+        dieselEngine.coolingNeeded = dieselEngine.powerGenerated * 40 -- only 1/3 of BTU goes to coolant, 1/3 goes out ehaust and 1/3 goes into HP
+        dieselEngine.excessHeat = dieselEngine.coolingNeeded - dieselSeries.maxCooling
+
+        dieselEngine.excessHeat = 150000 * 0.1
+        print("EXCESS HEAT: " .. MT.HF.formatNumber(dieselEngine.excessHeat) .. "BTUs")
+
+        if dieselEngine.excessHeat > 0 then
+            dieselEngine.coolingNeeded = dieselEngine.coolingNeeded - dieselSeries.maxCooling
+            -- overheat
+            dataBox.TemperatureF = dataBox.TemperatureF + (305 - dataBox.TemperatureF) / 10 * MT.HF.Round(dieselEngine.excessHeat / dieselSeries.maxCooling, 2)
+            
+        else
+            -- normal operations
+            dieselEngine.excessHeat = 0 -- handle the heat
+            if dataBox.TemperatureF < 200 then
+                -- increase temperature
+                dataBox.TemperatureF = MT.HF.Round(dataBox.TemperatureF + (dieselEngine.operatingTemperature - dataBox.TemperatureF) / 10 + 1, 2)
+            else
+                -- decrease temperature
+                dataBox.TemperatureF = MT.HF.Round(dataBox.TemperatureF - ((dieselEngine.operatingTemperature - dataBox.TemperatureF) / 10 + - 1)*-1, 2)
+            end
+        end
+        -- -------------------------------------------------------------------------- --
+        --                       CONSUMPTION AND DETERIORATION:                       --
+        -- -------------------------------------------------------------------------- --
 
         -- burn oxygen       
         if hullOxygenPercentage >= 75 then  -- burn hull oxygen when above 75%
@@ -306,12 +371,12 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
             MT.HF.subFromListSeq (oxygenNeeded, fuels.auxOxygenItems) -- burn auxOxygen
         end
         -- burn diesel        
-        MT.HF.subFromListSeq (dieselFuelNeededCL, fuels.dieselItems) -- burn diesel sequentially, improves resource management 
-        
+        MT.HF.subFromListSeq (dieselFuelNeededCL, fuels.dieselItems) -- burn diesel sequentially, improves resource management         
         -- deteriorate oil
-        MT.HF.subFromListEqu(oilDeterioration, fluids.oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
+        MT.HF.subFromListDis(oilDeterioration, fluids.oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate oil filter(s)
         MT.HF.subFromListAll((MT.Config.OilFilterDPS * MT.Deltatime), parts.oilFilterItems) -- apply deterioration to each filters independently, they have already reduced oil deterioration
+        -- deteriorate others? I guess others
         if dieselSeries.fuelFilterLocation and parts.fuelFilter ~= nil then -- deteriorate fuel filter
             parts.fuelFilter.Condition = parts.fuelFilter.Condition - (MT.Config.FuelFilterDPS * MT.Deltatime) end
         if dieselSeries.fuelPumpLocation and parts.fuelFilter ~= nil then -- deteriorate fuel pump
@@ -322,8 +387,12 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
             parts.exhaustManifold.Condition = parts.exhaustManifold.Condition - (MT.Config.exhaustManifoldDPS * MT.Deltatime) end
         if dieselSeries.exhaustManifoldLocation and parts.exhaustManifoldGasket ~= nil then -- deteriorate exhaustGasket (if any)
             parts.exhaustManifoldGasket.Condition = parts.exhaustManifoldGasket.Condition - (MT.Config.exhaustManifoldGasketDPS * MT.Deltatime) end
-        -- item damage - this needs to be reqworked
-        item.Condition = item.Condition - frictionDamage
+   
+        -- frictionDamage - damages the item in classic generators, damages the engine parts in the advanced generators
+        if next(parts.frictionParts) ~= nil then MT.HF.subFromListAll(frictionDamage * 10, parts.frictionParts) else item.Condition = item.Condition - frictionDamage end
+
+        -- calculate part fault events
+        MT.DF.partFaultEvents(item, dieselSeries, parts, simpleGenerator.Reliability)
 
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
         for k, component in pairs(item.Components) do
@@ -337,26 +406,37 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         dieselEngine.oxygenTime = MT.HF.Round((fuels.auxOxygenVol / oxygenNeeded) * MT.Deltatime / 60, 1)
 
     else
-        -- ***** COMBUSTION FAILED *****      
+    -- -------------------------------------------------------------------------- --
+    --                        ***** COMBUSTION FAILED *****                       --
+    -- -------------------------------------------------------------------------- --
+        
+        -- shutdown procedure
         dieselEngine.combustion = false
+        MT.itemCache[item].isRunning = false -- shut it down
         dieselEngine.powerGenerated = 0
-        -- turn off generator when combustion fails 
-        simpleGenerator.IsOn = false
+        simpleGenerator.IsOn = false -- switch off to prevent battery drain (later reimplement autoStart )
+        dieselEngine.ignition = false -- reset ignition
+
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
         end
     end
-    -- ***** DIAGNOSTICS ***** 
+
+    -- -------------------------------------------------------------------------- --
+    --                           ***** DIAGNOSTICS *****                          --
+    -- -------------------------------------------------------------------------- --
     if terminal and simpleGenerator.diagnosticMode and parts.dcm ~= nil and parts.dcm.ConditionPercentage > 1 then
+        -- terminal.ClearHistory() bah humbug
         MT.HF.BlankTerminalLines(terminal, 10)
         -- DIAGNOSTICS: Status - only display if there is a terminal, ignition is implicit
         if dieselEngine.combustion == true then
-            terminal.SendMessage("*COMBUSTION: " .. dieselEngine.powerGenerated .. "kW GENERATED*", Color(250, 125, 15, 255))
-            terminal.SendMessage(string.format("%-5s", dieselEngine.fuelTime .. "m") .. " of Diesel Fuel remaining", Color(250, 125, 15, 255))
-            terminal.SendMessage(string.format("%-5s", dieselEngine.oilTime .. "m") .. " of Oil remaining.", Color(250, 125, 15, 255))
-            terminal.SendMessage(string.format("%-5s", dieselEngine.filterTime .. "m") .. " of Oil Filtration remaining.", Color(250, 125, 15, 255))
-            terminal.SendMessage(string.format("%-5s", dieselEngine.oxygenTime .. "m") .. " of Oxygen remaining.", Color(250, 125, 15, 255))
+            terminal.SendMessage("*COMBUSTION: " .. dieselEngine.powerGenerated .. "kW GENERATED*", Color(255,150,0,255))
+            terminal.SendMessage("Temperature: " .. MT.HF.Round(dataBox.TemperatureF, 0) .. "F", MT.DF.getTemperatureZone(dataBox.TemperatureF, "color"))
+            terminal.SendMessage(string.format("%-5s", dieselEngine.fuelTime .. "m") .. " of Diesel Fuel remaining", Color(255,150,0,255))
+            terminal.SendMessage(string.format("%-5s", dieselEngine.oilTime .. "m") .. " of Oil remaining.", Color(255,150,0,255))
+            terminal.SendMessage(string.format("%-5s", dieselEngine.filterTime .. "m") .. " of Oil Filtration remaining.", Color(255,150,0,255))
+            terminal.SendMessage(string.format("%-5s", dieselEngine.oxygenTime .. "m") .. " of Oxygen remaining.", Color(255,150,0,255))
         end
         -- DIAGNOSTICS: Error Codes - only display if the generator IsOn and there are errorCodes
         if next(MT.itemCache[item].diagnosticData.errorCodes) ~= nil then

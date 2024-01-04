@@ -195,7 +195,7 @@
     <aitarget sightrange="1000" soundrange="1000" fadeouttime="1" />
   </Item>
 
-   <!-- WELDER: NEW AND IMPROVED! -->  
+  <!-- WELDER: NEW AND IMPROVED! -->  
   <Item name="" identifier="mechweldingtool" aliases="welder" category="Equipment" Tags="smallitem,weldingtool,weldingequipment,tool,mountableweapon" cargocontaineridentifier="metalcrate" useinhealthinterface="true" description="" Scale="0.5" impactsoundtag="impact_metal_light">
     <PreferredContainer primary="engcab" amount="1" spawnprobability="1" notcampaign="true"/>
     <PreferredContainer secondary="supplycab" amount="1" spawnprobability="0.2" notcampaign="true"/>
@@ -702,7 +702,7 @@
   <Item name="" identifier="mtcrate_medical" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="0.5"/>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,320,240,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,320,240,128" origin="0.5,0.5" />
     <Body width="240" height="128" density="25" />
     <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -714,7 +714,7 @@
   <Item name="Mechanical Crate" identifier="mtcrate_mechanical" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="0.5"/>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
     <Body width="240" height="128" density="25" />
     <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -726,7 +726,7 @@
   <Item name="Generic Crate" identifier="mtcrate_generic" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="0.5"/>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,192,240,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,192,240,128" origin="0.5,0.5" />
     <Body width="240" height="128" density="25" />
     <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -738,7 +738,7 @@
   <Item name="Rusty Crate" identifier="mtcrate_rusty" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="0.5"/>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="64,448,240,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="64,448,240,128" origin="0.5,0.5" />
     <Body width="240" height="128" density="25" />
     <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
     <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -1091,9 +1091,9 @@
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>    
-    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,640,64,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="512,640,64,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="576,640,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,0,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,0,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="320,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -1124,9 +1124,9 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="plastic" />
     </Fabricate>    
-    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="704,512,64,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="704,512,64,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="768,512,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,0,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,0,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="448,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -1149,7 +1149,7 @@
       <Deconstruct time="10">
       <Item identifier="scrap_aluminium" amount="1" />
     </Deconstruct>
-    <!-- FUEL FILTER: Make a new battery.  -->
+    <!-- RECIPIE: Make a new battery.  -->
     <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="aluminium" />
@@ -1242,7 +1242,7 @@
   </Item>
 
   <!-- ENGINE BLOCK: For use in machines such as a diesel engine -->
-  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="largeitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="mtu,largeitem,engineBlock,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="250" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1272,8 +1272,18 @@
       <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />
     </Fabricate>
+
     <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="448,768,128,120" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="576,768,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <!-- BLOCK IS HOT -->
+    <LightComponent range="10.0" lightcolor="255,255,255,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="358,334,154,160" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="DataBox" TemperatureF="gt 210.0" />
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" angle="270" distance="30" />
+      </StatusEffect>
+    </LightComponent>
+    <DataBox TemperatureF="200"/>
     <Body width="128" height="120" density="100" />
     <Holdable handle1="0,0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.0" setvalue="true" />
@@ -1296,7 +1306,7 @@
   </Item>
 
   <!-- CRANK ASSEMBLY: diesel engine block  -->
-  <Item name="EB Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1318,6 +1328,7 @@
     <!-- REPAIR: no repair, cannot be salvaged. -->
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
+    <DataBox/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1357,9 +1368,11 @@
       <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />
     </Fabricate>
+    
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,0,128,64" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="128" height="100" density="80" />
+    <DataBox/>
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
     </Holdable>   
@@ -1406,6 +1419,7 @@
     </Fabricate>
     <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="1024,704,128,100" />
     <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,832,128,100" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <DataBox/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -2656,18 +2670,8 @@
           <Affliction identifier="stun" strength="10" />
         </Explosion>
       </StatusEffect>
-    </Holdable>
-        
-    <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
-      <GuiFrame relativesize="0.35,0.55" relativeoffset="0.0,0.0" anchor="TopCenter" style="ItemUI" />
-    </Terminal>
+    </Holdable>      
 
-    <ItemContainer drawinventory="false" capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill" drawhudwhenequipped="false">    
-        <Containable items="batterycell" excludebroken="true" excludefullcondition="false" containedstateindicatorslot="0" containedstateindicatorstyle="battery" canbeselected="false" >  
-        
-        </Containable>
-     
-    </ItemContainer>
     
   </Item>
   
@@ -2717,35 +2721,47 @@
 
   </Item>
 
-  <!-- Repair Kit -->
-  <Item name="Repair Kit" identifier="mt_repair_kit" tags="repairkit" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+  <!-- Repair Kit: -->
+  <Item name="Repair Kit" identifier="mt_repair_kit" tags="repairkit,crate" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Deconstruct time="5"/>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="64,320,240,128" origin="0.5,0.5" />
     <Body width="240" height="128" density="25" />
-    <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="true" msg="ItemMsgPickUpSelect" />
-    
-    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopRight" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
+    <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                    drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                    ReadOnly="false" >
+    <MessageAreaGui Margin="0.15" Offset="-0.25,-0.5" TopPadding="0.04" HistoryBoxSize="0.77,0.6" InputBoxSize="0.79,0.1"
+                    RelativeSpacing="0.02" RelativeSize="0.5,0.5" ShowInputBox="false" TextColor="255,150,0,255" 
+                    MessageFont="MonospacedFont"/>
+    <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.1" pivot="Left" anchor="Left" style="ItemUI" Color="20,20,20,200"/>
+    <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5" >
+      <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="1152,320,384,384" origin="0.5,0.5"/>
+    </OuterSprite>
+    </AdvancedTerminal>
+
+    <CustomInterface canbeselected="true" allowuioverlap="true" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopLeft" relativeoffset="0.09,0.5" style="ItemUI" linkuitocomponent="ItemContainer" />
      
-      <!-- BUTTON: ATTEMPT REPAIR -->
-      <Button text="Attempt Repair">
+      <!-- ACTION: ATTEMPT REPAIR -->
+      <Button text="Attempt Repair">      
         <StatusEffect type="OnUse" target="This">
-          <LuaHook name="repairKit_attemptRepair.OnUse" /> 
+          <LuaHook name="repairKit_attemptRepair.OnUse" />           
+          <Sound file="Content/Sounds/RepairLoop.ogg" range="100" />             
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
 
-      <!-- REPORT: Co2 FILTER STATUS-->
-       <Button text="Co2 Filter Status Report">
+      <!-- ACTION: SCAVENGE 
+       <Button text="DIAGNOSE ITEM">
         <StatusEffect type="OnUse" target="This">
-          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <LuaHook name="diagnosticTablet_diagnoseItem.OnUse" /> 
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
-      </Button>
-      
+      </Button>-->      
     </CustomInterface>
-
+    
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" keepopenwhenequipped="true" movableframe="true">
       <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mttablet" />
     </ItemContainer>
@@ -3155,7 +3171,7 @@
       </StatusEffect>
     </MiniMap>
     <ItemContainer capacity="3" maxstacksize="1" itemsperrow="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.79">
-      <GuiFrame relativesize="0.1,0.5" anchor="TopCenter" allowuioverlap="false" style="ItemUI" relativeoffset="0.1,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
+      <GuiFrame relativesize="0.1,0.5" anchor="TopCenter" allowuioverlap="false" style="ItemUI" relativeoffset="0.1,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->      
       <Containable items="mt_maintenance_tablet,handheldstatusmonitor,handheldelectricalmonitor" excludebroken="false" excludefullcondition="false" >     
     </Containable>
       
@@ -4637,7 +4653,9 @@
   </Item>
   
   <!-- MT REACTOR: PF5000 --> 
-  <Item name="PF5000 Reactor" identifier="mt_reactor_pf5000" tags="mtu,pfreactor,reactor" type="Reactor" hideinmenus="true" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" explosiondamagemultiplier="0.2">        
+  <Item name="PF5000 Reactor" identifier="mt_reactor_pf5000" tags="mtu,pfreactor,reactor" type="Reactor" 
+        hideinmenus="true" scale="0.5" linkable="true" category="Machine" damagedbyexplosions="true" 
+        explosiondamagemultiplier="0.2">        
     <Sprite texture="Content/Items/reactor/reactor.png" sourcerect="0,0,528,336" origin="0.5,0.45" depth="0.8" />
     <UpgradePreviewSprite scale="3.0" texture="Content/UI/WeaponUI.png" sourcerect="0,960,64,64" origin="0.5,0.45" />
     <BrokenSprite texture="Content/Items/reactor/reactor.png" sourcerect="0,338,528,336" depth="0.8" origin="0.5,0.45" maxcondition="40" />
@@ -7231,6 +7249,16 @@
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
     </Item>
+
+  <!-- WHALE MEAT: -->
+  <Item name="Whale Meat" identifier="whale_meat" Category="Misc" Tags="medium" maxstacksize="1" cargocontaineridentifier="metalcrate" health="100" scale="0.4">
+    <Sprite texture="%ModDir%/Images/mechtrauma3.png" sourcerect="0,1216,192,128" depth="0.55" />
+    
+    <Body width="192" height="128" density="5" />
+      <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect">
+    </Holdable>
+    </Item>
+
 
   <!-- =============< VANILLA TOOL OVERRIDES >=============  -->
 	<Override>

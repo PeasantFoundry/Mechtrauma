@@ -1,5 +1,6 @@
 
 MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neurotraumas use of the term)
+MT.Net = {}
 -- LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.Items."], "isWire")
 -- Mechtrauma exclusive functions:
 
@@ -20,95 +21,94 @@ function MT.HF.string:split( inSplitPattern, outResults )
   end 
   --]]
 
+  -- -------------------------------------------------------------------------- --
+  --                                   NETWORK                                  --
+  -- -------------------------------------------------------------------------- --
+  -- vanilla bt: IReadMessage.cs and IWriteMessage.cs
+  -- IReadMessage functions:
+
+  --bool ReadBoolean();
+  --void ReadPadBits();
+  --byte ReadByte();
+  --byte PeekByte();
+  --UInt16 ReadUInt16();
+  --Int16 ReadInt16();
+  --UInt32 ReadUInt32();
+  --Int32 ReadInt32();
+  --UInt64 ReadUInt64();
+  --Int64 ReadInt64();
+  --Single ReadSingle();
+  --Double ReadDouble();
+  --UInt32 ReadVariableUInt32();
+  --String ReadString();
+  --Identifier ReadIdentifier();
+  --Microsoft.Xna.Framework.Color ReadColorR8G8B8();
+  --Microsoft.Xna.Framework.Color ReadColorR8G8B8A8();
+  --int ReadRangedInteger(int min, int max);
+  --Single ReadRangedSingle(Single min, Single max, int bitCount);
+  --byte[] ReadBytes(int numberOfBytes);
+
+function MT.Net.ServerEventRead(component, message, client)
+    if component.Name == "DieselGenerator" then
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")        
+        generator.DiagnosticMode = message.ReadBoolean()
+        generator.IsOn = message.ReadBoolean()
+        generator.PowerToGenerate = message.ReadSingle()
+        component.SendEvent()
+    end
+end
+
+function MT.Net.ServerEventWrite(component, messsage, client)
+    if component.Name == "DieselGenerator" then
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")        
+        message.WriteBoolean(generator.DiagnosticMode)
+        message.WriteBoolean(generator.IsOn)
+        message.WriteSingle(generator.PowerToGenerate)
+
+    end
+end
+
+function MT.Net.ClientEventRead(component, messsage, sendingTime)
+    if component.Name == "DieselGenerator" then
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        generator.DiagnosticMode = message.ReadBoolean()
+        generator.IsOn = message.ReadBoolean()
+        generator.PowerToGenerate = message.ReadSingle()
+    end
+end
+
+function MT.Net.ClientEventWrite(component, messsage, extradata)
+    if component.Name == "DieselGenerator" then
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        message.WriteBoolean(generator.DiagnosticMode)
+        message.WriteBoolean(generator.IsOn)
+        message.WriteSingle(generator.PowerToGenerate)
+
+
+    end
+end
+
+-- -------------------------------------------------------------------------- --
+--                        this is going to get so full                        --
+-- -------------------------------------------------------------------------- --
+
   
-  function MT.Net.ServerEventWrite(component, msg, client)
-    if component.Name == "AdvancedTerminal" then
-          -- search component.item for the adv terminal and get values from it.
-          msg.WriteString("RunCommand")
-          msg.WriteString("argument1")
-      end
+
+
+
+-- -------------------------------------------------------------------------- --
+--                                 FORMATTING                                 --
+-- -------------------------------------------------------------------------- --
+
+function MT.HF.formatNumber(n)
+    return tostring(math.floor(n)):reverse():gsub("(%d%d%d)","%1,")
+                                  :gsub(",(%-?)$","%1"):reverse()
   end
-  
-  function MT.Net.ClientEventRead(component, msg, sendingTime)
-      if component.Name == "AdvancedTerminal" then
-          local command = msg.ReadString()
-          local argument = msg.ReadString()
-  
-          -- do something with it.
-      end
-  end
-  
 
-function MT.HF.findComponent(item, value)
-    for comp in item.Components do      
-        if tostring(comp) == "Barotrauma.Items.Components." .. value then
-        return comp 
-      end
-    end
-    return nil
-  end
 
--- add function for removing useless lag causing items broken fuses,filters,emptycrates,
-function MT.HF.MechtraumaClean()
-    for k, item in pairs(Item.ItemList) do        
-        local pickableComponent = MTUtils.GetComponentByName(item, ".Pickable") 
-        if pickableComponent and pickableComponent.IsAttached == false and item.parentInventory == nil and not MTUtils.GetComponentByName(item, ".Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
-            print("Item is cleanable: ", item)
-            MT.HF.RemoveItem(item)
-            print("REMOVED: ", item)
-
-        end
-    end
-    print("CLEANUP COMPLETE")
-end
-
--- subtracts single amount from a list of items sequentially  
-function MT.HF.subFromListSeq (amount, list)
-    for k, item in pairs(list) do
-        if amount > item.Condition then
-            amount = amount - item.Condition
-            item.Condition = 0
-        else
-            item.Condition = item.Condition - amount
-            amount = 0
-        end
-    end
-end
-
--- subtracts amount from list by dividing it equally
-function MT.HF.subFromListEqu (amount, list)
-    for k, item in pairs(list) do
-        item.Condition = item.Condition - (amount / #list)        
-    end
-end
-
--- subtracts single amount from every item in a list
-function MT.HF.subFromListAll (amount, list)
-    for k, item in pairs(list) do
-        item.Condition = item.Condition - amount
-    end
-end
-
--- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
--- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
-function MT.HF.GetItemDepth(item)
-  if SERVER then
-    -- use server method
-    return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
-    else
-    -- use client method
-    return item.WorldPosition.Y * Physics.DisplayToRealWorldRatio
-    end
-end
-
--- print blank lines to terminal in place of a functioning clear command
-function MT.HF.BlankTerminalLines(terminal, lines)
-    local counter = 0
-    while counter < lines do
-        counter = counter + 1
-        terminal.ShowMessage = "-"
-    end
-end
+-- -------------------------------------------------------------------------- --
+--                                   PARSING                                  --
+-- -------------------------------------------------------------------------- --
 
 -- split string by delimiter
 function MT.HF.Split(string, inSplitPattern, outResults )
@@ -125,9 +125,171 @@ function MT.HF.Split(string, inSplitPattern, outResults )
     table.insert( outResults, string.sub( string, theStart ) )
     return outResults
   end
-  
 
--- colored terminal message
+
+-- -------------------------------------------------------------------------- --
+--                           MATHIMATICAL OPERATINS                           --
+-- -------------------------------------------------------------------------- --
+
+-- subtracts single amount from a list of items sequentially  
+function MT.HF.subFromListSeq (amount, list)
+    for k, item in pairs(list) do
+        if amount > item.Condition then
+            amount = amount - item.Condition
+            item.Condition = 0
+        else
+            item.Condition = item.Condition - amount
+            amount = 0
+        end
+    end
+end
+
+-- subtracts amount from list by dispursing/sharing it equally
+function MT.HF.subFromListDis (amount, list)
+    for k, item in pairs(list) do
+        item.Condition = item.Condition - (amount / #list)        
+    end
+end
+
+-- subtracts single amount from every item in a list
+function MT.HF.subFromListAll (amount, list)
+    for k, item in pairs(list) do
+        item.Condition = item.Condition - amount
+    end
+end
+
+-- general mathy functions:
+
+function MT.HF.Lerp(a, b, t)
+	return a + (b - a) * t
+end
+
+function MT.HF.Round(num, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
+-- restricts an output to a range
+function MT.HF.Clamp(num, min, max)
+    if(num<min) then
+        num = min 
+    elseif(num>max) then 
+        num = max 
+    end
+    return num
+end
+
+-- returns num if num > min, else defaultvalue
+function MT.HF.Minimum(num, min, defaultvalue)
+    if(num<min) then num=(defaultvalue or 0) end
+    return num
+end
+
+-- -------------------------------------------------------------------------- --
+--                                 PROBABILITY                                --
+-- -------------------------------------------------------------------------- --
+function MT.HF.Tolerance(tolerance)
+    -- randomly select a modifier from a rage based on tolerance %. EX: 95% accuracy creates a range from -5 to 5 that becomes a .95 to 1.05 modifier
+    local lowRange = (100 - tolerance) *-1
+    local highRange = (100 - tolerance)
+    local result = (math.random(lowRange,highRange) * 0.003 + 1)
+    return result
+end
+-- % chance - math.random with no arguments return a random float between .1 and 1.0
+function MT.HF.Chance(chance)
+    return math.random() < chance
+end
+
+-- eventsTrue / totalEvents = probability ex: 1 in 1000 chance or a 7 in 51 chance or 1 in 18000 chance
+function MT.HF.Probability( eventsTrue, totalEvents)
+    return math.random(1,totalEvents) <= eventsTrue
+end
+
+-- Function to generate a weighted random index based on weights provided
+function MT.HF.weightedRandom(weights)
+    -- Calculate total weight
+    local totalWeight = 0
+    for _, weight in ipairs(weights) do
+        totalWeight = totalWeight + weight
+    end
+
+    -- Generate a random number between 0 and totalWeight
+    local randomValue = math.random() * totalWeight
+
+    -- Find the index corresponding to the random value
+    local currentIndex = 1
+    local cumulativeWeight = weights[currentIndex]
+
+    while randomValue > cumulativeWeight do
+        currentIndex = currentIndex + 1
+        cumulativeWeight = cumulativeWeight + weights[currentIndex]
+    end
+
+    return currentIndex
+end
+
+-- returns an unrounded random number
+function MT.HF.RandomRange(min,max) 
+    return min+math.random()*(max-min)
+end
+
+--[[-- Example usage
+math.randomseed(os.time()) -- Seed the random number generator
+
+local weights = {3, 1, 2, 4} -- Example weights
+local selectedIndex = weightedRandom(weights)
+print("Selected index:", selectedIndex)
+]]
+
+-- -------------------------------------------------------------------------- --
+--                            BAROTRAUMA FUNCTIONS                            --
+-- -------------------------------------------------------------------------- --
+-- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
+-- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
+function MT.HF.GetItemDepth(item)
+  if SERVER then
+    -- use server method
+    return Level.Loaded.GetRealWorldDepth(item.WorldPosition.Y)
+    else
+    -- use client method
+    return item.WorldPosition.Y * Physics.DisplayToRealWorldRatio
+    end
+end
+
+  -- shouldn't this be depricated?
+function MT.HF.findComponent(item, value)
+for comp in item.Components do      
+    if tostring(comp) == "Barotrauma.Items.Components." .. value then
+    return comp 
+    end
+end
+return nil
+end
+
+-- add function for removing useless lag causing items broken fuses,filters,emptycrates,
+function MT.HF.MechtraumaClean()
+    for k, item in pairs(Item.ItemList) do        
+        local pickableComponent = MTUtils.GetComponentByName(item, ".Pickable") 
+        if pickableComponent and pickableComponent.IsAttached == false and item.parentInventory == nil and not MTUtils.GetComponentByName(item, ".Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
+            print("Item is cleanable: ", item)
+            MT.HF.RemoveItem(item)
+            print("REMOVED: ", item)
+
+        end
+    end
+    print("CLEANUP COMPLETE")
+end
+
+-- print blank lines to terminal in place of a functioning clear command
+function MT.HF.BlankTerminalLines(terminal, lines)
+    local counter = 0
+    while counter < lines do
+        counter = counter + 1
+        terminal.ShowMessage = "-"
+    end
+end
+
+-- DEPRICATED: colored terminal message 
 function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
     local terminalOrgiginalColor = terminal.TextColor -- save the current terminal color
     local property = terminal.SerializableProperties[Identifier("TextColor")]
@@ -144,6 +306,28 @@ end
 -- be sure to pass property as a string 
 function MT.HF.SyncToClient(property, target)
                 Networking.CreateEntityEvent(target, Item.ChangePropertyEventData(target.SerializableProperties[Identifier(property)], target))
+end
+
+
+-- fucked by Hadrada on 11/12/22
+-- unfucked by Mannatu on 11/13/22
+function MT.HF.ItemIsWornInOuterClothesSlot(item)
+    if item.ParentInventory == nil then return false end 
+    if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
+    if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
+
+  return true
+  end
+
+
+-- -------------------------------------------------------------------------- --
+--                           TESTING AND VALIDATION                           --
+-- -------------------------------------------------------------------------- --
+
+--this is a testing function for damaging machines during a round 
+function MT.HF.DamageFocusedItem(amount)
+    local item = Client.ClientList[1].Character.FocusedItem
+    item.condition = item.condition - amount
 end
 
 -- utility for checking there are missing items from the cache
@@ -167,23 +351,12 @@ function MT.HF.VerifyItemCache()
        
 end
 
--- fucked by Hadrada on 11/12/22
--- unfucked by Mannatu on 11/13/22
-function MT.HF.ItemIsWornInOuterClothesSlot(item)
-    if item.ParentInventory == nil then return false end 
-    if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
-    if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
 
-  return true
-  end
-    --this is a testing function for damaging machines 
-    function MT.HF.DamageFocusedItem(amount)
-        local item = Client.ClientList[1].Character.FocusedItem
-        item.condition = item.condition - amount
-    end
+-- -------------------------------------------------------------------------- --
+--                     Mechtrauma medical helper functions                    --
+-- -------------------------------------------------------------------------- --
 
--- Mechtrauma medical helper functions
-function MT.HF.Fibrillate(character,amount)    
+function MT.HF.Fibrillate(character,amount)
     -- tachycardia (increased heartrate) ->
     -- fibrillation (irregular heartbeat) ->
     -- cardiacarrest
@@ -226,33 +399,10 @@ function MT.HF.Fibrillate(character,amount)
     print("total current fibrillation: ", fibrillation)
 end
 
--- Neurotrauma complementary functions:  
+-- -------------------------------------------------------------------------- --
+--                    Neurotrauma complementary functions:                    --
+-- -------------------------------------------------------------------------- --
 
--- general mathy functions:
-
-function MT.HF.Lerp(a, b, t)
-	return a + (b - a) * t
-end
-
-function MT.HF.Round(num, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-    return math.floor(num * mult + 0.5) / mult
-end
-
-function MT.HF.Clamp(num, min, max)
-    if(num<min) then
-        num = min 
-    elseif(num>max) then 
-        num = max 
-    end
-    return num
-end
-
--- returns num if num > min, else defaultvalue
-function MT.HF.Minimum(num, min, defaultvalue)
-    if(num<min) then num=(defaultvalue or 0) end
-    return num
-end
 
 -- /// affliction magic ///
 -- i'm sure you'll have some use for these
@@ -361,7 +511,9 @@ function MT.HF.GetResistance(character,identifier)
     return character.CharacterHealth.GetResistance(prefab)
 end
 
--- /// misc ///
+-- -------------------------------------------------------------------------- --
+--                                /// misc ///                                --
+-- -------------------------------------------------------------------------- --
 
 function PrintChat(msg)
     if SERVER then
@@ -386,23 +538,7 @@ function MT.HF.DMClient(client,msg,color)
     end
 end
 
--- accuracy modification
-function MT.HF.Tolerance(tolerance)
-    -- randomly select a modifier from a rage based on tolerance %. EX: 95% accuracy creates a range from -5 to 5 that becomes a .95 to 1.05 modifier
-    local lowRange = (100 - tolerance) *-1
-    local highRange = (100 - tolerance)
-    local result = (math.random(lowRange,highRange) * 0.003 + 1)
-    return result
-end
--- % chance
-function MT.HF.Chance(chance)
-    return math.random() < chance
-end
 
--- eventsTrue / totalEvents probability
-function MT.HF.Probability( eventsTrue, totalEvents)
-    return math.random(1,totalEvents) <= eventsTrue  
-end
 
 function MT.HF.BoolToNum(val,trueoutput)
     if(val) then return trueoutput or 1 end
@@ -574,6 +710,7 @@ function MT.HF.GameIsPaused()
     return Game.Paused
 end
 
+-- should be depricated, no?
 --sadly, Game.RoundStarted does not work for singleplayer (sub editor)
 function MT.HF.GameIsRunning()
     if SERVER then
@@ -625,11 +762,6 @@ function MT.HF.PutItemInsideItem(container,identifier,index)
         end
     end,
     10)
-end
-
--- returns an unrounded random number
-function MT.HF.RandomRange(min,max) 
-    return min+math.random()*(max-min)
 end
 
 function MT.HF.HasTalent(character,talentidentifier) 
@@ -687,6 +819,7 @@ function MT.HF.GetCharacterInventorySlot(character,slot)
     return character.Inventory.GetItemAt(slot)
 end
 
+-- WTF is this? - 1/2/2024
 function MT.HF.ItemHasTag(item,tag)
     if item==nil then return false end
     return item.HasTag(tag)

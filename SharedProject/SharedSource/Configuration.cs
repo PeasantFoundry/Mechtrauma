@@ -43,6 +43,7 @@ public sealed class Configuration
 
     //Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22
     public float ElectricMotorDegradeRate => 0.25f;
+    public float PartFaultRangeModifier => _advanced.Setting_PartFaultRangeModifier.Value;
     public float DieselGeneratorEfficiency => _advanced.Setting_DieselGeneratorEfficiency.Value;
     public float DieselHorsePowerRatioCL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 100f;
     public float DieselHorsePowerRatioDL => _advanced.Setting_ConversionRatioHPtoDiesel.Value * 10f;
@@ -58,8 +59,10 @@ public sealed class Configuration
     public float OilBaseDPS => _test.Setting_OilBaseDPS.Value;
     public float OilFilterDPS => GetDPS(_general.Setting_OilFilterServiceLife.Value);
     public float OilFilterServiceLife => _general.Setting_OilFilterServiceLife.Value;
+    public float FuelFilterSLD => GetSLD(_general.Setting_FuelFilterServiceLife.Value);
     public float FuelFilterDPS => GetDPS(_general.Setting_FuelFilterServiceLife.Value);
     public float FuelFilterServiceLife => _general.Setting_FuelFilterServiceLife.Value;
+    public float FuelPumpSLD => GetSLD(_general.Setting_FuelPumpServiceLife.Value);
     public float FuelPumpDPS => GetDPS(_general.Setting_FuelPumpServiceLife.Value);
     public float FuelPumpServiceLife => _general.Setting_FuelPumpServiceLife.Value;
     public float OilFiltrationEP => _general.Setting_OilFiltrationEfficiencyRating.Value;
@@ -219,14 +222,29 @@ public sealed class Configuration
     public sealed class Settings_Advanced
     {
         public readonly IConfigRangeFloat
+            Setting_PartFaultRangeModifier,
             Setting_DieselGeneratorEfficiency,
             Setting_ConversionRatioHPtoDiesel,
             Setting_ConversionRatioOxygenToDiesel,
             Setting_FuseboxDeteriorationRate,
             Setting_FuseboxOvervoltDamage;
+            
 
         public Settings_Advanced(Configuration instance)
         {
+            Setting_PartFaultRangeModifier = ConfigManager.AddConfigRangeFloat(
+                "PartFaultRangeModifier", ModName,
+                1f, 1f, 10f, GetStepCount(1f, 10f, 0.5f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Part Fault Range Modifier",
+                    DisplayCategory: "Advanced",
+                    #if DEBUG
+                    MenuCategory: Category.Gameplay
+                    #else
+                    MenuCategory: Category.Ignore
+                    #endif
+                ));
             Setting_DieselGeneratorEfficiency = ConfigManager.AddConfigRangeFloat(
                 "DieselGeneratorEfficiency", ModName,
                 0.3f, 1f, 20f, GetStepCount(1f, 20f, 1f),
@@ -366,7 +384,8 @@ public sealed class Configuration
     
     private static string ModName = "Mechtrauma";
     private static float GetPercentPerTick(float v) => v / 60f * 100;
-    private static float GetDPS(float ssl) => 100f / ssl / 60f;
+    private static float GetDPS(float ssl) => 100f / ssl / 60f; //Not all items have 
+    private static float GetSLD(float ssl) => ssl * 60f / 2f; //SLD = ServiceLifeDelta - may need to move MT delta to here
     private static int GetStepCount(float min, float max, float step) => (int)((max - min) / step + 1);
 
     // Settings Containers //

@@ -17,6 +17,7 @@ Hook.Add("think", "MT.update", function()
             MT.UpdateCooldown = MT.UpdateInterval
             MT.updateHumans()
             MT.updateItems()
+
         end
     end
 end)

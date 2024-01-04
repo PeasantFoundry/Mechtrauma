@@ -17,6 +17,9 @@ public partial class LuaNetEventDispatcher : IClientSerializable, IServerSeriali
 
     public virtual partial void SendEvent()
     {
+        if (GameMain.NetworkMember is null)
+            return;
+
         item.CreateClientEvent(this);
     }
 }

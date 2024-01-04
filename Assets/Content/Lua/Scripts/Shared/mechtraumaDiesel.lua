@@ -5,7 +5,7 @@ function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
 
     -- did I get wet?
     if item.InWater and airFilter ~= nil then
-        airFilter.AddTag("wet")
+        airFilter.AddTag("water")
         MT.itemCache[airFilter].counter = 15 -- airFilter will dry out after ~30 seconds
     end
 
@@ -17,10 +17,10 @@ function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
         elseif airFilter.ConditionPercentage < 1 or airFilter.HasTag("blocked") then
             airFilterCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1012: AIR FILTER BLOCKED*")
-        elseif airFilter.HasTag("wet") then
+        elseif airFilter.HasTag("water") then
             airFilterCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1012: AIR FILTER BLOCKED*")
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1013: AIR FILTER WET*")        
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1013: AIR FILTER WET*")
         end
     end
     return airFilterCheck
@@ -127,6 +127,43 @@ function MT.DF.oxygenCheck(item, hullOxygenPercentage, auxOxygenVol, oxygenNeede
     end
     return oxygenCheck
 end
+-- ----------------------------- !voltageCheck! ----------------------------- --
+function MT.DF.voltageCheck(item, dieselSeries, battery)
+    local voltageCheck = true -- default to true for diesel series without batteries 
+
+    -- check battery
+    if dieselSeries.batteryLocation then -- do I need a battery?           
+        if battery and battery.Condition > 9 then
+            voltageCheck = true
+        elseif battery == nil then
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1070: NO BATTERY CONNECTED*") -- no battery should disable the DCM
+            voltageCheck = false
+        else
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1080: LOW VOLTAGE*")
+            voltageCheck = false
+        end
+    end
+    return voltageCheck
+end
+
+-- ------------------------------ starterCheck ------------------------------ --
+function MT.DF.starterCheck(item, dieselSeries,starterMotor)
+    local starterCheck = true -- default to true for diesel series without starters
+    
+    -- starterMotorCheck
+    if dieselSeries.starterMotorLocation then -- do I need a starterMotor?        
+        if starterMotor and starterMotor.Condition > 0 then
+            starterCheck = true
+        elseif not starterMotor then
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1016: NO STARTER MOTOR INSTALLED*")
+            starterCheck = false
+        else
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1017: STARTER MOTOR FAILED*")
+            starterCheck = false
+        end
+    end
+    return starterCheck
+end
 
 function MT.DF.getFluids(item, dieselSeries)
     local index = 0
@@ -188,12 +225,78 @@ function MT.DF.getFuels(item, DieselSeries)
     return fuels
 end
 
+function MT.DF.getTemperatureZone(temperature, desiredOutput)
+    local result
+    if desiredOutput == nil then desiredOutput = "temp" end
+    -- temperature zone
+    if desiredOutput == "color" then
+        if temperature >= 300 then result = Color(255,0,0,255)
+        elseif temperature > 260 then result = Color(200,20,10,255)
+        elseif temperature > 240 then result = Color(255,80,40,255)
+        elseif temperature > 220 then result = Color(255,120,40,255)
+        elseif temperature > 180 then result = Color(240,255,50,255)
+        elseif temperature > 32 then result = Color(50,255,150,255)
+        else result = Color(50,255,150,255)
+        end
+        return result
+    else
+        if temperature >= 300 then result = "failure"
+        elseif temperature > 260 then result = "critical"
+        elseif temperature > 240 then result = "over"
+        elseif temperature > 220 then result = "high"
+        elseif temperature > 180 then result = "operating"
+        elseif temperature > 32 then result = "low"
+        else result = "freezing"
+        end
+        return result
+    end
+end
+
+function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- get or set part failures?
+    -- fuelFilter fault events 
+    if parts.fuelFilter then
+        if MT.DF.partFaultProbability(parts.fuelFilter,MT.Config.FuelFilterSLD, engineReliability) then
+            parts.fuelFilter.AddTag("blocked") -- add a blockage - in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
+        end
+    end
+    -- fuelPump fault events 
+    if parts.fuelPump then        
+        if MT.DF.partFaultProbability(parts.fuelPump, MT.Config.FuelPumpSLD, engineReliability) then
+            local faultEvents = {}-- blocked
+            parts.fuelPump.AddTag("blocked") -- in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
+            -- water - but I need to add a weighted random selection
+        end
+    end
+    -- airFilter fault events
+    if parts.airFilter then
+        local extraModifier = 1.0
+        if parts.airFilter.HasTag("mold") then extraModifier = 0.5 end -- increase fungus spawn rate 
+        if MT.DF.partFaultProbability(parts.airFilter, MT.Config.FuelPumpSLD, engineReliability, extraModifier) then -- piggy backing on fuelPump servicelife for the moment            
+            Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab("spore_fungus"), parts.airFilter.OwnInventory, nil, nil, function(item) end) -- daww, its back!
+        end
+    end
+    -- overheating fault events
+    if parts.engine then
+    -- 
+    end
+
+end
+-- calculate the probability of a part fault event
+-- this calculation makes the assumption, that, under perfect conditions, the part will experience one fault (on average) once during its serviceLife.
+-- this isn't the case as engine reliability and part deterioration increase the probability by decreasing the max probability range
+-- extraModifier: this allows for increasing or decreasing the probability at the time of the function call.
+function MT.DF.partFaultProbability(part, serviceLife, reliability, extraModifier)
+    if extraModifier == nil then extraModifier = 1.0 end
+    return MT.HF.Probability(1, MT.HF.Round( serviceLife * reliability * (part.ConditionPercentage / 100) * MT.Config.PartFaultRangeModifier * extraModifier, 0))
+end
 
 function MT.DF.getParts(item, dieselSeries)
     local index = 0
     local parts = {oilFilterItems = {}, oilFilterCount = 0, oilFilterVol = 0}
     parts.oilFiltrationSlots = dieselSeries.oilFilterSlots
     parts.oilFiltrationVol = 0
+    parts.frictionParts = {}
+    parts.thermalParts = {}
 
     -- STATIC INVENTORY PARTS: add any staticly located items to the parts inventory
 
@@ -220,12 +323,19 @@ function MT.DF.getParts(item, dieselSeries)
     -- engineBlock (if any)
     if dieselSeries.engineBlockLocation and item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation) ~= nil then
         parts.engineBlock = item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation)
+        table.insert(parts.frictionParts, parts.engineBlock) -- add this to the parts list for friction damage
+        table.insert(parts.thermalParts, parts.engineBlock)
         if dieselSeries.cylinderHeadLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation) then
             parts.cylinderHead = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation)
+            table.insert(parts.frictionParts, parts.cylinderHead) -- add this to the parts list for friction damage
+            table.insert(parts.thermalParts, parts.cylinderHead)
         end
         if dieselSeries.crankAssemblyLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation) then
             parts.crankAssembly = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation)
+            table.insert(parts.frictionParts, parts.crankAssembly) -- add this to the parts list for friction damage
+            table.insert(parts.thermalParts, parts.crankAssembly)
         end
+
     end
 
     -- DYNAMIC INVENTORY: loop through the inventory and see what we have    

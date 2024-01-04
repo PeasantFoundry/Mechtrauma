@@ -12,17 +12,21 @@ using System.Xml;
 
 namespace Mechtrauma
 {
-    public class DataBox : ItemComponent
+    public partial class DataBox : ItemComponent
     {
         public DataBox(Item item, ContentXElement element) : base(item, element)
         {
   
         }
+        // standard fields
+        public float TemperatureF = 200.0f; // 60 is default temperature 
 
+        // customizable fields (hopefully)
         public float DB1 = 100.0f;
         public float DB2 = 200.0f;
         public float DB3 = 300.0f;
 
+        // JSON test. the idea is to convert lua tables to JSON and store them in component strings for persisting lua data between rounds. (harddrives items with diagnostic data, ships logs, etc)
         public string jsonTest;
 
         /*** diagnosticMode for the generator

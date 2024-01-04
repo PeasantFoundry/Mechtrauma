@@ -318,7 +318,7 @@ function MT.F.reductionGear(item)
         end
 
         -- deteriorate oil        
-        MT.HF.subFromListEqu(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
+        MT.HF.subFromListDis(oilDeterioration, oilItems) -- total oilDeterioration is spread across all oilItems. (being low on oil will make the remaining oil deteriorate faster)
         -- deteriorate filter(s)
         MT.HF.subFromListAll(MT.Config.OilFilterDPS * MT.Deltatime, oilFiltrationItems) -- apply deterioration to each filters independently, they have already reduced oil deteriorate
         -- grind the gears - but only while we're moving
@@ -400,13 +400,13 @@ end
 function MT.F.airFilter(item)
     -- did I get wet?
     if item.InWater then
-        item.AddTag("wet")
-        MT.itemCache[item].counter = 15
+        item.AddTag("water")
+        MT.itemCache[item].counter = 30
     end
 
-    if item.HasTag("wet") and MT.itemCache[item].counter < 1 then
+    if item.HasTag("water") and MT.itemCache[item].counter < 1 then
         print("removed wet tag!")
-        item.ReplaceTag("wet","")
+        item.ReplaceTag("water","mold")
         
     elseif MT.itemCache[item].counter > 0 then
         print(MT.itemCache[item].counter)
@@ -415,43 +415,53 @@ function MT.F.airFilter(item)
     -- if there is something inside the filter, plug it.
     if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
 end
+
+function MT.F.engineBlock()
+    
+end
 -- -------------------------------------------------------------------------- --
 --                                   ACTIONS                                  --
 -- -------------------------------------------------------------------------- --
 
 function MT.F.attemptRepair (item, targetItem)
-    if targetItem ~= nil and item.ParentInventory.Owner ~= nil then
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    if targetItem == nil then
+        terminal.SendMessage("*!CANNOT REPAIR!*")
+        terminal.SendMessage("- nothing to repair")
+    elseif targetItem ~= nil and item.ParentInventory.Owner ~= nil then
         local character = item.ParentInventory.Owner
         local mechanicalSkill = MT.HF.Round(character.GetSkillLevel("mechanical"), 0)
         local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")
-        local diagnosticTags = false
-        local problems = {}
-        local totalT = 0
-        local totalF = 0
+        local repairsNeeded = false
+        local originalCondition = targetItem.ConditionPercentage -- yeah yeah
 
+        -- get the tags
         for k, tag in pairs(tagTable) do
             -- can any of these tags be fixed?
             if MT.C.diagnosticTags[tag] and MT.C.diagnosticTags[tag].fixable == true and targetItem.Condition > 0 then
+                repairsNeeded = true
                 -- attemptRepair - mechanical
                 if MT.C.diagnosticTags[tag].fixSkill == "mechanical" then
-                    print("REPAIR CHANCE: ", mechanicalSkill / 100)
-                    for i = 1, 100 do
-                        if MT.HF.Chance(mechanicalSkill / 100) then print("TRUE!") totalT = totalT + 1 else print("FALSE!") totalF = totalF + 1 end
-                      end
-                      
-                      print("Total PASS: ", totalT)
-                      print("Total FAIL: ", totalF) 
                     if MT.HF.Chance(mechanicalSkill / 100) then
+                        terminal.SendMessage("Attempt to repair the " .. MT.C.diagnosticTags[tag].tag .. " " .. targetItem.Name .. "  was successful.")
                         targetItem.ReplaceTag(MT.C.diagnosticTags[tag].tag, "")
-                        print("FIXED THE PROBLEM!")
-                        targetItem.Condition = targetItem.Condition - 25
+                        targetItem.Condition = targetItem.Condition - MT.HF.Clamp(math.random(1,50) - mechanicalSkill, 1,50)
                     else
-                        print("FAILED TO FIX THE PROBLEM!")
+                        terminal.SendMessage("Attempt to repair the " .. MT.C.diagnosticTags[tag].tag .. " " .. targetItem.Name .. "  has failed and the item has been scrapped.")
                         targetItem.Condition = 0
                     end
                 end
             end
         end
+        if repairsNeeded == false and targetItem.Condition > 0 then
+            terminal.SendMessage("*!CANNOT REPAIR!*")
+            terminal.SendMessage("- part is not broken")
+        end
+        if originalCondition < 1 then
+            terminal.SendMessage("*!CANNOT REPAIR!*")
+            terminal.SendMessage("- service life expired")
+        end
+        
     end
 end
 
