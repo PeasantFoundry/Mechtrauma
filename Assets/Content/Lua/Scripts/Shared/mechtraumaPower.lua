@@ -57,6 +57,7 @@ MT.DE = {
         name="s3000Da",
         maxReliability = 90,
         maxEfficiency = 1.0,
+        
         ignitionType=MT.F.sGeneratorIgnition
     },
     sC2500Da={
@@ -252,7 +253,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     -- CHECK: FUELS
     dieselEngine.oxygenCheck = MT.DF.oxygenCheck(item, hullOxygenPercentage, fuels.auxOxygenVol, oxygenNeeded)
     dieselEngine.dieselCheck = MT.DF.dieselCheck(item, fuels.dieselVol, dieselFuelNeededCL)
-    
+
     -- CHECK: FLUIDS
         -- Oil
         -- Coolant
@@ -320,6 +321,8 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         -- > 260 - 300 | critical temperatue    | risk engine failure  
         -- = 300       | critical failure       | engine destroyed 
 
+        -- iron block, diesel fuel,
+
         -- -------------------------------------------------------------------------- --
         --                           !CHECK COOLING SYSTEMS!                          --
         -- -------------------------------------------------------------------------- --
@@ -328,7 +331,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
 
 
         -- store current temperature in the item cache so it persists between cycles
-        if not dataBox.TemperatureF then dataBox.TemperatureF = 200 end -- default temp
+        if dataBox.TemperatureF == nil then dataBox.TemperatureF = 200 end -- default temp
         for _, part in pairs(parts.thermalParts) do
             local partDataBox = MTUtils.GetComponentByName(part, "Mechtrauma.DataBox")
             partDataBox.TemperatureF = MT.HF.Round(dataBox.TemperatureF, 0)
@@ -409,7 +412,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     -- -------------------------------------------------------------------------- --
     --                        ***** COMBUSTION FAILED *****                       --
     -- -------------------------------------------------------------------------- --
-        
+
         -- shutdown procedure
         dieselEngine.combustion = false
         MT.itemCache[item].isRunning = false -- shut it down

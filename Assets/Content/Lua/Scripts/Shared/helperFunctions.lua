@@ -48,6 +48,13 @@ function MT.HF.string:split( inSplitPattern, outResults )
   --Single ReadRangedSingle(Single min, Single max, int bitCount);
   --byte[] ReadBytes(int numberOfBytes);
 
+function MT.Net.SendEvent(item)
+  local LuaDispatcher = MTUtils.GetComponentByName(item, "Mechtrauma.LuaNetEventDispatcher")
+  if LuaDispatcher ~= nil then
+    LuaDispatcher.SendEvent()
+  end
+end
+
 function MT.Net.ServerEventRead(component, message, client)
     if component.Name == "DieselGenerator" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")        
@@ -58,9 +65,9 @@ function MT.Net.ServerEventRead(component, message, client)
     end
 end
 
-function MT.Net.ServerEventWrite(component, messsage, client)
-    if component.Name == "DieselGenerator" then
-        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")        
+function MT.Net.ServerEventWrite(component, message, client)
+    if component.Name == "DieselGenerator" then        
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         message.WriteBoolean(generator.DiagnosticMode)
         message.WriteBoolean(generator.IsOn)
         message.WriteSingle(generator.PowerToGenerate)
@@ -68,7 +75,7 @@ function MT.Net.ServerEventWrite(component, messsage, client)
     end
 end
 
-function MT.Net.ClientEventRead(component, messsage, sendingTime)
+function MT.Net.ClientEventRead(component, message, sendingTime)
     if component.Name == "DieselGenerator" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         generator.DiagnosticMode = message.ReadBoolean()
@@ -77,14 +84,12 @@ function MT.Net.ClientEventRead(component, messsage, sendingTime)
     end
 end
 
-function MT.Net.ClientEventWrite(component, messsage, extradata)
+function MT.Net.ClientEventWrite(component, message, extradata)
     if component.Name == "DieselGenerator" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         message.WriteBoolean(generator.DiagnosticMode)
         message.WriteBoolean(generator.IsOn)
         message.WriteSingle(generator.PowerToGenerate)
-
-
     end
 end
 
@@ -92,8 +97,9 @@ end
 --                        this is going to get so full                        --
 -- -------------------------------------------------------------------------- --
 
-  
-
+-- -------------------------------------------------------------------------- --
+--                                QOL shortcuts                               --
+-- -------------------------------------------------------------------------- --
 
 
 -- -------------------------------------------------------------------------- --
@@ -104,6 +110,11 @@ function MT.HF.formatNumber(n)
     return tostring(math.floor(n)):reverse():gsub("(%d%d%d)","%1,")
                                   :gsub(",(%-?)$","%1"):reverse()
   end
+
+function MT.HF.setLength(inputString, length)
+    local formattedString = string.format("%-" .. length .. "s", inputString)
+    return formattedString:gsub(" ", ".")
+end
 
 
 -- -------------------------------------------------------------------------- --

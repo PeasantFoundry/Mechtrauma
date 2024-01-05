@@ -74,6 +74,23 @@ MT.tagfunctions = {
     }
 }
 
+-- run once per MT.PriorityDeltatime (.25 seconds) by updateCounter.lua
+function MT.updatePriorityItems()
+    local updateItemsCounter = 0
+   -- we spread the item updates out over the duration of an update so that the load isnt done all at once
+    for key, value in pairs(MT.PriorityItemCache) do
+        -- make sure the items still exists 
+        if (key ~= nil and not key.Removed) then
+            Timer.Wait(function ()
+                if (key ~= nil and not key.Removed) then
+                    MT.UpdateItem(key)
+                    updateItemsCounter = updateItemsCounter + 1
+                end
+            end, ((updateItemsCounter + 1) / MT.itemCacheCount) * MT.Deltatime * 1000)
+        end
+    end
+end
+
 -- run once per MT.Deltatime (2 seconds) by updateCounter.lua
 function MT.updateItems()
     local updateItemsCounter = 0
@@ -121,6 +138,7 @@ function MT.CacheItem(item)
             MT.itemCache[item] = {}
             MT.itemCache[item].counter = 0
             if item.HasTag("diagnostics") then MT.itemCache[item].diagnosticData ={errorCodes={},warningCodes={},statusCodes={}} end
+            if item.HasTag("mtc") then MT.itemCache[item].MTC = MT.C.buildMTC(item) end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
             -- this is here so that we don't double up execute on initialization and item creation
@@ -131,7 +149,7 @@ function MT.CacheItem(item)
 
         elseif item.HasTag("diving") and item.HasTag("deepdiving") then -- I don't like this but it's for compatability
                 MT.itemCache[item] = {}
-                MT.itemCache[item].counter = 0                
+                MT.itemCache[item].counter = 0
                 MT.itemCacheCount = MT.itemCacheCount + 1
         end
         

@@ -7,6 +7,7 @@ MT.itemCache = {}
 MT.itemCacheCount = 0
 MT.inventoryCache = {parts={}}
 MT.inventoryCacheCount = 0
+MT.PriorityItemCache = {}
 
 
 
@@ -167,8 +168,8 @@ function MT.F.steamBoiler(item)
             if item.OwnInventory.GetItemAt(index) ~= nil then                
                 local containedItem = item.OwnInventory.GetItemAt(index)               
                 if containedItem.HasTag("circulatorPump") and containedItem.Condition > 0 then
-                    table.insert(curculatorItems, containedItem)         
-                    circulatorCount = circulatorCount + 1                    
+                    table.insert(curculatorItems, containedItem)
+                    circulatorCount = circulatorCount + 1
                 end
             end
             index = index + 1
@@ -416,8 +417,22 @@ function MT.F.airFilter(item)
     if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
 end
 
-function MT.F.engineBlock()
-    
+function MT.F.engineBlock(item)
+    local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
+
+    if dataBox.TemperatureF > 220 then
+        print(item.name .. " temperature is " .. dataBox.TemperatureF)
+        -- IS HOT
+        for k, item in pairs(item.Components) do
+            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
+        end
+    else
+        -- IS NOT
+        for k, item in pairs(item.Components) do
+            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
+        end
+    end
+
 end
 -- -------------------------------------------------------------------------- --
 --                                   ACTIONS                                  --

@@ -590,6 +590,37 @@
     </Quality>
   </Item>
 
+  <!-- DIESEL FUEL BARREL: 200l -->
+  <Item name="Suspect Diesel Fuel Barrel" identifier="diesel_fuel_barrel_suspect" Category="Fuel" Tags="largeitem,handtruck,diesel_fuel,centiliter" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.52">
+    <PreferredContainer primary="wreckstoragecab"/>    
+    <Price baseprice="62.5" displaynonempty="true" minavailable="8">
+      <Price storeidentifier="merchantoutpost" multiplier="1.1" />
+      <Price storeidentifier="merchantcity" multiplier="2" minavailable="10" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" multiplier="2" minavailable="10"/>
+      <Price storeidentifier="merchantengineering" multiplier="1.5" minavailable="5" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="scrap_steel" />
+      <Item identifier="scrap_steel" />
+      <Item identifier="scrap_steel" />
+      <Item identifier="scrap_steel" />
+    </Deconstruct>
+ 
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,1088,128,192" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,1088,128,192" depth="0.55" canflipx="true" />
+    <!-- <Sprite texture="%ModDir%/Images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" depth="0.55" />-->
+    <Body width="128" height="192" density="20" />
+   <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect">
+    <StatusEffect type="Always" target="Character" SpeedMultiplier="0.1" setvalue="true" />
+   </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
+
   <!-- OIL BARREL: 200l -->
   <Item name="Oil Barrel" identifier="oil_barrel" Category="Fuel" Tags="largeitem,handtruck,oil,deciliter" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.4">
     <PreferredContainer primary="wreckstoragecab"/>    
@@ -1278,7 +1309,7 @@
     <!-- BLOCK IS HOT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="358,334,154,160" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <IsActive targetitemcomponent="DataBox" TemperatureF="gt 210.0" />
+      <!-- <IsActive targetitemcomponent="DataBox" TemperatureF="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
         <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" angle="270" distance="30" />
       </StatusEffect>
@@ -1328,7 +1359,7 @@
     <!-- REPAIR: no repair, cannot be salvaged. -->
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
-    <DataBox/>
+    <DataBox TemperatureF="65"/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -2834,7 +2865,7 @@
   </Item>
 
   <!-- MAINTENANCE TABLET:-->
-  <Item name="Maintenance Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+  <Item name="Maintenance Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="mtu,mtc,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -2855,7 +2886,7 @@
     </Holdable>
         
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
                       ReadOnly="false">
        <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255" 
@@ -2927,8 +2958,35 @@
       </MiniMap>
   </Item>
 
+  <!-- USED MAINTENANCE TABLET:-->
+  <Item name="Maintenance Tablet Used" identifier="mt_maintenance_tablet_used" category="Electrical" Tags="mtu,mtc,smallitem,logic" variantof="mt_maintenance_tablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" />
+    </Price>
+    <PreferredContainer primary="engineering_console" secondary="engcab" />
+    <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
+    <Sprite texture="%ModDir%/Images/Items/mt_computers.png" sourcerect="384,0,160,128" depth="0.6" origin="0.5,0.5" />
+        <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
+                      ReadOnly="false">
+       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="170,255,5,255" 
+                      MessageFont="UseMonospaceFont = true"/>
+      <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,640,384,308" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+
+  </Item>
+
   <!-- DIAGNOSTIC TABLET:-->
-  <Item name="Diagnostic Tablet" identifier="mt_diagnostic_tablet" category="Electrical" Tags="smallitem,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+  <Item name="Diagnostic Tablet" identifier="mt_diagnostic_tablet" category="Electrical" Tags="mtu,mtc,smallitem,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -2939,7 +2997,7 @@
     </Price>
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
-    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.6" origin="0.5,0.5" />    
     <Body width="128" height="128" density="8" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
     

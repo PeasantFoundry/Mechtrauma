@@ -217,7 +217,8 @@ public sealed class Configuration
         {
            
         }
-    }
+    }   
+
 
     public sealed class Settings_Advanced
     {
