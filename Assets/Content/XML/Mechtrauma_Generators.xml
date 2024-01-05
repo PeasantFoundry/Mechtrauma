@@ -71,7 +71,7 @@
         <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
       </Button>      
     </CustomInterface>
-
+    <Databox/>
     <SimpleGenerator MaxPowerOut="5000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Left" style="ItemUI" />
     </SimpleGenerator>
@@ -420,6 +420,7 @@
     </LightComponent>
     
     <!-- Diesel Generator -->
+    <Databox/>
     <SimpleGenerator MaxPowerOut="2500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>   
@@ -543,7 +544,7 @@
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
       </StatusEffect> 
     </LightComponent>
-    
+    <Databox/>
     <SimpleGenerator MaxPowerOut="1500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>
@@ -652,7 +653,7 @@
           
       </StatusEffect> 
     </LightComponent>
-
+    <Databox/>
     <!-- Generator -->
     <SimpleGenerator MaxPowerOut="500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->
@@ -760,7 +761,7 @@
         <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />    
       </StatusEffect> 
     </LightComponent>
-
+    <Databox/>
     <!-- Generator -->
     <SimpleGenerator MaxPowerOut="250" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->
