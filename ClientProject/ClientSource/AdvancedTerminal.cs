@@ -389,6 +389,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         if (MessageHistoryBox is null)
             return;
         
+        // clear everything but the filler block
         ImmutableList<GUIComponent> messages = MessageHistoryBox.Content.Children
             .Where(c => c != FillerBlock).ToImmutableList();
 
@@ -399,6 +400,12 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         {
             MessageHistoryBox.RemoveChild(msg);
         }
+        
+        //reset filler block height
+        if (FillerBlock is null)
+            return;
+
+        FillerBlock.RectTransform.RelativeSize = new Vector2(1f, 1f);
     }
 
     public override partial void OnItemLoaded()
