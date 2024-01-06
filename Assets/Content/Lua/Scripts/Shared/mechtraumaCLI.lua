@@ -281,18 +281,25 @@ function MT.CLI.textcolor(item, terminal, response) -- all argument portions of 
             elseif response == "green" then 
                 terminal.TextColor = Color.Lime
                 terminal.SendMessage("Success! exiting program.")
-                MT.itemCache[item].MTC.isWaiting = true
+                MT.itemCache[item].MTC.isWaiting = false
                 return
 
                 elseif response == "exit" then 
                     MT.itemCache[item].MTC.isWaiting = false
                     terminal.SendMessage("-Terminating Program-")
                     return
-            else
-                terminal.SendMessage("Invalid Color: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
-            end
+        else
+            terminal.SendMessage("Invalid Color: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
         end
     end
+end
+
+function MT.CLI.lockScreen(item, terminal, response) 
+    if response == nil then
+        
+        terminal.SendMessage("*****PRESS ANY KEY*****")
+    end
+end
 
   
   function MT.CLI.setPower(item, terminal, message, command, argument)

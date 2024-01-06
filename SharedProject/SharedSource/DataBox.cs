@@ -19,7 +19,7 @@ namespace Mechtrauma
   
         }
         // standard fields
-        public float TemperatureF = 60.0f; // 60 is default temperature 
+        public float Temperature = 60.0f; // 60 is default temperature 
 
         // customizable fields (hopefully)
         public float DB1 = 100.0f;

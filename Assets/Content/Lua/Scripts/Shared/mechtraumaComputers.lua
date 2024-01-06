@@ -1,13 +1,27 @@
 MT.C = {}
 
-
 -- table of item tags that will be discovered by item diagnosticTags
-MT.C.diagnosticTags = {
+MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or have both? jesus
   blocked = {
     tag = "blocked",
     description = " appears to be blocked.",
     fixable = true,
-    fixSkill = "mechanical"
+    fixSkill = "mechanical",
+    requiredSkill = 30
+  },
+  water = {
+    tag = "water",
+    description = " appears to have water in it.",
+    fixable = true,
+    fixSkill = "mechanical",
+    requiredSkill = 30
+  },
+  contaminated = {
+    tag = "contaminants",
+    description = " appears to be contaminated.",
+    fixable = true,
+    fixSkill = "mechanical",
+    requiredSkill = 30
   }
 
 }

@@ -420,8 +420,8 @@ end
 function MT.F.engineBlock(item)
     local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
 
-    if dataBox.TemperatureF > 220 then
-        print(item.name .. " temperature is " .. dataBox.TemperatureF)
+    if dataBox.temperature > 220 then
+        print(item.name .. " temperature is " .. dataBox.temperature)
         -- IS HOT
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
@@ -457,6 +457,8 @@ function MT.F.attemptRepair (item, targetItem)
                 repairsNeeded = true
                 -- attemptRepair - mechanical
                 if MT.C.diagnosticTags[tag].fixSkill == "mechanical" then
+                    -- need to make this calculation account for the required skill and possibly item type 
+                    -- (IE, it's easier to remove a blockage from a rubberhose than a fuelfilter or pump).
                     if MT.HF.Chance(mechanicalSkill / 100) then
                         terminal.SendMessage("Attempt to repair the " .. MT.C.diagnosticTags[tag].tag .. " " .. targetItem.Name .. "  was successful.")
                         targetItem.ReplaceTag(MT.C.diagnosticTags[tag].tag, "")
@@ -890,4 +892,43 @@ function MT.F.reportTypes.c02(item, terminal, message, command, argument)
   else
     terminal.ShowMessage = "**************NO CONNECTION**************"
   end
+end
+
+
+function MT.F.purchasedItemFaults(item)
+    print("WE MADE IT HERE!")
+    if item.HasTag("cheapdieselfuel") then
+        local weights={100,100,100,250}
+        local result = MT.HF.weightedRandom(weights)
+
+        if result == 1 then
+            print("HERE COMES A PRISONER!")
+            item.ReplaceTag("spawnevent", "")
+         
+            -- and spawn an escaped prisoner
+            local info = CharacterInfo("human", "Preston")
+            info.Job = Job(JobPrefab.Get("prisoner"))
+        
+            local submarine = Submarine.MainSub
+            local spawnPoint = item.WorldPosition
+        
+            if spawnPoint == nil then
+                -- we should probably do something if it isn't able to find a spawn point
+            end
+        
+            local character = Character.Create(info, spawnPoint, info.Name, 0, true, false)
+            character.TeamID = CharacterTeamType.Team2
+            character.GiveJobItems()
+
+
+        elseif result ==2 then
+            item.ReplaceTag("spawnevent", "water")
+        elseif result == 3 then
+            item.ReplaceTag("spawnevent", "contaminated")
+        elseif result == 4 then
+            item.ReplaceTag("spawnevent", "")
+            -- do nothing, good buy!
+        end
+        -- was working here
+    end
 end

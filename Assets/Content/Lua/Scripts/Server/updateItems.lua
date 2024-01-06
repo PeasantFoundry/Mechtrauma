@@ -74,6 +74,12 @@ MT.tagfunctions = {
     }
 }
 
+MT.itemSpawnEvents = {
+    cheapDieselFuel={
+        tags={"cheapdieselfuel"},
+        update=MT.F.purchasedItemFaults
+    }
+}
 -- run once per MT.PriorityDeltatime (.25 seconds) by updateCounter.lua
 function MT.updatePriorityItems()
     local updateItemsCounter = 0
@@ -141,7 +147,7 @@ function MT.CacheItem(item)
             if item.HasTag("mtc") then MT.itemCache[item].MTC = MT.C.buildMTC(item) end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
-            -- this is here so that we don't double up execute on initialization and item creation
+            -- this is here so that we don't double up execute on initialization and item creation -- I don't remember why this is a thing 1/5/2024
             if item.Prefab.Identifier.Value == "oxygen_vent" then 
                 -- count the oxygen vents when you populate the cache               
                 MT.oxygenVentCount = MT.oxygenVentCount + 1
@@ -163,18 +169,39 @@ function MT.CacheItem(item)
             --print("added ", item.Prefab.Identifier.Value, " to the parts inventory.")
         end
     end
-
 end
 -- remove items from the inventoryCache when they are deleted
 function MT.RemoveCacheItem(item)
     if MT.inventoryCache[item] then table.remove(MT.inventoryCache,item) end
 end
 
-
-    -- INITIALIZATION: loop through the item list and and cache eligible items
-    for k, item in pairs(Item.ItemList) do
-        MT.CacheItem(item)
+function MT.itemSpawnEvent(item)
+    if item.HasTag("spawnevent") then
+        print("SPAWN EVENT DETECTED!")
+        for itemSpawnEvent in MT.itemSpawnEvents do
+            -- see if all required tags are present on the item
+            local hasalltags = true
+            for tag in itemSpawnEvent.tags do
+                if not item.HasTag(tag) then
+                    hasalltags = false
+                    break
+                end
+            end
+            -- call the function if all required tags are present
+            if hasalltags then
+                itemSpawnEvent.update(item)
+            end
+        end
     end
+end
+
+-- -------------------------------------------------------------------------- --
+--                               INITIALIZATION                               --
+-- -------------------------------------------------------------------------- --
+-- INITIALIZATION: loop through the item list and and cache eligible items
+for k, item in pairs(Item.ItemList) do
+    MT.CacheItem(item)
+end
  
     --[[ INITIALIZATION: loop through the item list and count the oxygen vents
     for k, item in pairs(Item.ItemList) do
@@ -197,6 +224,7 @@ Hook.Add("roundStart", "MT.roundStart2", function()
 Hook.add("item.created", "MT.newItem", function(item)
     -- maintain the item cache 
     MT.CacheItem(item)
+    if item.HasTag("spawnevent") then MT.itemSpawnEvent(item) end
  end)
 -- item removed 
 Hook.add("item.removed", "MT.removeItem", function(item)

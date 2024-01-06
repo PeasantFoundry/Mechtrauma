@@ -591,7 +591,7 @@
   </Item>
 
   <!-- DIESEL FUEL BARREL: 200l -->
-  <Item name="Suspect Diesel Fuel Barrel" identifier="diesel_fuel_barrel_suspect" Category="Fuel" Tags="largeitem,handtruck,diesel_fuel,centiliter" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.52">
+  <Item name="Suspect Diesel Fuel Barrel" identifier="diesel_fuel_barrel_suspect" Category="Fuel" Tags="smallitem,handtruck,diesel_fuel,centiliter,spawnevent,cheapdieselfuel" maxstacksize="1" cargocontaineridentifier="handtruck" health="20000" scale="0.52">
     <PreferredContainer primary="wreckstoragecab"/>    
     <Price baseprice="62.5" displaynonempty="true" minavailable="8">
       <Price storeidentifier="merchantoutpost" multiplier="1.1" />
@@ -612,7 +612,7 @@
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,1088,128,192" depth="0.55" canflipx="true" />
     <!-- <Sprite texture="%ModDir%/Images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" depth="0.55" />-->
     <Body width="128" height="192" density="20" />
-   <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect">
+   <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect">
     <StatusEffect type="Always" target="Character" SpeedMultiplier="0.1" setvalue="true" />
    </Holdable>
     <Quality>
@@ -996,6 +996,39 @@
     </Quality>
   </Item>
    
+  <!-- COOLANT CAN: 4l -->
+  <Item name="Coolant" identifier="coolant_can" Category="Fuel" Tags="smallitem,coolant,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="400" scale="0.25">
+      <PreferredContainer primary="reactorcab"/>    
+      <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
+		  <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
+		  <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="2" spawnprobability="0.5"/>
+      <Price baseprice="50" displaynonempty="true" minavailable="2">
+        <Price storeidentifier="merchantoutpost" />
+        <Price storeidentifier="merchantcity" minavailable="3" />
+        <Price storeidentifier="merchantresearch" />
+        <Price storeidentifier="merchantmilitary" />
+        <Price storeidentifier="merchantmine" />
+        <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+      </Price>
+      <Deconstruct time="10">
+        <Item identifier="plastic" amount="0.1" /> 
+      </Deconstruct> 
+      <!-- Fabricate -->
+      <Fabricate suitablefabricators="fabricator" amount="1" requiredtime="5" outcondition="0">
+        <RequiredSkill identifier="mechanical" level="20" />
+        <RequiredItem identifier="plastic" amount="1" />
+      </Fabricate>  
+      <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,480,96,128" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,480,96,128" depth="0.55" />
+      <Body radius="10" height="55" density="20" />
+      <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+      </Holdable>  
+      <Quality>
+        <QualityStat stattype="Condition" value="0.1"/>
+      </Quality>
+  </Item>
+
+
   <!-- OIL CAN: 4l -->
   <Item name="Oil Can" identifier="oil_can" Category="Fuel" Tags="smallitem,oil,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="400" scale="0.25">
       <PreferredContainer primary="reactorcab"/>    
@@ -1101,6 +1134,27 @@
         <Containable items="smallitem" excludebroken="false" excludefullcondition="false" />
     </ItemContainer>
   </Item>
+
+  <!-- RUBBER HOSE: -->
+  <Item name="Rubber Hose" identifier="mt_rubber_hose" Category="Fuel" Tags="smallitem,fuelFilter,rubberhose,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+    <Deconstruct time="10">    
+    </Deconstruct>
+    <!-- FUEL FILTER: Make a new filter.  -->
+    <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="rubber" />      
+    </Fabricate>    
+    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,480,160,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,480,160,64" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,544,160,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Body width="160" height="64" density="5" />
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
+    </Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+
   
   <!-- FUEL FILTER: -->
   <Item name="Fuel Filter" identifier="mt_fuel_filter" Category="Fuel" Tags="smallitem,fuelFilter,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
@@ -1309,12 +1363,12 @@
     <!-- BLOCK IS HOT -->
     <LightComponent range="10.0" lightcolor="255,255,255,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
       <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="358,334,154,160" depth="0.1" origin="0.5,0.5" alpha="1.0" />
-      <!-- <IsActive targetitemcomponent="DataBox" TemperatureF="gt 210.0" /> -->
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
         <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" angle="270" distance="30" />
       </StatusEffect>
     </LightComponent>
-    <DataBox TemperatureF="200"/>
+    <DataBox temperature="200"/>
     <Body width="128" height="120" density="100" />
     <Holdable handle1="0,0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.0" setvalue="true" />
@@ -1359,7 +1413,7 @@
     <!-- REPAIR: no repair, cannot be salvaged. -->
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
-    <DataBox TemperatureF="65"/>
+    <DataBox temperature="65"/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1465,8 +1519,57 @@
     </ItemContainer>
   </Item>
 
+  
+  <!-- HEAT EXCHANGER: For use in machines such as a diesel engine -->
+  <Item name="Heat Exchanger" identifier="mt_heat_exchanger" Category="Fuel" Tags="mediumitem,heatexchanger,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="100" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">      
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <!-- RECYCLE: Rebuild the Heat Exchanger. -->
+    <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="30"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="4" />
+    </Fabricate>
+     <!-- REPAIR: Repair the Heat Exchanger. -->
+    <Fabricate suitablefabricators="repairtable" displayname="repairitem" requiredtime="15" outcondition="50"> 
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
+      <RequiredItem identifier="steel" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,608,128,64" depth="0.55"/>
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,672,128,64" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <DataBox/>
+    <Body width="128" height="100" density="80" />
+    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- coolant -->
+      <Containable items="coolant" excludebroken="false" excludefullcondition="false" />
+    </ItemContainer>
+  </Item>
+
    <!-- GASKET: generic -->
-  <Item name="Gasket" identifier="mt_gasket" Category="Fuel" Tags="mtu,smallitem,gasket,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
+  <Item name="Gasket" identifier="mt_GUIasket" Category="Fuel" Tags="mtu,smallitem,gasket,part" maxstacksize="4" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
     <PreferredContainer primary="reactorcab"/>    
     <Price baseprice="50" displaynonempty="true" minavailable="5">
       <Price storeidentifier="merchantoutpost"  />
@@ -2768,7 +2871,7 @@
                     MessageFont="MonospacedFont"/>
     <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.1" pivot="Left" anchor="Left" style="ItemUI" Color="20,20,20,200"/>
     <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5" >
-      <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="1152,320,384,384" origin="0.5,0.5"/>
+      <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1152,320,384,384" origin="0.5,0.5"/>
     </OuterSprite>
     </AdvancedTerminal>
 
@@ -2812,7 +2915,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2893,7 +2996,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2979,7 +3082,7 @@
                       MessageFont="UseMonospaceFont = true"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,640,384,308" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,640,384,308" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -3014,7 +3117,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="384,320,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,320,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -3100,7 +3203,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,-0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_gui.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 

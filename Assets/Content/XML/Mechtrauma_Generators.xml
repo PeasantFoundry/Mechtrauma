@@ -56,7 +56,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -283,7 +283,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -322,21 +322,21 @@
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
       </SubContainer>      
-      <!-- SLOT 3 Diesel Fuel -->  
+      <!-- SLOT 3 Cooling System -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="heat_exchanger,heatexchanger" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>      
       <!-- SLOT 4 Fuel Filter -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_fuel_filter" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_fuel_filter,fuelfilter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 5 Fuel Pump -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_fuel_pump" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_fuel_pump,fuelpump" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>      
       <!-- SLOT 6 Battery -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_battery_lead_acid" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_battery_lead_acid,labatter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 7 Starter Motor -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
@@ -356,7 +356,7 @@
       </SubContainer>      
       <!-- SLOT 11 Air Filter -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_air_filter" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_air_filter,airfilter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>    
                
     </ItemContainer>
@@ -402,8 +402,8 @@
 
  <!-- DIESEL GENERATOR S2500Da: Yellow Cabinet. -->
  <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" /> 
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" /> 
     <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
 
     <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
@@ -433,7 +433,7 @@
                       MessageFont="MonospacedFont"/>
       <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
    
@@ -516,14 +516,14 @@
 
   <!-- DIESEL GENERATOR S2500Db: Blue Cabinet. -->
   <Item name="Series C-2500Db Diesel Generator" identifier="sC2500Db" variantof="sC2500Da" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
   </Item>
 
   <!-- DIESEL GENERATOR S2500Dc: Red Cabinet. -->
   <Item name="Series C-2500Dc Diesel Generator" identifier="sC2500Dc" variantof="sC2500Da" scale="0.5">
-    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/seriesC.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
   </Item>
 
 

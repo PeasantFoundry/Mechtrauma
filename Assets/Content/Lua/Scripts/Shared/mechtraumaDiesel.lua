@@ -1,5 +1,9 @@
 MT.DF = {}
 
+-- -------------------------------------------------------------------------- --
+--                            DIESEL SYSTEMS CHECKS                           --
+-- -------------------------------------------------------------------------- --
+
 function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
     local airFilterCheck = true -- defaults to true for dieselSeries with no airFilter
 
@@ -24,6 +28,17 @@ function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
         end
     end
     return airFilterCheck
+end
+
+-- cooling system check
+function MT.DF.coolingCheck(item, dieselSeries, coolingItems, coolantVol, heatExchanger)
+    local coolingCheck = true
+    if dieselSeries.heatExchangerLocation then
+        if heatExchanger == nil or heatExchanger.Condition < 1 or coolantVol < 1 then
+            coolingCheck = false -- need to calculate cooling capacity based on volume/quality 
+        end
+    end
+    return coolingCheck
 end
 
 function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, crankAssembly)
@@ -88,19 +103,34 @@ function MT.DF.dieselCheck(item, dieselVol, dieselFuelNeededCL)
     else
         table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1060: INSUFFICIENT FUEL*")
     end
+    
+    -- clear the results from the previous cycle
+    MT.itemCache[item].waterInFuel = false
+    MT.itemCache[item].contaminantsInFuel = false
+    -- only check the fuel items burned in the previous cycle instead of all possible fuel
+    if MT.itemCache[item].fuelBurned then
+        for fuel in MT.itemCache[item].fuelBurned do
+            -- check the recently burned fuel items to see if there was water in them
+            if fuel.HasTag("water") then MT.itemCache[item].waterInFuel = true end
+            if fuel.HasTag("contaminants") then MT.itemCache[item].contaminantsInFuel = true end
+        end
+    end
+
     return dieselCheck
 end
 
 -- (DTC) P228C indicates “Fuel Pressure Regulator 1 Exceeded Control Limits – Pressure Too Low.”
 function MT.DF.fuelPressureCheck(item, dieselSeries, fuelFilter, fuelPump)
-    local fuelPressureCheck = true
-
+    local fuelPressureCheck = true    
     -- check fuelFilter
     if dieselSeries.fuelFilterLocation then
         if fuelFilter == nil then
             fuelPressureCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1090: LOW FUEL PRESSURE*")
-        elseif fuelFilter.ConditionPercentage < 1 or fuelFilter.HasTag("blocked") then
+        elseif MT.itemCache[item].fuelFilterBypassed == true then
+            -- fuelfilter is bypassed
+            fuelPressureCheck = true
+        elseif fuelFilter.ConditionPercentage < 1 or fuelFilter.HasTag("blocked") or fuelFilter.HasTag("water") then
             fuelPressureCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1010: LOW FUEL PRESSURE*")
         end
@@ -110,7 +140,7 @@ function MT.DF.fuelPressureCheck(item, dieselSeries, fuelFilter, fuelPump)
         if fuelPump == nil then
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1014: LOW FUEL PRESSURE*")
             fuelPressureCheck = false
-        elseif fuelPump.ConditionPercentage < 1 or fuelPump.HasTag("blocked") then
+        elseif fuelPump.ConditionPercentage < 1 or fuelPump.HasTag("blocked") or fuelPump.HasTag("water") then
             fuelPressureCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1015: LOW FUEL PRESSURE*")
         end
@@ -165,11 +195,26 @@ function MT.DF.starterCheck(item, dieselSeries,starterMotor)
     return starterCheck
 end
 
-function MT.DF.getFluids(item, dieselSeries)
+function MT.DF.getFluids(item, dieselSeries, parts)
     local index = 0
-    local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0}
+    local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0, coolantItems={}, coolantVol=0}
 
-    -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
+    -- DYNAMIC INVENTORY: COOLANT
+    if parts.heatExchanger ~= nil then
+        while(index < parts.heatExchanger.OwnInventory.Capacity) do
+            if parts.heatExchanger.OwnInventory.GetItemAt(index) ~= nil then
+                local containedItem = parts.heatExchanger.OwnInventory.GetItemAt(index)
+                if containedItem.HasTag("coolant") and containedItem.Condition > 0 then
+                    table.insert(fluids.coolantItems, containedItem)
+                    fluids.coolantVol = fluids.coolantVol + containedItem.Condition
+                end
+            end
+            index = index + 1
+        end
+        index = 0
+    end
+
+    -- DYNAMIC INVENTORY: OIL
     while(index < item.OwnInventory.Capacity) do
     if item.OwnInventory.GetItemAt(index) ~= nil then
         local containedItem = item.OwnInventory.GetItemAt(index)
@@ -229,13 +274,14 @@ function MT.DF.getTemperatureZone(temperature, desiredOutput)
     local result
     if desiredOutput == nil then desiredOutput = "temp" end
     -- temperature zone
+    -- someday dynamically calculate RBG for gradiant
     if desiredOutput == "color" then
         if temperature >= 300 then result = Color(255,0,0,255)
         elseif temperature > 260 then result = Color(200,20,10,255)
         elseif temperature > 240 then result = Color(255,80,40,255)
         elseif temperature > 220 then result = Color(255,120,40,255)
-        elseif temperature > 180 then result = Color(240,255,50,255)
-        elseif temperature > 32 then result = Color(50,255,150,255)
+        elseif temperature > 180 then result = Color(50,255,100,255)
+        elseif temperature > 32 then result = Color(50,200,255,255)
         else result = Color(50,255,150,255)
         end
         return result
@@ -252,23 +298,45 @@ function MT.DF.getTemperatureZone(temperature, desiredOutput)
     end
 end
 
+-- -------------------------------------------------------------------------- --
+--                              PART FALT EVENTS                              --
+-- -------------------------------------------------------------------------- --
+-- probably needs a refactor 
+
 function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- get or set part failures?
-    -- fuelFilter fault events 
-    if parts.fuelFilter then
+
+    -- fuelFilter fault events     
+    if parts.fuelFilter and MT.itemCache[item].fuelFilterBypassed == false then
+        
+        if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,20) then parts.fuelFilter.AddTag("water") end
+        if MT.itemCache[item].contaminantsInFuel and MT.HF.Probability(1,10) then parts.fuelFilter.AddTag("blocked") end --MT.itemCache[item].contaminantsInFuel
+        
+        --[[ legacy random blockage calc
         if MT.DF.partFaultProbability(parts.fuelFilter,MT.Config.FuelFilterSLD, engineReliability) then
             parts.fuelFilter.AddTag("blocked") -- add a blockage - in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
+        end]]
+
+    elseif parts.fuelPump then
+    -- fuelPump fault events    
+
+        if MT.itemCache[item].fuelFilterBypassed == true then
+            -- if the fuelFilter is bypassed, dramatically increase the probability of faults
+            if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,4) then parts.fuelPump.AddTag("water") end
+            if MT.itemCache[item].contaminantsInFuel and MT.HF.Probability(1,10) then parts.fuelPump.AddTag("blocked") end
+        elseif MT.itemCache[item].fuelFilterBypassed == false then
+            -- if the fuelFilter isn't bypassed, there is only a small chance water or contaminants get through
+            if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,100) then parts.fuelPump.AddTag("water") end
+            if MT.itemCache[item].contaminantsInFuel and MT.HF.Probability(1,100) then parts.fuelPump.AddTag("blocked") end
         end
-    end
-    -- fuelPump fault events 
-    if parts.fuelPump then        
+        --[[ legacy random blockage calc
         if MT.DF.partFaultProbability(parts.fuelPump, MT.Config.FuelPumpSLD, engineReliability) then
             local faultEvents = {}-- blocked
             parts.fuelPump.AddTag("blocked") -- in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
             -- water - but I need to add a weighted random selection
-        end
-    end
+        end ]]
+
     -- airFilter fault events
-    if parts.airFilter then
+    elseif parts.airFilter then
         local extraModifier = 1.0
         if parts.airFilter.HasTag("mold") then extraModifier = 0.5 end -- increase fungus spawn rate 
         if MT.DF.partFaultProbability(parts.airFilter, MT.Config.FuelPumpSLD, engineReliability, extraModifier) then -- piggy backing on fuelPump servicelife for the moment            
@@ -299,9 +367,13 @@ function MT.DF.getParts(item, dieselSeries)
     parts.thermalParts = {}
 
     -- STATIC INVENTORY PARTS: add any staticly located items to the parts inventory
-
+    -- heatExchanger
+    if dieselSeries.heatExchangerLocation and item.OwnInventory.GetItemAt(dieselSeries.heatExchangerLocation) ~= nil then parts.heatExchanger = item.OwnInventory.GetItemAt(dieselSeries.heatExchangerLocation) end
     -- fuelFilter (if any)
-    if dieselSeries.fuelFilterLocation and item.OwnInventory.GetItemAt(dieselSeries.fuelFilterLocation) ~= nil then parts.fuelFilter = item.OwnInventory.GetItemAt(dieselSeries.fuelFilterLocation) end
+    if dieselSeries.fuelFilterLocation and item.OwnInventory.GetItemAt(dieselSeries.fuelFilterLocation) ~= nil then
+        parts.fuelFilter = item.OwnInventory.GetItemAt(dieselSeries.fuelFilterLocation)         
+        if parts.fuelFilter.HasTag("rubberhose") then MT.itemCache[item].fuelFilterBypassed = true else MT.itemCache[item].fuelFilterBypassed = false end -- allows bypassing fuelfilter
+    end
     -- fuelPump (if any)
     if dieselSeries.fuelPumpLocation and item.OwnInventory.GetItemAt(dieselSeries.fuelPumpLocation) ~= nil then parts.fuelPump = item.OwnInventory.GetItemAt(dieselSeries.fuelPumpLocation) end
     -- airFilter (if any)
@@ -348,7 +420,7 @@ function MT.DF.getParts(item, dieselSeries)
                 parts.oilFilterVol = parts.oilFilterVol + containedItem.Condition
             end
         end
-            index = index + 1
-        end
+        index = index + 1
+    end
     return parts
 end

@@ -144,15 +144,20 @@ function MT.HF.Split(string, inSplitPattern, outResults )
 
 -- subtracts single amount from a list of items sequentially  
 function MT.HF.subFromListSeq (amount, list)
+    local targetedItems ={}
     for k, item in pairs(list) do
         if amount > item.Condition then
             amount = amount - item.Condition
             item.Condition = 0
+            table.insert(targetedItems, item)
         else
             item.Condition = item.Condition - amount
+            table.insert(targetedItems, item)
             amount = 0
+            break
         end
     end
+    return targetedItems -- should we only return if requested?
 end
 
 -- subtracts amount from list by dispursing/sharing it equally
