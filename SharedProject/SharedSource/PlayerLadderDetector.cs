@@ -5,16 +5,17 @@ namespace Mechtrauma;
 
 public partial class PlayerLadderDetector : ItemComponent
 {
-
     public static readonly string EVENT_ONVALUEUPDATE = "Mechtrauma.PlayerLadderDetector::OnLadderValueUpdate"; //args: this, Character
     
     [Editable(0, 120), Serialize(15, IsPropertySaveable.No, "Wait time in ticks between checks")]
     public int WaitTimeBetweenUpdates { get; set; }
-
-    private int _updateWaitTicksRemaining;
-
-    private Character? _foundCharacter;
     public bool IsOnLadder { get; protected set; }
+    
+    private int _updateWaitTicksRemaining;
+    private Character? _foundCharacter;
+    
+    [Editable,Serialize("", IsPropertySaveable.No, "Name Descriptor (for use with lua)")]
+    public string Id { get; set; }
     
     public PlayerLadderDetector(Item item, ContentXElement element) : base(item, element)
     {
