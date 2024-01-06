@@ -77,6 +77,9 @@ public sealed class Configuration
     public float PumpGateDeteriorationRate => _experimental.Setting_PumpGateDeteriorationRate.Value;
     public float VentSpawnRate => _biotrauma.Setting_FungusSpawnRate.Value;
 
+    public float DeltaTime => _advanced.Setting_LuaUpdateInterval.Value;
+    public float PriorityDeltaTime => _advanced.Setting_PriorityUpdateInterval.Value;
+
 #pragma warning restore CA1822
     #endregion
     
@@ -228,7 +231,9 @@ public sealed class Configuration
             Setting_ConversionRatioHPtoDiesel,
             Setting_ConversionRatioOxygenToDiesel,
             Setting_FuseboxDeteriorationRate,
-            Setting_FuseboxOvervoltDamage;
+            Setting_FuseboxOvervoltDamage,
+            Setting_LuaUpdateInterval,
+            Setting_PriorityUpdateInterval;
             
 
         public Settings_Advanced(Configuration instance)
@@ -306,7 +311,25 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Fusebox Overvolt Damage",
                     DisplayCategory: "Advanced"
-                )); 
+                ));
+
+            Setting_LuaUpdateInterval = ConfigManager.AddConfigRangeFloat(
+                "LuaUpdateInterval", ModName,
+                2f, 0.25f, 4f, GetStepCount(0.25f, 4f, 11),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Lua Update Interval",
+                    DisplayCategory: "Advanced"
+                    ));
+            
+            Setting_PriorityUpdateInterval = ConfigManager.AddConfigRangeFloat(
+                "PriorityUpdateInterval", ModName,
+                0.25f, 0.01666666667f, 1f, GetStepCount(0.01666666667f, 1f, 61),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Priority Lua Update Interval",
+                    DisplayCategory: "Advanced"
+                ));
         }
     }
 
@@ -385,7 +408,7 @@ public sealed class Configuration
     
     private static string ModName = "Mechtrauma";
     private static float GetPercentPerTick(float v) => v / 60f * 100;
-    private static float GetDPS(float ssl) => 100f / ssl / 60f; //Not all items have 
+    private static float GetDPS(float ssl) => 100f / ssl / 60f; // 100 condition_max / ssl / tickrate | ORG = (100f / value) / 60 
     private static float GetSLD(float ssl) => ssl * 60f / 2f; //SLD = ServiceLifeDelta - may need to move MT delta to here
     private static int GetStepCount(float min, float max, float step) => (int)((max - min) / step + 1);
 

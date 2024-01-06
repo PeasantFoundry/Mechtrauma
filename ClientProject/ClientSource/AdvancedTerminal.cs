@@ -308,13 +308,12 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             float yDiff = FillerBlock.RectTransform.RelativeSize.Y - newMessageBlock.RectTransform.RelativeSize.Y;
             // move it
             if (yDiff > 0)
-            {
+            { 
                 FillerBlock.RectTransform.RelativeSize = new Vector2(1f, yDiff);
             }
             else
             {
-                MessageHistoryBox.RemoveChild(FillerBlock);
-                FillerBlock = null;
+                FillerBlock.RectTransform.RelativeSize = new Vector2(1f, 0f);
             }
         }
         
@@ -347,7 +346,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
     private partial void TrimHistory(int excess)
     {
-        int maxLines = Math.Max(0, MaxLines - excess);
+        int maxLines = Math.Max(1, MaxLines - excess);
         while (MessagesHistory.Count > maxLines)
         {
             MessagesHistory.RemoveAt(0);    // trim oldest
@@ -356,9 +355,17 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         if (MessageHistoryBox is null)
             return;
 
-        while (MessageHistoryBox.Content.CountChildren > maxLines)
+        ImmutableList<GUIComponent> messages = MessageHistoryBox.Content.Children
+            .Where(c => c != FillerBlock).ToImmutableList();
+
+        if (messages.Count < 1)
+            return;
+        
+        foreach (var msg in messages)
         {
-            MessageHistoryBox.RemoveChild(MessageHistoryBox.Content.Children.First());
+            if (MessageHistoryBox.Content.CountChildren <= maxLines)
+                break;
+            MessageHistoryBox.RemoveChild(msg);
         }
     }
 
@@ -378,11 +385,27 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         MessagesHistory.Clear();
         ToProcess.Clear();
+
+        if (MessageHistoryBox is null)
+            return;
         
-        while (MessageHistoryBox?.Content.CountChildren > 0)
+        // clear everything but the filler block
+        ImmutableList<GUIComponent> messages = MessageHistoryBox.Content.Children
+            .Where(c => c != FillerBlock).ToImmutableList();
+
+        if (messages.Count < 1)
+            return;
+        
+        foreach (var msg in messages)
         {
-            MessageHistoryBox.RemoveChild(MessageHistoryBox.Content.Children.First());
+            MessageHistoryBox.RemoveChild(msg);
         }
+        
+        //reset filler block height
+        if (FillerBlock is null)
+            return;
+
+        FillerBlock.RectTransform.RelativeSize = new Vector2(1f, 1f);
     }
 
     public override partial void OnItemLoaded()

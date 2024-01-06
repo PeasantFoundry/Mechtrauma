@@ -180,6 +180,10 @@
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="huskinfection" damagemultiplier="0.25" probabilitymultiplier="0.25" damagesound="LimbArmor"/>
 
     </Wearable>
+
+    <!-- Lua Hook Caller for Ladder -->
+    <PlayerLadderDetector WaitTimeBetweenUpdates="30" Id="fatboy"/>
+    
     <Holdable slots="RightHand+LeftHand" controlpose="true" holdpos="0,-50" handle1="-10,-20" handle2="10,-20" holdangle="45" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use">
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.6" setvalue="true" />
     </Holdable>

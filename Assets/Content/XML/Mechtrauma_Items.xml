@@ -2611,12 +2611,12 @@
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
                       ReadOnly="false">
-      <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
+      <MessageAreaGui Margin="0.15" Offset="-0.39,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,0,255,255" 
                       MessageFont="MonospacedFont" UseDesignScale="true" DesignScale="1.7777777777"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="2.1">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,0,383,290" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
@@ -2660,6 +2660,7 @@
       </Button>      
     </CustomInterface>
   </Item>
+  
 
 <!-- DCM: Diesel Control Module: -->
   <Item name="DCM" identifier="mt_dcm" Category="Fuel" Tags="mtu,smallitem,dcm,part" maxstacksize="1" cargocontaineridentifier="metalcrate" health="100" scale="0.25">
