@@ -420,8 +420,7 @@ end
 function MT.F.engineBlock(item)
     local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
 
-    if dataBox.temperature > 220 then
-        print(item.name .. " temperature is " .. dataBox.temperature)
+    if dataBox.temperature > 220 then        
         -- IS HOT
         for k, item in pairs(item.Components) do
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
@@ -432,6 +431,8 @@ function MT.F.engineBlock(item)
             if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
         end
     end
+
+    -- am I in a running engine?
 
 end
 -- -------------------------------------------------------------------------- --

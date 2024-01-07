@@ -194,21 +194,24 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     local dieselEngine = {}
     local dieselFuelNeededCL = MT.Config.DieselHorsePowerRatioCL * MT.HF.Clamp(targetPower, 100, dieselSeries.maxHorsePower) / 3600 * MT.Deltatime -- 100 min hp is idle speed
     local oxygenNeeded = dieselFuelNeededCL * MT.Config.DieselOxygenRatioCL -- this is where we cheat and pretend that 1 condition of oxygen is equal to 1 condition of diesel    
-    
+    local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
+
     -- oxygen    
     local hullOxygenPercentage = 0
     -- set hullOxygenPercentage to 0 when submerged or outside of a hull.
     if item.InWater == false and item.FindHull() ~= nil then hullOxygenPercentage = item.FindHull().OxygenPercentage else hullOxygenPercentage = 0 end
 
-  
+
     -- -------------------------------------------------------------------------- --
     --                             ESTABLISH INVENTORY                            --
     -- -------------------------------------------------------------------------- --
     local parts = MT.DF.getParts(item, dieselSeries)
-    local fluids = MT.DF.getFluids(item, dieselSeries, parts) -- we need the parts because they may contain fludis 
+    local fluids = MT.DF.getFluids(item, DieselEngine, parts) -- we need the parts because they may contain fludis 
     local fuels = MT.DF.getFuels(item, dieselSeries)
     
-    print("COOLANT VOLUME: ", fluids.coolantVol)
+    print("COOLANT CAPACITY: ", DieselEngine.coolantVol)
+    print("COOLANT VOLUME: ", DieselEngine.coolantVol)
+    print("COOLANT LEVEL: ", DieselEngine.coolantLevel)
     
     -- damage and reduction
     -- need to rework friction damage to apply to enginge block items instead of the generator itself    
@@ -269,8 +272,8 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     dieselEngine.dcmCheck = MT.DF.dcmCheck(item, dieselSeries, parts.dcm, parts.oxygenSensor, parts.pressureSensor)
     dieselEngine.exhaustCheck = MT.DF.exhaustCheck(item, dieselSeries, parts.exhaustManifold, parts.exhaustManifoldGasket)
     dieselEngine.fuelPressureCheck = MT.DF.fuelPressureCheck(item, dieselSeries, parts.fuelFilter, parts.fuelPump)
-    dieselEngine.coolingCheck = MT.DF.coolingCheck(item, dieselSeries, fluids.coolingItems, fluids.coolantVol, parts.heatExchanger)
-    
+    dieselEngine.coolingCheck = MT.DF.coolingCheck(item, dieselSeries, DieselEngine, parts.heatExchanger)
+
 
     -- -------------------------------------------------------------------------- --
     --                       ***** ATTEMPT COMBUSTION *****                       --
@@ -289,8 +292,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
     -- -------------------------------------------------------------------------- --
         MT.itemCache[item].isRunning = true
         dieselEngine.combustion = true
-        
-          
+
         --[[
         print("accuracy: ", simpleGenerator.Accuracy)
         print("efficiency: ", simpleGenerator.Efficiency)
@@ -299,10 +301,10 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         simpleGenerator.Efficiency = simpleGenerator.Efficiency - 5
         simpleGenerator.Reliability = simpleGenerator.Reliability - 5
         ]]
-        
+
         -- adjust the targetPower based on the generator accuracy (over or under produce power)
         targetPower = targetPower * MT.HF.Tolerance(simpleGenerator.Accuracy)
-        
+
         -- calculate efficiency
         simpleGenerator.Efficiency = dieselSeries.maxEfficiency
         if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate         
@@ -311,11 +313,11 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
 
         -- calculate reliability
         simpleGenerator.Reliability = item.ConditionPercentage / 100
-        
+
         -- GENERATE POWER:        
         dieselEngine.powerGenerated = MT.HF.Round(MT.HF.Clamp(targetPower, 0, dieselSeries.maxHorsePower), 2)
         if parts.battery then parts.battery.Condition = parts.battery.condition + 0.1 end -- charge the battery (if any)
-        
+
         -- -------------------------------------------------------------------------- --
         --                           TEMPERATURE AND COOLING                          --
         -- -------------------------------------------------------------------------- --
@@ -336,34 +338,30 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
 
         -- (prototyped - poorly)
 
-
-        -- store current temperature in the item cache so it persists between cycles
-        if dataBox.temperature == nil then dataBox.temperature = 200 end -- default temp
+        --if dataBox.temperature == nil then dataBox.temperature = 200 end -- default temp
         for _, part in pairs(parts.thermalParts) do
             local partDataBox = MTUtils.GetComponentByName(part, "Mechtrauma.DataBox")
             partDataBox.temperature = MT.HF.Round(dataBox.temperature, 0)
             print(part , " temperature is " ..  partDataBox.temperature)
         end
 
-        dieselEngine.operatingTemperature = 200
-        dieselEngine.heatGenerated = dieselEngine.powerGenerated * 120 -- HP:BTU is 1:40 but toal heat output is 3x HP             
-        dieselEngine.coolingNeeded = dieselEngine.powerGenerated * 40 -- only 1/3 of BTU goes to coolant, 1/3 goes out ehaust and 1/3 goes into HP
-        if dieselEngine.coolingCheck == true then dieselEngine.coolingAvailable = dieselSeries.maxCooling else dieselEngine.coolingAvailable = 0 end
-        dieselEngine.excessHeat = MT.HF.Clamp(dieselEngine.coolingNeeded - dieselEngine.coolingAvailable, 0, 1000000)
+        --dieselEngine.operatingTemperature = 200 
+        DieselEngine.HeatGenerated = dieselEngine.powerGenerated * 120 -- HP:BTU is 1:40 but toal heat output is 3x HP             
+        DieselEngine.CoolingNeeded = dieselEngine.powerGenerated * 40 -- only 1/3 of BTU goes to coolant, 1/3 goes out ehaust and 1/3 goes into HP        
+        DieselEngine.HeatSurplus = MT.HF.Clamp(DieselEngine.CoolingNeeded - DieselEngine.CoolingAvailable, 0, 1000000)
 
-        if dieselEngine.excessHeat > 0 then
-            dieselEngine.coolingNeeded = dieselEngine.coolingNeeded - dieselSeries.maxCooling
+        if DieselEngine.HeatSurplus > 0 then
+            DieselEngine.CoolingNeeded = DieselEngine.CoolingNeeded - DieselEngine.CoolingAvailable
             -- overheat
-            dataBox.temperature = dataBox.temperature + (305 - dataBox.temperature) / 10 * MT.HF.Round(dieselEngine.excessHeat / dieselSeries.maxCooling, 2)
-
+            dataBox.temperature = dataBox.temperature + (305 - dataBox.temperature) / 10 * MT.HF.Round(DieselEngine.HeatSurplus / DieselEngine.CoolingAvailable, 2)
         else
             -- normal operations            
             if dataBox.temperature < 200 then
                 -- increase temperature
-                dataBox.temperature = MT.HF.Round(dataBox.temperature + (dieselEngine.operatingTemperature - dataBox.temperature) / 10 + 1, 2)
+                dataBox.temperature = MT.HF.Round(dataBox.temperature + (DieselEngine.OperatingTemperature - dataBox.temperature) / 10 + 1, 2)
             else
                 -- decrease temperature
-                dataBox.temperature = MT.HF.Round(dataBox.temperature - ((dieselEngine.operatingTemperature - dataBox.temperature) / 10 + - 1)*-1, 2)
+                dataBox.temperature = MT.HF.Round(dataBox.temperature - ((DieselEngine.OperatingTemperature - dataBox.temperature) / 10 + - 1)*-1, 2)
             end
         end
         -- -------------------------------------------------------------------------- --
@@ -393,7 +391,7 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
             parts.exhaustManifold.Condition = parts.exhaustManifold.Condition - (MT.Config.exhaustManifoldDPS * MT.Deltatime) end
         if dieselSeries.exhaustManifoldLocation and parts.exhaustManifoldGasket ~= nil then -- deteriorate exhaustGasket (if any)
             parts.exhaustManifoldGasket.Condition = parts.exhaustManifoldGasket.Condition - (MT.Config.exhaustManifoldGasketDPS * MT.Deltatime) end
-   
+
         -- frictionDamage - damages the item in classic generators, damages the engine parts in the advanced generators
         if next(parts.frictionParts) ~= nil then MT.HF.subFromListAll(frictionDamage * 10, parts.frictionParts) else item.Condition = item.Condition - frictionDamage end
 
@@ -439,10 +437,10 @@ function MT.F.dieselEngine(item, dieselSeries, targetPower)
         if dieselEngine.combustion == true then
             terminal.SendMessage("*COMBUSTION: " .. dieselEngine.powerGenerated .. "kW GENERATED*", Color(255,150,0,255))
             terminal.SendMessage("Temperature: " .. MT.HF.Round(dataBox.temperature, 0) .. "F", MT.DF.getTemperatureZone(dataBox.temperature, "color"))
-            terminal.SendMessage("Heat Generated: " .. MT.HF.Round(dieselEngine.heatGenerated, 0) .. "F", Color.Gray)
-            terminal.SendMessage("Cooling Needed: " .. MT.HF.Round(dieselEngine.coolingNeeded, 0) .. "F", Color.Gray)
-            terminal.SendMessage("Cooling Available: " .. MT.HF.Round(dieselEngine.coolingAvailable, 0) .. "F", Color.Gray)
-            terminal.SendMessage("Excess Heat : " .. MT.HF.Round(dieselEngine.excessHeat, 0) .. "F", Color.Gray)
+            terminal.SendMessage("Heat Generated: " .. MT.HF.formatNumber(MT.HF.Round(DieselEngine.HeatGenerated, 0)) .. "BTU", Color.Gray)
+            terminal.SendMessage("Cooling Needed: " .. MT.HF.formatNumber(MT.HF.Round(DieselEngine.CoolingNeeded, 0)) .. "BTU", Color.Gray)
+            terminal.SendMessage("Cooling Available: " .. MT.HF.formatNumber(MT.HF.Round(DieselEngine.CoolingAvailable, 0)) .. "BTU", Color.Gray)
+            terminal.SendMessage("Heat Surplus : " .. MT.HF.formatNumber(MT.HF.Round(DieselEngine.HeatSurplus, 0)) .. "BTU", Color.Gray)
            
             terminal.SendMessage(string.format("%-5s", dieselEngine.fuelTime .. "m") .. " of Diesel Fuel remaining", Color(255,150,0,255))
             terminal.SendMessage(string.format("%-5s", dieselEngine.oilTime .. "m") .. " of Oil remaining.", Color(255,150,0,255))

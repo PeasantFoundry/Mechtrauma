@@ -179,6 +179,7 @@ function MT.itemSpawnEvent(item)
     if item.HasTag("spawnevent") then
         print("SPAWN EVENT DETECTED!")
         for itemSpawnEvent in MT.itemSpawnEvents do
+            print(tostring(itemSpawnEvent))
             -- see if all required tags are present on the item
             local hasalltags = true
             for tag in itemSpawnEvent.tags do
@@ -236,7 +237,5 @@ end)
      -- clear the update item cache so we don't carry anything over accidentally
      MT.itemCache = {}
      MT.itemCacheCount = 0
-     -- track that the round is over
-     
+     -- track that the round is over     
  end)
- 

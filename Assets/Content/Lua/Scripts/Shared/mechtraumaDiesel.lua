@@ -30,12 +30,20 @@ function MT.DF.airFilterCheck(item, dieselSeries, airFilter)
     return airFilterCheck
 end
 
--- cooling system check
-function MT.DF.coolingCheck(item, dieselSeries, coolingItems, coolantVol, heatExchanger)
+-- -------------------------------------------------------------------------- --
+--                            COOLING SYSTEM CHECK                            --
+-- -------------------------------------------------------------------------- --
+-- at 15 PSI antifreeze 50/50 will boil at 257f (125c)
+
+
+function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger)
     local coolingCheck = true
     if dieselSeries.heatExchangerLocation then
-        if heatExchanger == nil or heatExchanger.Condition < 1 or coolantVol < 1 then
-            coolingCheck = false -- need to calculate cooling capacity based on volume/quality 
+        if heatExchanger == nil or heatExchanger.Condition < 1 then
+            DieselEngine.CoolingAvailable = 0
+            coolingCheck = false
+        else
+            DieselEngine.CoolingAvailable = DieselEngine.CoolingCapacity * DieselEngine.CoolantLevel
         end
     end
     return coolingCheck
@@ -121,7 +129,7 @@ end
 
 -- (DTC) P228C indicates “Fuel Pressure Regulator 1 Exceeded Control Limits – Pressure Too Low.”
 function MT.DF.fuelPressureCheck(item, dieselSeries, fuelFilter, fuelPump)
-    local fuelPressureCheck = true    
+    local fuelPressureCheck = true
     -- check fuelFilter
     if dieselSeries.fuelFilterLocation then
         if fuelFilter == nil then
@@ -195,10 +203,11 @@ function MT.DF.starterCheck(item, dieselSeries,starterMotor)
     return starterCheck
 end
 
-function MT.DF.getFluids(item, dieselSeries, parts)
+function MT.DF.getFluids(item, DieselEngine, parts)
     local index = 0
-    local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0, coolantItems={}, coolantVol=0}
-
+    local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0, coolantItems={}, coolantVol=0,coolantCapacity=0}
+    DieselEngine.CoolantVol = 0
+    DieselEngine.CoolantCapacity = 0
     -- DYNAMIC INVENTORY: COOLANT
     if parts.heatExchanger ~= nil then
         while(index < parts.heatExchanger.OwnInventory.Capacity) do
@@ -206,7 +215,10 @@ function MT.DF.getFluids(item, dieselSeries, parts)
                 local containedItem = parts.heatExchanger.OwnInventory.GetItemAt(index)
                 if containedItem.HasTag("coolant") and containedItem.Condition > 0 then
                     table.insert(fluids.coolantItems, containedItem)
-                    fluids.coolantVol = fluids.coolantVol + containedItem.Condition
+
+                    DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
+                    DieselEngine.CoolantCapacity = DieselEngine.CoolantCapacity + containedItem.MaxCondition
+                    DieselEngine.CoolantLevel = DieselEngine.CoolantVol / DieselEngine.CoolantCapacity
                 end
             end
             index = index + 1
@@ -347,8 +359,8 @@ function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- 
     if parts.engine then
     -- 
     end
-
 end
+
 -- calculate the probability of a part fault event
 -- this calculation makes the assumption, that, under perfect conditions, the part will experience one fault (on average) once during its serviceLife.
 -- this isn't the case as engine reliability and part deterioration increase the probability by decreasing the max probability range
@@ -407,9 +419,7 @@ function MT.DF.getParts(item, dieselSeries)
             table.insert(parts.frictionParts, parts.crankAssembly) -- add this to the parts list for friction damage
             table.insert(parts.thermalParts, parts.crankAssembly)
         end
-
     end
-
     -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
     while(index < item.OwnInventory.Capacity) do
         if item.OwnInventory.GetItemAt(index) ~= nil then

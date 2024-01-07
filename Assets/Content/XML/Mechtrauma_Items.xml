@@ -996,8 +996,8 @@
     </Quality>
   </Item>
    
-  <!-- COOLANT CAN: 4l -->
-  <Item name="Coolant" identifier="coolant_can" Category="Fuel" Tags="smallitem,coolant,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="400" scale="0.25">
+  <!-- COOLANT CAN: 20l -->
+  <Item name="Coolant" identifier="coolant_can" Category="Fuel" Tags="smallitem,coolant,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="2000" scale="0.25">
       <PreferredContainer primary="reactorcab"/>    
       <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
 		  <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
@@ -1561,7 +1561,7 @@
     <Quality>
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
-    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
+    <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
       <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- coolant -->
       <Containable items="coolant" excludebroken="false" excludefullcondition="false" />

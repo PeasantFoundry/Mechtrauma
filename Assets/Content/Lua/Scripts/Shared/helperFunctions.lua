@@ -345,6 +345,9 @@ function MT.HF.DamageFocusedItem(amount)
     local item = Client.ClientList[1].Character.FocusedItem
     item.condition = item.condition - amount
 end
+function MT.HF.damageItem(item, amount)
+    item.Condition = item.Condition - amount
+end
 
 -- utility for checking there are missing items from the cache
 function MT.HF.VerifyItemCache()
