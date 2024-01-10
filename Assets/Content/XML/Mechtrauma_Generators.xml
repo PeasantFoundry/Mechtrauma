@@ -72,6 +72,7 @@
       </Button>      
     </CustomInterface>
     <Databox/>
+    <Thermal/>
     <SimpleGenerator MaxPowerOut="5000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Left" style="ItemUI" />
     </SimpleGenerator>
@@ -246,20 +247,18 @@
   </Item>
 
   <!-- DIESEL GENERATOR S3000Da: Standard. -->
- <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtupdate,mtpriority,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
-    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
+ <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtupdate,mtpriority,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    
-
-    <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="engine_diesel">
       <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
-    </SwappableItem>
-    
+    </SwappableItem>    
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <LightComponent range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>      
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
@@ -268,31 +267,28 @@
     <!-- My beloved databox -->
     
     <!-- Diesel Generator -->
-    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >
-      <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
-    </SimpleGenerator>
+    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >  
+    </SimpleGenerator>    
     <DieselEngine/>
-
-
-    <Databox/>
+    <Thermal/>
     <LuaNetEventDispatcher Name="DieselGenerator"/>    
    
     <!-- Diagnostic Terminal -->
-    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" allowuioverlap="false"
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
                       ReadOnly="false">
-      <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="255,150,0,255" 
+      <MessageAreaGui Margin="0.15" Offset="-0.325,-0.375" TopPadding="0.04" HistoryBoxSize="1.0,0.9" InputBoxSize="0.9,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.525,0.475" ShowInputBox="true" TextColor="255,150,0,255" 
                       MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
-      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
+      <GuiFrame relativesize="0.35,0.4" relativeoffset="0.31,-0.115" pivot="Center" anchor="Center" style="ItemUI" Color="20,20,20,200"/>    
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,960,448,292" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
     <!-- Controls -->
-    <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+    <CustomInterface canbeselected="true" allowuioverlap="false">
+      <GuiFrame relativesize="0.2,0.2" pivot="Center" anchor="Center" relativeoffset="-0.2,-0.204" style="ItemUI" linkuitocomponent="ItemContainer" />     
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
@@ -301,8 +297,8 @@
       </Button>      
     </CustomInterface>
 
-    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
-      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="3"  allowuioverlap="false" canbeselected="true" PickingTime="5.0" hideitems="true">
+      <GuiFrame relativesize="0.25,0.65" relativeoffset="0.0,0.0" pivot="Center" anchor="Center" style="ItemUI" uilabel="Engine" />
       <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,128,64,64" origin="0.5,0.5" /> <!-- engine block -->
       <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> <!-- oil -->
       <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> <!-- oil filter -->      
@@ -424,6 +420,7 @@
     
     <!-- Diesel Generator -->
     <Databox/>
+    <Thermal/>
     <SimpleGenerator MaxPowerOut="2500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>   
@@ -548,6 +545,7 @@
       </StatusEffect> 
     </LightComponent>
     <Databox/>
+    <Thermal/>
     <SimpleGenerator MaxPowerOut="1500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>
@@ -657,6 +655,7 @@
       </StatusEffect> 
     </LightComponent>
     <Databox/>
+    <Thermal/>
     <!-- Generator -->
     <SimpleGenerator MaxPowerOut="500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->
@@ -765,6 +764,7 @@
       </StatusEffect> 
     </LightComponent>
     <Databox/>
+    <Thermal/>
     <!-- Generator -->
     <SimpleGenerator MaxPowerOut="250" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->

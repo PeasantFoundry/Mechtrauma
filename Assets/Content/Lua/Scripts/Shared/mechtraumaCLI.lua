@@ -360,6 +360,7 @@ MT.CLI.errors = {
       commands={"diag"},
       requireCCN=false,
       functionToCall=MT.CLI.diagnostics,
+      allowedItems={"diagnostics"}
     },
     cleanship={
       commands={"cleanship", "clean ship"},
@@ -514,7 +515,7 @@ function MT.CLI.terminalCommand(item, terminal, message)
 end
 
 function MT.CLI.commandAllowed(item, terminal, command)
-    -- check if this report command is allowed on this item   
+    -- check if this report command is allowed on this item
     for k, v in pairs(MT.CLI.commands[command].allowedItems) do
       if item.Prefab.Identifier.Value == v or item.HasTag(v) then
         return true
@@ -653,7 +654,9 @@ end
     -- for ease of use, all MTC CLI messages are converted to lower case before parsing out the command and argument 
     local formattedMessage = string.lower(message)
     -- am I waiting for a response?
-    if MT.itemCache[terminal.item].MTC.isWaiting == true then 
+
+
+    if terminal.item.HasTag("MTC") and MT.itemCache[terminal.item].MTC.isWaiting == true then
         MT.itemCache[terminal.item].MTC.waitingFunction(terminal.item, terminal, formattedMessage)
     else
         -- process regular command 

@@ -6,6 +6,14 @@ Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerWrite", "MT.Net.SW", MT.Net.Se
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientRead", "MT.Net.CW", MT.Net.ClientEventWrite)
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientWrite", "MT.Net.CR", MT.Net.ClientEventWrite)
 
+Hook.Add("item.equip", "MT.hotItemEquipped", function(item, character)
+  local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+  if thermal and thermal.Temperature ~= nil then
+    if thermal.Temperature > 150 then
+      --MT.HF.AddAffliction(character,"burn",5)
+    end
+  end
+end)
 
 Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(effect, deltaTime, item, targets, worldPosition)
   local character

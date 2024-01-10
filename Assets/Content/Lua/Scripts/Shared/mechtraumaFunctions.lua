@@ -417,20 +417,54 @@ function MT.F.airFilter(item)
     if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
 end
 
+-- called by item update cycle
 function MT.F.engineBlock(item)
-    local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
+    local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+    local ambientTemperature = 60 -- sub temp
+    
 
-    if dataBox.temperature > 220 then        
+    -- sprite control
+    if thermal.Temperature > 160 then
         -- IS HOT
-        for k, item in pairs(item.Components) do
-            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end
-        end
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end end
     else
         -- IS NOT
-        for k, item in pairs(item.Components) do
-            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end end
+    end
+
+    if item.ParentInventory == nil then
+        -- im not in an item, adjust my temperature
+        thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
+    
+    elseif LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then
+        -- burn the fool holding me
+        MT.HF.AddAffliction(item.ParentInventory.Owner,"burn",5)
+    else
+        local dieselEngine = MTUtils.GetComponentByName(item.ParentInventory.Owner, "Mechtrauma.DieselEngine")
+        if dieselEngine and dieselEngine.IsRunning then
+            -- do nothing, the engine will manage my temperature
+            return
+        else
+            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
         end
     end
+
+    --[[ if I'mt not in an inventory, adjust me towards ambient temperature 
+    if item.ParentInventory == nil then 
+       
+    else
+        if dieselEngine and dieselEngine.IsRunning == true then
+            -- if I'm in an running engine, do nothing - the engine will manage my temperature
+            return
+        
+            -- adjust temperature towards ambient
+            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
+        else
+            -- adjust temperature towards ambient
+            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
+        end
+
+    end]]
 
     -- am I in a running engine?
 

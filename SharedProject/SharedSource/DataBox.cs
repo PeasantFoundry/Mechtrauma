@@ -27,7 +27,7 @@ namespace Mechtrauma
         public float DB3 = 300.0f;
 
         // JSON test. the idea is to convert lua tables to JSON and store them in component strings for persisting lua data between rounds. (harddrives items with diagnostic data, ships logs, etc)
-        public string jsonTest;
+        //public string jsonTest;
 
         /*** diagnosticMode for the generator
         private bool diagnosticMode = false;

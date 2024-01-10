@@ -50,6 +50,7 @@ namespace Mechtrauma
             UserData.RegisterType<MTBoiler>();
             UserData.RegisterType<SimpleGenerator>();
             UserData.RegisterType<DieselEngine>();
+            UserData.RegisterType<Thermal>();
             UserData.RegisterType<DataBox>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();
@@ -79,7 +80,7 @@ namespace Mechtrauma
             UserData.UnregisterType<GridAbsorber>();
             UserData.UnregisterType<MTBoiler>();
             UserData.UnregisterType<SimpleGenerator>();
-            UserData.UnregisterType<DieselEngine>();
+            UserData.UnregisterType<Thermal>();
             UserData.UnregisterType<DataBox>();
             UserData.UnregisterType<WaterDrain>();
             UserData.UnregisterType<AdvancedTerminal>();

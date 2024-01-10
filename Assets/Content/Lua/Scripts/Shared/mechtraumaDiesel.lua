@@ -40,9 +40,15 @@ function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger)
     local coolingCheck = true
     if dieselSeries.heatExchangerLocation then
         if heatExchanger == nil or heatExchanger.Condition < 1 then
-            DieselEngine.CoolingAvailable = 0
             coolingCheck = false
         else
+            DieselEngine.CoolingAvailable = DieselEngine.CoolingCapacity * DieselEngine.CoolantLevel
+        end
+    elseif dieselSeries.independentHeatExchanger then
+        if DieselEngine.LinkedHeatExchanger == nil then
+            coolingCheck = false
+        else            
+            if item.ParentInventory ~= nil and LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then MT.HF.AddAffliction(item.ParentInventory.Owner,"burn",5)  end
             DieselEngine.CoolingAvailable = DieselEngine.CoolingCapacity * DieselEngine.CoolantLevel
         end
     end
@@ -111,7 +117,7 @@ function MT.DF.dieselCheck(item, dieselVol, dieselFuelNeededCL)
     else
         table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1060: INSUFFICIENT FUEL*")
     end
-    
+
     -- clear the results from the previous cycle
     MT.itemCache[item].waterInFuel = false
     MT.itemCache[item].contaminantsInFuel = false
@@ -206,9 +212,12 @@ end
 function MT.DF.getFluids(item, DieselEngine, parts)
     local index = 0
     local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0, coolantItems={}, coolantVol=0,coolantCapacity=0}
-    DieselEngine.CoolantVol = 0
     DieselEngine.CoolantCapacity = 0
-    -- DYNAMIC INVENTORY: COOLANT
+    DieselEngine.CoolantVol = 0
+    DieselEngine.CoolantLevel = 0
+    DieselEngine.CoolingAvailable = 0
+
+    -- DYNAMIC INVENTORY: contained cooling
     if parts.heatExchanger ~= nil then
         while(index < parts.heatExchanger.OwnInventory.Capacity) do
             if parts.heatExchanger.OwnInventory.GetItemAt(index) ~= nil then
@@ -217,15 +226,36 @@ function MT.DF.getFluids(item, DieselEngine, parts)
                     table.insert(fluids.coolantItems, containedItem)
 
                     DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
-                    DieselEngine.CoolantCapacity = DieselEngine.CoolantCapacity + containedItem.MaxCondition
+                    DieselEngine.CoolantCapacity = containedItem.MaxCondition * index
                     DieselEngine.CoolantLevel = DieselEngine.CoolantVol / DieselEngine.CoolantCapacity
                 end
             end
             index = index + 1
+            --MT.itemCache[item].coolingSlots = index
         end
-        index = 0
     end
-
+    index = 0
+    -- DYNAMIC INVENTORY: linkedcooling   
+    if item.linkedTo ~= nil then
+        for k, linkedItem in pairs(item.linkedTo) do
+            if linkedItem.HasTag("heatexchanger") then
+                DieselEngine.LinkedHeatExchanger = linkedItem                
+                while(index < linkedItem.OwnInventory.Capacity) do
+                    if linkedItem.OwnInventory.GetItemAt(index) ~= nil then                        
+                        local containedItem = linkedItem.OwnInventory.GetItemAt(index)
+                        -- get coolant item(s) - 
+                        if containedItem.HasTag("coolant") and containedItem.Condition > 0 then                            
+                            DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
+                            DieselEngine.CoolantCapacity = containedItem.MaxCondition * index
+                            DieselEngine.CoolantLevel = DieselEngine.CoolantVol / DieselEngine.CoolantCapacity
+                        end
+                    end
+                    index = index + 1
+                end
+            end
+        end
+    end
+    index = 0
     -- DYNAMIC INVENTORY: OIL
     while(index < item.OwnInventory.Capacity) do
     if item.OwnInventory.GetItemAt(index) ~= nil then
@@ -248,16 +278,18 @@ function MT.DF.getFuels(item, DieselSeries)
     -- DYNAMIC INVENTORY: auxDiesel
     if item.linkedTo ~= nil then
         for k, linkedItem in pairs(item.linkedTo) do
-            while(index < linkedItem.OwnInventory.Capacity) do
-                if linkedItem.OwnInventory.GetItemAt(index) ~= nil then
-                    local containedItem = linkedItem.OwnInventory.GetItemAt(index)
-                    -- get diesel item(s) - need to add support for linked tanks
-                    if containedItem.HasTag("diesel_fuel") and containedItem.Condition > 0 then
-                        table.insert(fuels.dieselItems, containedItem)
-                        fuels.dieselVol = fuels.dieselVol + containedItem.Condition
+            if linkedItem.HasTag("dieseltank") then
+                while(index < linkedItem.OwnInventory.Capacity) do
+                    if linkedItem.OwnInventory.GetItemAt(index) ~= nil then
+                        local containedItem = linkedItem.OwnInventory.GetItemAt(index)
+                        -- get diesel item(s) - need to add support for linked tanks
+                        if containedItem.HasTag("diesel_fuel") and containedItem.Condition > 0 then
+                            table.insert(fuels.dieselItems, containedItem)
+                            fuels.dieselVol = fuels.dieselVol + containedItem.Condition
+                        end
                     end
+                    index = index + 1
                 end
-                index = index + 1
             end
         end
     end
@@ -319,10 +351,10 @@ function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- 
 
     -- fuelFilter fault events     
     if parts.fuelFilter and MT.itemCache[item].fuelFilterBypassed == false then
-        
+
         if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,20) then parts.fuelFilter.AddTag("water") end
         if MT.itemCache[item].contaminantsInFuel and MT.HF.Probability(1,10) then parts.fuelFilter.AddTag("blocked") end --MT.itemCache[item].contaminantsInFuel
-        
+
         --[[ legacy random blockage calc
         if MT.DF.partFaultProbability(parts.fuelFilter,MT.Config.FuelFilterSLD, engineReliability) then
             parts.fuelFilter.AddTag("blocked") -- add a blockage - in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.

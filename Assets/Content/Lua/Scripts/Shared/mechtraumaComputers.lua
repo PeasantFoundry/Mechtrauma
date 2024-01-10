@@ -54,9 +54,8 @@ end
 function MT.C.tabletDiagnoseItem(item, targetItem, terminal)
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
   local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
-  --print(dataBox.DB1)
-  --print(dataBox.DB2)
-  --print(dataBox.DB3)
+  local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+  
   terminal.TextColor = Color.Gray
   MT.HF.BlankTerminalLines(terminal, 10)  
   terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)

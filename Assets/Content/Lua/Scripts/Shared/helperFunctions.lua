@@ -141,7 +141,33 @@ function MT.HF.Split(string, inSplitPattern, outResults )
 -- -------------------------------------------------------------------------- --
 --                           MATHIMATICAL OPERATINS                           --
 -- -------------------------------------------------------------------------- --
+function MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
+    local temperatureChange = 0
+    if InWater == nil then InWater = false end
 
+    if currentTemperature > targetTemperature then
+        -- passive heat loss - atmosphere
+        temperatureChange = MT.HF.Round(MT.HF.Clamp((targetTemperature - currentTemperature) / 10, -5, -1)) -- returns negative
+
+    else
+        -- heat gain
+        temperatureChange = MT.HF.Round(currentTemperature + (targetTemperature - currentTemperature) / 10 + 1, 2)
+    end
+
+    --if InWater then temperatureChange = temperatureChange * 20 end -- thermal conductivity of water is 20x that of air
+
+    --decrease (x20 for water)
+    --MT.HF.Round(currentTemperature - (((targetTemperature - currentTemperature) / 10 + - 1)*-1)*20, 2)
+    --increase
+    --thermal.Temperature = MT.HF.Round(currentTemperature + (targetTemperature - currentTemperature) / 10 + 1, 2)
+
+    --print("TEMP CHANGE: ", temperatureChange)
+    return temperatureChange
+end
+
+function MT.HF.getNewTemp(currentTemperature, targetTemperature, InWater)
+    return currentTemperature + MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
+end
 -- subtracts single amount from a list of items sequentially  
 function MT.HF.subFromListSeq (amount, list)
     local targetedItems ={}
@@ -260,6 +286,63 @@ print("Selected index:", selectedIndex)
 -- -------------------------------------------------------------------------- --
 --                            BAROTRAUMA FUNCTIONS                            --
 -- -------------------------------------------------------------------------- --
+
+function MT.HF.FindClosestItem(submarine, position, type)
+    
+    local closestItem = nil
+    if type == "handtruck" then
+        
+         -- any item?       
+         for key, value in pairs(submarine and submarine.GetItems(false) or Item.ItemList) do
+            if value.HasTag("handtruck") or value.HasTag("crate") and value.ParentInventory == nil and value.NonInteractable == false then
+                if Vector2.Distance(position, value.WorldPosition) < 100 then
+                    if closestItem == nil then closestItem = value end
+                    if Vector2.Distance(position, value.WorldPosition) <
+                        Vector2.Distance(position, closestItem.WorldPosition) then
+                        -- this should prevent items that are inside inventories from being linkable
+                        if value.ParentInventory == nil then
+                            closestItem = value
+                        end
+                    end
+                end
+            end
+        end
+
+        return closestItem
+
+    else
+        -- lua linker logic 
+        for key, value in pairs(submarine and submarine.GetItems(false) or Item.ItemList) do
+            if value.Linkable and not value.HasTag("notlualinkable") and not value.HasTag("crate") and not value.HasTag("ammobox") and not value.HasTag("door") and not value.HasTag("smgammo") and not value.HasTag("hmgammo") and value.NonInteractable == false then
+                -- check if placable or if it does not have holdable component
+                local check_if_p_or_nh = false
+                local holdable = value.GetComponentString("Holdable")
+                if holdable == nil then
+                    check_if_p_or_nh = true
+                else
+                    if holdable.attachable == true then
+                        check_if_p_or_nh = true
+                    end
+                end
+                if check_if_p_or_nh == true then
+                    if Vector2.Distance(position, value.WorldPosition) < 100 then
+                        if closestItem == nil then closestItem = value end
+                        if Vector2.Distance(position, value.WorldPosition) <
+                            Vector2.Distance(position, closestItem.WorldPosition) then
+                            -- this should prevent items that are inside inventories from being linkable
+                            if value.ParentInventory == nil then
+                                closestItem = value
+                            end
+                        end
+                    end
+                end
+            end
+        end    
+        print(tostring(closestItem))
+        return closestItem
+    end
+end
+
 -- PhysObj depth and Nav Terminal "depth" are different. Nav Terminal includes the start depth of the level.
 -- There isn't a level in the sub editor test, so for client side we will only use PhysObj depth.
 function MT.HF.GetItemDepth(item)
@@ -668,7 +751,7 @@ end
 
 function MT.HF.RemoveItem(item)
     if item == nil or item.Removed then return end
-    
+
     if SERVER then
         -- use server remove method
         Entity.Spawner.AddEntityToRemoveQueue(item)
@@ -844,6 +927,7 @@ function MT.HF.ItemHasTag(item,tag)
     return item.HasTag(tag)
 end
 
+-- well isn't that handy
 function MT.HF.CombineArrays(arr1,arr2)
     local res = {}
     for _,v in ipairs(arr1) do

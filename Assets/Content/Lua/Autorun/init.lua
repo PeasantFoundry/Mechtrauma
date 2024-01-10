@@ -47,7 +47,7 @@ dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaCLI.lua")
 
 -- SHARED: client/server code
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaPower.lua")
-
+dofile(MT.Path.."/Lua/Scripts/Shared/mt_tools.lua")
 
 -- SERVER: server-side code (also run in singleplayer)
 if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
@@ -73,7 +73,7 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")    
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
     
 end

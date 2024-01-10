@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\PlayerLadderDetector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\SimpleGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Thermal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterDrain.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterGate.cs" />
   </ItemGroup>
