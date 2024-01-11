@@ -1447,7 +1447,7 @@
   </Item>
 
   <!-- CRANK ASSEMBLY: diesel engine block  -->
-  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="crankassembly,mtu,mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1469,6 +1469,14 @@
     <!-- REPAIR: no repair, cannot be salvaged. -->
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
+    <!-- ITEM IS HOT -->
+    <LightComponent range="10.0" lightcolor="255,100,50,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.4" origin="0.5,0.75" alpha="1.0" />
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      </StatusEffect>
+    </LightComponent>
     <DataBox/>
     <Thermal/>
     <Body width="128" height="100" density="80" />
@@ -3094,6 +3102,99 @@
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" keepopenwhenequipped="true" movableframe="true">
       <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,mttablet" />
     </ItemContainer>
+  </Item>
+
+<!-- MT MOBILE:-->
+  <Item name="MT Mobile" identifier="mt_mobile" category="Electrical" Tags="mtu,mtc,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" />
+    </Price>
+    <PreferredContainer primary="engineering_console" secondary="engcab" />
+    <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="416,0,64,168" depth="0.6" origin="0.5,0.5" />
+    <Body width="128" height="128" density="8" />
+    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
+    
+      <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">            
+        <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
+      </StatusEffect> 
+    </Holdable>
+        
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
+                      ReadOnly="false" allowuioverlap="false" >
+       <MessageAreaGui Margin="0.15" Offset="-0.35,-0.37" TopPadding="0.04" HistoryBoxSize="1.0,0.7" InputBoxSize="0.95,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.65,0.58" ShowInputBox="true" TextColor="160,200,10,255" 
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.2,0.8" relativeoffset="0.0,0.0" anchor="TopRight" style="ItemUI" Color="200,200,200,200"/> <!-- pivot="Left" -->
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.35">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1216,704,228,576" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+
+    <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">    
+        <Containable items="smallitem">                
+        </Containable>     
+    </ItemContainer>
+
+    
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.3" anchor="TopRight" relativeoffset="0.2,0.0" style="ItemUI" linkuitocomponent="ItemContainer" />
+     
+      
+      <Button text="LINKER">
+        <StatusEffect type="OnUse" target="This" >
+          <LuaHook name="maintenanceTablet_rparts.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>    
+      </Button>
+
+       <Button text="CONNECT">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+
+      <Button text="TEXT YOUR MOTHER">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+      
+      <Button text="REPORT">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>
+      
+    </CustomInterface>
+    <!--
+     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
+     
+
+      <Button text="Pump Status Report">
+        <StatusEffect type="OnUse" target="This" >
+          <LuaHook name="maintenanceTablet_pr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>    
+      </Button>
+
+       <Button text="FUSE STATUS REPORT">
+        <StatusEffect type="OnUse" target="This">
+          <LuaHook name="maintenanceTablet_fsr.OnUse" /> 
+          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
+        </StatusEffect>
+      </Button>      
+    </CustomInterface> -->
   </Item>
 
   <!-- TECHNICAL TABLET:-->

@@ -427,7 +427,9 @@ function MT.DF.getParts(item, dieselSeries)
     -- starterMotor (if any)
     if dieselSeries.starterMotorLocation and item.OwnInventory.GetItemAt(dieselSeries.starterMotorLocation) ~= nil then parts.starterMotor = item.OwnInventory.GetItemAt(dieselSeries.starterMotorLocation) end
     -- exhaustManifold (if any)
-    if dieselSeries.exhaustManifoldLocation and item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation) ~= nil then parts.exhaustManifold = item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation) end
+    if dieselSeries.exhaustManifoldLocation and item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation) ~= nil then
+        parts.exhaustManifold = item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation)
+        table.insert(parts.thermalParts, parts.exhaustManifold) end
     -- exhaustManifoldGasket (if any)
     if dieselSeries.exhaustManifoldLocation and parts.exhaustManifold ~= nil and parts.exhaustManifold.OwnInventory.GetItemAt(0) ~= nil then parts.exhaustManifoldGasket = parts.exhaustManifold.OwnInventory.GetItemAt(0) end
     -- dcm (if any)

@@ -55,7 +55,7 @@ Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delt
     local target =  item.ParentInventory.Owner.FocusedItem    
     
    
-   SoundPlayer.PlaySound("%ModDir%/Sound/receipt1.ogg", target.WorldPosition)
+   --SoundPlayer.PlaySound("%ModDir%/Sound/receipt1.ogg", target.WorldPosition)
     
     if target == nil then
         terminal.SendMessage("ERR", Color(255,100,50,255))

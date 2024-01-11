@@ -36,6 +36,10 @@ MT.tagfunctions = {
         tags={"engineBlock"},
         update=MT.F.engineBlock
     },
+    crankAssembly={
+        tags={"crankAssembly"},
+        update=MT.F.crankAssembly
+    },
     steamBoiler={
         tags={"steamBoiler"},
         update=MT.F.steamBoiler

@@ -33,7 +33,9 @@ namespace Mechtrauma
         public float HeatSurplus = 0.0f; // BTU
         public string LinkedHeatExchanger; // BTU
         public bool IsRunning; // Ignition + Combustion
-
+        public bool DiagnosticMode = false;
+        public bool ShowStatus = false;
+        public bool ShowLevels = false;
 
     }
 }

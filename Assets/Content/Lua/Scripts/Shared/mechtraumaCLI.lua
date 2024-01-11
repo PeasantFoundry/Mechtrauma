@@ -6,32 +6,86 @@ function MT.CLI.cleanShip(item, terminal, message, command, argument)
     MT.HF.MechtraumaClean()
   end
 
-function MT.CLI.diagnostics(item, terminal, message, command, argument)
-    -- convert the argument to a boolean
-    if argument == "on" or argument == "true" then argument = true
-    elseif argument == "off" or argument == "false" then argument = false end
+function MT.CLI.exit(item, terminal, message, command, argument)
+  -- generic function for disabling automatic readouts to stop the terminal from being clogged
 
-    -- need to account for other items besides simplegenerators having diagnostic mode 
-    MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator").DiagnosticMode = argument
+  if item.HasTag("DieselEngine") then
+    local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
+    -- disable the diesel readouts
+    DieselEngine.DiagnosticMode = false
+    DieselEngine.ShowStatus = false
+    DieselEngine.ShowLevels = false
     MT.Net.SendEvent(item)
-  
-    if MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator").DiagnosticMode == argument then
-      if argument then terminal.SendMessage("Diagnostics enabled.") end
-      if not argument then terminal.SendMessage("Diagnostics disabled.") end
-    end
-    
-      --MT.HF.SyncToClient("DiagnosticMode", item)
-    -- OLD? set the result for the item in the item cache
-    --MT.itemCache[item].diagnostics = argument
+    terminal.SendMessage("TERMINATING AUTOMATIC READOUTS")
   end
+end
 
-  function MT.CLI.help(item, terminal, message, command, argument)
-    -- loop through the commands and display the help text
-    for terminalCommand, v in pairs(MT.CLI.commands) do
-      -- only include commands with help text
-      if v.help then terminal.SendMessage(terminalCommand .. "-----" .. v.help, Color(250,100,60,255)) end
+function MT.CLI.diagnostics(item, terminal, message, command, argument)
+  -- convert the argument to a boolean
+  if argument == "on" or argument == "true" then argument = true
+  elseif argument == "off" or argument == "false" then argument = false end
+
+  -- need to account for other items besides simplegenerators having diagnostic mode 
+  MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine").DiagnosticMode = argument
+  MT.Net.SendEvent(item)
+
+  if MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine").DiagnosticMode == argument then
+    if argument then terminal.SendMessage("Diagnostics enabled.") end
+    if not argument then terminal.SendMessage("Diagnostics disabled.") end
+  end
+end
+
+function MT.CLI.help(item, terminal, message, command, argument)
+  -- loop through the commands and display the help text
+  terminal.SendMessage("COMMAND | ARGUMENTS", Color(250,100,60,255)) 
+  for terminalCommand, v in pairs(MT.CLI.commands) do
+    -- only include commands with help text and that are allowed on this item    
+    if v.help and MT.CLI.commandAllowed(item, nil, terminalCommand) then
+      -- comand/arguments
+      terminal.SendMessage(terminalCommand .. ": " .. v.help, Color(250,100,60,255))
+      -- include details
+      if argument == "details" and v.helpDetails then
+        terminal.SendMessage("* ".. v.helpDetails, Color(250,100,60,255))
+      elseif argument == "examples" and v.helpExample then
+        terminal.SendMessage("* EX: ".. v.helpExample, Color(250,100,60,255))
+      end
     end
   end
+end
+
+function MT.CLI.show(item, terminal, message, command, argument)
+  -- currently, only diesel has diagnostic mode
+  if item.HasTag("DieselEngine") then
+    local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
+    
+    
+    if argument == "nothing" or argument == nil then
+      -- disable current automatic readout
+      MT.CLI.exit(item, terminal)
+
+    elseif argument == "diagnostics" then
+      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      DieselEngine.DiagnosticMode = true
+      terminal.SendMessage("DIAGNOSTIC MODE ENABLED")
+      MT.Net.SendEvent(item)
+
+    elseif argument == "status" then
+      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      DieselEngine.ShowStatus = true
+      terminal.SendMessage("STATUS DISPLAY ENABLED")
+      MT.Net.SendEvent(item)
+
+    elseif argument == "levels" then
+      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      DieselEngine.ShowLevels = true
+      terminal.SendMessage("STATUS DISPLAY ENABLED")
+      MT.Net.SendEvent(item)
+
+    else
+      terminal.SendMessage("INVALID READOUT: ", argument, Color(250,100,60,255))
+    end
+  end
+end
 
 -- -------------------------------------------------------------------------- --
 --                               SHELL COMMANDS                               --
@@ -90,35 +144,34 @@ function MT.CLI.ls(item, terminal, message, command, argument)
 end
 
 function MT.CLI.cd(item, terminal, message, command, argument)
-    -- check for a storage cache
-    if MT.itemCache[item] and MT.itemCache[item].MTC and MT.itemCache[item].MTC.root then
-      -- if there is no current directory - boot us to root
-      if not MT.itemCache[item].MTC.cd then
-        MT.itemCache[item].MTC.cd = MT.itemCache[item].MTC.root -- MT.CLI.getDirectory(MT.itemCache[item], MT.itemCache[item].MTC.cdp)      
-        MT.itemCache[item].MTC.cdp = "/MTC/root"
-      end
-  
-      -- go back one directory
-      if argument == "-" and MT.itemCache[item].MTC.cdp ~= "/MTC/root" then
-        MT.itemCache[item].MTC.cdp = MT.CLI.getParentDirectoryPath(MT.itemCache[item].MTC.cdp)
-        MT.itemCache[item].MTC.cd = MT.CLI.getDirectory(MT.itemCache[item], MT.itemCache[item].MTC.cdp)
-        
-        MT.CLI.ls(item, terminal, "ls", "ls", "")
-  
-      -- open directory 
-      elseif MT.itemCache[item].MTC.cd[argument] ~= nil and MT.itemCache[item].MTC.cd[argument] then -- check if directory exists        
-        MT.itemCache[item].MTC.cdp = MT.itemCache[item].MTC.cdp .. "/" .. argument -- extend the current directory path
-        MT.itemCache[item].MTC.cd =  MT.itemCache[item].MTC.cd[argument] -- update the current directory
-        MT.CLI.ls(item, terminal, "ls", "ls", "")
-      else
-        terminal.SendMessage("INVALID ARGUMENT: ", argument, Color(250,100,60,255))
-      end
-    else
-      -- no storage cache
-      terminal.SendMessage("!ERROR! No harddrive detected.")
+  -- check for a storage cache
+  if MT.itemCache[item] and MT.itemCache[item].MTC and MT.itemCache[item].MTC.root then
+    -- if there is no current directory - boot us to root
+    if not MT.itemCache[item].MTC.cd then
+      MT.itemCache[item].MTC.cd = MT.itemCache[item].MTC.root -- MT.CLI.getDirectory(MT.itemCache[item], MT.itemCache[item].MTC.cdp)      
+      MT.itemCache[item].MTC.cdp = "/MTC/root"
     end
-end
 
+    -- go back one directory
+    if argument == "-" and MT.itemCache[item].MTC.cdp ~= "/MTC/root" then
+      MT.itemCache[item].MTC.cdp = MT.CLI.getParentDirectoryPath(MT.itemCache[item].MTC.cdp)
+      MT.itemCache[item].MTC.cd = MT.CLI.getDirectory(MT.itemCache[item], MT.itemCache[item].MTC.cdp)
+
+      MT.CLI.ls(item, terminal, "ls", "ls", "")
+
+    -- open directory 
+    elseif MT.itemCache[item].MTC.cd[argument] ~= nil and MT.itemCache[item].MTC.cd[argument] then -- check if directory exists        
+      MT.itemCache[item].MTC.cdp = MT.itemCache[item].MTC.cdp .. "/" .. argument -- extend the current directory path
+      MT.itemCache[item].MTC.cd =  MT.itemCache[item].MTC.cd[argument] -- update the current directory
+      MT.CLI.ls(item, terminal, "ls", "ls", "")
+    else
+      terminal.SendMessage("INVALID DIRECTORY: ", argument, Color(250,100,60,255))
+    end
+  else
+    -- no storage cache
+    terminal.SendMessage("!ERROR! No harddrive detected.")
+  end
+end
 
 function MT.CLI.mkdir(item, terminal, message, command, argument)
     -- check for a storage cache
@@ -182,8 +235,7 @@ function MT.CLI.mv(item, terminal, message, command, argument)
         end
         
         if command == nil or source == nil or destinationPartialPath == nil then terminal.SendMessage("MISSING ARGUMENT(S)", Color(250,100,60,255)) return end
-        
-        
+
         -- VALIDATION: make it so the user dosen't have to include /MTC or /root
         local rootPos = destinationPartialPath:find("root")
         if rootPos then
@@ -193,7 +245,7 @@ function MT.CLI.mv(item, terminal, message, command, argument)
         -- VALIDATION: check if we've created a valid path
         if MT.CLI.getDirectory(MT.itemCache[item].MTC.root, destinationPartialPath) then
             -- create the table path as a function variable
-            
+
             local destinationPath = MT.CLI.getDirectory(MT.itemCache[item].MTC.root, destinationPartialPath)
             -- close the source to the destination
             destinationPath[source] = MT.itemCache[item].MTC.cd[source]
@@ -289,7 +341,7 @@ function MT.CLI.textcolor(item, terminal, response) -- all argument portions of 
                     terminal.SendMessage("-Terminating Program-")
                     return
         else
-            terminal.SendMessage("Invalid Color: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
+            terminal.SendMessage("!INVALID COLOR: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
         end
     end
 end
@@ -356,29 +408,54 @@ MT.CLI.errors = {
   -- table of terminal commands functions - permissioned by item/tag (currently)
   MT.CLI.commands = {
     diagnostics={
-      help="Enable/Disable diagnostics - Ex: diagnostics > on",
-      commands={"diag"},
+      help="'on,off'",
+      helpDetails="Enables / disables diagnostic mode.",
+      helpExample="'diagnostics on'",
+      altCommands={"diag","diagnostic"},
       requireCCN=false,
       functionToCall=MT.CLI.diagnostics,
-      allowedItems={"diagnostics"}
+      allowedItems={"diagnostics","dieselEngine"}
+    },
+    show={
+      help="'status,level,diagnostics'",
+      helpDetails="Enable an automatic readout for this device.",
+      helpExample="'show status'",
+      altCommands={"display","sho","sh"},
+      requireCCN=false,
+      functionToCall=MT.CLI.show,
+      allowedItems={"dieselEngine","diagnostics"}
+    },
+    exit={
+      help="N/A",
+      helpDetails="Terminates programs and automatic readouts for this device",
+      helpExample="'exit'",
+      altCommands={"ex","stop","cancel"},
+      requireCCN=false,
+      functionToCall=MT.CLI.exit,
+      allowedItems={"dieselEngine","diagnostics"}
     },
     cleanship={
       commands={"cleanship", "clean ship"},
+      altCommands={},
       requireCCN=false,
       functionToCall=MT.CLI.cleanShip,
       allowedItems={"mt_maintenance_tablet"},
     },
     setpower={
-      help="Power to be generated. Ex: setpower > 1000",
-      commands={"report"},
-      allowedItems={"mt_reactor_pf5000"},
+      help="[number]",
+      helpDetails="Sets the target power to be generated by this generator.",
+      helpExample="setpower 1500",
+      altCommands={"sp","setpwr"},
       requiredComponent="simpleGenerator",
       requireCCN=false,
       functionToCall=MT.CLI.setPower,
+      allowedItems={"mt_reactor_pf5000"},
     },
     report={
-      help="runs a report. Example: report > pump",
-      commands={"report"},
+      help="[report name]",
+      helpDetails="Run a report on the central computer. A connection to the central computer is required.",
+      helpExample="run pump",
+      altCommands={"r","rep","repor"},
       allowedItems={"mtc"},
       requireCCN=true,
       functionToCall=MT.CLI.report,
@@ -415,46 +492,66 @@ MT.CLI.errors = {
     },
     ls={
       help="list directories",
+      helpDetails="List records in the current directory.",
+      helpExample="ls",
+      altCommands={"dir","list"},
       requireCCN=false,
       functionToCall=MT.CLI.ls,
       allowedItems={"mtc"}
     },
     cd={
-      help="open directory",
+      help="[target directory]",
+      helpDetails="Opens a sub-directory of the current directory.",
+      helpExample="cd home",
+      altCommands={"goto"},
       requireCCN=false,
       functionToCall=MT.CLI.cd,
       allowedItems={"mtc"}
     },
     mkdir={
-      help="make directory",
+      help="[new directory name]",
+      helpDetails="Create a new sub-directory in the current directory.",
+      helpExample="mkdir myfolder",
+      altCommands={"makedir"},
       requireCCN=false,
       functionToCall=MT.CLI.mkdir,
       allowedItems={"mtc"}
     },
     mv={
-    help="make directory",
+    help="[target record] [destination path]",
+    helpDetails="Moves a record (and all contents) from the current directory to the target directory",
+    helpExample="mv program /home",
+    altCommands={"movedir"},
     requireCCN=false,
     functionToCall=MT.CLI.mv,
     allowedItems={"mtc"}
   },
     rmdir={
-      help="remove directory",
+      help="[record name]",
+      helpDetails="Deletes a record (and all contents) from the current directory.",
+      helpExample="rmdir programs",
+      altCommands={"removedir", "delete"},
       requireCCN=false,
       functionToCall=MT.CLI.rmdir,
       allowedItems={"mtc"}
     },
     run={
-        help="run executable",
+        help="[executable name]",
+        helpDetails="Runs an executable in the current directory.",
+        helpExample="run textcolor",
+        altCommands={"r","ru"},
         requireCCN=false,
         functionToCall=MT.CLI.run,
         allowedItems={"mtc"}
       },
     help={
-      help="YOU ARE HERE.",
-      commands={"help"},
+      help="'details,examples'",
+      helpDetails="Shows possible commands for the current device. Optionally include details and exmaples.",
+      helpExample="'help details'",
+      altCommands={"help!"},
       requireCCN=false,
       functionToCall=MT.CLI.help,
-      allowedItems={"mtc,terminal,any"}
+      allowedItems={"mtc","terminal","dieselEngine"}
     }
   }
 
@@ -482,47 +579,86 @@ MT.CLI.errors = {
 
 --called once for each terminal message sent by a player (unless terminal is waiting)
 function MT.CLI.terminalCommand(item, terminal, message)
-    if message ~= nil then
-        local messageTable = MT.HF.Split(message," ")
-        local command = messageTable[1]
-        local argument = messageTable[2]
-        MT.HF.BlankTerminalLines(terminal, 1) -- create some space
-        terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
-        -- check too see if the terminal message includes a valid command
-        if MT.CLI.commands[command] then
-        -- check to see if this command is allowed
-        if MT.CLI.commandAllowed(item, terminal, command) then
-            -- check if the command requires the central computer to be online
-            if MT.CLI.commands[command].requireCCN == false then
-            -- CCN is not required 
-            MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument)
-            elseif MT.CLI.commands[command].requireCCN == true and CentralComputer.online == true then
-            -- CCN is required and online
-            MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument)
-            else
-            -- the central computer is required and offline
-            terminal.SendMessage("**************NO CONNECTION**************", Color(250,100,60,255))
-            end
-        else
-            -- command is valid but not allowed on your device
-            terminal.SendMessage("THE COMMAND -" .. string.upper(command) .. "- IS NOT ALLOWED. PLEASE CONTACT YOUR SYSTEM ADMINISTRATOR.", Color(250,100,60,255))
-        end
-        else
-        -- command is not valid
-        terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255))
-        end
-    end
-end
+  if message ~= nil then
+    local messageTable = MT.HF.Split(message," ")
+    local command = MT.HF.getCommand(item, terminal, messageTable[1])
+    local argument = messageTable[2]
 
-function MT.CLI.commandAllowed(item, terminal, command)
-    -- check if this report command is allowed on this item
-    for k, v in pairs(MT.CLI.commands[command].allowedItems) do
-      if item.Prefab.Identifier.Value == v or item.HasTag(v) then
-        return true
-        else MT.CLI.error("commandRestricted",terminal,command) end
+    MT.HF.BlankTerminalLines(terminal, 1) -- create some space
+    terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
+
+    -- -------------------------------------------------------------------------- --
+    --                              VALIDATE COMMAND                              --
+    -- -------------------------------------------------------------------------- --
+    -- If there was no direct command match, check all commands for a matching alternate command
+
+    if not MT.CLI.commands[command] then
+      -- invalid command
+      terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255)) 
+      return
+    end
+    -- -------------------------------------------------------------------------- --
+    --                              CHECK PERMISSIONS                             --
+    -- -------------------------------------------------------------------------- --
+    if not MT.CLI.commandAllowed(item, terminal, command) then
+        -- command is valid but not allowed on your device
+        terminal.SendMessage("THE COMMAND -" .. string.upper(command) .. "- IS NOT ALLOWED. PLEASE CONTACT YOUR SYSTEM ADMINISTRATOR.", Color(250,100,60,255))
         return
     end
+    -- -------------------------------------------------------------------------- --
+    --                              CHECK REQUIRMENTS                             --
+    -- -------------------------------------------------------------------------- --     
+
+    -- check if the command requires the central computer to be online
+    if MT.CLI.commands[command].requireCCN == true and not CentralComputer.online then
+      terminal.SendMessage("**************NO CONNECTION**************", Color(250,100,60,255))
+      return 
+    end
+      
+    -- -------------------------------------------------------------------------- --
+    --                               EXECUTE COMMAND                              --
+    -- -------------------------------------------------------------------------- --
+    MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument)
+      
+  else
+    -- empty message
+    terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255))
   end
+end
+
+-- get a valid command
+function MT.HF.getCommand(item, terminal, command)
+  if MT.CLI.commands[command] then
+    -- VALIDATION SUCCEEDED - that was easy
+    return command
+  else
+    -- since we didn't have an exact match, search all known commands for an alternate command match
+    for knownCommand, _ in pairs(MT.CLI.commands) do
+      for k, altCommand in pairs(MT.CLI.commands[knownCommand].altCommands) do
+        if command == altCommand then
+          -- VALIDATION SUCCEEDED 
+          command = knownCommand -- update the command to a known command
+          return command
+        end
+      end
+    end
+  end
+  return command
+end
+
+-- check if the command is allowed on this device
+function MT.CLI.commandAllowed(item, terminal, command)
+  -- check if this report command is allowed on this item
+  local commandAllowed = false
+  for k, v in pairs(MT.CLI.commands[command].allowedItems) do
+    if item.Prefab.Identifier.Value == v or item.HasTag(v) then
+      commandAllowed = true
+      break
+    end
+  end
+  if not commandAllowed and terminal then MT.CLI.error("commandRestricted",terminal,command) end
+  return commandAllowed
+end
 
 -- Create a function that returns the table based on the string location
 function MT.CLI.getDirectory(targetTable, partialLocation)
