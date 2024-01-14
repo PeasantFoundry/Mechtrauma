@@ -41,7 +41,7 @@ public sealed class Configuration
     public float CirculatorServiceLife => _general.Setting_CirculatorServiceLife.Value;
     public float DieselDrainRate => 1f;
 
-    //Deteriorate the electric motor. NOTE: Reduced condtion from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22
+    //Deteriorate the electric motor. NOTE: Reduced condition from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22
     public float ElectricMotorDegradeRate => 0.25f;
     public float PartFaultRangeModifier => _advanced.Setting_PartFaultRangeModifier.Value;
     public float DieselGeneratorEfficiency => _advanced.Setting_DieselGeneratorEfficiency.Value;
@@ -70,7 +70,7 @@ public sealed class Configuration
     public float EngineBlockDPS => GetDPS(_general.Setting_EngineBlockServiceLife.Value);
     public float EngineBlockServiceLife => _general.Setting_EngineBlockServiceLife.Value;
     public float ExhaustManifoldDPS => GetDPS(_general.Setting_ExhaustManifoldServiceLife.Value);
-    public float ExhaustManifoldServiceLife => _general.Setting_ExhaustManifoldServiceLife.Value;
+    public int ExhaustManifoldServiceLife => _general.Setting_ExhaustManifoldServiceLife.Value;
     public float ExhaustManifoldGasketDPS => GetDPS(_general.Setting_ExhaustManifoldGasketServiceLife.Value);
     public float ExhaustManifoldGasketServiceLife => _general.Setting_ExhaustManifoldGasketServiceLife.Value;
 
@@ -107,10 +107,11 @@ public sealed class Configuration
             Setting_FuelPumpServiceLife,
             Setting_ThrustbearingServiceLife,
             Setting_EngineBlockServiceLife,
-            Setting_ExhaustManifoldServiceLife,
+            
             Setting_ExhaustManifoldGasketServiceLife;
 
         public readonly IConfigRangeInt
+            Setting_ExhaustManifoldServiceLife,
             Setting_DivingSuitServiceLife;
 
         public Settings_General(Configuration instance)
@@ -192,14 +193,14 @@ public sealed class Configuration
                     DisplayName: "Standard Engine Block Service Life (min)",
                     DisplayCategory: "General"
                     ));
-            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeFloat(
+            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeInt(
                 "ExhaustManifoldServiceLife", ModName,
-                150f, 5.0f, 500f, GetStepCount(50f, 500f, 4.0f),
+                 60, 0, 120, GetStepCount(0, 120, 10),
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Exhaust Manifold Service Life (min)",
                     DisplayCategory: "General"
-                    ));
+                    ));     
             Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ExhaustManifoldGasketServiceLife", ModName,
                 30f, 1.0f, 150f, GetStepCount(15f, 150f, 1.0f),

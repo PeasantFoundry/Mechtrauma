@@ -141,17 +141,19 @@ function MT.HF.Split(string, inSplitPattern, outResults )
 -- -------------------------------------------------------------------------- --
 --                           MATHIMATICAL OPERATINS                           --
 -- -------------------------------------------------------------------------- --
+-- TODO: pass thermal variables for thermal mass and conductivity 
 function MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
     local temperatureChange = 0
     if InWater == nil then InWater = false end
 
     if currentTemperature > targetTemperature then
         -- passive heat loss - atmosphere
-        temperatureChange = MT.HF.Round(MT.HF.Clamp((targetTemperature - currentTemperature) / 10, -5, -1)) -- returns negative
-
+        temperatureChange = MT.HF.Round(MT.HF.Clamp(((targetTemperature - currentTemperature) / 100) -1, -5, -1),2) -- returns negative
+        --print("GOING DOWN! ", temperatureChange)
     else
         -- heat gain
-        temperatureChange = MT.HF.Round(currentTemperature + (targetTemperature - currentTemperature) / 10 + 1, 2)
+        temperatureChange = MT.HF.Round(MT.HF.Clamp(currentTemperature + (targetTemperature - currentTemperature) / 100 + 1, 0, 5), 2)
+        -- print("GOING UP! ", temperatureChange)
     end
 
     --if InWater then temperatureChange = temperatureChange * 20 end -- thermal conductivity of water is 20x that of air
@@ -167,6 +169,11 @@ end
 
 function MT.HF.getNewTemp(currentTemperature, targetTemperature, InWater)
     return currentTemperature + MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
+end
+
+function MT.HF.approxEquals(number1, number2, tolerance)
+        tolerance = tolerance or 1 -- defaults to 1 if no tolerance argument
+        return math.abs(number1 - number2) <= tolerance
 end
 -- subtracts single amount from a list of items sequentially  
 function MT.HF.subFromListSeq (amount, list)

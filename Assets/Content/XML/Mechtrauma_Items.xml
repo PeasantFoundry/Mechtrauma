@@ -787,7 +787,7 @@
     </ItemContainer>
   </Item>
 
-<!-- HAND TRUCK: -->
+<!-- HAND TRUCK: my beloved -->
   <Item name="Hand Truck" identifier="handtruck" tags="crate,allowcleanup" scale="0.5" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Fabricate suitablefabricators="fabricator" amount="1" requiredtime="5">      
       <RequiredItem identifier="steel" />
@@ -796,8 +796,8 @@
       <Item identifier="scrap_steel" />
     </Deconstruct>
     <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
-    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="0,224,180,336"  depth="0.54"  origin="0.5,0.5" />
-    <Body width="240" height="340" density="50" />
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="0,224,180,336" depth="0.54" origin="0.5,0.5" />
+    <Body width="240" height="325" density="50" />
     <Holdable slots="RightHand+LeftHand" holdpos="-75,-250" handle1="-75,75" handle2="-75,75" holdangle="45" aimable="false" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.8" setvalue="true" />
     </Holdable>  
@@ -1266,6 +1266,8 @@
     <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1088,224,96,64" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1088,224,96,64" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1184,224,96,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -1416,24 +1418,33 @@
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,0,128,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
     <!-- BLOCK IS HOT -->
-    <LightComponent range="10.0" lightcolor="255,255,255,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,608,128,128" depth="0.4" origin="0.5,0.75" alpha="1.0" />
+    <LightComponent range="10.0" lightcolor="200,50,25,5" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,608,128,128" depth="0.4" origin="0.5,0.5" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
         <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
       </StatusEffect>
     </LightComponent>
     <DataBox/>
-    <Thermal/>
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
+    <LuaNetEventDispatcher Name="DieselGenerator"/>    
     <Body width="128" height="120" density="100" />
-    <Holdable handle1="0,0" pickingtime="2" canbepicked="True" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
-      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.0" setvalue="true" />
+    <Holdable handle1="0,0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" canbepicked="true" pickingtime="2">
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.2" setvalue="true" />
     </Holdable>   
     <Quality>
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
-    <!-- Engine Parts -->
+    <!-- Engine Parts -->        
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" keepopenwhenequipped="true" movableframe="true" showcontainedstateindicator="false">    
+      <!-- failed experiment
+        <StatusEffect type="Always" target="This" keepopenwhenequipped="false">
+        <Conditional InWater="false" />     
+      </StatusEffect>
+      <StatusEffect type="Always" target="This" keepopenwhenequipped="true">
+        <Conditional InWater="false" />   
+      </StatusEffect> -->
+
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="DCM" />
       <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,192,64,64" origin="0.5,0.5" /> <!-- cylinder head -->
       <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,128,64,64" origin="0.5,0.5" /> <!-- crank assembly -->         
@@ -1446,49 +1457,8 @@
     </ItemContainer>
   </Item>
 
-  <!-- CRANK ASSEMBLY: diesel engine block  -->
-  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="crankassembly,mtu,mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
-    <PreferredContainer primary="mechcab"/>    
-    <Price baseprice="100" displaynonempty="true" minavailable="2">
-      <Price storeidentifier="merchantoutpost" />
-      <Price storeidentifier="merchantcity" minavailable="3" />
-      <Price storeidentifier="merchantresearch" />
-      <Price storeidentifier="merchantmilitary" />
-      <Price storeidentifier="merchantmine" />
-      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
-    </Price>
-    <Deconstruct time="100">      
-      <Item identifier="steel" />      
-    </Deconstruct>
-    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
-      <RequiredSkill identifier="mechanical" level="35" />
-      <RequiredItem identifier="steel" amount="2" />
-      <RequiredItem identifier="aluminium" amount="1" />
-    </Fabricate>
-    <!-- RECYCLE: no rebuild, cannot be salvaged. -->  
-    <!-- REPAIR: no repair, cannot be salvaged. -->
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
-    <!-- ITEM IS HOT -->
-    <LightComponent range="10.0" lightcolor="255,100,50,0" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" depth="0.4" origin="0.5,0.75" alpha="1.0" />
-      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
-      <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
-      </StatusEffect>
-    </LightComponent>
-    <DataBox/>
-    <Thermal/>
-    <Body width="128" height="100" density="80" />
-    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
-      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
-    </Holdable>   
-    <Quality>
-      <QualityStat stattype="Condition" value="0.1"/>
-    </Quality>
-  </Item>
   <!-- CYLINDER HEAD: For use in machines such as a diesel engine -->
-  <Item name="Cylinder Head" identifier="mt_eb_cylinder_head" Category="Fuel" Tags="mediumitem,handtruck,cylinderHead,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="Cylinder Head" identifier="mt_eb_cylinder_head" Category="Fuel" Tags="mtu,mediumitem,handtruck,cylinderHead,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1519,11 +1489,20 @@
       <RequiredItem identifier="steel" amount="1" />
     </Fabricate>
     
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,0,128,64" depth="0.55" />
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,0,128,64" origin="0.5,0.5" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
-    <Body width="128" height="100" density="80" />
+    <Body width="128" height="64" density="80" />
+    <!-- ITEM IS HOT -->
+    <LightComponent range="10.0" lightcolor="175,35,5,10" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" depth="0.4" origin="0.5,0.5" alpha="1.0" />
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      </StatusEffect>
+    </LightComponent>
+
     <DataBox/>
-    <Thermal/>
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
     </Holdable>   
@@ -1537,8 +1516,51 @@
     </ItemContainer>
   </Item>
 
+
+  <!-- CRANK ASSEMBLY: diesel engine block  -->
+  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="crankassembly,mtu,mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+    <PreferredContainer primary="mechcab"/>    
+    <Price baseprice="100" displaynonempty="true" minavailable="2">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="3" />
+      <Price storeidentifier="merchantresearch" />
+      <Price storeidentifier="merchantmilitary" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+    </Price>
+    <Deconstruct time="100">      
+      <Item identifier="steel" />      
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <!-- RECYCLE: no rebuild, cannot be salvaged. -->  
+    <!-- REPAIR: no repair, cannot be salvaged. -->
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
+    <!-- ITEM IS HOT -->
+    <LightComponent range="10.0" lightcolor="175,35,5,10" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.4" alpha="1.0" />
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      </StatusEffect>
+    </LightComponent>
+    <DataBox/>
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
+    <Body width="160" height="128" density="80"/>
+    <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
+      <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
+    </Holdable>   
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1"/>
+    </Quality>
+  </Item>
+  
   <!-- EXHAUST MANIFOLD: For use in machines such as a diesel engine -->
-  <Item name="Exhaust Manifold" identifier="mt_eb_exhaust_manifold" Category="Fuel" Tags="mediumitem,exhaustManifold,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Exhaust Manifold" identifier="mt_eb_exhaust_manifold" Category="Fuel" Tags="mtu,mediumitem,exhaustManifold,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1568,10 +1590,19 @@
       <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />
     </Fabricate>
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="1024,704,128,100" />
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,704,128,100" depth="0.55"/>
     <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,832,128,100" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <!-- ITEM IS HOT -->
+    <LightComponent range="10.0" lightcolor="200,50,25,5" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,704,128,100" depth="0.4" origin="0.5,0.5" alpha="1.0"/>
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      </StatusEffect>
+    </LightComponent>
+
     <DataBox/>
-    <Thermal/>
+    <Thermal TargetOpTemp="400" MaxOpTemp="450" FailTemp="600"/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1587,7 +1618,7 @@
   </Item>
 
   <!-- INDEPENDENT HEAT EXCHANGER: For use with machines such as a diesel engine -->
-  <Item name="Independent Heat Exchanger" identifier="mt_heat_exchanger_independent" Category="Machine" Tags="mediumitem,heatexchanger,machine" linkable="true" allowedlinks="dieselengine,dieselgenerator" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Independent Heat Exchanger" identifier="mt_heat_exchanger_independent" Category="Machine" Tags="heatexchanger,machine" linkable="true" allowedlinks="dieselengine,dieselgenerator" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1634,14 +1665,14 @@
       </StatusEffect> --> 
     </LightComponent>
     <Sprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="768,448,110,204" depth="0.75"/>
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,460,192,180" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,460,192,180" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />    
     <DataBox/>
-    <Thermal/>      
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>      
     <Quality>
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
-      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" uilabel="Engine" />
       <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,192,64,64" origin="0.5,0.5" /> <!-- heatexchager -->
       <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,192,64,64" origin="0.5,0.5" /> <!-- coolant pump -->
       <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,192,64,64" origin="0.5,0.5" /> <!-- coolant -->
@@ -1700,8 +1731,15 @@
     </Fabricate>
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,736,96,160" depth="0.55"/>
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,736,96,160" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+    <LightComponent range="10.0" lightcolor="200,50,25,5" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,736,96,160" depth="0.4" origin="0.5,0.5" alpha="1.0"/>
+      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
+      <StatusEffect type="OnActive" target="This">
+        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      </StatusEffect>
+    </LightComponent>
     <DataBox/>
-    <Thermal/>
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1709,11 +1747,6 @@
     <Quality>
       <QualityStat stattype="Condition" value="0.1"/>
     </Quality>
-    <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="true" showcontainedstateindicator="false">    
-      <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" /> <!-- coolant -->
-      <Containable items="coolant" excludebroken="false" excludefullcondition="false" />
-    </ItemContainer>
   </Item>
 
    <!-- GASKET: generic -->
@@ -1739,6 +1772,7 @@
     <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" origin="0.5,0.5" />
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1152,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="260"/>   
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
     </Holdable>
@@ -3284,17 +3318,19 @@
       </StatusEffect> 
     </Holdable>
         
+    
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
                       ReadOnly="false">
-       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255" 
-                      MessageFont="MonospacedFont"/>
+       <MessageAreaGui Margin="0.15" Offset="-0.38,-0.41" TopPadding="0.04" HistoryBoxSize="1.0,0.725" InputBoxSize="0.95,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.775,0.61" ShowInputBox="true" TextColor="170,255,5,255" 
+                      MessageFont="UseMonospaceFont = true"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
-      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,0,384,288" origin="0.5,0.5"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="2">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,0,384,308" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+
 
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">    
         <Containable items="smallitem">                
@@ -3370,14 +3406,14 @@
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
     <Sprite texture="%ModDir%/Images/Items/mt_computers.png" sourcerect="384,0,160,128" depth="0.6" origin="0.5,0.5" />
-        <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
+       <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
                       ReadOnly="false">
-       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="170,255,5,255" 
+       <MessageAreaGui Margin="0.15" Offset="-0.38,-0.41" TopPadding="0.04" HistoryBoxSize="1.0,0.725" InputBoxSize="0.95,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.775,0.61" ShowInputBox="true" TextColor="170,255,5,255" 
                       MessageFont="UseMonospaceFont = true"/>
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200"/>
-      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="2.0">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,640,384,308" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>

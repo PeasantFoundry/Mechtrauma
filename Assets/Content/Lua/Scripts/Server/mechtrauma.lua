@@ -8,9 +8,35 @@ Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientWrite", "MT.Net.CR", MT.Net.Cl
 
 Hook.Add("item.equip", "MT.hotItemEquipped", function(item, character)
   local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+  
+  -- burn the fool holding this
   if thermal and thermal.Temperature ~= nil then
     if thermal.Temperature > 150 then
       --MT.HF.AddAffliction(character,"burn",5)
+    end
+  end
+
+  if item.HasTag("engineblock") then
+    print("THIS IS TOO HEAVY YOU CANOT HOLD IT")
+    if item.InWater == false then
+      --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquipped = true
+      --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquippedBy(item.GetRootInventoryOwner())
+      item.Drop()
+    else
+      print("Why would this run?")
+      --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquipped = false
+      --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquippedBy(item.GetRootInventoryOwner())
+    end
+  end
+
+end)
+
+Hook.Add("Mechtrauma.PlayerLadderDetector::OnLadderValueUpdate","MT.LadCheck", function(component, character)
+  if component.IsOnLadder then
+    character.SpeedMultiplier = MT.SpeedTable[component.Id].LadderSpeed
+  else
+    if character ~= nil then
+      character.SpeedMultiplier = MT.SpeedTable[component.Id].NormalSpeed
     end
   end
 end)

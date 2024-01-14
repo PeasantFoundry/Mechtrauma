@@ -264,13 +264,12 @@
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
       </StatusEffect> 
     </LightComponent>
-    <!-- My beloved databox -->
-    
+ 
     <!-- Diesel Generator -->
     <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >  
     </SimpleGenerator>    
     <DieselEngine/>
-    <Thermal/>
+    <Thermal MinOpTemp="-20" TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
     <LuaNetEventDispatcher Name="DieselGenerator"/>    
    
     <!-- Diagnostic Terminal -->
@@ -312,7 +311,7 @@
       <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />  <!-- aux 02 -->      
       <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" /> <!-- air filter -->
       <!-- SLOT 0 Engine Block -->  
-      <Containable items="mt_engine_block" excludebroken="false" excludefullcondition="false"/>           
+      <Containable items="mt_engine_block,engineblock" excludebroken="false" excludefullcondition="false"/>           
       <!-- SLOT 1 Oil -->  
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>             
@@ -321,9 +320,9 @@
       <SubContainer capacity="1" maxstacksize="1">
         <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
       </SubContainer>      
-      <!-- SLOT 3 Cooling System -->  
+      <!-- SLOT 3 Diesel Fuel -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="heat_exchanger,heatexchanger" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="diesel_fuel,dieselfuel" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>      
       <!-- SLOT 4 Fuel Filter -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
@@ -335,7 +334,7 @@
       </SubContainer>      
       <!-- SLOT 6 Battery -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_battery_lead_acid,labatter" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_battery_lead_acid,labattery" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 7 Starter Motor -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
@@ -343,11 +342,11 @@
       </SubContainer>
       <!-- SLOT 8 DCM -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_dcm" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_dcm,dcm" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOTs 9 Exhaust Manifold -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_eb_exhaust_manifold" excludebroken="true" excludefullcondition="false"/>  
+        <Containable items="mt_eb_exhaust_manifold,exhaustmanifold" excludebroken="true" excludefullcondition="false"/>  
       </SubContainer>            
       <!-- SLOTs 10 Oxygen -->  
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">

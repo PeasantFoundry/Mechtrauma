@@ -9,16 +9,37 @@ MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or h
     fixSkill = "mechanical",
     requiredSkill = 30
   },
-  water = {
-    tag = "water",
-    description = " appears to have water in it.",
-    fixable = true,
+  blown = {
+    tag = "blown",
+    description = " appears to be blown.",
+    fixable = false,
     fixSkill = "mechanical",
     requiredSkill = 30
   },
   contaminated = {
     tag = "contaminants",
     description = " appears to be contaminated.",
+    fixable = true,
+    fixSkill = "mechanical",
+    requiredSkill = 30
+  },
+  cracked = {
+    tag = "cracked",
+    description = " appears to be cracked.",
+    fixable = true,
+    fixSkill = "mechanical",
+    requiredSkill = 30
+  },
+  warped = {
+    tag = "wapred",
+    description = " appears to be warped.",
+    fixable = false,
+    fixSkill = "mechanical",
+    requiredSkill = 30
+  },
+  water = {
+    tag = "water",
+    description = " appears to have water in it.",
     fixable = true,
     fixSkill = "mechanical",
     requiredSkill = 30

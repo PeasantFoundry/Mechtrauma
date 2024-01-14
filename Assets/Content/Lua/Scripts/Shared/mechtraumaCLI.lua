@@ -15,12 +15,15 @@ function MT.CLI.exit(item, terminal, message, command, argument)
     DieselEngine.DiagnosticMode = false
     DieselEngine.ShowStatus = false
     DieselEngine.ShowLevels = false
+    DieselEngine.ShowTemps = false
     MT.Net.SendEvent(item)
-    terminal.SendMessage("TERMINATING AUTOMATIC READOUTS")
+    terminal.SendMessage("CLEARING READOUTS")
   end
 end
 
 function MT.CLI.diagnostics(item, terminal, message, command, argument)
+  -- if there is no argument
+  if not argument then terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255)) return end
   -- convert the argument to a boolean
   if argument == "on" or argument == "true" then argument = true
   elseif argument == "off" or argument == "false" then argument = false end
@@ -58,12 +61,11 @@ function MT.CLI.show(item, terminal, message, command, argument)
   if item.HasTag("DieselEngine") then
     local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
     
-    
     if argument == "nothing" or argument == nil then
       -- disable current automatic readout
       MT.CLI.exit(item, terminal)
 
-    elseif argument == "diagnostics" then
+    elseif argument == "diagnostics" or argument == "diagnostic" or argument == "diag" then
       MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.DiagnosticMode = true
       terminal.SendMessage("DIAGNOSTIC MODE ENABLED")
@@ -75,10 +77,15 @@ function MT.CLI.show(item, terminal, message, command, argument)
       terminal.SendMessage("STATUS DISPLAY ENABLED")
       MT.Net.SendEvent(item)
 
-    elseif argument == "levels" then
+    elseif argument == "levels" or argument == "level" then
       MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.ShowLevels = true
       terminal.SendMessage("STATUS DISPLAY ENABLED")
+      MT.Net.SendEvent(item)
+    elseif argument == "temps" or argument == "temp" then
+      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      DieselEngine.ShowTemps = true
+      terminal.SendMessage("TEMPERATURE DISPLAY ENABLED")
       MT.Net.SendEvent(item)
 
     else
@@ -417,7 +424,7 @@ MT.CLI.errors = {
       allowedItems={"diagnostics","dieselEngine"}
     },
     show={
-      help="'status,level,diagnostics'",
+      help="'levels,status,temps,diagnostics'",
       helpDetails="Enable an automatic readout for this device.",
       helpExample="'show status'",
       altCommands={"display","sho","sh"},
@@ -586,7 +593,8 @@ function MT.CLI.terminalCommand(item, terminal, message)
 
     MT.HF.BlankTerminalLines(terminal, 1) -- create some space
     terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
-
+    --Timer.Wait(function() terminal.SendMessage("REQUEST PROCESSED...", Color.Gray) end, 1000)
+    
     -- -------------------------------------------------------------------------- --
     --                              VALIDATE COMMAND                              --
     -- -------------------------------------------------------------------------- --
@@ -594,7 +602,7 @@ function MT.CLI.terminalCommand(item, terminal, message)
 
     if not MT.CLI.commands[command] then
       -- invalid command
-      terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255)) 
+      terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255))
       return
     end
     -- -------------------------------------------------------------------------- --
@@ -618,7 +626,8 @@ function MT.CLI.terminalCommand(item, terminal, message)
     -- -------------------------------------------------------------------------- --
     --                               EXECUTE COMMAND                              --
     -- -------------------------------------------------------------------------- --
-    MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument)
+    Timer.Wait(function()  MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument) end, 1000)
+   
       
   else
     -- empty message

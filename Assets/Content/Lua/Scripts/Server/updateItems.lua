@@ -40,6 +40,14 @@ MT.tagfunctions = {
         tags={"crankAssembly"},
         update=MT.F.crankAssembly
     },
+    cylinderHead={
+        tags={"cylinderHead"},
+        update=MT.F.cylinderHead
+    },
+    exhaustManifold={
+        tags={"exhaustManifold"},
+        update=MT.F.exhaustManifold
+    },
     steamBoiler={
         tags={"steamBoiler"},
         update=MT.F.steamBoiler

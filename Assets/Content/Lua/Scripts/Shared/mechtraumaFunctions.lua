@@ -8,6 +8,7 @@ MT.itemCacheCount = 0
 MT.inventoryCache = {parts={}}
 MT.inventoryCacheCount = 0
 MT.PriorityItemCache = {}
+MT.ambientTemperature = 60
 
 
 
@@ -398,6 +399,8 @@ function MT.F.steamHeatsink(item)
     -- if the controller swtich is on, open the valve
 end
 
+-- probably need to move these to diesel functions....
+
 function MT.F.airFilter(item)
     -- did I get wet?
     if item.InWater then
@@ -405,12 +408,10 @@ function MT.F.airFilter(item)
         MT.itemCache[item].counter = 30
     end
 
-    if item.HasTag("water") and MT.itemCache[item].counter < 1 then
-        print("removed wet tag!")
+    if item.HasTag("water") and MT.itemCache[item].counter < 1 then        
         item.ReplaceTag("water","mold")
         
-    elseif MT.itemCache[item].counter > 0 then
-        print(MT.itemCache[item].counter)
+    elseif MT.itemCache[item].counter > 0 then        
         MT.itemCache[item].counter = MT.itemCache[item].counter - 1
     end
     -- if there is something inside the filter, plug it.
@@ -420,9 +421,6 @@ end
 -- called by item update cycle
 function MT.F.engineBlock(item)
     local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
-    local ambientTemperature = 60 -- sub temp
-    
-
     -- sprite control
     if thermal.Temperature > 160 then
         -- IS HOT
@@ -431,76 +429,91 @@ function MT.F.engineBlock(item)
         -- IS NOT
         for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end end
     end
+    MT.F.thermalPartTemp(item, thermal)
 
-    if item.ParentInventory == nil then
-        -- im not in an item, adjust my temperature
-        thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
-    
-    elseif LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then
-        -- burn the fool holding me
-        MT.HF.AddAffliction(item.ParentInventory.Owner,"burn",5)
+    --[[ if the engine is underwater you can pick it up
+    if item.InWater == true then
+        print("IM underwater!")
+        --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquipped = false
+        --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquippedBy = false
+        print(tostring(MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquipped))
+        MT.Net.SendEvent(item)
     else
-        local dieselEngine = MTUtils.GetComponentByName(item.ParentInventory.Owner, "Mechtrauma.DieselEngine")
-        if dieselEngine and dieselEngine.IsRunning then
-            -- do nothing, the engine will manage my temperature
-            return
-        else
-            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
-        end
-    end
-
-    --[[ if I'mt not in an inventory, adjust me towards ambient temperature 
-    if item.ParentInventory == nil then 
-       
-    else
-        if dieselEngine and dieselEngine.IsRunning == true then
-            -- if I'm in an running engine, do nothing - the engine will manage my temperature
-            return
-        
-            -- adjust temperature towards ambient
-            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
-        else
-            -- adjust temperature towards ambient
-            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
-        end
-
+        print("NOT NOT underwater!")
+        --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquipped = true
+        --MTUtils.GetComponentByName(item, "Barotrauma.Items.Components.ItemContainer").KeepOpenWhenEquippedBy = true
+        MT.Net.SendEvent(item)
     end]]
-
-    -- am I in a running engine?
 
 end
 
 -- called by item update cycle
 function MT.F.crankAssembly(item)
     local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
-    local ambientTemperature = 60 -- sub temp
-
     -- sprite control
-    if thermal.Temperature > 160 then
-        -- IS HOT
+    if thermal.Temperature > 160 then        
         for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end end
     else
-        -- IS NOT
         for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end end
     end
+    MT.F.thermalPartTemp(item, thermal)
+end
+
+-- called by item update cycle
+function MT.F.cylinderHead(item)
+    local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+    -- sprite control
+    if thermal.Temperature > 160 then
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end end
+    else
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end end
+    end
+    MT.F.thermalPartTemp(item, thermal)
+end
+
+-- called by item update cycle
+function MT.F.exhaustManifold(item)
+    local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
+    -- sprite control
+    if thermal.Temperature > 160 then        
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = true end end
+    else
+        for k, item in pairs(item.Components) do if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end end
+    end
+    MT.F.thermalPartTemp(item, thermal)
+end
+
+function MT.F.thermalPartTemp(item, thermal)
+    local rootOwner = item.GetRootInventoryOwner()
+    local rootOwnerIsCharacter = LuaUserData.IsTargetType(rootOwner, "Barotrauma.Character")
+    if thermal.Temperature == nil then thermal.Temperature = MT.ambientTemperature end -- correct any nil temps
 
     if item.ParentInventory == nil then
         -- im not in an item, adjust my temperature
-        thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
+        if not MT.HF.approxEquals(thermal.Temperature, MT.ambientTemperature) then thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, MT.ambientTemperature, item.InWater) end
 
+    -- don't use the root inventory owner here so that it wont burn someone if it's in hand truck 
     elseif LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then
+
         -- burn the fool holding me
-        MT.HF.AddAffliction(item.ParentInventory.Owner,"burn",5)
-    else
-        local dieselEngine = MTUtils.GetComponentByName(item.ParentInventory.Owner, "Mechtrauma.DieselEngine")
-        if dieselEngine and dieselEngine.IsRunning then
+        if thermal.Temperature > 160 then
+            MT.HF.AddAffliction(item.ParentInventory.Owner,"burn", 5)
+        end
+    elseif not rootOwnerIsCharacter and rootOwner.HasTag("DieselEngine") then
+        local DieselEngine = MTUtils.GetComponentByName(rootOwner, "Mechtrauma.DieselEngine")
+        if DieselEngine and DieselEngine.IsRunning then
             -- do nothing, the engine will manage my temperature
             return
         else
-            thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, ambientTemperature, item.InWater)
+            -- im in an item that controls temperature but is off. (need to port this for the item to still control ambient temperature)
+            if not MT.HF.approxEquals(thermal.Temperature, MT.ambientTemperature) then thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, MT.ambientTemperature, item.InWater) end
         end
+    else
+        -- im in an item that isn't a character or dosen't control item temperature, adjust to ambientTemperature
+        if not MT.HF.approxEquals(thermal.Temperature, MT.ambientTemperature) then thermal.Temperature = MT.HF.getNewTemp(thermal.Temperature, MT.ambientTemperature, item.InWater) end
     end
 end
+
 -- -------------------------------------------------------------------------- --
 --                                   ACTIONS                                  --
 -- -------------------------------------------------------------------------- --

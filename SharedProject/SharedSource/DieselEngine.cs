@@ -25,9 +25,9 @@ namespace Mechtrauma
         public float CoolantVol = 0.0f; // CL
         public float CoolantCapacity = 6000.0f; // CL
         public float CoolantLevel = 0.0f; // %        
-        public float CoolingAvailable = 0.0f; // BTU
+        public float CoolingAvailable = 0.0f; // BTU - change to CoolingCapacity
         public float OperatingTemperature = 200.0f; // F        
-        public float CoolingCapacity = 150000.0f; // BTU
+        public float CoolingCapacity = 150000.0f; // BTU - change to MaxCoolingCapacity
         public float CoolingNeeded = 0.0f; // BTU
         public float HeatGenerated = 0.0f; // BTU
         public float HeatSurplus = 0.0f; // BTU
@@ -36,6 +36,7 @@ namespace Mechtrauma
         public bool DiagnosticMode = false;
         public bool ShowStatus = false;
         public bool ShowLevels = false;
+        public bool ShowTemps = false;
 
     }
 }

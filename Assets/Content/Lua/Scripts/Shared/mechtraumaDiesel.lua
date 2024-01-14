@@ -36,26 +36,32 @@ end
 -- at 15 PSI antifreeze 50/50 will boil at 257f (125c)
 
 
-function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger)
+function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger, coolantPump)
     local coolingCheck = true
-    if dieselSeries.heatExchangerLocation then
+        
+        -- check if a heat exchanger is required and pressent
         if heatExchanger == nil or heatExchanger.Condition < 1 then
+            DieselEngine.CoolingAvailable = 0
             coolingCheck = false
+            return
+        -- check if a linked heatchanger is required and present
+        elseif dieselSeries.LinkedHeatExchanger and DieselEngine.LinkedHeatExchanger == nil then
+            DieselEngine.CoolingAvailable = 0
+            coolingCheck = false
+            return
+        -- check if a water pump is required and present
+        elseif dieselSeries.coolantPump and coolantPump == nil or coolantPump.condition < 0 then
+            DieselEngine.CoolingAvailable = 0
+            coolingCheck = false
+            return
         else
-            DieselEngine.CoolingAvailable = DieselEngine.CoolingCapacity * DieselEngine.CoolantLevel
+            -- calculate available cooling
+            DieselEngine.CoolingAvailable = (DieselEngine.CoolingCapacity * (heatExchanger.ConditionPercentage / 100) * (coolantPump.ConditionPercentage / 100) * DieselEngine.CoolantLevel)
         end
-    elseif dieselSeries.independentHeatExchanger then
-        if DieselEngine.LinkedHeatExchanger == nil then
-            coolingCheck = false
-        else            
-            if item.ParentInventory ~= nil and LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then MT.HF.AddAffliction(item.ParentInventory.Owner,"burn",5)  end
-            DieselEngine.CoolingAvailable = DieselEngine.CoolingCapacity * DieselEngine.CoolantLevel
-        end
-    end
     return coolingCheck
 end
 
-function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, crankAssembly)
+function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, cylinderHeadGasket, crankAssembly)
     local compressionCheck = true -- defaults to true for dieselSeries with no engineBlock
     if dieselSeries.engineBlockLocation then
         if engineBlock == nil or cylinderHead == nil or crankAssembly == nil then
@@ -65,6 +71,11 @@ function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, c
             compressionCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")
         end
+    end
+    if dieselSeries.engineBlockLocation then
+       if not cylinderHeadGasket or cylinderHeadGasket.ConditionPercentage < 1 or cylinderHeadGasket.HasTag("blown") then
+        table.insert(MT.itemCache[item].diagnosticData.warningCodes, "*DC1019: REDUCED COMPRESSION*")
+       end
     end
     return compressionCheck
 end
@@ -209,16 +220,16 @@ function MT.DF.starterCheck(item, dieselSeries,starterMotor)
     return starterCheck
 end
 
-function MT.DF.getFluids(item, DieselEngine, parts)
+function MT.DF.getFluids(item, DieselEngine, parts, dieselSeries)
     local index = 0
     local fluids = {oilItems = {}, oilVol = 0, frictionReduction = 0, coolantItems={}, coolantVol=0,coolantCapacity=0}
-    DieselEngine.CoolantCapacity = 0
+    --DieselEngine.CoolantCapacity = 0
     DieselEngine.CoolantVol = 0
     DieselEngine.CoolantLevel = 0
     DieselEngine.CoolingAvailable = 0
 
     -- DYNAMIC INVENTORY: contained cooling
-    if parts.heatExchanger ~= nil then
+    if dieselSeries.heatExchangerLocation and parts.heatExchanger ~= nil then
         while(index < parts.heatExchanger.OwnInventory.Capacity) do
             if parts.heatExchanger.OwnInventory.GetItemAt(index) ~= nil then
                 local containedItem = parts.heatExchanger.OwnInventory.GetItemAt(index)
@@ -226,8 +237,7 @@ function MT.DF.getFluids(item, DieselEngine, parts)
                     table.insert(fluids.coolantItems, containedItem)
 
                     DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
-                    DieselEngine.CoolantCapacity = containedItem.MaxCondition * index
-                    DieselEngine.CoolantLevel = DieselEngine.CoolantVol / DieselEngine.CoolantCapacity
+                    DieselEngine.CoolantLevel = DieselEngine.CoolantVol / dieselSeries.coolantCapacity
                 end
             end
             index = index + 1
@@ -246,8 +256,7 @@ function MT.DF.getFluids(item, DieselEngine, parts)
                         -- get coolant item(s) - 
                         if containedItem.HasTag("coolant") and containedItem.Condition > 0 then                            
                             DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
-                            DieselEngine.CoolantCapacity = containedItem.MaxCondition * index
-                            DieselEngine.CoolantLevel = DieselEngine.CoolantVol / DieselEngine.CoolantCapacity
+                            DieselEngine.CoolantLevel = DieselEngine.CoolantVol / dieselSeries.coolantCapacity
                         end
                     end
                     index = index + 1
@@ -314,53 +323,69 @@ function MT.DF.getFuels(item, DieselSeries)
     return fuels
 end
 
-function MT.DF.getTemperatureZone(temperature, desiredOutput)
+function MT.DF.getTemperatureZone(currentTemp, operatingTemp, desiredOutput)
     local result
     if desiredOutput == nil then desiredOutput = "temp" end
     -- temperature zone
     -- someday dynamically calculate RBG for gradiant
     if desiredOutput == "color" then
-        if temperature >= 300 then result = Color(255,0,0,255)
-        elseif temperature > 260 then result = Color(200,20,10,255)
-        elseif temperature > 240 then result = Color(255,80,40,255)
-        elseif temperature > 220 then result = Color(255,120,40,255)
-        elseif temperature > 180 then result = Color(50,255,100,255)
-        elseif temperature > 32 then result = Color(50,200,255,255)
+        if currentTemp / operatingTemp >= 1.5 then result = Color(255,0,0,255)  -- old 300f
+        elseif currentTemp / operatingTemp > 1.3 then result = Color(200,20,10,255) -- 260f
+        elseif currentTemp / operatingTemp > 1.2 then result = Color(255,80,40,255) -- old 240f
+        elseif currentTemp / operatingTemp > 1.1 then result = Color(255,120,40,255) -- old 220f
+        elseif currentTemp / operatingTemp > 0.9 then result = Color(50,255,100,255) -- old 180f
+        elseif currentTemp > 0.16 then result = Color(50,200,255,255) -- old 32f 
         else result = Color(50,255,150,255)
         end
         return result
     else
-        if temperature >= 300 then result = "failure"
-        elseif temperature > 260 then result = "critical"
-        elseif temperature > 240 then result = "over"
-        elseif temperature > 220 then result = "high"
-        elseif temperature > 180 then result = "operating"
-        elseif temperature > 32 then result = "low"
+        if currentTemp / operatingTemp >= 1.5 then result = "failure"
+        elseif currentTemp / operatingTemp > 1.3 then result = "critical"
+        elseif currentTemp / operatingTemp > 1.2 then result = "over"
+        elseif currentTemp / operatingTemp > 1.1 then result = "high"
+        elseif currentTemp / operatingTemp > 0.9 then result = "operating"
+        elseif currentTemp / operatingTemp > 0.16 then result = "low"
         else result = "freezing"
         end
         return result
     end
 end
 
+
 -- -------------------------------------------------------------------------- --
 --                              PART FALT EVENTS                              --
 -- -------------------------------------------------------------------------- --
--- probably needs a refactor 
+-- probably needs a refactor
+ 
 
 function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- get or set part failures?
-
+    -- coolantPump fault events
     -- fuelFilter fault events     
-    if parts.fuelFilter and MT.itemCache[item].fuelFilterBypassed == false then
 
+        -- airFilter fault events
+    if parts.airFilter then
+        local extraModifier = 1.0
+        if parts.airFilter.HasTag("mold") then extraModifier = 0.5 end -- increase fungus spawn rate 
+        if MT.DF.partFaultProbability(parts.airFilter, MT.Config.FuelPumpSLD, engineReliability, extraModifier) then -- piggy backing on fuelPump servicelife for the moment            
+            Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab("spore_fungus"), parts.airFilter.OwnInventory, nil, nil, function(item) end) -- daww, its back!
+        end
+    end
+
+    if parts.fuelFilter and MT.itemCache[item].fuelFilterBypassed == false then
+        -- water contamination from bad fuel
         if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,20) then parts.fuelFilter.AddTag("water") end
+        -- water contamiation from being submerged
+        if MT.itemCache[item].waterInFuel and MT.HF.Probability(1,100) then parts.fuelFilter.AddTag("water") end
+        -- other contamination
         if MT.itemCache[item].contaminantsInFuel and MT.HF.Probability(1,10) then parts.fuelFilter.AddTag("blocked") end --MT.itemCache[item].contaminantsInFuel
 
         --[[ legacy random blockage calc
         if MT.DF.partFaultProbability(parts.fuelFilter,MT.Config.FuelFilterSLD, engineReliability) then
             parts.fuelFilter.AddTag("blocked") -- add a blockage - in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
         end]]
+    end
 
-    elseif parts.fuelPump then
+    if parts.fuelPump then
     -- fuelPump fault events    
 
         if MT.itemCache[item].fuelFilterBypassed == true then
@@ -378,19 +403,41 @@ function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- 
             parts.fuelPump.AddTag("blocked") -- in the future make it more likely when diesel tanks are damaged / submerged / contain cheap diesel.
             -- water - but I need to add a weighted random selection
         end ]]
+    end
 
-    -- airFilter fault events
-    elseif parts.airFilter then
-        local extraModifier = 1.0
-        if parts.airFilter.HasTag("mold") then extraModifier = 0.5 end -- increase fungus spawn rate 
-        if MT.DF.partFaultProbability(parts.airFilter, MT.Config.FuelPumpSLD, engineReliability, extraModifier) then -- piggy backing on fuelPump servicelife for the moment            
-            Entity.Spawner.AddItemToSpawnQueue(ItemPrefab.GetItemPrefab("spore_fungus"), parts.airFilter.OwnInventory, nil, nil, function(item) end) -- daww, its back!
+    -- coo
+    -- heatExchanger fault events
+    -- 
+    -- overheating fault events?
+    if parts.engineBlock then
+        local thermal = MTUtils.GetComponentByName(parts.engineBlock, "Mechtrauma.Thermal")
+        -- cracking
+        if thermal.ContractionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 100000) then
+            parts.engineBlock.AddTag("cracked")
+        -- warping
+        elseif thermal.ExpansionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 100000) then
+            parts.engineBlock.AddTag("warped")
         end
     end
-    -- overheating fault events
-    if parts.engine then
-    -- 
+    if parts.cylinderHead then
+        local thermal = MTUtils.GetComponentByName(parts.cylinderHead, "Mechtrauma.Thermal")
+        -- cracking
+        if thermal.ContractionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 100000) then
+            parts.cylinderHead.AddTag("cracked")
+        -- warping
+        elseif thermal.ExpansionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 100000) then
+            parts.cylinderHead.AddTag("warped")
+        end
     end
+
+    if parts.cylinderHeadGasket then
+        local thermal = MTUtils.GetComponentByName(parts.cylinderHeadGasket, "Mechtrauma.Thermal")
+        -- blown
+        if thermal.ContractionStress > 0 or thermal.ExpansionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 10000) then
+            parts.cylinderHeadGasket.AddTag("blown")
+        end
+    end
+
 end
 
 -- calculate the probability of a part fault event
@@ -402,7 +449,7 @@ function MT.DF.partFaultProbability(part, serviceLife, reliability, extraModifie
     return MT.HF.Probability(1, MT.HF.Round( serviceLife * reliability * (part.ConditionPercentage / 100) * MT.Config.PartFaultRangeModifier * extraModifier, 0))
 end
 
-function MT.DF.getParts(item, dieselSeries)
+function MT.DF.getParts(item, DieselEngine, dieselSeries)
     local index = 0
     local parts = {oilFilterItems = {}, oilFilterCount = 0, oilFilterVol = 0}
     parts.oilFiltrationSlots = dieselSeries.oilFilterSlots
@@ -431,7 +478,9 @@ function MT.DF.getParts(item, dieselSeries)
         parts.exhaustManifold = item.OwnInventory.GetItemAt(dieselSeries.exhaustManifoldLocation)
         table.insert(parts.thermalParts, parts.exhaustManifold) end
     -- exhaustManifoldGasket (if any)
-    if dieselSeries.exhaustManifoldLocation and parts.exhaustManifold ~= nil and parts.exhaustManifold.OwnInventory.GetItemAt(0) ~= nil then parts.exhaustManifoldGasket = parts.exhaustManifold.OwnInventory.GetItemAt(0) end
+    if dieselSeries.exhaustManifoldLocation and parts.exhaustManifold ~= nil and parts.exhaustManifold.OwnInventory.GetItemAt(0) ~= nil then
+        parts.exhaustManifoldGasket = parts.exhaustManifold.OwnInventory.GetItemAt(0)
+        table.insert(parts.thermalParts, parts.exhaustManifoldGasket) end
     -- dcm (if any)
     if dieselSeries.dcmLocation and item.OwnInventory.GetItemAt(dieselSeries.dcmLocation) ~= nil then
         parts.dcm = item.OwnInventory.GetItemAt(dieselSeries.dcmLocation)
@@ -447,6 +496,10 @@ function MT.DF.getParts(item, dieselSeries)
             parts.cylinderHead = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation)
             table.insert(parts.frictionParts, parts.cylinderHead) -- add this to the parts list for friction damage
             table.insert(parts.thermalParts, parts.cylinderHead)
+            if parts.cylinderHead.OwnInventory.GetItemAt(0) then
+                parts.cylinderHeadGasket = parts.cylinderHead.OwnInventory.GetItemAt(0)
+                table.insert(parts.thermalParts, parts.cylinderHeadGasket)
+            end
         end
         if dieselSeries.crankAssemblyLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation) then
             parts.crankAssembly = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.crankAssemblyLocation)
@@ -454,7 +507,35 @@ function MT.DF.getParts(item, dieselSeries)
             table.insert(parts.thermalParts, parts.crankAssembly)
         end
     end
+    -- independent heatExchanger (if any)
+    if dieselSeries.independentHeatExchanger then
+        -- DYNAMIC INVENTORY: heat exchanger
+        index = 0
+        if item.linkedTo ~= nil then
+            for k, linkedItem in pairs(item.linkedTo) do
+                if linkedItem.HasTag("heatexchanger") then
+                    DieselEngine.LinkedHeatExchanger = linkedItem
+                    while (index < item.OwnInventory.Capacity) do
+                        if linkedItem.OwnInventory.GetItemAt(index) ~= nil then
+                            local containedItem = linkedItem.OwnInventory.GetItemAt(index)
+                            if containedItem.HasTag("heatexchanger") and containedItem.Condition > 0 then
+                                parts.heatExchanger = containedItem
+                                table.insert(parts.thermalParts, containedItem)
+                            elseif containedItem.HasTag("coolantpump") and containedItem.Condition > 0 then
+                                parts.coolantPump = containedItem
+                                table.insert(parts.thermalParts, containedItem)
+                            end
+                        end
+                        index = index + 1
+                    end
+                end
+            end
+        end
+    end
+
+    
     -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
+    index = 0
     while(index < item.OwnInventory.Capacity) do
         if item.OwnInventory.GetItemAt(index) ~= nil then
             local containedItem = item.OwnInventory.GetItemAt(index)
