@@ -11,7 +11,8 @@ public record AdvTerminalMsg(string Text, Color Color);
 public partial class AdvancedTerminal : ItemComponent
 {
     #region VARS
-    
+    //--- MT CLI >:)
+    public bool IsWaiting { get; set; }
     //--- SYMBOLS
     public static readonly string EVENT_ONNEWMESSAGE = "Mechtrauma.AdvancedTerminal::NewMessage"; // args: (this, text, color)
     public static readonly string EVENT_ONNEWPLAYERMESSAGE = "Mechtrauma.AdvancedTerminal::NewPlayerMessage"; // args: (this, text, color)
