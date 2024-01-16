@@ -787,6 +787,69 @@
     </ItemContainer>
   </Item>
 
+  <!-- HANDCUFFS KEY -->
+  <Item name="Handcuffs Key" identifier="mt_handcuffs_key" category="Equipment" Tags="smallitem,keys,handcuffskey" cargocontaineridentifier="metalcrate" scale="0.2">
+    <PreferredContainer primary="crewcab"/>
+    <Price baseprice="10">
+      <Price storeidentifier="merchantoutpost" minavailable="4" />
+      <Price storeidentifier="merchantcity" minavailable="6" />
+    </Price>
+    <InventoryIcon texture="%ModDir%/Images/keys.png" sourcerect="0,0,100,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/keys.png" sourcerect="0,0,100,128" />
+    <Body width="16" height="12" density="20" />
+    <RangedWeapon barrelpos="0,0" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.1" crosshairpointerscale="0.1">      
+      <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="128,0,64,64" />
+      <Sound file="Content/Sounds/Impact/MetalImpactHeavy2.ogg" type="OnUse" range="1000" />
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="mtHandCuff.onUse" />
+      </StatusEffect>
+    </RangedWeapon>    
+    <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />      
+  </Item>
+
+  <!-- HAND CUFFS: For you ragzy, for you - equipconfirmationtext="handcuffequipconfirmation"-->
+  <Item name="MT Handcuffs" identifier="mt_handcuffs" category="Equipment" maxstacksize="8" cargocontaineridentifier="metalcrate" tags="smallitem,handcuffs" scale="0.5" impactsoundtag="impact_metal_light" >
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer primary="armcab" secondary="secarmcab" />
+    <Price baseprice="30">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="2" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="5" />
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="weapons" level="20" />
+      <RequiredItem identifier="steel" />
+    </Fabricate>    
+    <RangedWeapon barrelpos="0,0" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.1" crosshairpointerscale="0.1">      
+      <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="128,0,64,64" />
+       <Sound file="Content/Sounds/Impact/MetalImpactHeavy2.ogg" type="OnUse" range="1000" />
+      <!--<CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="2112,448,256,256" />
+     
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect>-->
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="mtHandCuff.onUse" />
+      </StatusEffect>
+    </RangedWeapon>
+    <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+    <Sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" sourcerect="405,0,56,49" depth="0.6" origin="0.5,0.5" />
+    <Body width="50" height="34" density="30" />
+    <Wearable slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" autoequipwhenfull="false">
+      <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="RightHand" sourcerect="462,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="false" inherittexturescale="true" />
+      <sprite texture="Content/Items/Jobgear/Mechanic/safetyharness.png" limb="LeftHand" sourcerect="487,1,25,16" origin="0.5,0.8" depth="0.09" inheritlimbdepth="true" inherittexturescale="true" />
+      <StatusEffect type="OnContained" target="This,Character" lockhands="true" setvalue="true"> 
+        <Conditional hastag="locked"/>
+      </StatusEffect>
+    </Wearable>
+  </Item>
+
 <!-- HAND TRUCK: my beloved -->
   <Item name="Hand Truck" identifier="handtruck" tags="crate,allowcleanup" scale="0.5" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
     <Fabricate suitablefabricators="fabricator" amount="1" requiredtime="5">      
@@ -811,7 +874,7 @@
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect>-->
       <StatusEffect type="OnUse" target="Character">
-        <LuaHook name="mtHandtruck.onUse" />
+        <LuaHook name="mtHandTruck.onUse" />
       </StatusEffect>
     </RangedWeapon>
     <ItemContainer capacity="1" slotsperrow="1" canbeselected="false" hideitems="false" itempos="60,-100" iteminterval="0,80" containedspritedepth="-0.1" keepopenwhenequipped="true" movableframe="true">
@@ -1017,7 +1080,7 @@
   </Item>
    
   <!-- COOLANT CAN: 20l -->
-  <Item name="Coolant" identifier="coolant_can" Category="Fuel" Tags="smallitem,coolant,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="2000" scale="0.25">
+  <Item name="Coolant" identifier="coolant_can" Category="Fuel" Tags="mtu,smallitem,coolant,centiliter" maxstacksize="1" cargocontaineridentifier="metalcrate" health="2000" scale="0.4">
       <PreferredContainer primary="reactorcab"/>    
       <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="2" spawnprobability="0.5"/>
 		  <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="2" spawnprobability="0.5"/>
@@ -1038,11 +1101,11 @@
         <RequiredSkill identifier="mechanical" level="20" />
         <RequiredItem identifier="plastic" amount="1" />
       </Fabricate>  
-      <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,480,96,128" origin="0.5,0.5" />
-      <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,480,96,128" depth="0.55" />
-      <Body radius="10" height="55" density="20" />
-      <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" >
-      </Holdable>  
+      <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,608,128,168" origin="0.5,0.5" />
+      <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,608,128,168" depth="0.55" />
+      <Thermal MinOpTemp="-40" TargetOpTemp="200" MaxOpTemp="220" FailTemp="250"/>
+      <Body width="128" height="168" density="20" />
+      <Holdable canbecombined="true" holdpos="0,-130" handle1="0,80" holdangle="0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect"/>      
       <Quality>
         <QualityStat stattype="Condition" value="0.1"/>
       </Quality>
@@ -1413,8 +1476,7 @@
       <RequiredSkill identifier="mechanical" level="55" />
       <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
       <RequiredItem identifier="steel" amount="1" />
-    </Fabricate>
-
+    </Fabricate>    
     <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,0,128,128" depth="0.55" />
     <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
     <!-- BLOCK IS HOT -->
@@ -1422,12 +1484,12 @@
       <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,608,128,128" depth="0.4" origin="0.5,0.5" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+        <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
       </StatusEffect>
     </LightComponent>
+    <EngineBlock RatedHP="3000"/>
     <DataBox/>
-    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
-    <LuaNetEventDispatcher Name="DieselGenerator"/>    
+    <Thermal TargetOpTemp="500" MaxOpTemp="600" FailTemp="750"/>       
     <Body width="128" height="120" density="100" />
     <Holdable handle1="0,0" slots="RightHand+LeftHand" msg="ItemMsgPickUpSelect" canbepicked="true" pickingtime="2">
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.2" setvalue="true" />
@@ -1497,12 +1559,12 @@
       <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" depth="0.4" origin="0.5,0.5" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+        <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
       </StatusEffect>
     </LightComponent>
 
     <DataBox/>
-    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
+    <Thermal TargetOpTemp="500" MaxOpTemp="600" FailTemp="750"/>
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
     </Holdable>   
@@ -1545,11 +1607,11 @@
       <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.4" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+        <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
       </StatusEffect>
     </LightComponent>
     <DataBox/>
-    <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
+    <Thermal TargetOpTemp="500" MaxOpTemp="600" FailTemp="750"/>      
     <Body width="160" height="128" density="80"/>
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1595,14 +1657,13 @@
     <!-- ITEM IS HOT -->
     <LightComponent range="10.0" lightcolor="200,50,25,5" pulsefrequency="0.4" pulseamount="0.4" powerconsumption="0.0" IsOn="false" castshadows="false" allowingameediting="false">
       <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1024,704,128,100" depth="0.4" origin="0.5,0.5" alpha="1.0"/>
-      <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
-      <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+      <StatusEffect type="Always" target="This,Parent" IsOn="true" setvalue="true"> 
+        <Conditional hastag="hot"/>
       </StatusEffect>
     </LightComponent>
 
     <DataBox/>
-    <Thermal TargetOpTemp="400" MaxOpTemp="450" FailTemp="600"/>
+    <Thermal TargetOpTemp="900" MaxOpTemp="1080" FailTemp="1350"/>
     <Body width="128" height="100" density="80" />
     <Holdable handle1="0,0" slots="Any,RightHand+LeftHand" msg="ItemMsgPickUpSelect" >
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.5" setvalue="true" />
@@ -1617,8 +1678,8 @@
     </ItemContainer>
   </Item>
 
-  <!-- INDEPENDENT HEAT EXCHANGER: For use with machines such as a diesel engine -->
-  <Item name="Independent Heat Exchanger" identifier="mt_heat_exchanger_independent" Category="Machine" Tags="heatexchanger,machine" linkable="true" allowedlinks="dieselengine,dieselgenerator" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <!-- HYDRONIC HEAT EXCHANGER: For use with machines such as a diesel engine -->
+  <Item name="Hydronic Heat Exchanger" identifier="mt_heat_exchanger_independent" Category="Machine" Tags="mtu,heatExchanger,machine" linkable="true" allowedlinks="dieselengine,dieselgenerator" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1633,39 +1694,43 @@
     </Deconstruct>
     <Fabricate suitablefabricators="fabricator,cncfab" requiredtime="100">
       <RequiredSkill identifier="mechanical" level="35" />
-      <RequiredItem identifier="steel" amount="2" />
+      <RequiredItem identifier="copper" amount="4" />
       <RequiredItem identifier="aluminium" amount="1" />
     </Fabricate>
     <!-- RECYCLE: Rebuild the Heat Exchanger. -->
     <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="30"> 
       <RequiredSkill identifier="mechanical" level="55" />
-      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
-      <RequiredItem identifier="steel" amount="4" />
-    </Fabricate>
-     <!-- REPAIR: Repair the Heat Exchanger. -->
-    <Fabricate suitablefabricators="repairtable" displayname="repairitem" requiredtime="15" outcondition="50"> 
-      <RequiredSkill identifier="mechanical" level="55" />
-      <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false"/>
-      <RequiredItem identifier="steel" amount="1" />
+      <RequiredItem identifier="copper" amount="2" />
+      <RequiredItem identifier="aluminium" amount="1" />
     </Fabricate>
     <!-- NORMAL RANGE LIGHT -->
-    <LightComponent range="60.0" lightcolor="130,100,130,255" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
-      <Sprite name="Heat Exchanger Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="896,448,110,204" depth="0.5" origin="0.5,0.5" />
-      <!-- <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />   
-      </StatusEffect> --> 
+    <LightComponent range="60.0" lightcolor="130,100,130,255" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Heat Exchanger Light" texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="384,0,108,216" depth="0.74" origin="0.5,0.5" />      
+        <IsActiveConditional hastag="eq glow"/>
     </LightComponent>
-     <!-- OVERHEAT RANGE LIGHT -->
-    <LightComponent range="60.0" lightcolor="100,25,50,255" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
-      <Sprite name="Heat Exchanger Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="1024,448,110,204" depth="0.5" origin="0.5,0.5" />
-      <!-- <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />   
-      </StatusEffect> --> 
+    <!-- PRESSURE RELEASE: > 250 -->
+    <LightComponent range="60.0" lightcolor="130,100,130,255" powerconsumption="0" IsOn="true" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >      
+        <IsActiveConditional hastag="eq release"/>
+        <StatusEffect type="Always" targettype="This" duration="5" stackable="false" Comparison="And">
+          <Conditional hastag="eq release"/>
+          <ParticleEmitter particle="steamspray" particlespersecond="200" anglemin="180" anglemax="180" velocitymin="500" velocitymax="1000" highqualitycollisiondetection="true"/>          
+          <ParticleEmitter particle="watersplash" AngleMin="180" AngleMax="180" DistanceMin="50" DistanceMax="50" ScaleMin="3" ScaleMax="3" ScaleMultiplier="1,1" EmitInterval="1" ParticleAmount="5" ParticlesPerSecond="25" ColorMultiplier="100,100,100,200" Angle="180" Distance="50" />
+          <Sound file="%ModDir%/Sound/pressure_relief2.ogg" range="1000" loop="true" />
+        </StatusEffect>
     </LightComponent>
-    <Sprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="768,448,110,204" depth="0.75"/>
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,460,192,180" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />    
+     
+    <DecorativeSprite texture="%Moddir%/Images/boiler.png" sourcerect="380,40,100,118" depth="0.735" origin="0.5,0.5" offset="-2,10" offsetanim="Noise" offsetanimspeed="50.0" scale="0.7" rotation="0" rotationspeed="-200" canflipx="true">
+      <IsActiveConditional hastag="eq bubbles"/>
+    </DecorativeSprite>
+    <DecorativeSprite texture="%Moddir%/Images/boiler.png" sourcerect="380,40,100,118" depth="0.735" origin="0.5,0.5" offset="-2,10" offsetanim="Noise" offsetanimspeed="50.0" scale="0.7" rotation="0" rotationspeed="200" canflipx="true">
+      <IsActiveConditional hastag="eq bubbles"/>
+    </DecorativeSprite>
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="0,0,108,216" depth="0.75"/>
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="224,224,84,220" spritecolor="255,255,255,0" origin="0.4,0.2" depth="0.73" offset="5,2" offsetanim="Sine" offsetanimspeed="10.0"/>
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="320,224,84,220" spritecolor="255,255,255,0" origin="0.5,0.2" depth="0.73" offset="-5,-2" offsetanim="Sine" offsetanimspeed="10.0"/>
+    <BrokenSprite texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="0,0,108,216" depth="0.72" maxcondition="50" fadein="false" />    
+    <Sprite texture="%ModDir%/Images/Machines/mt_thermal_machines.png" sourcerect="128,0,108,216" depth="0.72"/>
+    
     <DataBox/>
     <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>      
     <Quality>
@@ -1679,7 +1744,7 @@
       <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,192,64,64" origin="0.5,0.5" /> <!-- coolant -->
       <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,192,64,64" origin="0.5,0.5" /> <!-- coolant -->
       <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,192,64,64" origin="0.5,0.5" /> <!-- coolant -->
-      <Containable items="heatexchanger" excludebroken="false" excludefullcondition="false" />
+      <Containable items="heatexchangercore" excludebroken="false" excludefullcondition="false" />
       
       <!-- Co2 CARTRIDGE: Slot0 -->
       <SubContainer capacity="1" maxstacksize="1">
@@ -1699,7 +1764,7 @@
   </Item>
 
   <!-- HEAT EXCHANGER: For use in machines such as a diesel engine -->
-  <Item name="Heat Exchanger" identifier="mt_heat_exchanger" Category="Fuel" Tags="mediumitem,heatexchanger,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
+  <Item name="Heat Exchanger" identifier="mt_heat_exchanger_core" Category="Fuel" Tags="mtu,mediumitem,heatexchangercore,part" maxstacksize="1" cargocontaineridentifier="" health="100" scale="0.5">
     <PreferredContainer primary="mechcab"/>    
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1735,7 +1800,7 @@
       <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,736,96,160" depth="0.4" origin="0.5,0.5" alpha="1.0"/>
       <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
       <StatusEffect type="OnActive" target="This">
-        <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" />
+        <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
       </StatusEffect>
     </LightComponent>
     <DataBox/>
@@ -3171,6 +3236,20 @@
       </OuterSprite>
     </AdvancedTerminal>
 
+    <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" CrossHairScale="0.1" >      
+      <!-- <Crosshair texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,64,0,0" /> -->
+      <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="0,0,64,64" />      
+      <Sound file="Content/Sounds/UI/DeadMsg.ogg" type="OnUse" range="1000.0" onlyinsamesub="true"/>   
+      <!-- 
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect> -->
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="mtMoblie_readTags.OnUse" />
+      </StatusEffect>
+    </RangedWeapon>
+
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">    
         <Containable items="smallitem">                
         </Containable>     
@@ -3188,9 +3267,9 @@
         </StatusEffect>    
       </Button>
 
-       <Button text="CONNECT">
+       <Button text="READ TAGS">
         <StatusEffect type="OnUse" target="This">
-          <LuaHook name="maintenanceTablet_csr.OnUse" /> 
+          <LuaHook name="mtMoblie_readTags.OnUse" /> 
           <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />             
         </StatusEffect>
       </Button>
@@ -4825,6 +4904,8 @@
     <Body width="16" height="12" density="20" />
     <IdCard slots="Card,Any" msg="ItemMsgPickUpSelect" />
   </Item>
+
+
   
 
   

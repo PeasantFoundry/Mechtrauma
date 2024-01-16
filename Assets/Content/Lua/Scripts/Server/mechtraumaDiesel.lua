@@ -45,7 +45,7 @@ function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger, coo
             coolingCheck = false
             return
         -- check if a linked heatchanger is required and present
-        elseif dieselSeries.LinkedHeatExchanger and DieselEngine.LinkedHeatExchanger == nil then
+        elseif dieselSeries.ExternalHeatExchanger and DieselEngine.ExternalHeatExchanger == nil then
             DieselEngine.CoolingAvailable = 0
             coolingCheck = false
             return
@@ -61,18 +61,18 @@ function MT.DF.coolingCheck(item, dieselSeries, DieselEngine, heatExchanger, coo
     return coolingCheck
 end
 
-function MT.DF.compressionCheck(item, dieselSeries, engineBlock, cylinderHead, cylinderHeadGasket, crankAssembly)
+function MT.DF.compressionCheck(item, DieselEngine, engineBlock, cylinderHead, cylinderHeadGasket, crankAssembly)
     local compressionCheck = true -- defaults to true for dieselSeries with no engineBlock
-    if dieselSeries.engineBlockLocation then
+    if DieselEngine.Generation == "3rd" then
         if engineBlock == nil or cylinderHead == nil or crankAssembly == nil then
-            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")
+            table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")            
             compressionCheck = false
         elseif engineBlock.ConditionPercentage < 1 or engineBlock.HasTag("cracked") or cylinderHead.ConditionPercentage < 1 or crankAssembly.ConditionPercentage < 1 then
             compressionCheck = false
             table.insert(MT.itemCache[item].diagnosticData.errorCodes, "*DC1018: FAILED COMPRESSION CHECK*")
         end
     end
-    if dieselSeries.engineBlockLocation then
+    if DieselEngine.EngineBlockLocation then
        if not cylinderHeadGasket or cylinderHeadGasket.ConditionPercentage < 1 or cylinderHeadGasket.HasTag("blown") then
         table.insert(MT.itemCache[item].diagnosticData.warningCodes, "*DC1019: REDUCED COMPRESSION*")
        end
@@ -249,12 +249,13 @@ function MT.DF.getFluids(item, DieselEngine, parts, dieselSeries)
     if item.linkedTo ~= nil then
         for k, linkedItem in pairs(item.linkedTo) do
             if linkedItem.HasTag("heatexchanger") then
-                DieselEngine.LinkedHeatExchanger = linkedItem                
+                DieselEngine.ExternalHeatExchanger = linkedItem
                 while(index < linkedItem.OwnInventory.Capacity) do
                     if linkedItem.OwnInventory.GetItemAt(index) ~= nil then                        
                         local containedItem = linkedItem.OwnInventory.GetItemAt(index)
                         -- get coolant item(s) - 
-                        if containedItem.HasTag("coolant") and containedItem.Condition > 0 then                            
+                        if containedItem.HasTag("coolant") and containedItem.Condition > 0 then
+                            table.insert(fluids.coolantItems, containedItem)
                             DieselEngine.CoolantVol = DieselEngine.CoolantVol + containedItem.Condition
                             DieselEngine.CoolantLevel = DieselEngine.CoolantVol / dieselSeries.coolantCapacity
                         end
@@ -358,10 +359,11 @@ end
 -- probably needs a refactor
  
 
-function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- get or set part failures?
+function MT.DF.partFaultEvents(item, DieselEngine, parts, engineReliability) -- get or set part failures?
     -- coolantPump fault events
     -- fuelFilter fault events     
-
+    if DieselEngine.Generation ~= "3rd" then return end
+    
         -- airFilter fault events
     if parts.airFilter then
         local extraModifier = 1.0
@@ -433,6 +435,7 @@ function MT.DF.partFaultEvents(item, dieselSeries, parts, engineReliability) -- 
     if parts.cylinderHeadGasket then
         local thermal = MTUtils.GetComponentByName(parts.cylinderHeadGasket, "Mechtrauma.Thermal")
         -- blown
+        -- or if head cracked/warped or block warped
         if thermal.ContractionStress > 0 or thermal.ExpansionStress > 0 and MT.HF.Probability(thermal.CumulativeStress, 10000) then
             parts.cylinderHeadGasket.AddTag("blown")
         end
@@ -487,11 +490,12 @@ function MT.DF.getParts(item, DieselEngine, dieselSeries)
         if parts.dcm.OwnInventory.GetItemAt(2) ~= nil then parts.oxygenSensor = parts.dcm.OwnInventory.GetItemAt(2) end
         if parts.dcm.OwnInventory.GetItemAt(3) ~= nil then parts.pressureSensor = parts.dcm.OwnInventory.GetItemAt(3) end
     end
-    -- engineBlock (if any)
-    if dieselSeries.engineBlockLocation and item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation) ~= nil then
-        parts.engineBlock = item.OwnInventory.GetItemAt(dieselSeries.engineBlockLocation)
+    -- engineBlock (if any)    
+    if DieselEngine.EngineBlockLocation and item.OwnInventory.GetItemAt(DieselEngine.EngineBlockLocation) ~= nil then
+        parts.engineBlock = item.OwnInventory.GetItemAt(DieselEngine.EngineBlockLocation)
         table.insert(parts.frictionParts, parts.engineBlock) -- add this to the parts list for friction damage
         table.insert(parts.thermalParts, parts.engineBlock)
+        parts.engineBlockSpecs = MTUtils.GetComponentByName(parts.engineBlock, "Mechtrauma.EngineBlock")
         if dieselSeries.cylinderHeadLocation and parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation) then
             parts.cylinderHead = parts.engineBlock.OwnInventory.GetItemAt(dieselSeries.cylinderHeadLocation)
             table.insert(parts.frictionParts, parts.cylinderHead) -- add this to the parts list for friction damage
@@ -507,18 +511,18 @@ function MT.DF.getParts(item, DieselEngine, dieselSeries)
             table.insert(parts.thermalParts, parts.crankAssembly)
         end
     end
-    -- independent heatExchanger (if any)
+    -- external heatExchanger (if any)
     if dieselSeries.independentHeatExchanger then
         -- DYNAMIC INVENTORY: heat exchanger
         index = 0
         if item.linkedTo ~= nil then
             for k, linkedItem in pairs(item.linkedTo) do
                 if linkedItem.HasTag("heatexchanger") then
-                    DieselEngine.LinkedHeatExchanger = linkedItem
+                    DieselEngine.ExternalHeatExchanger = linkedItem
                     while (index < item.OwnInventory.Capacity) do
                         if linkedItem.OwnInventory.GetItemAt(index) ~= nil then
                             local containedItem = linkedItem.OwnInventory.GetItemAt(index)
-                            if containedItem.HasTag("heatexchanger") and containedItem.Condition > 0 then
+                            if containedItem.HasTag("heatexchangercore") and containedItem.Condition > 0 then
                                 parts.heatExchanger = containedItem
                                 table.insert(parts.thermalParts, containedItem)
                             elseif containedItem.HasTag("coolantpump") and containedItem.Condition > 0 then
@@ -533,7 +537,6 @@ function MT.DF.getParts(item, DieselEngine, dieselSeries)
         end
     end
 
-    
     -- DYNAMIC INVENTORY: loop through the inventory and see what we have    
     index = 0
     while(index < item.OwnInventory.Capacity) do
@@ -548,4 +551,76 @@ function MT.DF.getParts(item, DieselEngine, dieselSeries)
         index = index + 1
     end
     return parts
+end
+
+function MT.DF.thermalResults(item, thermal, DieselEngine, parts, fluids)
+    if DieselEngine.Generation == "3rd" then
+        if thermal.Temperature == nil then thermal.Temperature = 60 end -- default temp
+
+        DieselEngine.HeatGenerated = DieselEngine.generatedHP * 120 -- HP:BTU is 1:40 but toal heat output is 3x HP             
+        DieselEngine.CoolingNeeded = DieselEngine.generatedHP * 40 -- only 1/3 of BTU goes to coolant, 1/3 goes out ehaust and 1/3 goes into HP        
+        DieselEngine.HeatSurplus = MT.HF.Clamp(DieselEngine.CoolingNeeded - DieselEngine.CoolingAvailable, 0, 1000000)
+
+        -- Calculate engine and part temps
+        if DieselEngine.HeatSurplus > 0 then
+            DieselEngine.CoolingNeeded = DieselEngine.CoolingNeeded - DieselEngine.CoolingAvailable
+            -- overheat 
+            thermal.Temperature = thermal.Temperature + (thermal.FailTemp - thermal.Temperature) / 10 * MT.HF.Round(DieselEngine.HeatSurplus / DieselEngine.CoolingCapacity, 2)
+
+            -- apply to thermal parts
+            for k, part in pairs(parts.thermalParts) do
+                local partThermal = MTUtils.GetComponentByName(part, "Mechtrauma.Thermal")
+                partThermal.UpdateTemperature(partThermal.Temperature + (partThermal.FailTemp - partThermal.Temperature) / 10 * MT.HF.Round(DieselEngine.HeatSurplus / DieselEngine.CoolingCapacity, 2))
+                partThermal.CalcThermalStress()
+            end
+        else
+            -- normal operations            
+            if thermal.Temperature < 200 then
+                -- increase temperature
+                thermal.Temperature = MT.HF.Round(thermal.Temperature + (DieselEngine.OperatingTemperature - thermal.Temperature) / 10 + 1, 2)
+                -- apply to thermal parts
+                for k, part in pairs(parts.thermalParts) do
+                    local partThermal = MTUtils.GetComponentByName(part, "Mechtrauma.Thermal")
+                    partThermal.UpdateTemperature(MT.HF.Round(partThermal.Temperature + (partThermal.TargetOpTemp - partThermal.Temperature) / 10 + 1, 2))
+                    partThermal.CalcThermalStress()
+                end
+            else
+                -- decrease temperature
+                thermal.Temperature = MT.HF.Round(thermal.Temperature - ((DieselEngine.OperatingTemperature - thermal.Temperature) / 10 + - 1)*-1, 2)
+                -- apply to thermal parts
+                for k, part in pairs(parts.thermalParts) do
+                    local partThermal  = MTUtils.GetComponentByName(part, "Mechtrauma.Thermal")                   
+                    partThermal.UpdateTemperature(MT.HF.Round(partThermal.Temperature - ((partThermal.TargetOpTemp - partThermal.Temperature) / 10 + - 1)*-1, 2))
+                    partThermal.CalcThermalStress()
+                end
+            end
+        end
+
+        -- -------------------------------------------------------------------------- --
+        --                             COOLANT TEMPERATURE                            --
+        -- -------------------------------------------------------------------------- --
+        -- cooltant temperature quickly adjusts to engine temp. Engine temp is the offical coolant temp
+        -- this allows us to track the individual temperatures of the coolant while limiting the benefit of hotswapping coolant                
+        for k, coolant in pairs(fluids.coolantItems) do
+            local coolantThermal = MTUtils.GetComponentByName(coolant, "Mechtrauma.Thermal")
+            if thermal.Temperature > coolantThermal.Temperature then
+                -- increase coolant temp
+                coolantThermal.UpdateTemperature(MT.HF.Round(coolantThermal.Temperature + (thermal.Temperature - coolantThermal.Temperature) / 3 + 1, 2))
+            else
+                -- decrease coolant temp
+                coolantThermal.UpdateTemperature(MT.HF.Round(coolantThermal.Temperature - ((thermal.Temperature - coolantThermal.Temperature) / 3 + - 1)*-1, 2))
+            end
+        end
+    end
+end
+
+function MT.DF.getMaxHP(item, DieselEngine, parts)
+    local maxHP
+    if DieselEngine.Generation == "3rd" then
+        if parts.engineBlock then maxHP = parts.engineBlockSpecs.RatedHP else maxHP = 0 end
+    else
+        maxHP = DieselEngine.RatedHP -- if there is no engine block, just stick with whatever the default HP is.
+    end
+    -- add modifiers for turbocharger, overdrive mode, hyper fuel etc    
+    return maxHP
 end

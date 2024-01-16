@@ -50,6 +50,7 @@ namespace Mechtrauma
             UserData.RegisterType<MTBoiler>();
             UserData.RegisterType<SimpleGenerator>();
             UserData.RegisterType<DieselEngine>();
+            UserData.RegisterType<EngineBlock>();
             UserData.RegisterType<Thermal>();
             UserData.RegisterType<DataBox>();
             UserData.RegisterType<WaterDrain>();

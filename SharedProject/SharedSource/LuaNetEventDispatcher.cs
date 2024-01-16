@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Barotrauma.Items.Components;
+using System.ComponentModel;
 
 namespace Mechtrauma;
 
@@ -9,7 +10,7 @@ public partial class LuaNetEventDispatcher : ItemComponent
     public static readonly string Event_ServerWrite = "Mechtrauma.LuaNetEventDispatcher::ServerWrite";
     public static readonly string Event_ClientRead = "Mechtrauma.LuaNetEventDispatcher::ClientRead";
     public static readonly string Event_ClientWrite = "Mechtrauma.LuaNetEventDispatcher::ClientWrite";
-    
+   
     public string Name { get; set; }
     
     public LuaNetEventDispatcher(Item item, ContentXElement element) : base(item, element)

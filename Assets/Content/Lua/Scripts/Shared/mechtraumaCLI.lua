@@ -23,15 +23,17 @@ end
 
 function MT.CLI.diagnostics(item, terminal, message, command, argument)
   -- if there is no argument
-  if not argument then terminal.SendMessage("INVALID COMMAND: " .. command, Color(250,100,60,255)) return end
+  if not argument or argument ~= "on" or argument ~= "off" or argument ~= "true" or argument ~= "false" then
+    terminal.SendMessage("INVALID ARGUMENT: " .. argument, Color(250,100,60,255)) return
+  end
   -- convert the argument to a boolean
   if argument == "on" or argument == "true" then argument = true
   elseif argument == "off" or argument == "false" then argument = false end
 
   -- need to account for other items besides simplegenerators having diagnostic mode 
   MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine").DiagnosticMode = argument
-  MT.Net.SendEvent(item)
-
+  
+  print("ARGUMENT: " .. tostring(argument) .. " RESULT = DIAGNOSTIC MODE: " ..  tostring(MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine").DiagnosticMode))
   if MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine").DiagnosticMode == argument then
     if argument then terminal.SendMessage("Diagnostics enabled.") end
     if not argument then terminal.SendMessage("Diagnostics disabled.") end
@@ -63,30 +65,32 @@ function MT.CLI.show(item, terminal, message, command, argument)
     
     if argument == "nothing" or argument == nil then
       -- disable current automatic readout
-      MT.CLI.exit(item, terminal)
+      -- MT.CLI.exit(item, terminal)
 
     elseif argument == "diagnostics" or argument == "diagnostic" or argument == "diag" then
-      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      --MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.DiagnosticMode = true
-      terminal.SendMessage("DIAGNOSTIC MODE ENABLED")
       MT.Net.SendEvent(item)
+      terminal.SendMessage("DIAGNOSTIC MODE ENABLED")
+      print("ARGUMENT: " .. tostring(argument) .. " RESULT = DIAGNOSTIC MODE: " ..  tostring(DieselEngine.DiagnosticMode))
 
     elseif argument == "status" then
-      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      --MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.ShowStatus = true
-      terminal.SendMessage("STATUS DISPLAY ENABLED")
       MT.Net.SendEvent(item)
+      terminal.SendMessage("STATUS DISPLAY ENABLED")
 
     elseif argument == "levels" or argument == "level" then
-      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      --MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.ShowLevels = true
+      MT.Net.SendEvent(item)
       terminal.SendMessage("STATUS DISPLAY ENABLED")
-      MT.Net.SendEvent(item)
+
     elseif argument == "temps" or argument == "temp" then
-      MT.CLI.exit(item, terminal) -- disable current automatic readout
+      --MT.CLI.exit(item, terminal) -- disable current automatic readout
       DieselEngine.ShowTemps = true
-      terminal.SendMessage("TEMPERATURE DISPLAY ENABLED")
       MT.Net.SendEvent(item)
+      terminal.SendMessage("TEMPERATURE DISPLAY ENABLED")
 
     else
       terminal.SendMessage("INVALID READOUT: ", argument, Color(250,100,60,255))
@@ -329,22 +333,22 @@ end
 function MT.CLI.textcolor(item, terminal, response) -- all argument portions of run functions have to be lower case because the terminal does not respect it.
     if response == nil then
         terminal.SendMessage("What color would you like? Green or Red")
-        MT.itemCache[item].MTC.isWaiting = true
+        terminal.IsWaiting = true
         MT.itemCache[item].MTC.waitingFunction = MT.CLI.textcolor
     else
         if response == "red" then 
             terminal.TextColor = Color(255,100,50,255)
             terminal.SendMessage("Success! exiting program.")
-            MT.itemCache[item].MTC.isWaiting = false
+            terminal.IsWaiting = false
             return
             elseif response == "green" then 
                 terminal.TextColor = Color.Lime
                 terminal.SendMessage("Success! exiting program.")
-                MT.itemCache[item].MTC.isWaiting = false
+                terminal.IsWaiting = false
                 return
 
                 elseif response == "exit" then 
-                    MT.itemCache[item].MTC.isWaiting = false
+                    terminal.IsWaiting = false
                     terminal.SendMessage("-Terminating Program-")
                     return
         else
@@ -626,8 +630,9 @@ function MT.CLI.terminalCommand(item, terminal, message)
     -- -------------------------------------------------------------------------- --
     --                               EXECUTE COMMAND                              --
     -- -------------------------------------------------------------------------- --
-    Timer.Wait(function()  MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument) end, 1000)
-   
+    --Timer.Wait(function()  MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument) end, 1000)
+    MT.CLI.commands[command].functionToCall(item, terminal, message, command, argument)
+    
       
   else
     -- empty message
@@ -801,7 +806,7 @@ end
     -- am I waiting for a response?
 
 
-    if terminal.item.HasTag("MTC") and MT.itemCache[terminal.item].MTC.isWaiting == true then
+    if terminal.item.HasTag("MTC") and terminal.IsWaiting == true then
         MT.itemCache[terminal.item].MTC.waitingFunction(terminal.item, terminal, formattedMessage)
     else
         -- process regular command 

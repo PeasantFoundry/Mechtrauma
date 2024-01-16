@@ -3,6 +3,7 @@
 
 --local findtarget = dofile(... .. "/Lua/findtarget.lua")
 local findtarget = {}
+MT.T = {}
 
 -- ---------------------------- linking functions --------------------------- --
 local function LinkAdd(target, otherTarget)
@@ -76,9 +77,43 @@ Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delt
 
 end)
 
--- handtruck 
-Hook.Add("mtHandtruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, item, targets, worldPosition, client)    
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local targetItem
+    if item.OwnInventory.GetItemAt(0) ~= nil then
+        targetItem = item.OwnInventory.GetItemAt(0)
+    elseif item.ParentInventory.Owner.FocusedItem ~= nil then
+        targetItem = item.ParentInventory.Owner.FocusedItem
+    else
+        -- nothing to diagnose
+      terminal.TextColor = Color(250,100,60,255)
+      terminal.SendMessage("*DIAGNOSTICS RESULT*")
+      terminal.SendMessage("!NO TARGET!")
+      terminal.SendMessage("****END REPORT****")
+      return
+    end
+
+    terminal.TextColor = Color.Gray
+    MT.HF.BlankTerminalLines(terminal, 10)  
+    terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
+    MT.HF.BlankTerminalLines(terminal, 1)
+    terminal.TextColor = Color(250,100,60,255)
+
+    local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")      
+    --terminal.TextColor = Color(250,100,60,255)
+    terminal.SendMessage("*DIAGNOSTIC RESULT*")
+    terminal.SendMessage("TARGET: " .. targetItem.name, Color(250,100,60,255))
+    for k, tag in pairs(tagTable) do
+        terminal.SendMessage(" TAG: " .. tag, Color(250,100,60,255))
+    end
+    terminal.SendMessage("****END REPORT****")
+
+  end)
+
+
+
+-- hand truck 
+Hook.Add("mtHandTruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
     local target =  item.ParentInventory.Owner.FocusedItem
     -- move the target into the hand truck, if you can
     if target ~= nil then item.OwnInventory.TryPutItem(target, owner) end
@@ -89,9 +124,40 @@ Hook.Add("mtHandtruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta,
 
 end)
 
+-- hand cuffs
+Hook.Add("mtHandCuff.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+    local source = item.ParentInventory.Owner
+    local target = item.ParentInventory.Owner.FocusedCharacter
+    if not target then return end -- abort if there is no target
+
+    print("Source: ", tostring(source.name))
+    print("Target: ", tostring(target.name))
+
+
+    if CLIENT and Game.IsMultiplayer then
+        return
+    end
+
+    -- HANDCUFFS LOGIC
+    if item.HasTag("handcuffs") then
+        if target ~= nil and target.IsKnockedDown then
+            target.Inventory.TryPutItem(item, nil, {InvSlotType.Any}, true)
+            item.AddTag("locked") -- lock the handcuffs (XML statusEffect locks the characters hands)
+            item.HiddenInGame = true -- stop the handcuffs from bring removed without being unlocked
+            Timer.Wait(function()  print(target.name .. " LockHands == ", target.LockHands) end, 1000)
+
+        end
+    -- HANDCUFFS KEY LOGIC
+    elseif item.HasTag("handcuffskey") then
+        local handcuffs = target.Inventory.FindItemByTag("handcuffs")
+        handcuffs.HiddenInGame = false -- make the handcuffs moveable again
+        handcuffs.ReplaceTag("locked","") -- unlock the hand cuffs so that they are safe to hold.
+        source.Inventory.TryPutItem(handcuffs, nil, {InvSlotType.Any}, true)
+    end
+end)
 
 Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
-    
+
     --local target = findtarget.findtarget(item)
     local target = findtarget.findtarget(item)
 
@@ -104,7 +170,7 @@ Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(statusEffect, delta, it
         AddMessage("No item found", owner)
         return
     end
- 
+
     if links[item] == nil then
         links[item] = target
         AddMessage(string.format("Link Start: \"%s\"", target.Name), owner)

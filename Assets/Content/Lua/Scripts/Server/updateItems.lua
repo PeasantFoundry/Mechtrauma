@@ -4,86 +4,107 @@
 --MT.itemCacheCount = 0
 --MT.inventoryCache = {parts={}}
 --MT.inventoryCacheCount = 0
+
 MT.oxygenVentCount = 0
 
 --table of tag functions - this is for mapping items to update functions
 MT.tagfunctions = {
-    divingSuit={
-        tags={"deepdiving","diving"},
-        update=MT.F.divingSuit
-    },
-    fuseBox={ 
-        tags={"fusebox"},
-        update=MT.F.fuseBox
-    },
-    oxygenVentSpawn={ --move to BT function table some day
-        tags={"oxygenventspawn"},
-        update=BT.F.oxygenVentSpawn
-    },
-    centralComputerNeeded={
-        tags={"ccn"},
-        update=MT.F.centralComputerNeeded
-    },
-    dieselGenerator={
-        tags={"dieselGenerator"},
-       update=MT.F.dieselGenerator
-    },
     airFilter={
         tags={"airFilter"},
-       update=MT.F.airFilter
-    },
-    engineBlock={
-        tags={"engineBlock"},
-        update=MT.F.engineBlock
-    },
-    crankAssembly={
-        tags={"crankAssembly"},
-        update=MT.F.crankAssembly
-    },
-    cylinderHead={
-        tags={"cylinderHead"},
-        update=MT.F.cylinderHead
-    },
-    exhaustManifold={
-        tags={"exhaustManifold"},
-        update=MT.F.exhaustManifold
-    },
-    steamBoiler={
-        tags={"steamBoiler"},
-        update=MT.F.steamBoiler
-    },
-    steamTurbine={
-        tags={"steamturbine"},
-        update=MT.F.steamTurbine
-    },
-    steamValve={
-        tags={"steamValve"},
-        update=MT.F.steamValve
-    },
-    steamHeatsink={
-        tags={"steamHeatsink"},
-        update=MT.F.steamHeatsink
-    },
-    reductionGear={
-        tags={"reductionGear"},
-        update=MT.F.reductionGear
-    },
-    mechanicalClutch={
-        tags={"mechanicalClutch"},
-        update=MT.F.mechanicalClutch
+        update=MT.UF.airFilter
     },
     centralComputer={
         tags={"centralcomputer"},
-        update=MT.F.centralComputer
+        update=MT.UF.centralComputer
+    },
+    centralComputerNeeded={
+        tags={"ccn"},
+        update=MT.UF.centralComputerNeeded
+    },
+    crankAssembly={
+        tags={"crankAssembly"},
+        update=MT.UF.crankAssembly
+    },
+    coolant={
+        tags={"coolant"},
+        update=MT.UF.coolant
+    },
+    cylinderHead={
+        tags={"cylinderHead"},
+        update=MT.UF.cylinderHead
+    },
+    dieselEngine={
+        tags={"dieselEngine"},
+        update=MT.UF.dieselEngine
+    },
+    dieselGenerator={
+        tags={"dieselGenerator"},
+        update=MT.UF.dieselGenerator
+    },
+    divingSuit={
+        tags={"deepdiving","diving"},
+        update=MT.UF.divingSuit
+    },
+    electricalDisconnect={
+        tags={"electricalDisconnect"},
+        update=MT.UF.electricalDisconnect
+    },
+    engineBlock={
+        tags={"engineBlock"},
+        update=MT.UF.engineBlock
+    },
+    exhaustManifold={
+        tags={"exhaustManifold"},
+        update=MT.UF.exhaustManifold
+    },
+    fuseBox={
+        tags={"fusebox"},
+        update=MT.UF.fuseBox
+    },
+    gasket={
+        tags={"gasket"},
+        update=MT.UF.gasket
+    },
+    heatExchanger={
+        tags={"heatExchanger"},
+        update=MT.UF.heatExchanger
+    },
+    heatExchangercore={
+        tags={"heatExchangerCore"},
+        update=MT.UF.heatExchangerCore
     },
     keyIgnition={
         tags={"keyignition"},
         update=MT.F.keyIgnition
     },
-    electricalDisconnect={
-        tags={"electricalDisconnect"},
-        update=MT.F.electricalDisconnect
-    }
+    mechanicalClutch={
+        tags={"mechanicalClutch"},
+        update=MT.UF.mechanicalClutch
+    },
+    oxygenVentSpawn={ --move to BT function table some day
+        tags={"oxygenventspawn"},
+        update=BT.F.oxygenVentSpawn
+    },
+    reductionGear={
+        tags={"reductionGear"},
+        update=MT.UF.reductionGear
+    },
+    steamBoiler={
+        tags={"steamBoiler"},
+        update=MT.UF.steamBoiler
+    },
+    steamHeatsink={
+        tags={"steamHeatsink"},
+        update=MT.UF.steamHeatsink
+    },
+    steamTurbine={
+        tags={"steamturbine"},
+        update=MT.UF.steamTurbine
+    },
+    steamValve={
+        tags={"steamValve"},
+        update=MT.UF.steamValve
+    },
 }
 
 MT.itemSpawnEvents = {
@@ -143,7 +164,6 @@ function MT.UpdateItem(item)
             tagfunctiondata.update(item)
         end
     end
-
 end
 
 -- adds eligible items to the item cache

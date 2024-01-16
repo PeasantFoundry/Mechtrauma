@@ -1,6 +1,7 @@
 
 MT.HF = {} -- Helperfunctions (using HF instead of MT.HF might conflict with neurotraumas use of the term)
 MT.Net = {}
+
 -- LuaUserData.MakeFieldAccessible(Descriptors["Barotrauma.Items."], "isWire")
 -- Mechtrauma exclusive functions:
 
@@ -21,78 +22,6 @@ function MT.HF.string:split( inSplitPattern, outResults )
   end 
   --]]
 
-  -- -------------------------------------------------------------------------- --
-  --                                   NETWORK                                  --
-  -- -------------------------------------------------------------------------- --
-  -- vanilla bt: IReadMessage.cs and IWriteMessage.cs
-  -- IReadMessage functions:
-
-  --bool ReadBoolean();
-  --void ReadPadBits();
-  --byte ReadByte();
-  --byte PeekByte();
-  --UInt16 ReadUInt16();
-  --Int16 ReadInt16();
-  --UInt32 ReadUInt32();
-  --Int32 ReadInt32();
-  --UInt64 ReadUInt64();
-  --Int64 ReadInt64();
-  --Single ReadSingle();
-  --Double ReadDouble();
-  --UInt32 ReadVariableUInt32();
-  --String ReadString();
-  --Identifier ReadIdentifier();
-  --Microsoft.Xna.Framework.Color ReadColorR8G8B8();
-  --Microsoft.Xna.Framework.Color ReadColorR8G8B8A8();
-  --int ReadRangedInteger(int min, int max);
-  --Single ReadRangedSingle(Single min, Single max, int bitCount);
-  --byte[] ReadBytes(int numberOfBytes);
-
-function MT.Net.SendEvent(item)
-  local LuaDispatcher = MTUtils.GetComponentByName(item, "Mechtrauma.LuaNetEventDispatcher")
-  if LuaDispatcher ~= nil then
-    LuaDispatcher.SendEvent()
-  end
-end
-
-function MT.Net.ServerEventRead(component, message, client)
-    if component.Name == "DieselGenerator" then
-        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")        
-        generator.DiagnosticMode = message.ReadBoolean()
-        generator.IsOn = message.ReadBoolean()
-        generator.PowerToGenerate = message.ReadSingle()
-        component.SendEvent()
-    end
-end
-
-function MT.Net.ServerEventWrite(component, message, client)
-    if component.Name == "DieselGenerator" then        
-        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
-        message.WriteBoolean(generator.DiagnosticMode)
-        message.WriteBoolean(generator.IsOn)
-        message.WriteSingle(generator.PowerToGenerate)
-
-    end
-end
-
-function MT.Net.ClientEventRead(component, message, sendingTime)
-    if component.Name == "DieselGenerator" then
-        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
-        generator.DiagnosticMode = message.ReadBoolean()
-        generator.IsOn = message.ReadBoolean()
-        generator.PowerToGenerate = message.ReadSingle()
-    end
-end
-
-function MT.Net.ClientEventWrite(component, message, extradata)
-    if component.Name == "DieselGenerator" then
-        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
-        message.WriteBoolean(generator.DiagnosticMode)
-        message.WriteBoolean(generator.IsOn)
-        message.WriteSingle(generator.PowerToGenerate)
-    end
-end
-
 -- -------------------------------------------------------------------------- --
 --                        this is going to get so full                        --
 -- -------------------------------------------------------------------------- --
@@ -101,6 +30,79 @@ end
 --                                QOL shortcuts                               --
 -- -------------------------------------------------------------------------- --
 
+function MT.Net.SendEvent(item)
+    local LuaDispatcher = MTUtils.GetComponentByName(item, "Mechtrauma.LuaNetEventDispatcher")
+    if LuaDispatcher ~= nil then
+        LuaDispatcher.SendEvent()
+    end
+end
+--[[
+function MT.Net.ServerEventRead(component, message, client)
+    print("WE MADE IT TO SR")
+    print(tostring(component))
+    print(tostring(message))
+    print(tostring(client))
+    if component.Name == "DieselEngine" then
+    
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
+        generator.DiagnosticMode = message.ReadBoolean()
+        generator.IsOn = message.ReadBoolean()
+        generator.PowerToGenerate = message.ReadSingle()
+        dieselEngine.DiagnosticMode = message.ReadBoolean()
+        dieselEngine.ShowStatus = message.ReadBoolean()
+        dieselEngine.ShowLevels = message.ReadBoolean()
+        dieselEngine.ShowTemps = message.ReadBoolean()
+        component.SendEvent()
+    end
+end
+
+function MT.Net.ServerEventWrite(component, message, client, extradata)
+    print("WE MADE IT TO SW")
+    if component.Name == "DieselEngine" then
+    
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
+        message.WriteBoolean(generator.DiagnosticMode)
+        message.WriteBoolean(generator.IsOn)
+        message.WriteSingle(generator.PowerToGenerate)
+        message.WriteBoolean(dieselEngine.DiagnosticMode)
+        message.WriteBoolean(dieselEngine.ShowStatus)
+        message.WriteBoolean(dieselEngine.ShowLevels)
+        message.WriteBoolean(dieselEngine.ShowTemps)
+
+    end
+end
+
+function MT.Net.ClientEventRead(component, message, sendingTime)
+    if component.Name == "DieselEngine" then
+    print("WE MADE IT TO CR")
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
+        generator.DiagnosticMode = message.ReadBoolean()
+        generator.IsOn = message.ReadBoolean()
+        generator.PowerToGenerate = message.ReadSingle()
+        dieselEngine.DiagnosticMode = message.ReadBoolean()
+        dieselEngine.ShowStatus = message.ReadBoolean()
+        dieselEngine.ShowLevels = message.ReadBoolean()
+        dieselEngine.ShowTemps = message.ReadBoolean()
+    end
+end
+
+function MT.Net.ClientEventWrite(component, message, extradata)
+    if component.Name == "DieselEngine" then
+    print("WE MADE IT TO CW")
+        local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
+        local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
+        message.WriteBoolean(generator.DiagnosticMode)
+        message.WriteBoolean(generator.IsOn)
+        message.WriteSingle(generator.PowerToGenerate)
+        message.WriteBoolean(dieselEngine.DiagnosticMode)
+        message.WriteBoolean(dieselEngine.ShowStatus)
+        message.WriteBoolean(dieselEngine.ShowLevels)
+        message.WriteBoolean(dieselEngine.ShowTemps)
+    end
+end]]
 
 -- -------------------------------------------------------------------------- --
 --                                 FORMATTING                                 --
@@ -142,6 +144,39 @@ function MT.HF.Split(string, inSplitPattern, outResults )
 --                           MATHIMATICAL OPERATINS                           --
 -- -------------------------------------------------------------------------- --
 -- TODO: pass thermal variables for thermal mass and conductivity 
+
+-- TODO: check for a more elegant way to handle in C#
+function MT.HF.mirrorParentThermal(item)
+    local childThermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")    
+
+    if item.ParentInventory == nil or LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then
+        -- NOT CONTAINED -> adjust to ambientTemperature
+        if not MT.HF.approxEquals(childThermal.Temperature, MT.ambientTemperature) then childThermal.Temperature = MT.HF.getNewTemp(childThermal.Temperature, MT.ambientTemperature, item.InWater) end
+    elseif MTUtils.GetComponentByName(item.ParentInventory.Owner, "Mechtrauma.Thermal") then
+        local parentThermal = MTUtils.GetComponentByName(item.ParentInventory.Owner, "Mechtrauma.Thermal")
+        -- mirror parent thermal attributes
+        childThermal.MinOpTemp = parentThermal.MinOpTemp
+        childThermal.TargetOpTemp = parentThermal.TargetOpTemp
+        childThermal.MaxOpTemp = parentThermal.MaxOpTemp
+        childThermal.FailTemp = parentThermal.FailTemp
+        childThermal.CumulativeStress = parentThermal.CumulativeStress
+        childThermal.ExpansionStress = parentThermal.ExpansionStress
+        childThermal.ContractionStress = parentThermal.ContractionStress
+
+        -- adjust temperature
+        if childThermal.Temperature > parentThermal.Temperature then
+            -- heat loss
+            childThermal.Temperature = childThermal.Temperature + MT.HF.Round(((parentThermal.Temperature - childThermal.Temperature) / 2) -2, 2) -- returns negative
+        else
+            -- heat gain
+            childThermal.Temperature = childThermal.Temperature + MT.HF.Round(((parentThermal.Temperature - childThermal.Temperature) / 2) +2, 2)
+        end
+    else
+        -- Contained in an item with no thermal componenet
+        if not MT.HF.approxEquals(childThermal.Temperature, MT.ambientTemperature) then childThermal.Temperature = MT.HF.getNewTemp(childThermal.Temperature, MT.ambientTemperature, item.InWater) end    
+    end
+end
+
 function MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
     local temperatureChange = 0
     if InWater == nil then InWater = false end
@@ -153,7 +188,7 @@ function MT.HF.getTempChange(currentTemperature, targetTemperature, InWater)
     else
         -- heat gain
         temperatureChange = MT.HF.Round(MT.HF.Clamp(currentTemperature + (targetTemperature - currentTemperature) / 100 + 1, 0, 5), 2)
-        -- print("GOING UP! ", temperatureChange)
+        ---print("GOING UP! ", temperatureChange)
     end
 
     --if InWater then temperatureChange = temperatureChange * 20 end -- thermal conductivity of water is 20x that of air

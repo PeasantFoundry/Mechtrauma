@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\ControllablePowerContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\DataBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\DieselEngine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\EngineBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\FusedJB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GatedPump.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\global.cs" />

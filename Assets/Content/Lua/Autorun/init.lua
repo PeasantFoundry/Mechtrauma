@@ -35,19 +35,24 @@ else
     end
 end]]
 
+-- SERVER ONLY FUNCTION: server-side code (also run in singleplayer)
+
+    
+
 -- SHARED: client/server code
 
 -- functions
+
 dofile(MT.Path.."/Lua/Scripts/Shared/helperFunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/biotraumaFunctions.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaFunctions.lua")
-dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaDiesel.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaComputers.lua")
 dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaCLI.lua")
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaNetwork.lua")
 
 -- SHARED: client/server code
-dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaPower.lua")
-dofile(MT.Path.."/Lua/Scripts/Shared/mt_tools.lua")
+
+dofile(MT.Path.."/Lua/Scripts/Shared/mechtraumaTools.lua")
 
 -- SERVER: server-side code (also run in singleplayer)
 if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
@@ -67,15 +72,18 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
         print(runstring)
     end,1) end,1)
 
-    -- this is where we run all the other lua files    
+    -- this is where we run all the other lua files        
+    dofile(MT.Path.."/Lua/Scripts/Server/mechtraumaUpdateFunctions.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/mechtraumaDiesel.lua")
+    dofile(MT.Path.."/Lua/Scripts/Server/mechtraumaPower.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/treatmentItems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/mechtrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/biotrauma.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateCounter.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
-    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")    
-    dofile(MT.Path.."/Lua/Scripts/testing.lua")
-    
+    dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
+    --dofile(MT.Path.."/Lua/Scripts/testing.lua")
+
 end
 
 -- CLIENT: side-code
