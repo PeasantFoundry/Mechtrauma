@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\*.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\*.cs" />
   </ItemGroup>
 </Project>
