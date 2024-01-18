@@ -175,8 +175,8 @@ function MT.UF.dieselGenerator(item)
     else
         DieselEngine.IsRunning = false -- this tells if the generator is already running at the time of request so that ignition can be bypassed
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
-        for k, item in pairs(item.Components) do
-            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
+        for k, component in pairs(item.Components) do
+            if tostring(component) == "Mechtrauma.MTLight" then component.IsOn = false end
         end
     end
 end
@@ -400,9 +400,9 @@ function MT.DF.combustion(item, dieselSeries, targetPower)
         -- calculate part fault events
         MT.DF.partFaultEvents(item, DieselEngine, parts, simpleGenerator.Reliability)
 
-        -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
+        -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)  
         for k, component in pairs(item.Components) do
-            if tostring(component) == "Barotrauma.Items.Components.LightComponent" then component.IsOn = true end
+            if tostring(component) == "Mechtrauma.MTLight" and component.Token == "soundlight" then component.IsOn = true end
         end
 
         -- calculate consumables time remaining
@@ -424,8 +424,8 @@ function MT.DF.combustion(item, dieselSeries, targetPower)
         dieselEngine.ignition = false -- reset ignition
 
         -- SOUND / LIGHT - dieselEngine sound is controlled by an XML light so it will toggle with the light(s)
-        for k, item in pairs(item.Components) do
-            if tostring(item) == "Barotrauma.Items.Components.LightComponent" then item.IsOn = false end
+        for k, component in pairs(item.Components) do
+            if tostring(component) == "Mechtrauma.MTLight" and component.Name=="soundlight" then component.IsOn = false end
         end
     end
     -- these to functions

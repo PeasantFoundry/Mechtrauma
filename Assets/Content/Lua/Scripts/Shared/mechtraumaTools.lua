@@ -51,25 +51,23 @@ end
 -- -------------------------------------------------------------------------- --
 
 -- infared themometer 
-Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)   
+Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
-    local target =  item.ParentInventory.Owner.FocusedItem    
-    
-   
+    local target =  item.ParentInventory.Owner.FocusedItem
+
+    if CLIENT and Game.IsMultiplayer then
+        return
+    end
+
    --SoundPlayer.PlaySound("%ModDir%/Sound/receipt1.ogg", target.WorldPosition)
-    
     if target == nil then
-        terminal.SendMessage("ERR", Color(255,100,50,255))
+        terminal.SendMessage("TOO FAST", Color(255,100,50,255))
         return
     else
         local thermal = MTUtils.GetComponentByName(target, "Mechtrauma.Thermal")
         if  thermal and thermal.Temperature ~= nil then
             terminal.SendMessage(MT.HF.Round(thermal.Temperature, 0) .. "F", Color(255,100,50,255))
         end
-    end
-
-    if CLIENT and Game.IsMultiplayer then
-        return
     end
 
     --print (tostring(target))
@@ -109,8 +107,6 @@ Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, ite
     terminal.SendMessage("****END REPORT****")
 
   end)
-
-
 
 -- hand truck 
 Hook.Add("mtHandTruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)

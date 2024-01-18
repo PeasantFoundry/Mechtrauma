@@ -52,6 +52,8 @@ namespace Mechtrauma
             UserData.RegisterType<DieselEngine>();
             UserData.RegisterType<EngineBlock>();
             UserData.RegisterType<Thermal>();
+            UserData.RegisterType<MTLight>();
+            UserData.RegisterType<MTC>();
             UserData.RegisterType<DataBox>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();

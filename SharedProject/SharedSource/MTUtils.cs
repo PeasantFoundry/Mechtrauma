@@ -12,12 +12,39 @@ public static class MTUtils
 
         if (t is null)
             return null!;
-        
+
         if (item.componentsByType.ContainsKey(t))
         {
             return item.componentsByType[t];
         }
         return item.Components.FirstOrDefault(c => c?.GetType().IsAssignableTo(t) ?? false, null)!;
+    }
+
+    public static object GetComponentByToken(Item item, string name, string token)
+    {
+        // get all them types by name
+        var types = LuaCsSetup.AssemblyManager.GetTypesByName(name);
+        
+        if (types is null)
+            return null!;
+
+        foreach (var type in types)
+        {
+           
+            if (type.Name == name)
+            {
+                
+                if (item.componentsByType.ContainsKey(type))
+                {
+                    return item.componentsByType[type];
+                }
+
+                return item.Components.FirstOrDefault(c => c?.GetType().IsAssignableFrom(type) ?? false);
+            }
+        }
+
+        // If no matching type is found
+        return null;
     }
 
     /// <summary>

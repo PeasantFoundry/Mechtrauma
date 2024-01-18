@@ -422,11 +422,11 @@ function MT.HF.MechtraumaClean()
 end
 
 -- print blank lines to terminal in place of a functioning clear command
-function MT.HF.BlankTerminalLines(terminal, lines)
+function MT.HF.BlankTerminalLines(terminal, lines, string)
     local counter = 0
     while counter < lines do
         counter = counter + 1
-        terminal.ShowMessage = "-"
+        if string == nil then terminal.SendMessage("-") else terminal.SendMessage(string) end
     end
 end
 

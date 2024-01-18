@@ -1,4 +1,6 @@
 MT.C = {}
+MT.C.HD = {}
+MT.C.commandCache = {}
 
 -- table of item tags that will be discovered by item diagnosticTags
 MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or have both? jesus
@@ -46,26 +48,73 @@ MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or h
   }
 
 }
- -- this function will need to be refactored to generate randomized contents for each MTC (based on item)
+
+MT.C.Sample = {
+  messages={
+    type="DIR",
+    name="messages",
+    sent={
+      type="DIR",
+      name="sent",
+    },
+    received={
+      type="DIR",
+      name="received",
+    },
+    messages={
+      type = "EXE",
+      name = "messager",
+      functionToCall = "MT.CLI.textcolor"
+    },
+  }
+}
+-- this function will need to be refactored to generate randomized contents for each MTC (based on item)
 function MT.C.buildMTC(item)
+  print("BUILDING A NEW MTC ITEM!!")
   local returnMTC={
     root={
+      messages={
+        type="DIR",
+        name="messages",
+        sent={
+          type="DIR",
+          name="sent",
+        },
+        received={
+          type="DIR",
+          name="received",
+        },
+        msger={
+          type="EXE",
+          name="msger",
+          functionToCall = "MT.CLI.textcolor"
+        },
+      },
       home={
-        type="DIR"
+        type="DIR",
+        name="home",
       },
       programs={
         type="DIR",
+        name="programs",
         textcolor={
-          type = "EXE",
-          functionToCall = MT.CLI.textcolor
+          type="EXE",
+          name="textcolor",
+          functionToCall = "MT.CLI.textcolor"
         },
         notes={
-          type="DIR"
+          type="DIR",
+          name="notes",
         },
       dangerous={
-          type = "DIR"
+        type="DIR",
+        name="dangerous",
       }
     }
+  },
+  counters={
+    smsIN=0,
+    smsOUT=0
   }
 }
 return returnMTC
@@ -76,9 +125,9 @@ function MT.C.tabletDiagnoseItem(item, targetItem, terminal)
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
   local dataBox = MTUtils.GetComponentByName(item, "Mechtrauma.DataBox")
   local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
-  
+
   terminal.TextColor = Color.Gray
-  MT.HF.BlankTerminalLines(terminal, 10)  
+  MT.HF.BlankTerminalLines(terminal, 10)
   terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
   MT.HF.BlankTerminalLines(terminal, 1)
   terminal.TextColor = Color(250,100,60,255)

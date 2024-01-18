@@ -2,13 +2,7 @@ MT.F = {}
 MT.F.reportTypes = {}
 CentralComputer = {}
 CentralComputer.online = true
--- Establish Mechtrauma item cache
-MT.itemCache = {}
-MT.itemCacheCount = 0
-MT.inventoryCache = {parts={}}
-MT.inventoryCacheCount = 0
-MT.PriorityItemCache = {}
-MT.ambientTemperature = 60
+
 
 
 -- LuaUserData.RegisterTypeBarotrauma("Items.Components.SimpleGenerator")
@@ -116,7 +110,7 @@ end
 -- -------------------------------------------------------------------------- --
 --                                   REPORTS                                  --
 -- -------------------------------------------------------------------------- --
-function MT.F.reportTypes.parts(item, terminal, message, command, argument)
+function MT.F.reportTypes.parts(item, terminal, mtc, message, command, argument)
     terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     -- machine parts and crafting items    
     local partsCount = {new = {}, used = {}, broken = {}}
@@ -202,7 +196,7 @@ function MT.F.reportTypes.parts(item, terminal, message, command, argument)
     end
     terminal.SendMessage("******* END REPORT *******", Color(65, 115, 205, 255))
 end
-function MT.F.reportTypes.fuse(item, terminal, message, command, argument)
+function MT.F.reportTypes.fuse(item, terminal, mtc, message, command, argument)
      -- terminal goodness
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
   local property = terminal.SerializableProperties[Identifier("TextColor")]
@@ -267,7 +261,7 @@ function MT.F.reportTypes.fuse(item, terminal, message, command, argument)
 
 end
 
-function MT.F.reportTypes.power(item, terminal, message, command, argument)
+function MT.F.reportTypes.power(item, terminal, mtc, message, command, argument)
 
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     local poweredList = {}
@@ -307,7 +301,7 @@ function MT.F.reportTypes.power(item, terminal, message, command, argument)
 
 end
 
-function MT.F.reportTypes.blood(item, terminal, message, command, argument)
+function MT.F.reportTypes.blood(item, terminal, mtc, message, command, argument)
      --local containedItem = item.OwnInventory.GetItemAt(0)
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
   local bloodBankInventory = {}
@@ -363,7 +357,7 @@ function MT.F.reportTypes.blood(item, terminal, message, command, argument)
   end
 end
 
-function MT.F.reportTypes.pharmacy(item, terminal, message, command, argument)
+function MT.F.reportTypes.pharmacy(item, terminal, mtc, message, command, argument)
 
 --local containedItem = item.OwnInventory.GetItemAt(0)  
 local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
@@ -411,7 +405,7 @@ if CentralComputer.online then
 end
 
 end
-function MT.F.reportTypes.pump(item, terminal, message, command, argument)
+function MT.F.reportTypes.pump(item, terminal, mtc, message, command, argument)
     --local containedItem = item.OwnInventory.GetItemAt(0)
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     local terminalItem = item
@@ -476,7 +470,7 @@ function MT.F.reportTypes.pump(item, terminal, message, command, argument)
 
 end
 
-function MT.F.reportTypes.c02(item, terminal, message, command, argument)
+function MT.F.reportTypes.c02(item, terminal, mtc, message, command, argument)
   --local containedItem = item.OwnInventory.GetItemAt(0)
   local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
   local co2FilterList = {}

@@ -24,6 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GridAbsorber.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\LuaNetEventDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTBoiler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTC.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTLight.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\PlayerLadderDetector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />

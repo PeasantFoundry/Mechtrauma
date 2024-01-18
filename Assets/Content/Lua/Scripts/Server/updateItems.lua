@@ -4,6 +4,13 @@
 --MT.itemCacheCount = 0
 --MT.inventoryCache = {parts={}}
 --MT.inventoryCacheCount = 0
+-- Establish Mechtrauma item cache
+MT.itemCache = {}
+MT.itemCacheCount = 0
+MT.inventoryCache = {parts={}}
+MT.inventoryCacheCount = 0
+MT.PriorityItemCache = {}
+MT.ambientTemperature = 60
 
 MT.oxygenVentCount = 0
 
@@ -176,7 +183,13 @@ function MT.CacheItem(item)
             MT.itemCache[item] = {}
             MT.itemCache[item].counter = 0
             if item.HasTag("diagnostics") then MT.itemCache[item].diagnosticData ={errorCodes={},warningCodes={},statusCodes={}} end
-            if item.HasTag("mtc") then MT.itemCache[item].MTC = MT.C.buildMTC(item) end
+            if item.HasTag("mtc") and not MT.C.HD[item] then
+                
+                --MT.C.HD[item].MTC = MT.C.buildMTC(item)
+                MT.C.HD[item] = {MTC=MT.C.buildMTC(item)}
+                print(tostring(MT.C.HD[item].MTC))
+
+            end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
             -- this is here so that we don't double up execute on initialization and item creation -- I don't remember why this is a thing 1/5/2024
@@ -247,7 +260,11 @@ end
 
 
 Hook.Add("roundStart", "MT.roundStart2", function()
-    
+    -- -------------------------------------------------------------------------- --
+    --                            LOAD MTC HARD DRIVES                            --
+    -- -------------------------------------------------------------------------- --
+    --if File.Exists(MT.Path .. "/MTCHD.json") then MT.C.HD = json.parse(File.Read(MT.Path .. "/MTCHD.json")) end
+
     -- this is how many items we found in the MT.itemCache
     print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")     
     print("There are: ", MT.oxygenVentCount, " oxygen vents.")
@@ -269,5 +286,11 @@ end)
      -- clear the update item cache so we don't carry anything over accidentally
      MT.itemCache = {}
      MT.itemCacheCount = 0
-     -- track that the round is over     
+
+    -- -------------------------------------------------------------------------- --
+    --                            STORE MTC HARD DRIVES                           --
+    -- -------------------------------------------------------------------------- --
+    File.Write(MT.Path .. "/MTCHD.json", json.serialize(MT.C.HD))
+
  end)
+

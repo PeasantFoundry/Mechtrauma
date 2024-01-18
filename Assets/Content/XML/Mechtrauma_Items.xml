@@ -2814,6 +2814,9 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
@@ -2866,6 +2869,9 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/mt_gui.png" sourcerect="0,0,383,290" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopRight" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
@@ -3153,6 +3159,10 @@
       <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1536,320,76,128" origin="0.5,0.5"/>
     </OuterSprite>
     </AdvancedTerminal>  
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
+
     <aitarget sightrange="0" soundrange="0" />
 
   </Item>
@@ -3176,6 +3186,9 @@
       <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1152,320,384,384" origin="0.5,0.5"/>
     </OuterSprite>
     </AdvancedTerminal>
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <CustomInterface canbeselected="true" allowuioverlap="true" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopLeft" relativeoffset="0.09,0.5" style="ItemUI" linkuitocomponent="ItemContainer" />
@@ -3204,7 +3217,7 @@
   </Item>
 
 <!-- MT MOBILE:-->
-  <Item name="MT Mobile" identifier="mt_mobile" category="Electrical" Tags="mtu,mtc,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
+  <Item name="MT Mobile" identifier="mt_mobile" category="Electrical" Tags="mtu,mtc,narrowDisplay,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">    
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -3216,8 +3229,8 @@
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
     <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="416,0,64,168" depth="0.6" origin="0.5,0.5" />
-    <Body width="128" height="128" density="8" />
-    <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
+    <Body width="128" height="128" density="8"/>
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
     
       <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">            
         <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
@@ -3235,6 +3248,8 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1216,704,228,576" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" CrossHairScale="0.1" >      
       <!-- <Crosshair texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,64,0,0" /> -->
@@ -3246,7 +3261,9 @@
         <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
       </StatusEffect> -->
       <StatusEffect type="OnUse" target="Character">
-        <LuaHook name="mtMoblie_readTags.OnUse" />
+      
+        <LuaHook name="mtThermometer.onUse" />
+        <!--<LuaHook name="mtMoblie_readTags.OnUse" />-->
       </StatusEffect>
     </RangedWeapon>
 
@@ -3327,6 +3344,8 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopRight" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
@@ -3395,8 +3414,7 @@
       <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">            
         <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
       </StatusEffect> 
-    </Holdable>
-        
+    </Holdable>     
     
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
                       drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
@@ -3410,6 +3428,8 @@
       </OuterSprite>
     </AdvancedTerminal>
 
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>   
 
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">    
         <Containable items="smallitem">                
@@ -3496,7 +3516,8 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,640,384,308" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
-
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
   </Item>
 
   <!-- DIAGNOSTIC TABLET:-->
@@ -3532,8 +3553,10 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="384,320,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
-     <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2">
+    <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2">
       <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
       <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
       <!-- <Sound file="%ModDir%/Lualinker.ogg" type="OnUse" range="1000" /> -->
@@ -3618,6 +3641,9 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
 
     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.0,0.05" pivot="TopLeft" style="ItemUI" linkuitocomponent="ItemContainer" />
@@ -5253,7 +5279,10 @@
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5"/>
       </OuterSprite>
-    </AdvancedTerminal>
+    </AdvancedTerminal>    
+    <!-- Mechtrauma Computer-->
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
    
 
     <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
