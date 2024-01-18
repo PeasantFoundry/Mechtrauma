@@ -7,9 +7,6 @@ public partial class SteamBoiler : Powered, IFluidDevice
 {
     #region VARS
 
-    [Editable(1,10), Serialize(3, IsPropertySaveable.No, "Wait time between net updates.")]
-    public int UpdateTicksDelay { get; set; }
-
     private int _updateWaitTickRemaining = 0;
     private readonly LiquidContainer _inletWaterContainer = new();
     private readonly VaporContainer _outletSteamContainer = new();
@@ -21,17 +18,17 @@ public partial class SteamBoiler : Powered, IFluidDevice
         this.IsActive = true;
     }
     
-    public IReadOnlyList<T> GetFluidContainers<T>() where T : IFluidContainer
+    public IReadOnlyList<T> GetFluidContainers<T>() where T : class, IFluidContainer, new()
     {
         throw new NotImplementedException();
     }
 
-    public IReadOnlyList<T> GetFluidContainersByGroup<T>(string groupName) where T : IFluidContainer
+    public IReadOnlyList<T> GetFluidContainersByGroup<T>(string groupName) where T : class, IFluidContainer, new()
     {
         throw new NotImplementedException();
     }
 
-    public T GetPrefContainerByGroup<T>(string groupName) where T : IFluidContainer
+    public T GetPrefContainerByGroup<T>(string groupName) where T : class, IFluidContainer, new()
     {
         throw new NotImplementedException();
     }
@@ -52,7 +49,7 @@ public partial class SteamBoiler : Powered, IFluidDevice
         _updateWaitTickRemaining--;
         if (_updateWaitTickRemaining < 1)
         {
-            _updateWaitTickRemaining = UpdateTicksDelay;
+            _updateWaitTickRemaining = IFluidDevice.WaitTicksBetweenUpdates;
             UpdateSteamGeneration();
         }
     }

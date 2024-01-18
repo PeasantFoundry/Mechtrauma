@@ -4,6 +4,7 @@ public struct VaporData : IVaporData
 {
     public string Identifier { get; }
     public string FriendlyName { get; }
+    public float CondensateRatio { get; }
     public float Density { get; }
     public float Pressure { get; }
     public float Temperature { get; }
@@ -34,4 +35,5 @@ public struct VaporData : IVaporData
     {
         throw new NotImplementedException();
     }
+
 }

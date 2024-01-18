@@ -19,13 +19,13 @@ public interface IFluidContainer
     public void UpdateForMass(float newMass);
 
     public bool CanTakeFluid();
-    public IReadOnlyList<T> TakeFluidProportional<T>(float volume) where T : IFluidData;
-    public IReadOnlyList<T> TakeFluidBottom<T>(float volume) where T : IFluidData;
-    public IReadOnlyList<T> TakeFluidTop<T>(float volume) where T : IFluidData;
-    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : IFluidData;    
+    public IReadOnlyList<T> TakeFluidProportional<T>(float volume) where T : IFluidData, new();
+    public IReadOnlyList<T> TakeFluidBottom<T>(float volume) where T : IFluidData, new();
+    public IReadOnlyList<T> TakeFluidTop<T>(float volume) where T : IFluidData, new();
+    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : IFluidData, new();    
     
-    public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData;
-    public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData;
+    public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
+    public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
 
     public float GetApertureSizeForConnection(string connName);
 }

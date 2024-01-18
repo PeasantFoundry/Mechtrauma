@@ -43,4 +43,14 @@ public class FluidDatabase
         return _fluidPropertiesMap[(identifier, phase)];
     }
 
+    public void DeregisterFluid(string identifier)
+    {
+        DeregisterFluid(identifier, FluidProperties.PhaseType.Liquid);
+        DeregisterFluid(identifier, FluidProperties.PhaseType.Vapor);
+    }
+
+    public void DeregisterFluid(string identifier, FluidProperties.PhaseType phase)
+    {
+        _fluidPropertiesMap.Remove((identifier, phase));
+    }
 }
