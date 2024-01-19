@@ -1,8 +1,11 @@
-﻿using Barotrauma;
+﻿ using Barotrauma;
 using Barotrauma.Items.Components;
 
 namespace Mechtrauma.TransferSystems;
 
+/// <summary>
+/// Modeled based on a positive displacement pump.
+/// </summary>
 public class LiquidPump : Powered, IFluidDevice
 {
     #region VARS
@@ -28,7 +31,7 @@ public class LiquidPump : Powered, IFluidDevice
     }
 
     private float _targetFlowRate;
-    [Editable, Serialize(35, IsPropertySaveable.Yes, "Target flow rate of the pump in Liters.")]
+    [Editable, Serialize(35, IsPropertySaveable.Yes, "Target flow rate of the pump in Liters/second.")]
     public float TargetFlowRate
     {
         get => _targetFlowRate;
@@ -42,15 +45,17 @@ public class LiquidPump : Powered, IFluidDevice
     
     [Editable(0,float.MaxValue), Serialize(20, IsPropertySaveable.Yes, "Max power consumption allowed by the pump in kW.")]
     public float MaxPowerConsumption { get; set; }
+
     
     #endregion
 
     
-
     public LiquidPump(Item item, ContentXElement element) : base(item, element)
     {
         
     }
+    
+    
     
     public IReadOnlyList<T> GetFluidContainers<T>() where T : class, IFluidContainer, new()
     {
@@ -105,6 +110,12 @@ public class LiquidPump : Powered, IFluidDevice
         // todo: logic
         throw new NotImplementedException();
         
+        // check how much volume can be moved over to the outlet.
+
+        // calculate outlet pressure adjustment based on fluid level, use 50% as the marker.
+        // 0% = inlet pressure.
+        // 100% = max pressure. 
+
         GameMain.LuaCs.Hook.Call(Event_PostUpdatePumping, this);
     }
 }
