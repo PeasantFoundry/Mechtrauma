@@ -1,12 +1,19 @@
+-- -------------------------------------------------------------------------- --
+--                                  MTOS CLI                                  --
+-- -------------------------------------------------------------------------- --
+-- my beloved Mechtrauma Operating System and Command Line Interface
+-- the depth and breadth of this implementation is entierly unecessary
+-- I regret nothing - Ahab Hadrada
+
 MT.CLI = {}
 
--- move to program and... probably just delete, its slowwww
+-- move to program and... nah probably just delete this, its slowwww
 function MT.CLI.cleanShip(item, terminal, mtc, message, command, argument)
     -- call the clean function
     MT.HF.MechtraumaClean()
 end
 
-
+-- ------------------------ MTOS GENERIC EXIT COMMAND ----------------------- --
 function MT.CLI.exit(item, terminal, mtc, message, command, argument)
   -- generic function for disabling automatic readouts to stop the terminal from being clogged
 
@@ -21,7 +28,8 @@ function MT.CLI.exit(item, terminal, mtc, message, command, argument)
     terminal.SendMessage("CLEARING READOUTS")
   end
 end
-
+-- ------------------------ MTOS DIAGNOSTICS COMMAND ------------------------ --
+-- largely outdated and replaced by the show command
 function MT.CLI.diagnostics(item, terminal, mtc, message, command, argument)
   -- if there is no argument
 
@@ -95,6 +103,7 @@ function MT.CLI.help(item, terminal, mtc, message, command, argument)
   end
 end
 
+-- --------------------------- MTOS READER COMMAND -------------------------- --
 -- reads record such as SMS or TXT
 function MT.CLI.read(item, terminal, mtc, message, command, argument)
   -- -------------------------------------------------------------------------- --
@@ -119,7 +128,6 @@ function MT.CLI.read(item, terminal, mtc, message, command, argument)
       return
     end
   end
-
 
   local type = MT.C.HD[item].MTC.cd[argument].type
   -- -------------------------------------------------------------------------- --
@@ -176,6 +184,7 @@ function MT.CLI.read(item, terminal, mtc, message, command, argument)
   end
 end
 
+-- ------------------------ MTOS SMS MESSAGE COMMAND ------------------------ --
 -- send a text message to another device by ID
 function MT.CLI.text(item, terminal, mtc, message, command, argument)
 
@@ -237,11 +246,8 @@ function MT.CLI.text(item, terminal, mtc, message, command, argument)
       targetTerminal.SendMessage("@" .. textMessageTime .. ".T - FROM: (" .. item.ID .. ")")
       targetTerminal.SendMessage(textMessage)
       targetTerminal.SendMessage("-- END OF MESSAGE --")
-
     end
-
   end
-
 end
 
 -- -------------------------------------------------------------------------- --
@@ -278,7 +284,8 @@ function MT.CLI.load(item, terminal, mtc, message, command, argument)
   end
 end
 
-
+-- ------------------------ MTOS SCREEN LOCK COMMAND ------------------------ --
+-- locks the screen with a password for registered devices
 function MT.CLI.lock(item, terminal, mtc, message, command, argument) -- all argument portions of run functions have to be lower case because the terminal does not respect it.
   local profile = MT.CLI.getProfile(item)
   local user = "USER" if profile then user = profile.registeredName end
@@ -319,8 +326,7 @@ function MT.CLI.lock(item, terminal, mtc, message, command, argument) -- all arg
   -- /foot
 
 end
-
--- command to enable automatic readouts
+-- --------------------- MTOS AUTOMATIC READOUT COMMAND --------------------- --
 function MT.CLI.show(item, terminal, mtc, message, command, argument)
   -- currently, only diesel has diagnostic mode
   if item.HasTag("DieselEngine") then
@@ -357,6 +363,33 @@ function MT.CLI.show(item, terminal, mtc, message, command, argument)
     else
       terminal.SendMessage("INVALID READOUT: ", argument, Color(250,100,60,255))
     end
+  end
+end
+
+-- --------------------------- MTOS REPORT COMMAND -------------------------- --
+function MT.CLI.report(item, terminal, mtc, message, command, argument)
+  local reportInstalled
+
+  -- check if this is a valid report
+  if MT.CLI.commands.report.reportTypes[argument] then
+    -- check if this report is allowed on this item
+    for k, v in pairs(MT.CLI.commands.report.reportTypes[argument].allowedItems) do
+      if item.Prefab.Identifier.Value == v or item.HasTag(v) then
+        reportInstalled = true
+        break
+      else
+        reportInstalled = false
+      end
+    end
+    -- prevent "INVALID REPORT TYPE" from printing for every item identifier
+    if reportInstalled then
+      MT.CLI.commands.report.reportTypes[argument].functionToCall(item, terminal, mtc, message, command, argument)
+    else
+      terminal.SendMessage("***** REPORT NOT INSTALLED *****", Color(250,100,60,255))
+    end
+  -- invalid report type
+  else
+    MT.CLI.error("invalidReport", terminal, argument, Color(250,100,60,255))
   end
 end
 
@@ -448,6 +481,7 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument)
     end
 end
 
+-- -------------------- MTOS CLI CHANGE DIRECTORY COMMAND ------------------- --
 function MT.CLI.cd(item, terminal, mtc, message, command, argument)
   -- check for a storage cache
   if MT.itemCache[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
@@ -480,7 +514,8 @@ function MT.CLI.cd(item, terminal, mtc, message, command, argument)
   end
 end
 
--- I'm lazy so the copy command just piggybacks off the move command
+-- -------------------------- MTOS CLI COPY COMMAND ------------------------- --
+-- the copy command just piggybacks off the move command
 function MT.CLI.copy(item, terminal, mtc, message, command, argument)
   MT.CLI.mv(item, terminal, mtc, message, command, argument, true)
 end
@@ -503,7 +538,7 @@ function MT.CLI.mkdir(item, terminal, mtc, message, command, argument)
         terminal.SendMessage("!ERROR! No harddrive detected.")
     end
 end
-
+-- ---------------------- MTOS CLI DELETE FILE COMMAND ---------------------- --
 function MT.CLI.delete(item, terminal, mtc, message, command, argument)
 
     MT.CLI.BTR(item)-- if there there is no current directory then boot to root
@@ -529,6 +564,7 @@ function MT.CLI.delete(item, terminal, mtc, message, command, argument)
     terminal.SendMessage("*no such file*")
 end
 
+-- -------------------- MTOS CLI DELETE DIRECTORY COMMAND ------------------- --
 function MT.CLI.rmdir(item, terminal, mtc, message, command, argument)
     if MT.itemCache[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
       MT.CLI.BTR(item)-- if there there is no current directory then boot to root
@@ -547,13 +583,14 @@ function MT.CLI.rmdir(item, terminal, mtc, message, command, argument)
     end
 end
 
---mv textcolor.exe /MTC/root
--- command source destination
+
+-- -------------------------- MTOS CLI MOVE COMMAND ------------------------- --
+-- ex: mv textcolor.exe /MTC/root
 function MT.CLI.mv(item, terminal, mtc, message, command, argument, copy)
   -- -------------------------------------------------------------------------- --
   --                             INITIAL VALIDATION                             --
   -- -------------------------------------------------------------------------- --
-  if not copy then copy = false end -- defailt to move operation
+  if not copy then copy = false end -- default to move operation
   -- validate current directory
   MT.CLI.BTR(item)
   -- validate target file
@@ -607,32 +644,7 @@ function MT.CLI.mv(item, terminal, mtc, message, command, argument, copy)
   end
 end
 
-  function MT.CLI.report(item, terminal, mtc, message, command, argument)
-    local reportInstalled
-
-    -- check if this is a valid report
-    if MT.CLI.commands.report.reportTypes[argument] then
-      -- check if this report is allowed on this item
-      for k, v in pairs(MT.CLI.commands.report.reportTypes[argument].allowedItems) do
-        if item.Prefab.Identifier.Value == v or item.HasTag(v) then
-          reportInstalled = true
-          break
-        else
-          reportInstalled = false
-        end
-      end
-      -- prevent "INVALID REPORT TYPE" from printing for every item identifier
-      if reportInstalled then
-        MT.CLI.commands.report.reportTypes[argument].functionToCall(item, terminal, mtc, message, command, argument)
-      else
-        terminal.SendMessage("***** REPORT NOT INSTALLED *****", Color(250,100,60,255))
-      end
-    -- invalid report type
-    else
-      MT.CLI.error("invalidReport", terminal, argument, Color(250,100,60,255))
-    end
-  end
--- CLI executables
+  -- ---------------------- MTOS CLI EXECUTABLES COMMAND ---------------------- --
 function MT.CLI.run(item, terminal, mtc, message, command, argument)
     local formattedArgument = argument:match("([^%.]*)%.?.*$")
     local execute = function()
@@ -672,8 +684,8 @@ function MT.CLI.run(item, terminal, mtc, message, command, argument)
     --MT.CLI.EXE[argument].functionToCall(item, terminal)
 end
 
--- little program to change color of terminal
 
+-- registers a MTC to a user (this is how player claim devices)
 function MT.CLI.register(item, terminal, mtc, response)
   -- check for an existing profile
   local profile = MT.CLI.getProfile(item)
@@ -728,10 +740,35 @@ function MT.CLI.register(item, terminal, mtc, response)
   -- /foot
 end
 
+-- password protected lock screen for registered MTCs
+function MT.CLI.lockScreen(item, terminal, response)
+  if response == nil then
+      terminal.SendMessage("*****PRESS ANY KEY*****")
+  end
+end
+-- sets target power on a simple generator
+function MT.CLI.setPower(item, terminal, mtc, message, command, argument)
+local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
+simpleGenerator.PowerToGenerate = MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut)
+terminal.SendMessage("Power target set to: " .. MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut), Color.Lime)
+end
+-- --------------------- PROTOTYPE ERROR STANDARDIZATION -------------------- --
+function MT.CLI.error(error,terminal,argument)
+if error == nil then terminal.SendMessage("*****UNKNOWN ERROR******", Color(250,100,60,255)) return end
+if MT.CLI.errors[error] ~= nil then
+  if argument ~= nil then
+    terminal.SendMessage("*****" .. MT.CLI.errors[error].message .. argument .. "*****", MT.CLI.errors[error].color)
+  else
+    terminal.SendMessage("*****" .. MT.CLI.errors[error].message .. "*****", MT.CLI.errors[error].color)
+  end
+end
+end
 
-function MT.CLI.textcolor(item, terminal, mtc, response) -- all argument portions of run functions have to be lower case because the terminal does not respect it.
+-- -------------------------------------------------------------------------- --
+--                          MTC EXECUTABLE FUNCTIONS                          --
+-- -------------------------------------------------------------------------- --
+function MT.CLI.textcolor(item, terminal, mtc, response)
 
-  mtc.IsWaiting = true
     if response == nil then -- there sh
         terminal.SendMessage("What color would you like? Green or Red")
         mtc.IsWaiting = true
@@ -758,38 +795,13 @@ function MT.CLI.textcolor(item, terminal, mtc, response) -- all argument portion
     end
 end
 
-function MT.CLI.lockScreen(item, terminal, response)
-    if response == nil then
-        terminal.SendMessage("*****PRESS ANY KEY*****")
-    end
-end
-
-  function MT.CLI.setPower(item, terminal, mtc, message, command, argument)
-    local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
-    simpleGenerator.PowerToGenerate = MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut)
-    terminal.SendMessage("Power target set to: " .. MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut), Color.Lime)
-  end
-
-  function MT.CLI.error(error,terminal,argument)
-    if error == nil then terminal.SendMessage("*****UNKNOWN ERROR******", Color(250,100,60,255)) return end
-    if MT.CLI.errors[error] ~= nil then
-      if argument ~= nil then
-        terminal.SendMessage("*****" .. MT.CLI.errors[error].message .. argument .. "*****", MT.CLI.errors[error].color)
-      else
-        terminal.SendMessage("*****" .. MT.CLI.errors[error].message .. "*****", MT.CLI.errors[error].color)
-      end
-    end
-  end
 
   -- -------------------------------------------------------------------------- --
   --                            MTC EXECUTABLES TABLE                           --
   -- -------------------------------------------------------------------------- --
-  -- exactubles need to be stores in this table to enable the dynamically constructing function calls
-  -- shouldn't this be in the directory structure after type?!
-
-  -- fixed system paths. This allows me to move them without breaking everything.
-
+  -- currently depricated
   -- move it MT computers??
+
 MT.CLI.EXE = {
     textcolor={ -- changes text color
         functionToCall = MT.CLI.textcolor
@@ -802,8 +814,12 @@ MT.CLI.EXE = {
     }
 }
 
--- need to finish this so bad
-  -- move it MT computers??
+-- -------------------------------------------------------------------------- --
+--                           MTOS SYSTEM FILES TABLE                          --
+-- -------------------------------------------------------------------------- --
+-- MTOS CLI commands rely on .SYS files to funcition
+-- move it MT computers??
+
 MT.CLI.SYS = {
   cli={
     type="SYS",
@@ -847,7 +863,7 @@ MT.CLI.SYS = {
 -- -------------------------------------------------------------------------- --
 --                             MTC ERROR MESSAGES                             --
 -- -------------------------------------------------------------------------- --
--- an attempt at standardizing validation
+-- an attempt at standardizing validation - kinda wish I had finished this
 
 MT.CLI.errors = {
     noRoot={
@@ -1072,9 +1088,9 @@ MT.CLI.errors = {
         functionToCall = MT.CLI.run,
         allowedItems = {"mtc"}
     },
-    save = {
+    save = { -- probably should be disabled in game
         help = "n/a",
-        helpDetails = "Saves harddrive data.",
+        helpDetails = "Creates backup of MTC data.",
         helpExample = "'save'",
         altCommands = {"backup"},
         requireCCN = false,
@@ -1099,7 +1115,7 @@ MT.CLI.errors = {
         altCommands = {"display", "sho", "sh"},
         requireCCN = false,
         requireARG = false,
-        requireSYS = "readouts",
+        requireSYS = "show",
         functionToCall = MT.CLI.show,
         allowedItems = {"dieselEngine", "diagnostics"}
     },
@@ -1110,22 +1126,11 @@ MT.CLI.errors = {
         altCommands = {"txt", "t", "ext"},
         requireCCN = true,
         requireARG = true,
-        requireSYS = "MTMSG_SMS",
+        requireSYS = "text",
         functionToCall = MT.CLI.text,
         allowedItems = {"MTC", "terminal"}
     },
 }
-
-
-  --[[
-  MT.CLI.responseCommands = {
-    terminalColor={
-      --help="Enable/Disable diagnostics - Ex: diagnostics > on",
-      --commands={"diag"},
-      requireCCN=false,
-      --functionToCall=MT.CLI.responses
-    },
-}]]
 
 
 -- -------------------------------------------------------------------------- --
@@ -1133,7 +1138,9 @@ MT.CLI.errors = {
 -- -------------------------------------------------------------------------- --
 -- case agnostic CLI
 -- supports waiting programs
-
+-- supports permissions (item based)
+-- supports system commands depending on .SYS files
+-- other stuff
 
 -- -------------------------------------------------------------------------- --
 --                        MTC COMMAND LINE INTERPRETOR                        --
@@ -1197,6 +1204,7 @@ function MT.CLI.terminalCommand(item, terminal, mtc, message)
       if MT.CLI.commands[command].requireCCN == true and not CentralComputer.online then
         terminal.SendMessage("***NO CONNECTION***", Color(250,100,60,255))
         return
+      -- check if the command requires a .SYS file present and registered.
       elseif MT.CLI.commands[command].requireSYS and not MT.CLI.checkSYS(item, MT.CLI.commands[command].requireSYS) then
         terminal.SendMessage("ERROR: " .. MT.CLI.commands[command].requireSYS .. " module initialization failed.")
         return
@@ -1218,13 +1226,13 @@ end
 -- -------------------------------------------------------------------------- --
 --                            SUPPORTING FUNCTIONS                            --
 -- -------------------------------------------------------------------------- --
-
+-- helper functions for the CLI
 
 
 -- -------------------------------------------------------------------------- --
 --                               DISPLAY SCREENS                              --
 -- -------------------------------------------------------------------------- --
-
+-- reusable display screens for the CLI UI
 function MT.CLI.dWelcome(item, terminal)
   local profile = MT.CLI.getProfile(item)
   local user = "USER" if profile then user = profile.registeredName end
@@ -1253,6 +1261,10 @@ function MT.CLI.dWelcome(item, terminal)
   -- /foot
 end
 
+-- -------------------------------------------------------------------------- --
+--                            VALIDATION FUNCTIONS                            --
+-- -------------------------------------------------------------------------- --
+
 -- get a valid command
 function MT.HF.getCommand(item, terminal, command)
   if MT.CLI.commands[command] then
@@ -1273,15 +1285,23 @@ function MT.HF.getCommand(item, terminal, command)
   return command
 end
 
--- what a ******** mess! why no lua 5.4 MOONSHARP!
+-- what a ******** mess! why no lua 5.4 MOONSHARP! (we want save nagivation operator)
+-- a series of null checks, I can't remember if they were all necessary but I just didn't want to deal with it.
+--MT.CLI.checkSYS(item, MT.CLI.commands[command].requireSYS)
 function MT.CLI.checkSYS(item, requiredSYS, targetItem, targetRequiredSYS)
+  --print("THIS: " .. MT.CLI.encode(string.lower(requiredSYS) .. tostring(item.ID)))
+  --print("THAT: " .. MT.C.HD[item].MTC.root.mtos[requiredSYS].key)
+
   if not MT.C.HD[item] or not MT.C.HD[item].MTC.root.mtos then
+    print("failed here 1")
     return false
   elseif not MT.C.HD[item].MTC.root.mtos[requiredSYS] or not MT.C.HD[item].MTC.root.mtos[requiredSYS].key then
+    print("failed here 2")
     return false
   elseif MT.CLI.encode(string.lower(requiredSYS) .. tostring(item.ID)) == MT.C.HD[item].MTC.root.mtos[requiredSYS].key then
     return true
   else
+    print("failed here 3")
     return false
   end
 end
@@ -1301,39 +1321,30 @@ function MT.CLI.commandAllowed(item, terminal, command)
 end
 
 
--- function that returns the table based on the string location
-function MT.CLI.getDirectory(targetTable, partialPath)
+-- combines a table location with a partial path to create
+function MT.CLI.getDirectory(startingTable, partialPath)
     local keys = {}
     -- if root is included in the partial path, remove it
     local rootPos = partialPath:find("root")
     if rootPos then
       partialPath = partialPath:sub(rootPos + 5)  -- Adding 5 to skip 'root'
     end
-
+    -- isolate the segments of the path as keys
     for key in partialPath:gmatch("[^./]+") do
       table.insert(keys, key)
     end
-
-    local currentTable = targetTable
+    -- construct (and test) the final table location
+    local finalTable = startingTable
     for _, key in ipairs(keys) do
-        currentTable = currentTable[key]
-        if type(currentTable) ~= "table" then
+      finalTable = finalTable[key]
+        if type(finalTable) ~= "table" then
             return nil  -- Key does not lead to a table
         end
     end
-    return currentTable
+    return finalTable
 end
 
--- using
-function MT.CLI.getParentDirectoryTable(rootDirectory, path)
-  local lastSlashIndex = path:find("[^/]+/$") -- Find the index of the last key and slash combination
-  if lastSlashIndex then
-    return MT.CLI.getDirectory(rootDirectory, path:sub(1, lastSlashIndex - 1)) -- Remove everything after the last key and slash
-  else
-      return path -- Return the path as is if no keys or slashes found
-  end
-end
-
+-- I believe this gives the partial parent directory path
 function MT.CLI.getParentDirectoryPath(path)
   local keys = {}
   for key in path:gmatch("[^/]+") do
@@ -1347,7 +1358,17 @@ function MT.CLI.getParentDirectoryPath(path)
   return "/" .. table.concat(keys, "/")
 end
 
+-- possibly depricated
+function MT.CLI.getParentDirectoryTable(rootDirectory, path)
+  local lastSlashIndex = path:find("[^/]+/$") -- Find the index of the last key and slash combination
+  if lastSlashIndex then
+    return MT.CLI.getDirectory(rootDirectory, path:sub(1, lastSlashIndex - 1)) -- Remove everything after the last key and slash
+  else
+      return path -- Return the path as is if no keys or slashes found
+  end
+end
 
+-- possibly depricated
 function MT.CLI.getDirectoryPath(tableLocation)
   local path = ""
   local currentItem = tableLocation
@@ -1437,6 +1458,10 @@ function MT.CLI.BTR(item, force)
     end
 end
 
+-- -------------------------------------------------------------------------- --
+--                                  SECURITY                                  --
+-- -------------------------------------------------------------------------- --
+
 -- ---------------------------- SIMPLE ENCRYPTION --------------------------- --
   -- This is your secret 67-bit key (any random bits are OK)
   local Key53 = 8186484168865098
@@ -1482,7 +1507,7 @@ end
     ))
   end
 
-  -- -------------------------------- SECURITY -------------------------------- --
+  -- --------------------------- PASSWORDS AND PINS --------------------------- --
   function MT.CLI.validatePin(input)
     -- Check if the length is exactly 4 characters
     if #input == 4 then
@@ -1493,53 +1518,6 @@ end
     end
     return false
 end
---[[
-local function isAlphanumeric(char)
-  return char:match("[0-9A-Za-z]")
-end
-
-function MT.CLI.encrypt(text, key)
-  local encrypted = ""
-  for i = 1, #text do
-      local charCode = (text:byte(i) + key:byte(i % #key + 1)) % 62 + 1
-      local char = string.char(charCode)
-      while not isAlphanumeric(char) do
-          charCode = (charCode + 1) % 62 + 1
-          char = string.char(charCode)
-      end
-      encrypted = encrypted .. char
-  end
-  return encrypted
-end
-
-function MT.CLI.decrypt(encryptedText, key)
-  local decrypted = ""
-  for i = 1, #encryptedText do
-      local char = encryptedText:sub(i, i)
-      local charCode = char:byte()
-      while not isAlphanumeric(char) do
-          charCode = (charCode + 1) % 62 + 1
-          char = string.char(charCode)
-      end
-      decrypted = decrypted .. char
-  end
-  return decrypted
-end]]
-
-
---[[ Example usage:
-local originalText = "Hello, World!"
-
-
-
-local encryptionKey = "abc123"
-
-local encryptedText = encrypt(originalText, encryptionKey)
-print("Encrypted:", encryptedText)
-
-local decryptedText = decrypt(encryptedText, encryptionKey)
-print("Decrypted:", decryptedText)]]
-
 
 -- -------------------------------------------------------------------------- --
 --                          MTC terminal command hook                         --
@@ -1551,12 +1529,12 @@ Hook.Add("Mechtrauma.AdvancedTerminal::NewPlayerMessage", "terminalCommand", fun
   -- for ease of use, all MTC CLI messages are converted to lower case before parsing out the command and argument
   --local formattedMessage = string.lower(message)
   local mtc = MTUtils.GetComponentByName(terminal.item, "Mechtrauma.MTC")
-
+  if not mtc then mtc = MTUtils.GetComponentByName(terminal.item.OwnInventory.GetItemAt(0), "Mechtrauma.MTC") end
+  --  print(mtc)
   if mtc then
     if Game.IsMultiplayer then
       local dispatcher = MTUtils.GetComponentByName(terminal.item, "Mechtrauma.LuaNetEventDispatcher")
       if dispatcher then
-          print("Normal command, send it to the commandcache")
             -- process regular command
             MT.C.commandCache[terminal.item.ID]=message
             dispatcher.SendEvent()

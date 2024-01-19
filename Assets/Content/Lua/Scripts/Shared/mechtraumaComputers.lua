@@ -135,6 +135,7 @@ function MT.C.buildMTC(item)
   for command, v in pairs(MT.CLI.commands) do
     if v.requireSYS and not MTC.root.mtos[v.requireSYS] then
       MTC.root.mtos[v.requireSYS]={type="SYS",name=v.requireSYS,key=MT.CLI.encode(string.lower(v.requireSYS) .. tostring(item.ID))}
+
     end
   end
   return MTC

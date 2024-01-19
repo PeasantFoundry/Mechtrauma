@@ -125,7 +125,7 @@ function MT.updatePriorityItems()
     local updateItemsCounter = 0
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
     for key, value in pairs(MT.PriorityItemCache) do
-        -- make sure the items still exists 
+        -- make sure the items still exists
         if (key ~= nil and not key.Removed) then
             Timer.Wait(function ()
                 if (key ~= nil and not key.Removed) then
@@ -142,7 +142,7 @@ function MT.updateItems()
     local updateItemsCounter = 0
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
     for key, value in pairs(MT.itemCache) do
-        -- make sure the items still exists 
+        -- make sure the items still exists
         if (key ~= nil and not key.Removed) then
             Timer.Wait(function ()
                 if (key ~= nil and not key.Removed) then
@@ -154,7 +154,7 @@ function MT.updateItems()
     end
 end
 
--- called once for each item in MT.itemCache 
+-- called once for each item in MT.itemCache
 function MT.UpdateItem(item)
     -- loop through the tag functions to see if we have a matching function for the item tag(s)
     for tagfunctiondata in MT.tagfunctions do
@@ -179,22 +179,21 @@ function MT.CacheItem(item)
     if not MT.itemCache[item] then
         -- CHECK: should this item be in the cache
        if item.HasTag("mtu") or item.HasTag("mtupdate") then
-        -- CHECK: if the item is already in the cache, if not - add it.   
+        -- CHECK: if the item is already in the cache, if not - add it.
             MT.itemCache[item] = {}
             MT.itemCache[item].counter = 0
             if item.HasTag("diagnostics") then MT.itemCache[item].diagnosticData ={errorCodes={},warningCodes={},statusCodes={}} end
             if item.HasTag("mtc") and not MT.C.HD[item] then
-                
+
                 --MT.C.HD[item].MTC = MT.C.buildMTC(item)
                 MT.C.HD[item] = {MTC=MT.C.buildMTC(item)}
                 print(tostring(MT.C.HD[item].MTC))
-
             end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
             -- this is here so that we don't double up execute on initialization and item creation -- I don't remember why this is a thing 1/5/2024
-            if item.Prefab.Identifier.Value == "oxygen_vent" then 
-                -- count the oxygen vents when you populate the cache               
+            if item.Prefab.Identifier.Value == "oxygen_vent" then
+                -- count the oxygen vents when you populate the cache
                 MT.oxygenVentCount = MT.oxygenVentCount + 1
             end
 
@@ -203,7 +202,7 @@ function MT.CacheItem(item)
                 MT.itemCache[item].counter = 0
                 MT.itemCacheCount = MT.itemCacheCount + 1
         end
-        
+
     end
     -- populate the parts inventory
     if not MT.inventoryCache[item] then
@@ -248,15 +247,15 @@ end
 for k, item in pairs(Item.ItemList) do
     MT.CacheItem(item)
 end
- 
+
     --[[ INITIALIZATION: loop through the item list and count the oxygen vents
     for k, item in pairs(Item.ItemList) do
-        if item.Prefab.Identifier.Value == "oxygen_vent" then 
+        if item.Prefab.Identifier.Value == "oxygen_vent" then
             print(item)
             oxygenVentCount = oxygenVentCount + 1
         end
     end]]
-    
+
 
 
 Hook.Add("roundStart", "MT.roundStart2", function()
@@ -266,17 +265,19 @@ Hook.Add("roundStart", "MT.roundStart2", function()
     --if File.Exists(MT.Path .. "/MTCHD.json") then MT.C.HD = json.parse(File.Read(MT.Path .. "/MTCHD.json")) end
 
     -- this is how many items we found in the MT.itemCache
-    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")     
+    print("There are: ", MT.itemCacheCount, " items in the MT.itemCache.")
     print("There are: ", MT.oxygenVentCount, " oxygen vents.")
  end)
 
+
 -- new items
 Hook.add("item.created", "MT.newItem", function(item)
-    -- maintain the item cache 
+    -- maintain the item cache
     MT.CacheItem(item)
     if item.HasTag("spawnevent") then MT.itemSpawnEvent(item) end
  end)
--- item removed 
+
+-- item removed
 Hook.add("item.removed", "MT.removeItem", function(item)
     -- maintain the item cache
     MT.RemoveCacheItem(item)
