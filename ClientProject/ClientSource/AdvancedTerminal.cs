@@ -405,7 +405,8 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         if (FillerBlock is null)
             return;
 
-        FillerBlock.RectTransform.RelativeSize = new Vector2(1f, 1f);
+        FillerBlock.RectTransform.Relative
+            = new Vector2(1f, 1f);
     }
 
     public override partial void OnItemLoaded()

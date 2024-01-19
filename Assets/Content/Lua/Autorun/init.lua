@@ -84,7 +84,6 @@ if (Game.IsMultiplayer and SERVER) or not Game.IsMultiplayer then
     dofile(MT.Path.."/Lua/Scripts/Server/updateItems.lua")
     dofile(MT.Path.."/Lua/Scripts/Server/updateHumans.lua")
     dofile(MT.Path.."/Lua/Scripts/testing.lua")
-    dofile(MT.Path.."/Lua/Scripts/dataDumper.lua")
 
 end
 

@@ -70,9 +70,18 @@ MT.C.Sample = {
 }
 -- this function will need to be refactored to generate randomized contents for each MTC (based on item)
 function MT.C.buildMTC(item)
-  print("BUILDING A NEW MTC ITEM!!")
-  local returnMTC={
+  --buildMTC
+  local MTC={
     root={
+      mtos={
+        type="DIR",
+        name="MTOS",
+        kernel={
+          type="SYS",
+          name="kernel",
+          ver="1.0"
+        }
+      },
       messages={
         type="DIR",
         name="messages",
@@ -100,7 +109,12 @@ function MT.C.buildMTC(item)
         textcolor={
           type="EXE",
           name="textcolor",
-          functionToCall = "MT.CLI.textcolor"
+          functionToCall = "MT.CLI.textcolor",
+        },
+        register={
+          type="EXE",
+          name="register",
+          functionToCall = "MT.CLI.register"
         },
         notes={
           type="DIR",
@@ -117,7 +131,13 @@ function MT.C.buildMTC(item)
     smsOUT=0
   }
 }
-return returnMTC
+-- install MTOS dependencies and calculate registration keys
+  for command, v in pairs(MT.CLI.commands) do
+    if v.requireSYS and not MTC.root.mtos[v.requireSYS] then
+      MTC.root.mtos[v.requireSYS]={type="SYS",name=v.requireSYS,key=MT.CLI.encode(string.lower(v.requireSYS) .. tostring(item.ID))}
+    end
+  end
+  return MTC
 end
 
 -- function to test an item contained in a mechtrauma tablet
