@@ -10,10 +10,24 @@ public class LuaSaveStateHelper : ItemComponent
     public static readonly string Event_OnSave = $"{nameof(Mechtrauma.LuaSaveStateHelper)}::OnSave";
     public static readonly string Event_OnLoad = $"{nameof(Mechtrauma.LuaSaveStateHelper)}::OnLoad";
     
+    public string Name { get; private set; }
+    
     public LuaSaveStateHelper(Item item, ContentXElement element) : base(item, element)
     {
+        InitializeXml(element);
     }
 
+    private void InitializeXml(ContentXElement? element)
+    {
+        if (element is null)
+        {
+            ModUtils.Logging.PrintError($"{nameof(Mechtrauma.LuaSaveStateHelper)}::InitializeXml() | Element is null!");
+            return;
+        }
+
+        Name = element.GetAttributeString("Name", string.Empty);
+    }
+    
     public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap)
     {
         base.Load(componentElement, usePrefabValues, idRemap);
@@ -23,9 +37,9 @@ public class LuaSaveStateHelper : ItemComponent
 
     public override XElement Save(XElement parentElement)
     {
-        XElement baseElement = base.Save(parentElement);
+        base.Save(parentElement);
         XElement element = new XElement("LuaSaveStateHelper");
-        GameMain.LuaCs.Hook.Call(Event_OnLoad, this, element);
+        GameMain.LuaCs.Hook.Call(Event_OnSave, this, element);  
         parentElement.Add(element);
         return element;
     }
