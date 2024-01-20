@@ -92,6 +92,9 @@ public class LiquidPump : Powered, IFluidDevice
         return null;
     }
 
+    public FluidProperties.PhaseType OutputPhaseType { get; protected set; } = FluidProperties.PhaseType.Liquid;
+    public FluidProperties.PhaseType InputPhaseType { get; protected set; } = FluidProperties.PhaseType.Liquid;
+
     public override void Update(float deltaTime, Camera cam)
     {
         base.Update(deltaTime, cam);

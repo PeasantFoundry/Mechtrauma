@@ -33,6 +33,9 @@ public partial class SteamBoiler : Powered, IFluidDevice
         throw new NotImplementedException();
     }
 
+    public FluidProperties.PhaseType OutputPhaseType { get; protected set; }
+    public FluidProperties.PhaseType InputPhaseType { get; protected set; }
+
     public override float GetCurrentPowerConsumption(Connection connection = null)
     {
         return base.GetCurrentPowerConsumption(connection);

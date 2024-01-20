@@ -5,6 +5,9 @@ public interface IFluidDevice
     public IReadOnlyList<T> GetFluidContainers<T>() where T : class, IFluidContainer, new();
     public IReadOnlyList<T> GetFluidContainersByGroup<T>(string groupName) where T : class, IFluidContainer, new();
     public T? GetPrefContainerByGroup<T>(string groupName) where T : class, IFluidContainer, new();
+    
+    public FluidProperties.PhaseType OutputPhaseType { get; }
+    public FluidProperties.PhaseType InputPhaseType { get; }
 
     public static readonly int TickRate = 10;
     public static readonly int WaitTicksBetweenUpdates = 60 / TickRate;
