@@ -15,50 +15,50 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// <summary>
     /// Contains all elements of the terminal message box and input box UI.
     /// </summary>
-    protected GUILayoutGroup? TerminalLayoutGroup { get; set; }
+    public GUILayoutGroup? TerminalLayoutGroup { get; protected set; }
     /// <summary>
     /// Crates spacing at the top of the message history box. 
     /// </summary>
-    protected GUIFrame? TopPaddingBox { get; set; }
+    public GUIFrame? TopPaddingBox { get; protected set; }
     /// <summary>
     /// Holds the GUITextBlocks containing historical messages.
     /// </summary>
-    protected GUIListBox? MessageHistoryBox { get; set; }
+    public GUIListBox? MessageHistoryBox { get; protected set; }
     /// <summary>
     /// Fills space above the message box to force messages to display at the bottom first and then rise as there's more history to show.
     /// </summary>
-    protected GUITextBlock? FillerBlock { get; set; }
-    protected GUIFrame? HorizontalLine { get; set; }
+    public GUITextBlock? FillerBlock { get; protected set; }
+    public GUIFrame? HorizontalLine { get; protected set; }
     /// <summary>
     /// Player typing box.
     /// </summary>
-    protected GUITextBox? InputBox { get; set; }
+    public GUITextBox? InputBox { get; protected set; }
     /// <summary>
     /// Holds the skin sprite of the terminal (optional).
     /// </summary>
-    protected GUICustomComponent? OuterSpriteGUI { get; set; }
+    public GUICustomComponent? OuterSpriteGUI { get; protected set; }
 
     /// <summary>
     /// Only used if the intention is to not use the item.GuiFrame instance as the master parent.
     /// </summary>
-    protected GUIFrame? AlternateGUIFrame { get; set; }
+    public GUIFrame? AlternateGUIFrame { get; protected set; }
     
     /// <summary>
     /// Allows for a sprite to be rendered behind the terminal. Intended for use with skinned terminal designs.
     /// </summary>
-    protected Sprite? OuterSprite { get; set; }
+    public Sprite? OuterSprite { get; protected set; }
     /// <summary>
     /// Relative offset for the skin sprite.
     /// </summary>
-    protected Vector2 OuterSpriteOffset { get; set; }
+    public Vector2 OuterSpriteOffset { get; protected set; }
     /// <summary>
     /// Relative size of the skin sprite.
     /// </summary>
-    protected Vector2 OuterSpriteSize { get; set; }
+    public Vector2 OuterSpriteSize { get; protected set; }
     /// <summary>
     /// Absolute offset of the sprite render.
     /// </summary>
-    protected Vector2 OuterSpriteRenderPos { get; set; }
+    public Vector2 OuterSpriteRenderPos { get; protected set; }
 
     /// <summary>
     /// Multiplier for the internal margin in the GUI Frame.
