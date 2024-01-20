@@ -9,29 +9,6 @@
     <Import_RootNamespace>SharedProject</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\AdvancedTerminal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\AdvanceOxygenGenerator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\BatteryPump.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\CentralPump.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Configuration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\ControllablePowerContainer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\DataBox.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\DieselEngine.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\EngineBlock.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\FusedJB.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GatedPump.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\global.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\GridAbsorber.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\LuaNetEventDispatcher.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTBoiler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTC.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTLight.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\MTUtils.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\PlayerLadderDetector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\SimpleGenerator.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Thermal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterDrain.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterGate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\*.cs" />
   </ItemGroup>
 </Project>
