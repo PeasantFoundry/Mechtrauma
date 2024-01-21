@@ -34,6 +34,10 @@ public class FluidProperties
     /// This is the ideal gas constant.
     /// </summary>
     public float FluidExpansionFactor { get; init; }
+    /// <summary>
+    /// How much velocity is added from a fluid based on pressure differential.
+    /// </summary>
+    public float AccelerationRatio { get; init; }
 
     public enum PhaseType
     {

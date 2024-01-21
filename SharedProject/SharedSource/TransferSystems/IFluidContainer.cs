@@ -28,4 +28,6 @@ public interface IFluidContainer
     public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
 
     public float GetApertureSizeForConnection(string connName);
+
+    public void SetApertureSizeForConnection(string connName, float value);
 }

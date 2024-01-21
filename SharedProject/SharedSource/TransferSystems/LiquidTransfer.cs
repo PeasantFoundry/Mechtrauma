@@ -37,14 +37,45 @@ public class LiquidTransfer : ItemComponent
 
         if (TryGetProducerAndConsumers())
         {
-            // get apertures, pressures at consumers
-            // calculate proportions
-            // calculate max volume transfer based on combined min aperture * velocity at producer
-            // set values of fluid transfer struct
+            // get liquid containers
+            var producerTank = producer!.GetPrefContainerByGroup<LiquidContainer>(ILiquidData.SymbolConnOutput);
+            var consumerTanks = new List<LiquidContainer>();
+
+            // exit if no src
+            if (producerTank is null)
+                return;
+            
+            // get valid consumers
+            foreach (IFluidDevice device in consumers)
+            {
+                foreach (var container in device.GetFluidContainersByGroup<LiquidContainer>(ILiquidData.SymbolConnInput))
+                {
+                    if (container.Pressure - producerTank.Pressure > float.Epsilon) // back pressure excess
+                        continue;
+                    if (container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput) < float.Epsilon) // valve closed
+                        continue;
+                    consumerTanks.Add(container);
+                }
+            }
+            
+            // check if consumers can accept the fluids the producer has available
+            var liquidData = producerTank.TakeFluidProportional<LiquidData>(0f);    //sample
+            consumerTanks = consumerTanks.Where(c => c.CanPutFluids(liquidData)).ToList();
+
+            // calculate fluid proportions per container.
+            
+            
+            float sum = 0;
+            foreach (var container in consumerTanks)
+            {
+                sum += (producerTank.Pressure - container.Pressure) * container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
+            }
+
+            
             // send fluid to consumers
         }
 
-
+        
 
         bool TryGetProducerAndConsumers()
         {
@@ -104,12 +135,7 @@ public class LiquidTransfer : ItemComponent
                 success = false;
             }
 
-            return success && producer is not null && consumers.Any();
-        }
-
-        void ProcessTransfers()
-        {
-            
+            return success && producer is {} && consumers.Any();
         }
     }
 }
