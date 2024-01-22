@@ -81,4 +81,9 @@ public class VaporContainer : IFluidContainer
     {
         throw new NotImplementedException();
     }
+
+    public void SetApertureSizeForConnection(string connName, float value)
+    {
+        throw new NotImplementedException();
+    }
 }

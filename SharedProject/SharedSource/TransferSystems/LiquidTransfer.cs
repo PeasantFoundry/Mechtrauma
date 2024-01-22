@@ -63,8 +63,6 @@ public class LiquidTransfer : ItemComponent
             consumerTanks = consumerTanks.Where(c => c.CanPutFluids(liquidData)).ToList();
 
             // calculate fluid proportions per container.
-            
-            
             float sum = 0;
             foreach (var container in consumerTanks)
             {
