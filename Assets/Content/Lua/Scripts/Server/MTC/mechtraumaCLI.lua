@@ -1,20 +1,20 @@
 -- -------------------------------------------------------------------------- --
 --                                  MTOS CLI                                  --
 -- -------------------------------------------------------------------------- --
--- my beloved Mechtrauma Operating System and Command Line Interface
+-- my beloved Mechtrauma Operating System / Command Line Interface
 -- the depth and breadth of this implementation is entierly unecessary
 -- I regret nothing - Ahab Hadrada
 
 MT.CLI = {}
 
 -- move to program and... nah probably just delete this, its slowwww
-function MT.CLI.cleanShip(item, terminal, mtc, message, command, argument)
+function MT.CLI.cleanShip(item, terminal, mtc, message, command, argument, size)
     -- call the clean function
     MT.HF.MechtraumaClean()
 end
 
 -- ------------------------ MTOS GENERIC EXIT COMMAND ----------------------- --
-function MT.CLI.exit(item, terminal, mtc, message, command, argument)
+function MT.CLI.exit(item, terminal, mtc, message, command, argument, size)
   -- generic function for disabling automatic readouts to stop the terminal from being clogged
 
   if item.HasTag("DieselEngine") then
@@ -30,7 +30,7 @@ function MT.CLI.exit(item, terminal, mtc, message, command, argument)
 end
 -- ------------------------ MTOS DIAGNOSTICS COMMAND ------------------------ --
 -- largely outdated and replaced by the show command
-function MT.CLI.diagnostics(item, terminal, mtc, message, command, argument)
+function MT.CLI.diagnostics(item, terminal, mtc, message, command, argument, size)
   -- if there is no argument
 
   -- convert the argument to a boolean
@@ -49,7 +49,7 @@ end
 -- -------------------------------------------------------------------------- --
 --                                MTC CLI HELP                                --
 -- -------------------------------------------------------------------------- --
-function MT.CLI.help(item, terminal, mtc, message, command, argument)
+function MT.CLI.help(item, terminal, mtc, message, command, argument, size)
   -- HELP REQUESTED: SINGLE COMMAND
   if MT.CLI.commands[argument] then
     local command = MT.CLI.commands[argument]
@@ -60,7 +60,8 @@ function MT.CLI.help(item, terminal, mtc, message, command, argument)
       return
     end
 
-    if item.HasTag("narrowDisplay") then
+
+if item.HasTag("narrowDisplay") then
       terminal.SendMessage("——— " .. string.upper(argument) .. " ——— ", Color(250,100,60,255))
       terminal.SendMessage("ARGs: " .. command.help .. "", Color(250,100,60,255))
       terminal.SendMessage("EX: ".. command.helpExample, Color(250,100,60,255))
@@ -73,6 +74,7 @@ function MT.CLI.help(item, terminal, mtc, message, command, argument)
     end
     return
   end
+
   -- help requested for all allowed commands.
   terminal.SendMessage("COMMAND | ARGUMENTS", Color(250,100,60,255))
   for terminalCommand, v in pairs(MT.CLI.commands) do
@@ -88,10 +90,14 @@ function MT.CLI.help(item, terminal, mtc, message, command, argument)
           terminal.SendMessage("EX: ".. v.helpExample, Color(250,100,60,255))
           terminal.SendMessage("• ".. v.helpDetails, Color(250,100,60,255))
         else
+          --string.format("%-15s", dieselEngine.fuelTime .. "m")
+          --[[
           terminal.SendMessage("—— —— —— —— —— " .. string.upper(terminalCommand) .. " —— —— —— —— —— ", Color(250,100,60,255))
           terminal.SendMessage("ARGUMENTS: " .. v.help .. "", Color(250,100,60,255))
           terminal.SendMessage("EXAMPLE: ".. v.helpExample, Color(250,100,60,255))
           terminal.SendMessage("• ".. v.helpDetails, Color(250,100,60,255))
+          ]]
+          terminal.SendMessage(string.upper(terminalCommand) .. " —— —— —— —— —— ", Color(250,100,60,255))
         end
 
       --elseif argument == "examples" and v.helpExample then
@@ -105,7 +111,7 @@ end
 
 -- --------------------------- MTOS READER COMMAND -------------------------- --
 -- reads record such as SMS or TXT
-function MT.CLI.read(item, terminal, mtc, message, command, argument)
+function MT.CLI.read(item, terminal, mtc, message, command, argument, size)
   -- -------------------------------------------------------------------------- --
   --                                 VALIDATION                                 --
   -- -------------------------------------------------------------------------- --
@@ -129,16 +135,35 @@ function MT.CLI.read(item, terminal, mtc, message, command, argument)
     end
   end
 
-  local type = MT.C.HD[item].MTC.cd[argument].type
   -- -------------------------------------------------------------------------- --
   --                          READ DOCUMENT (TXT, ETC)                          --
   -- -------------------------------------------------------------------------- --
-  if type == "TXT" or "SYS" then
+  -- probably needs to be broken out into its own module like pBank
+  local type = MT.C.HD[item].MTC.cd[argument].type
+
+  --// header
+  MT.CLI.header(item, terminal, size.displayWCH)
+
+  -- VALIDATION: file type
+  if type == "TXT" or type == "SYS" then
+   -- ---------------------------- DISPLAY: DOCUMENT --------------------------- --
+   local filePath = MT.C.HD[item].MTC.cdp.."/"..argument.."."..type
+   local file = MT.C.HD[item].MTC.cd[argument]
+
+    terminal.SendMessage(MT.CLI.textCenter(filePath,  size.displayWCH, " "))
+    if file.registeredName and file.registeredID then
+      terminal.SendMessage(MT.CLI.textCenter("[Device Registered to: " .. file.registeredName .. " | ID: " .. file.registeredID .."]",  size.displayWCH, " "))
+    end
+
     for k, v in pairs(MT.C.HD[item].MTC.cd[argument]) do
-      terminal.SendMessage(tostring(k) .. ": " .. v)
+      if k ~= "type" and k ~= "name" and k ~= "registeredName" and k ~= "registeredID" then -- this is going to get out of hand, quickly.
+        terminal.SendMessage(tostring(k) .. ": " .. v)
+      end
+      --terminal.SendMessage(tostring(k) .. ": " .. v)
     end
 
   elseif MT.C.HD[item].MTC.cd[argument].type == "SMS" then
+
   -- -------------------------------------------------------------------------- --
   --                              READ SMS MESSAGE                              --
   -- -------------------------------------------------------------------------- --
@@ -186,7 +211,7 @@ end
 
 -- ------------------------ MTOS SMS MESSAGE COMMAND ------------------------ --
 -- send a text message to another device by ID
-function MT.CLI.text(item, terminal, mtc, message, command, argument)
+function MT.CLI.text(item, terminal, mtc, message, command, argument, size)
 
   if tonumber(argument) == nil then terminal.SendMessage("INVALID NUMBER: " .. argument) return end
   local targetItem = Entity.FindEntityByID(tonumber(argument))
@@ -255,7 +280,7 @@ end
 -- -------------------------------------------------------------------------- --
 
 -- partial utility function for testing JSON serializer and saving to file
-function MT.CLI.save(item, terminal, mtc, message, command, argument)
+function MT.CLI.save(item, terminal, mtc, message, command, argument, size)
   if terminal then
     terminal.SendMessage("creating backup...", Color.Gray)
     Timer.Wait(function() terminal.SendMessage("*BACKUP CREATED*") end, 1500)
@@ -266,7 +291,7 @@ function MT.CLI.save(item, terminal, mtc, message, command, argument)
 end
 
 -- partial utility function for testing JSON serializer and loading from file
-function MT.CLI.load(item, terminal, mtc, message, command, argument)
+function MT.CLI.load(item, terminal, mtc, message, command, argument, size)
   if terminal then terminal.SendMessage("restoring backup...", Color.Gray) end
 
   local success, fileContent = pcall(function()
@@ -286,33 +311,29 @@ end
 
 -- ------------------------ MTOS SCREEN LOCK COMMAND ------------------------ --
 -- locks the screen with a password for registered devices
-function MT.CLI.lock(item, terminal, mtc, message, command, argument) -- all argument portions of run functions have to be lower case because the terminal does not respect it.
+function MT.CLI.lock(item, terminal, mtc, message, command, argument, size)
   local profile = MT.CLI.getProfile(item)
   local user = "USER" if profile then user = profile.registeredName end
   local encodedPIN = MT.CLI.encode(message)
 
   if not profile then terminal.SendMessage("OPERATION FAILED: DEVICE NOT REGISTERED.", Color(250,100,60,255)) return end
+
   -- ------------------------------ LOCK SCREEN: ------------------------------ --
   -- head
-  terminal.ClearHistory()
-  terminal.SendMessage(string.rep("_ ", 25))
-  MT.HF.BlankTerminalLines(terminal, 1, "")
-  terminal.SendMessage("@" .. tostring(item))
-  terminal.SendMessage("ClockTime: " .. MT.HF.Round(Game.GameScreen.GameTime, 2) .. "T" )
-  MT.HF.BlankTerminalLines(terminal, 3, "")
+  MT.CLI.header(item, terminal, size.displayWCH)
   -- /head
 
   -- body
-  if encodedPIN == MT.C.HD[item].MTC.root.profile.password then
-    terminal.SendMessage("•WELCOME, " .. user .. "!•", Color(50,100,255,255))
+  if encodedPIN and encodedPIN == MT.C.HD[item].MTC.root.user.profile.password then
+    terminal.SendMessage("•WELCOME, " .. user .. "!•", Color(75,150,250,255))
     MT.HF.BlankTerminalLines(terminal, 1, "")
     mtc.IsWaiting = false -- reset the waiting flag
   else
-    terminal.SendMessage("                  ENTER PIN:")
-    if mtc.IsWaiting and encodedPIN ~= MT.C.HD[item].MTC.root.profile.password then
-      terminal.SendMessage("              !INCORRECT PIN!.", Color(250,100,60,255))
+    terminal.SendMessage(MT.CLI.textCenter("ENTER PIN:", size.displayWCH))
+    if mtc.IsWaiting and encodedPIN ~= MT.C.HD[item].MTC.root.profile.user.password then
+      terminal.SendMessage(MT.CLI.textCenter("!INCORRECT PIN!.", size.displayWCH), Color(250,100,60,255))
     else
-      terminal.SendMessage("                  — . — . — . — ")
+      terminal.SendMessage(MT.CLI.textCenter("— . — . — . — ", size.displayWCH))
     end
     mtc.IsWaiting = true -- set the waiting flag
     mtc.WaitingFunction = "MT.CLI.lock"
@@ -320,14 +341,12 @@ function MT.CLI.lock(item, terminal, mtc, message, command, argument) -- all arg
   -- /body
 
   -- foot
-  MT.HF.BlankTerminalLines(terminal, 3, "")
-  terminal.SendMessage("Mechtrauma OS version " .. tostring(MT.C.HD[item].MTC.root.mtos.kernel.ver))
-  terminal.SendMessage(string.rep("_ ", 25))
+  MT.CLI.footer(item, terminal, size.displayWCH)
   -- /foot
 
 end
 -- --------------------- MTOS AUTOMATIC READOUT COMMAND --------------------- --
-function MT.CLI.show(item, terminal, mtc, message, command, argument)
+function MT.CLI.show(item, terminal, mtc, message, command, argument, size)
   -- currently, only diesel has diagnostic mode
   if item.HasTag("DieselEngine") then
     local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
@@ -367,7 +386,7 @@ function MT.CLI.show(item, terminal, mtc, message, command, argument)
 end
 
 -- --------------------------- MTOS REPORT COMMAND -------------------------- --
-function MT.CLI.report(item, terminal, mtc, message, command, argument)
+function MT.CLI.report(item, terminal, mtc, message, command, argument, size)
   local reportInstalled
 
   -- check if this is a valid report
@@ -383,7 +402,7 @@ function MT.CLI.report(item, terminal, mtc, message, command, argument)
     end
     -- prevent "INVALID REPORT TYPE" from printing for every item identifier
     if reportInstalled then
-      MT.CLI.commands.report.reportTypes[argument].functionToCall(item, terminal, mtc, message, command, argument)
+      MT.CLI.commands.report.reportTypes[argument].functionToCall(item, terminal, mtc, message, command, argument, size)
     else
       terminal.SendMessage("***** REPORT NOT INSTALLED *****", Color(250,100,60,255))
     end
@@ -398,7 +417,7 @@ end
 -- -------------------------------------------------------------------------- --
 
 -- This is where the magic happens
-function MT.CLI.ls(item, terminal, mtc, message, command, argument)
+function MT.CLI.ls(item, terminal, mtc, message, command, argument, size)
     -- make sure this device has a storage cache
     if MT.C.HD[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
 
@@ -441,11 +460,13 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument)
 
         -- directories
         for record, v in pairs(dir) do
-            terminal.SendMessage("<DIR>...| " .. v.name ..  "/")
+            --terminal.SendMessage("<DIR>...| " .. v.name ..  "/")
+            terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<DIR> ")
         end
         -- executables
         for record, v in pairs(exe) do
-            terminal.SendMessage("<EXE>..| " .. v.name .. "/")
+            --terminal.SendMessage("<EXE>..| " .. v.name .. "/")
+            terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<EXE> ")
         end
         -- messages
         for id, sms in pairs(sms) do
@@ -458,11 +479,13 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument)
         end
         -- system files
         for record, v in pairs(sys) do
-          terminal.SendMessage("<SYS>...| " .. v.name)
+          -- terminal.SendMessage("<SYS>...| " .. v.name)
+          terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<SYS> ")
         end
         -- documents
         for record, v in pairs(txt) do
-          terminal.SendMessage("<TXT>..| " .. v.name)
+          -- terminal.SendMessage("<TXT>..| " .. v.name)
+          terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<TXT> ")
         end
 
         -- --------------------------------- FOOTER --------------------------------- --
@@ -482,7 +505,8 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument)
 end
 
 -- -------------------- MTOS CLI CHANGE DIRECTORY COMMAND ------------------- --
-function MT.CLI.cd(item, terminal, mtc, message, command, argument)
+function MT.CLI.cd(item, terminal, mtc, message, command, argument, size)
+  if message == "cd" and not argument then terminal.SendMessage("!NO DIRECTORY SPECIFIED!", Color(250,100,60,255)) return end
   -- check for a storage cache
   if MT.itemCache[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
     -- if there is no current directory - boot us to root
@@ -516,11 +540,11 @@ end
 
 -- -------------------------- MTOS CLI COPY COMMAND ------------------------- --
 -- the copy command just piggybacks off the move command
-function MT.CLI.copy(item, terminal, mtc, message, command, argument)
+function MT.CLI.copy(item, terminal, mtc, message, command, argument, size)
   MT.CLI.mv(item, terminal, mtc, message, command, argument, true)
 end
 
-function MT.CLI.mkdir(item, terminal, mtc, message, command, argument)
+function MT.CLI.mkdir(item, terminal, mtc, message, command, argument, size)
     -- check for a storage cache
     if MT.itemCache[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
         -- if there is no current directory - default to root
@@ -539,7 +563,7 @@ function MT.CLI.mkdir(item, terminal, mtc, message, command, argument)
     end
 end
 -- ---------------------- MTOS CLI DELETE FILE COMMAND ---------------------- --
-function MT.CLI.delete(item, terminal, mtc, message, command, argument)
+function MT.CLI.delete(item, terminal, mtc, message, command, argument, size)
 
     MT.CLI.BTR(item)-- if there there is no current directory then boot to root
     -- purge records
@@ -565,7 +589,7 @@ function MT.CLI.delete(item, terminal, mtc, message, command, argument)
 end
 
 -- -------------------- MTOS CLI DELETE DIRECTORY COMMAND ------------------- --
-function MT.CLI.rmdir(item, terminal, mtc, message, command, argument)
+function MT.CLI.rmdir(item, terminal, mtc, message, command, argument, size)
     if MT.itemCache[item] and MT.C.HD[item].MTC and MT.C.HD[item].MTC.root then
       MT.CLI.BTR(item)-- if there there is no current directory then boot to root
       -- purge records
@@ -645,8 +669,9 @@ function MT.CLI.mv(item, terminal, mtc, message, command, argument, copy)
 end
 
   -- ---------------------- MTOS CLI EXECUTABLES COMMAND ---------------------- --
-function MT.CLI.run(item, terminal, mtc, message, command, argument)
+function MT.CLI.run(item, terminal, mtc, message, command, argument, size)
     local formattedArgument = argument:match("([^%.]*)%.?.*$")
+    if string.lower(MT.C.HD[item].MTC.cd[formattedArgument].type) ~= "exe" then terminal.SendMessage("INVALID FILE TYPE: " .. MT.C.HD[item].MTC.cdp .. "/" .. formattedArgument .. "." .. MT.C.HD[item].MTC.cd[formattedArgument].type, Color(250,100,60,255)) return end
     local execute = function()
       local functionToRun = MT.C.HD[item].MTC.cd[formattedArgument].functionToCall
       -- Load the function
@@ -657,7 +682,7 @@ function MT.CLI.run(item, terminal, mtc, message, command, argument)
           print("Error loading code: " .. errorMessage)
       else
           -- Execute the loaded function
-          loadedFunction()(item, terminal, mtc)
+          loadedFunction()(item, terminal, mtc, nil, size)
           -- 'result' will contain the result of the executed function
       end
     end
@@ -686,7 +711,7 @@ end
 
 
 -- registers a MTC to a user (this is how player claim devices)
-function MT.CLI.register(item, terminal, mtc, response)
+function MT.CLI.register(item, terminal, mtc, response, size)
   -- check for an existing profile
   local profile = MT.CLI.getProfile(item)
   if profile then
@@ -696,47 +721,44 @@ function MT.CLI.register(item, terminal, mtc, response)
   end
 
   -- assign device ownership
-  -- add profile.txt
-  local user = item.GetRootInventoryOwner()
-  local width = 50
-  if item.HasTag("narrowDisplay") then width = 25 end
 
+  local user = item.GetRootInventoryOwner()
   mtc.IsWaiting = true
 
   terminal.ClearHistory()
   -- head
-  terminal.SendMessage(string.rep("_", width))
+  MT.CLI.header(item, terminal, size.displayWCH)
   MT.HF.BlankTerminalLines(terminal, 1, "")
-  terminal.SendMessage("@" .. tostring(item))
-  terminal.SendMessage("ClockTime: " .. MT.HF.Round(Game.GameScreen.GameTime, 2) .. "T" )
-  MT.HF.BlankTerminalLines(terminal, 3, "")
   -- /head
 
     if response == nil then -- there sh
 
 
       -- body
-        terminal.SendMessage("•WELCOME, " .. user.name .. "!•", Color(50,100,255,255))
-        terminal.SendMessage("To register this device, pleae enter a 4 digit pin code:", Color(50,100,255,255))
+        terminal.SendMessage(MT.CLI.textCenter("•WELCOME, " .. user.name .. "!•", size.displayWCH), Color(75,150,250,255))
+        terminal.SendMessage(MT.CLI.textCenter("To register this device, pleae enter a 4 digit pin code:", size.displayWCH), Color(75,150,250,255))
         mtc.IsWaiting = true -- set the waiting flag
         mtc.WaitingFunction = "MT.CLI.register"
       elseif MT.CLI.validatePin(response) then
-        MT.C.HD[item].MTC.root.profile = {type="TXT", name="profile", registeredName=user.name, registeredID=tostring(user.ID), password=MT.CLI.encode(response)}
-        terminal.SendMessage("REGISTRATION COMPLETE!", Color(50,100,255,255))
-        terminal.SendMessage("exiting program...", Color.Gray)
+        -- check for the user directory, if it doesn't exist, create it
+        if not MT.C.HD[item].MTC.root.user then MT.C.HD[item].MTC.root.user = {type="DIR", name="user"} end
+        -- at long last, add profile.txt
+        MT.C.HD[item].MTC.root.user.profile = {type="TXT", name="profile", registeredName=user.name, registeredID=tostring(user.ID), password=MT.CLI.encode(response)}
+        terminal.SendMessage(MT.CLI.textCenter("REGISTRATION COMPLETE!", size.displayWCH), Color(75,150,250,255))
+        terminal.SendMessage(MT.CLI.textCenter("exiting program...", size.displayWCH), Color.Gray)
 
         mtc.IsWaiting = false
-        Timer.Wait(function() MT.CLI.dWelcome(item, terminal) end, 2000)
+        Timer.Wait(function() MT.CLI.dWelcome(item, terminal, size) end, 2000)
       else
-              terminal.SendMessage("!INVALID RESPONSE!", Color(250,100,60,255))
-              MT.HF.BlankTerminalLines(terminal, 1, "")
+              terminal.SendMessage(MT.CLI.textCenter("!INVALID RESPONSE!", size.displayWCH), Color(250,100,60,255))
+              terminal.SendMessage(MT.CLI.textCenter("Pleae enter a 4 digit pin code:", size.displayWCH), Color(75,150,250,255))
+              --MT.HF.BlankTerminalLines(terminal, 1, "")
       end
       -- /body
 
   -- foot
-  MT.HF.BlankTerminalLines(terminal, 3, "")
-  terminal.SendMessage("Mechtrauma OS version " .. tostring(MT.C.HD[item].MTC.root.mtos.kernel.ver))
-  terminal.SendMessage(string.rep("_", width))
+  MT.HF.BlankTerminalLines(terminal, 1, "")
+  MT.CLI.footer(item, terminal, size.displayWCH)
   -- /foot
 end
 
@@ -747,7 +769,7 @@ function MT.CLI.lockScreen(item, terminal, response)
   end
 end
 -- sets target power on a simple generator
-function MT.CLI.setPower(item, terminal, mtc, message, command, argument)
+function MT.CLI.setPower(item, terminal, mtc, message, command, argument, size)
 local simpleGenerator = MTUtils.GetComponentByName(item, "Mechtrauma.SimpleGenerator")
 simpleGenerator.PowerToGenerate = MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut)
 terminal.SendMessage("Power target set to: " .. MT.HF.Clamp(tonumber(argument), 0, simpleGenerator.MaxPowerOut), Color.Lime)
@@ -767,7 +789,7 @@ end
 -- -------------------------------------------------------------------------- --
 --                          MTC EXECUTABLE FUNCTIONS                          --
 -- -------------------------------------------------------------------------- --
-function MT.CLI.textcolor(item, terminal, mtc, response)
+function MT.CLI.textcolor(item, terminal, mtc, response, size)
 
     if response == nil then -- there sh
         terminal.SendMessage("What color would you like? Green or Red")
@@ -795,12 +817,11 @@ function MT.CLI.textcolor(item, terminal, mtc, response)
     end
 end
 
-
-  -- -------------------------------------------------------------------------- --
-  --                            MTC EXECUTABLES TABLE                           --
-  -- -------------------------------------------------------------------------- --
-  -- currently depricated
-  -- move it MT computers??
+-- -------------------------------------------------------------------------- --
+--                            MTC EXECUTABLES TABLE                           --
+-- -------------------------------------------------------------------------- --
+-- currently depricated
+-- move it MT computers??
 
 MT.CLI.EXE = {
     textcolor={ -- changes text color
@@ -811,7 +832,10 @@ MT.CLI.EXE = {
     },
     text={-- registers MTC for texting
       functiontocall = MT.CLI.textcolor
-    }
+    },
+    pbank={-- registers MTC for texting
+    functiontocall = MT.C.pBankWelcome
+  }
 }
 
 -- -------------------------------------------------------------------------- --
@@ -1115,7 +1139,7 @@ MT.CLI.errors = {
         altCommands = {"display", "sho", "sh"},
         requireCCN = false,
         requireARG = false,
-        requireSYS = "show",
+        --requireSYS = "show",
         functionToCall = MT.CLI.show,
         allowedItems = {"dieselEngine", "diagnostics"}
     },
@@ -1147,7 +1171,9 @@ MT.CLI.errors = {
 -- -------------------------------------------------------------------------- --
 
 --called once for each terminal message sent by a player (unless terminal is waiting)
-function MT.CLI.terminalCommand(item, terminal, mtc, message)
+function MT.CLI.terminalCommand(item, terminal, mtc, message, width, height)
+  local size = {displayHPX = height, displayHCH = height, displayWPX = width, displayWCH = width / 9.66, fontSize=14, fontW = (14 * .69) }
+
 
   -- add terminal waiting logic here as it is server side
   if mtc and mtc.IsWaiting == true then
@@ -1161,7 +1187,7 @@ function MT.CLI.terminalCommand(item, terminal, mtc, message)
         print("Error loading code: " .. errorMessage)
     else
         -- Execute the loaded function
-        waitingFunction()(item, terminal, mtc, message)
+        waitingFunction()(item, terminal, mtc, string.lower(message), size)
     end
   else
     -- -------------------------------------------------------------------------- --
@@ -1213,12 +1239,12 @@ function MT.CLI.terminalCommand(item, terminal, mtc, message)
       -- -------------------------------------------------------------------------- --
       --                               EXECUTE COMMAND                              --
       -- -------------------------------------------------------------------------- --
-      --Timer.Wait(function()  MT.CLI.commands[command].functionToCall(item, terminal, mtc, message, command, argument) end, 1000)
-      MT.CLI.commands[command].functionToCall(item, terminal, mtc, message, command, argument)
+      --Timer.Wait(function()  MT.CLI.commands[command].functionToCall(item, terminal, mtc, message, command, argument, size) end, 1000)
+      MT.CLI.commands[command].functionToCall(item, terminal, mtc, message, string.lower(command), argument, size)
 
     else
       -- empty message
-     MT.CLI.dWelcome(item, terminal)
+     MT.CLI.dWelcome(item, terminal, size)
     end
   end
 end
@@ -1227,37 +1253,61 @@ end
 --                            SUPPORTING FUNCTIONS                            --
 -- -------------------------------------------------------------------------- --
 -- helper functions for the CLI
-
+function MT.CLI.textCenter(string, displayWCH, fillWith)
+  local offset = (displayWCH - string.len(string)) / 2
+  if fillWith == nil then fillWith = " " end -- nill check, defaults to space filler
+  return string.rep(fillWith, offset) .. string
+end
 
 -- -------------------------------------------------------------------------- --
 --                               DISPLAY SCREENS                              --
 -- -------------------------------------------------------------------------- --
 -- reusable display screens for the CLI UI
-function MT.CLI.dWelcome(item, terminal)
-  local profile = MT.CLI.getProfile(item)
-  local user = "USER" if profile then user = profile.registeredName end
-  local width = 50
-  if item.HasTag("narrowDisplay") then width = 25 end
 
-  -- ----------------------------- WELCOME SCREEN: ---------------------------- --
-  -- head
+function MT.CLI.header(item, terminal, displayWCH)
   terminal.ClearHistory()
-  terminal.SendMessage(string.rep("_", width))
+  terminal.SendMessage(string.rep("_", (displayWCH)))
   MT.HF.BlankTerminalLines(terminal, 1, "")
   terminal.SendMessage("@" .. tostring(item))
   terminal.SendMessage("ClockTime: " .. MT.HF.Round(Game.GameScreen.GameTime, 2) .. "T" )
-  MT.HF.BlankTerminalLines(terminal, 3, "")
+end
+
+function MT.CLI.footer(item, terminal, displayWCH)
+  terminal.SendMessage("Mechtrauma OS v" .. tostring(MT.C.HD[item].MTC.root.mtos.kernel.ver))
+  terminal.SendMessage(string.rep("_", (displayWCH)))
+end
+
+function MT.CLI.dWelcome(item, terminal, size)
+  local profile = MT.CLI.getProfile(item)
+  local user = "USER" if profile then user = profile.registeredName end
+  --local width = terminal.CGUIX / 10.8 -- width in pixels / the magic beauty
+  --local height = terminal.CGUIY / 10.8 -- height in pixels
+  --if item.HasTag("narrowDisplay") then width = 25 end
+  ---print("width: " .. terminal.CGUIX .. " Height: " .. terminal.CGUIY)
+  print("widthPX: " .. size.displayWPX .. " HeightPX: " .. size.displayHPX)
+  print("widthCH: " .. size.displayWCH .. " HeightCH: " .. size.displayHCH)
+
+  -- ----------------------------- WELCOME SCREEN: ---------------------------- --
+  -- head
+  MT.CLI.header(item, terminal, size.displayWCH)
+  MT.HF.BlankTerminalLines(terminal, 2, "")
   --/head
 
   -- body
-    terminal.SendMessage("•WELCOME, " .. user .. "!•", Color(50,100,255,255))
-    MT.HF.BlankTerminalLines(terminal, 1, "")
+    -- format for narrow displays
+    if string.len("•WELCOME, " .. user .. "!•") > size.displayWCH then
+      terminal.SendMessage(MT.CLI.textCenter("•WELCOME•", size.displayWCH, " "), Color(75,150,250,255))
+      terminal.SendMessage(MT.CLI.textCenter(user, size.displayWCH, " "), Color(75,150,250,255))
+    else
+      terminal.SendMessage(MT.CLI.textCenter("•WELCOME, " .. user .. "!•",  size.displayWCH," "), Color(75,150,250,255))
+      MT.HF.BlankTerminalLines(terminal, 1, "")
+    end
   -- /body
 
+
   -- foot
-  MT.HF.BlankTerminalLines(terminal, 3, "")
-  terminal.SendMessage("Mechtrauma OS version " .. tostring(MT.C.HD[item].MTC.root.mtos.kernel.ver))
-  terminal.SendMessage(string.rep("_", width))
+  MT.HF.BlankTerminalLines(terminal, 2, "")
+  MT.CLI.footer(item, terminal, size.displayWCH)
   -- /foot
 end
 
@@ -1265,7 +1315,8 @@ end
 --                            VALIDATION FUNCTIONS                            --
 -- -------------------------------------------------------------------------- --
 
--- get a valid command
+-- ------------- VALIDATE: COMMAND vs COMMANDS and ALT-COMMANDS ------------- --
+-- get a valid command (if any)
 function MT.HF.getCommand(item, terminal, command)
   if MT.CLI.commands[command] then
     -- VALIDATION SUCCEEDED - that was easy
@@ -1284,6 +1335,23 @@ function MT.HF.getCommand(item, terminal, command)
   end
   return command
 end
+
+-- ----------------- VALIDATE: DEVICE PERMISSONS for COMMAND ---------------- --
+-- check if the command is allowed on this device
+function MT.CLI.commandAllowed(item, terminal, command)
+  -- check if this report command is allowed on this item
+  local commandAllowed = false
+  for k, v in pairs(MT.CLI.commands[command].allowedItems) do
+    if item.Prefab.Identifier.Value == v or item.HasTag(v) then
+      commandAllowed = true
+      break
+    end
+  end
+  if not commandAllowed and terminal then MT.CLI.error("commandRestricted",terminal,command) end
+  return commandAllowed
+end
+
+
 
 -- what a ******** mess! why no lua 5.4 MOONSHARP! (we want save nagivation operator)
 -- a series of null checks, I can't remember if they were all necessary but I just didn't want to deal with it.
@@ -1306,22 +1374,11 @@ function MT.CLI.checkSYS(item, requiredSYS, targetItem, targetRequiredSYS)
   end
 end
 
--- check if the command is allowed on this device
-function MT.CLI.commandAllowed(item, terminal, command)
-  -- check if this report command is allowed on this item
-  local commandAllowed = false
-  for k, v in pairs(MT.CLI.commands[command].allowedItems) do
-    if item.Prefab.Identifier.Value == v or item.HasTag(v) then
-      commandAllowed = true
-      break
-    end
-  end
-  if not commandAllowed and terminal then MT.CLI.error("commandRestricted",terminal,command) end
-  return commandAllowed
-end
 
 
--- combines a table location with a partial path to create
+
+-- ---------------------- GET DIRECTORY (from partials) --------------------- --
+-- combines a start table location with a partial path and returns the final table location
 function MT.CLI.getDirectory(startingTable, partialPath)
     local keys = {}
     -- if root is included in the partial path, remove it
@@ -1344,7 +1401,8 @@ function MT.CLI.getDirectory(startingTable, partialPath)
     return finalTable
 end
 
--- I believe this gives the partial parent directory path
+-- ------------------- GET PARENT DIRECTORY PATH (partial) ------------------ --
+-- gives the partial parent directory path
 function MT.CLI.getParentDirectoryPath(path)
   local keys = {}
   for key in path:gmatch("[^/]+") do
@@ -1438,19 +1496,32 @@ function MT.CLI.getDirectoryPath(tableLocation)
 -- -------------------------------------------------------------------------- --
 --                              HELPER FUNCTIONS                              --
 -- -------------------------------------------------------------------------- --
--- check for a profile
+
+
+
+ -- -------------------------- VALIDATE USER PROFILE ------------------------- --
+ -- handy function for handling the cursed layered null checks
 function MT.CLI.getProfile(item)
-  if MT.C.HD[item].MTC.root.profile then
-    return MT.C.HD[item].MTC.root.profile
+  -- VALIDATION: check for a user directory in root
+  if not MT.C.HD[item].MTC.root.user then
+    return nil -- no user directory in root
   else
-    return nil
+    -- VALIDATION: check for a profile.txt in the user directory
+    if MT.C.HD[item].MTC.root.user.profile then
+      -- found it!
+      return MT.C.HD[item].MTC.root.user.profile
+    else
+      return nil -- no profile.txt in user directory
+    end
   end
 end
 
--- boot to root
+-- ----------------------- VALIDATE CURRENT DIRECTORY ----------------------- --
+-- the infamous boot to root function
 function MT.CLI.BTR(item, force)
     -- we *should* keeping track of the current directory and storing it in the MT item cache
     -- but if that fails for any reason.... WE BOOT TO ROOT!
+    -- force is an override that ignores the current directory and boots to root
 
     if not MT.C.HD[item].MTC.cd or force then
       MT.C.HD[item].MTC.cd = MT.C.HD[item].MTC.root -- MT.CLI.getDirectory(MT.itemCache[item], MT.C.HD[item].MTC.cdp)
@@ -1463,6 +1534,8 @@ end
 -- -------------------------------------------------------------------------- --
 
 -- ---------------------------- SIMPLE ENCRYPTION --------------------------- --
+-- encodes a string with simple encryption
+
   -- This is your secret 67-bit key (any random bits are OK)
   local Key53 = 8186484168865098
   local Key14 = 4887
@@ -1491,7 +1564,8 @@ end
       end
     ))
   end
-
+-- ---------------------------- SIMPLE DECRYPTION --------------------------- --
+-- decodes an encoded string
   function MT.CLI.decode(string)
     local K, F = Key53, 16384 + Key14
     return (string:gsub('%x%x',
@@ -1507,7 +1581,7 @@ end
     ))
   end
 
-  -- --------------------------- PASSWORDS AND PINS --------------------------- --
+  -- -------------------------------- PIN CODES ------------------------------- --
   function MT.CLI.validatePin(input)
     -- Check if the length is exactly 4 characters
     if #input == 4 then
@@ -1519,32 +1593,5 @@ end
     return false
 end
 
--- -------------------------------------------------------------------------- --
---                          MTC terminal command hook                         --
--- -------------------------------------------------------------------------- --
--- todo, move this hook from shared to client code
--- this is a client side only hook
--- in multiplayer all terminal commands are synced to server for execution
-Hook.Add("Mechtrauma.AdvancedTerminal::NewPlayerMessage", "terminalCommand", function(terminal, message, color)
-  -- for ease of use, all MTC CLI messages are converted to lower case before parsing out the command and argument
-  --local formattedMessage = string.lower(message)
-  local mtc = MTUtils.GetComponentByName(terminal.item, "Mechtrauma.MTC")
-  if not mtc then mtc = MTUtils.GetComponentByName(terminal.item.OwnInventory.GetItemAt(0), "Mechtrauma.MTC") end
-  --  print(mtc)
-  if mtc then
-    if Game.IsMultiplayer then
-      local dispatcher = MTUtils.GetComponentByName(terminal.item, "Mechtrauma.LuaNetEventDispatcher")
-      if dispatcher then
-            -- process regular command
-            MT.C.commandCache[terminal.item.ID]=message
-            dispatcher.SendEvent()
-      end
-    else
-      --singleplayer
-      -- process regular command
-      MT.CLI.terminalCommand(terminal.item, terminal, mtc, message)
-    end
-  end
-end)
 
 

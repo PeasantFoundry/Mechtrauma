@@ -6,18 +6,22 @@ using Microsoft.Xna.Framework;
 
 namespace Mechtrauma;
 
-public record AdvTerminalMsg(string Text, Color Color);
+public record AdvTerminalMsg(string Text, Color Color, int Width, int Height);
+
 
 public partial class AdvancedTerminal : ItemComponent
 {
     #region VARS
+
+    //--- HADRADA WAS HERE
+    public string Token { get; set; } //
 
     //--- SYMBOLS
     public static readonly string EVENT_ONNEWMESSAGE = "Mechtrauma.AdvancedTerminal::NewMessage"; // args: (this, text, color)
     public static readonly string EVENT_ONNEWPLAYERMESSAGE = "Mechtrauma.AdvancedTerminal::NewPlayerMessage"; // args: (this, text, color)
 
     //--- CVARS
-    
+
     public AdvancedTerminal(Item item, ContentXElement element) : base(item, element)
     {
         // ReSharper disable once VirtualMemberCallInConstructor
@@ -27,30 +31,30 @@ public partial class AdvancedTerminal : ItemComponent
 
     [Serialize(100, IsPropertySaveable.No, description: "Max line count.")]
     public int MaxLines { get; set; }
-    
+
     [Serialize(255, IsPropertySaveable.No, description: "Max characters per line.")]
     public int MaxLineChars { get; set; }
 
     [Serialize(false, IsPropertySaveable.No)]
     public bool AutoHideScrollbar { get; set; }
-    
+
     [Editable, Serialize("> ", IsPropertySaveable.Yes)]
     public string? LineStartSymbol { get; set; }
-    
+
     [Editable, Serialize(false, IsPropertySaveable.Yes)]
     public bool ReadOnly { get; set; }
-    
+
     [Serialize(true, IsPropertySaveable.No)]
     public bool AutoScrollToBottom { get; set; }
 
     public static readonly int MaxCharsPerLine = 255;
-    
+
     public string ShowMessage
     {
         get => "";
         set => SendMessage(value, TextColor);
     }
-    
+
     public Color TextColor { get; set; } = Color.Green;
 
     /// <summary>
@@ -72,13 +76,13 @@ public partial class AdvancedTerminal : ItemComponent
         }
     }
 
-    
-    
+
+
     //--- INTERNAL VARS
-    
-    protected readonly List<AdvTerminalMsg> MessagesHistory = new();
+
+    public readonly List<AdvTerminalMsg> MessagesHistory = new(); // you can't protect me from myself :)
     protected readonly Queue<AdvTerminalMsg> ToProcess = new(); // use this to handle sync events
-    
+
 
     #endregion
 

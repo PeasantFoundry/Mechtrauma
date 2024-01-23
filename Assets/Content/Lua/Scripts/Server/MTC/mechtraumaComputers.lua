@@ -1,6 +1,4 @@
-MT.C = {}
-MT.C.HD = {}
-MT.C.commandCache = {}
+
 
 -- table of item tags that will be discovered by item diagnosticTags
 MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or have both? jesus
@@ -69,7 +67,11 @@ MT.C.Sample = {
   }
 }
 -- this function will need to be refactored to generate randomized contents for each MTC (based on item)
-function MT.C.buildMTC(item)
+function MT.C.buildMTC(item, rebuild)
+  if not rebuild then rebuild = false end -- default to build not rebuild
+  if MT.C.HD[item] and not rebuild then return MT.C.HD[item].MTC end -- if there is already a DB, return
+  if MT.C.HD[item] and rebuild then MT.C.HD[item] = nil end -- if there is already a DB and we are rebuilding, delete it
+
   --buildMTC
   local MTC={
     root={
@@ -99,9 +101,14 @@ function MT.C.buildMTC(item)
           functionToCall = "MT.CLI.textcolor"
         },
       },
-      home={
+      user={
         type="DIR",
-        name="home",
+        name="user",
+        pbank={
+          type="EXE",
+          name="pbank",
+          functionToCall = "MT.C.pBankWelcome",
+        },
       },
       programs={
         type="DIR",
@@ -133,9 +140,11 @@ function MT.C.buildMTC(item)
 }
 -- install MTOS dependencies and calculate registration keys
   for command, v in pairs(MT.CLI.commands) do
+    -- probably need to check if command is allowed on device?
+
+    -- if the command requires a SYS dependency and it's not installed, install it
     if v.requireSYS and not MTC.root.mtos[v.requireSYS] then
       MTC.root.mtos[v.requireSYS]={type="SYS",name=v.requireSYS,key=MT.CLI.encode(string.lower(v.requireSYS) .. tostring(item.ID))}
-
     end
   end
   return MTC

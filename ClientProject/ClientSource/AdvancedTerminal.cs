@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Barotrauma.Extensions;
+using Barotrauma.Items.Components;
 using Barotrauma.Networking;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
@@ -17,7 +18,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// </summary>
     public GUILayoutGroup? TerminalLayoutGroup { get; protected set; }
     /// <summary>
-    /// Crates spacing at the top of the message history box. 
+    /// Crates spacing at the top of the message history box.
     /// </summary>
     public GUIFrame? TopPaddingBox { get; protected set; }
     /// <summary>
@@ -42,7 +43,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// Only used if the intention is to not use the item.GuiFrame instance as the master parent.
     /// </summary>
     public GUIFrame? AlternateGUIFrame { get; protected set; }
-    
+
     /// <summary>
     /// Allows for a sprite to be rendered behind the terminal. Intended for use with skinned terminal designs.
     /// </summary>
@@ -96,35 +97,35 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     /// The vertical padding at the top of the terminal windows for the console message history area.
     /// </summary>
     public float TopPadding { get; protected set; }
-    
+
     /// <summary>
     /// Render scale of the skin sprite.
     /// </summary>
     public float OuterSpriteLinearScale { get; protected set; }
-    
+
     /// <summary>
     /// Relative size of the terminal message and input area. Affected by GuiFrame and skin sprite sizes.
     /// </summary>
     public Vector2 TerminalSize { get; protected set; }
-    
+
     /// <summary>
-    /// Relative offset of the terminal history and message layout compared to the master GUIFrame or outer skin. 
+    /// Relative offset of the terminal history and message layout compared to the master GUIFrame or outer skin.
     /// </summary>
     public Vector2 MessageAreaOffset { get; protected set; }
-    
+
     /// <summary>
     /// Color of the master GUIFrame.
     /// </summary>
     public Color? TerminalFrameColor { get; protected set; }
     /// <summary>
     /// Whether or not the message history box should stretch to cover all remaining area of the GUILayout.
-    /// Causes some alignment artifacts, should be kept off unless needed. 
+    /// Causes some alignment artifacts, should be kept off unless needed.
     /// </summary>
     public bool MessageLayoutStretch { get; protected set; }
-    
-    
+
+
     public bool UseDesignScale { get; protected set; }
-    
+
     /// <summary>
     /// The render ratio (width / height) that the tablet was designed at. Used to adjust vanilla GUI so it fits the
     /// sprite texture at different resolutions. Default is 1920/1080.
@@ -142,12 +143,12 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             ModUtils.Logging.PrintError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
             return;
         }
-        
+
         LineWrap = element.GetAttributeBool("LineWrap", true);
         ShouldSelectInputBox = element.GetAttributeBool("ShouldSelectInputBox", true);
         ReadOnly = element.GetAttributeBool("ReadOnly", false);
         _shouldSelectInputBox = ShouldSelectInputBox;
-        
+
         if (element.GetChildElement("GuiFrame") is { } guiFrameElement)
         {
             TerminalFrameColor = guiFrameElement.GetAttributeColor("Color", Color.TransparentBlack);
@@ -168,7 +169,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             TextColor = msgAreaElement.GetAttributeColor("TextColor", Color.Green);
             UseDesignScale = msgAreaElement.GetAttributeBool("UseDesignScale", false);
             DesignScale = msgAreaElement.GetAttributeFloat("DesignScale", 1920f / 1080f);
-            
+
             // parse font name
             string fontName = msgAreaElement.GetAttributeString("MessageFont", "Font");
             try
@@ -177,10 +178,10 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             }
             catch
             {
-                MessageFont = GUIStyle.Font;
+                MessageFont = GUIStyle.MonospacedFont;
             }
         }
-        
+
         if (element.GetChildElement("OuterSprite") is { } e)
         {
             OuterSprite = new Sprite(e.GetChildElement("Sprite"));
@@ -195,7 +196,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         // scale tablet based on design resolution
         float scaling = OuterSpriteLinearScale * GUI.Scale;
-        OuterSprite?.Draw(spriteBatch, 
+        OuterSprite?.Draw(spriteBatch,
             new Vector2(component.RectTransform.Rect.X, component.RectTransform.Rect.Y), scale: scaling);
     }
 
@@ -203,7 +204,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         var tgtGuiFrame = AlternateGUIFrame ?? GuiFrame;
         var tgtRectTransform = tgtGuiFrame.RectTransform;
-        
+
         // render ratio only causes issues if under the design scale
         if (UseDesignScale && GUI.HorizontalAspectRatio < DesignScale - 0.001f)
         {
@@ -211,12 +212,12 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             var size = tgtGuiFrame.RectTransform.RelativeSize;
             size.X *= GUI.HorizontalAspectRatio / DesignScale;
         }
-        
+
         if (TerminalFrameColor is not null)
         {
             tgtGuiFrame.Color = TerminalFrameColor.Value;
         }
-        
+
         if (OuterSprite is not null)
         {
             // make the sprite the parent to we render our terminal on top of it.
@@ -242,10 +243,10 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             RelativeSpacing = LayoutRelativeSpacing,
             Stretch = MessageLayoutStretch
         };
-        
+
         TopPaddingBox =
             new GUIFrame(new RectTransform(new Vector2(1f, TopPadding), TerminalLayoutGroup.RectTransform), color: Color.Transparent);
-        
+
         MessageHistoryBox = new GUIListBox(new RectTransform(
                 MessageHistoryBoxSize,
                 TerminalLayoutGroup.RectTransform),
@@ -260,11 +261,11 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         {
             CanBeFocused = false
         };
-        
+
         if (ShowInputBox)
         {
             HorizontalLine =
-                new GUIFrame(new RectTransform(new Vector2(1f, 0.01f), TerminalLayoutGroup.RectTransform), 
+                new GUIFrame(new RectTransform(new Vector2(1f, 0.01f), TerminalLayoutGroup.RectTransform),
                     style: "HorizontalLine");
 
             InputBox = new GUITextBox(
@@ -276,24 +277,24 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
                 OnEnterPressed = ((box, text) =>
                 {
                     SendMessage(box.Text, TextColor);
-                    GameMain.LuaCs.Hook.Call(EVENT_ONNEWPLAYERMESSAGE, this, box.Text, TextColor);
+                    GameMain.LuaCs.Hook.Call(EVENT_ONNEWPLAYERMESSAGE, this, box.Text, TextColor, MessageHistoryBox.Rect.Width, MessageHistoryBox.Rect.Height);
                     box.Text = string.Empty;
                     return true;
                 })
             };
         }
-        
+
         TerminalLayoutGroup.Recalculate();
     }
 
     private partial void SendMessageLocal(string text, Color color)
     {
-        MessagesHistory.Add(new AdvTerminalMsg(text, color));
+        MessagesHistory.Add(new AdvTerminalMsg(text, color, MessageHistoryBox.Rect.Width, MessageHistoryBox.Rect.Height));
         TrimHistory(0);
 
         if (MessageHistoryBox is null)
             return;
-        
+
         GUITextBlock newMessageBlock = new GUITextBlock(
             new RectTransform(new Vector2(1f, 0f), MessageHistoryBox.Content.RectTransform, Anchor.TopCenter),
             $"{LineStartSymbol ?? ""} {TextManager.Get(text).Fallback(text)}",
@@ -308,7 +309,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             float yDiff = FillerBlock.RectTransform.RelativeSize.Y - newMessageBlock.RectTransform.RelativeSize.Y;
             // move it
             if (yDiff > 0)
-            { 
+            {
                 FillerBlock.RectTransform.RelativeSize = new Vector2(1f, yDiff);
             }
             else
@@ -316,7 +317,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
                 FillerBlock.RectTransform.RelativeSize = new Vector2(1f, 0f);
             }
         }
-        
+
         MessageHistoryBox.RecalculateChildren();
         MessageHistoryBox.UpdateScrollBarSize();
 
@@ -324,7 +325,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         {
             MessageHistoryBox.ScrollBar.BarScrollValue = 1f;
         }
-        
+
         GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
     }
 
@@ -360,7 +361,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
         if (messages.Count < 1)
             return;
-        
+
         foreach (var msg in messages)
         {
             if (MessageHistoryBox.Content.CountChildren <= maxLines)
@@ -372,10 +373,10 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     public partial void ClearHistory()
     {
         ClearHistoryLocal();
-     
+
         if (GameMain.NetworkMember is null)
             return;
-        
+
         // server-request clear
         _clearOperationRequested = true;
         item.CreateClientEvent(this);
@@ -388,19 +389,19 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
         if (MessageHistoryBox is null)
             return;
-        
+
         // clear everything but the filler block
         ImmutableList<GUIComponent> messages = MessageHistoryBox.Content.Children
             .Where(c => c != FillerBlock).ToImmutableList();
 
         if (messages.Count < 1)
             return;
-        
+
         foreach (var msg in messages)
         {
             MessageHistoryBox.RemoveChild(msg);
         }
-        
+
         //reset filler block height
         if (FillerBlock is null)
             return;
@@ -412,6 +413,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         base.OnItemLoaded();
         InitializeGUI();
+        // Ah, yes - here is where we should have synced the terminal width/height to the server/compoenent.
     }
 
     public partial void SendMessage(string text, Color color) => SendMessage(text, color, false);
@@ -420,7 +422,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         if (ReadOnly && !overrideReadonly)
             return;
-        
+
         // single player
         if (GameMain.NetworkMember is null)
         {
@@ -429,7 +431,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         // multiplayer
         else
         {
-            ToProcess.Enqueue(new AdvTerminalMsg(text, color));
+            ToProcess.Enqueue(new AdvTerminalMsg(text, color, MessageHistoryBox.Rect.Width, MessageHistoryBox.Rect.Height));
             item.CreateClientEvent(this);
         }
     }
@@ -444,7 +446,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         {
             case 0:
                 break;
-            case 1: 
+            case 1:
                 ClearHistoryLocal();  // clear then process messages
                 break;
         }
@@ -457,7 +459,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             SendMessageLocal(text, color);
         }
     }
-    
+
 #pragma warning disable CS8625
     public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
 #pragma warning restore CS8625
@@ -474,6 +476,8 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             var terminalMsg = ToProcess.Dequeue();
             msg.WriteString(terminalMsg.Text);
             msg.WriteColorR8G8B8A8(terminalMsg.Color);
+            msg.WriteInt32(terminalMsg.Width);
+            msg.WriteInt32(terminalMsg.Height);
         }
     }
 

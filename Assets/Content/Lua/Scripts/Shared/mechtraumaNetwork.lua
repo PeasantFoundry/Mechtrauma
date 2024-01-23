@@ -54,71 +54,91 @@ void WriteBytes(byte[] val, int startIndex, int length); ]]
 
 
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerRead", "MT.Net.SR", function(component, message, client)
+    -- --------------------------- SERVER READ EVENTS --------------------------- --
+    -- debug printing: print("WE MADE IT TO SR")
     if component.Name == "DieselEngine" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
-        generator.DiagnosticMode = message.ReadBoolean()
         generator.IsOn = message.ReadBoolean()
         generator.PowerToGenerate = message.ReadSingle()
-        dieselEngine.DiagnosticMode = message.ReadBoolean()
-        dieselEngine.ShowStatus = message.ReadBoolean()
-        dieselEngine.ShowLevels = message.ReadBoolean()
-        dieselEngine.ShowTemps = message.ReadBoolean()
         component.SendEvent()
+
     elseif component.Name == "MTC" then
-        local cliCommand = message.ReadString()
+        local cliCommand = message.ReadString() -- read from MT.commandCache.message
+        local width = message.ReadInt32() -- read from MT.commandCache.width
+        local height = message.ReadInt32() -- read from MT.commandCache.height
         local terminal = MTUtils.GetComponentByName(component.item, "Mechtrauma.AdvancedTerminal")
         local mtc = MTUtils.GetComponentByName(component.item, "Mechtrauma.MTC")
-        if terminal then
-            MT.CLI.terminalCommand(terminal.item, terminal, mtc, cliCommand)
-        end        
+
+        -- VALIDATION: make sure we have a terminal and a message
+        if terminal and message ~= nil then
+            -- EXECUTION: here goes nothing!
+            MT.CLI.terminalCommand(terminal.item, terminal, mtc, cliCommand, width, height)
+        end
+
+        -- -------- THIS WONT WORK FOR MULTIPLE TERMINAL COMPONENTS - RIGHT? -------- --
+        -- we may need support for multiple net dispatchers per item....
+
+
     end
 end)
 
-Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerWrite", "MT.Net.SW", function(component, message, client, extradata)    
+Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerWrite", "MT.Net.SW", function(component, message, client, extradata)
+    -- --------------------------- SERVER WRITE EVENTS -------------------------- --
+     -- debug printing: print("WE MADE IT TO SW")
+
+    -- possibly depricated
     if component.Name == "DieselEngine" then
-    
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
-        message.WriteBoolean(generator.DiagnosticMode)
         message.WriteBoolean(generator.IsOn)
         message.WriteSingle(generator.PowerToGenerate)
-        message.WriteBoolean(dieselEngine.DiagnosticMode)
-        message.WriteBoolean(dieselEngine.ShowStatus)
-        message.WriteBoolean(dieselEngine.ShowLevels)
-        message.WriteBoolean(dieselEngine.ShowTemps)
+        --[[
+            elseif component.Name == "MTC" then
+            local terminal = MTUtils.GetComponentByName(component.item, "Mechtrauma.AdvancedTerminal")
+            local mtc = MTUtils.GetComponentByName(component.item, "Mechtrauma.MTC")
+        ]]
     end
 
 end)
 
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientRead", "MT.Net.CR", function(component, message, sendingTime)
-    print("WE MADE IT TO CR")
+    -- --------------------------- CLIENT READ EVENTS --------------------------- --
+    -- debug printing: print("WE MADE IT TO CR")
+
+    -- possibly depricated
     if component.Name == "DieselEngine" then
-    
+
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
-        generator.DiagnosticMode = message.ReadBoolean()
         generator.IsOn = message.ReadBoolean()
         generator.PowerToGenerate = message.ReadSingle()
-        dieselEngine.DiagnosticMode = message.ReadBoolean()
-        dieselEngine.ShowStatus = message.ReadBoolean()
-        dieselEngine.ShowLevels = message.ReadBoolean()
-        dieselEngine.ShowTemps = message.ReadBoolean()
+        --[[
+            elseif component.Name == "MTC" then
+            local terminal = MTUtils.GetComponentByName(component.item, "Mechtrauma.AdvancedTerminal")
+            local mtc = MTUtils.GetComponentByName(component.item, "Mechtrauma.MTC")
+        ]]
+
     end
 end)
 
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ClientWrite", "MT.Net.CW", function(component, message, extradata)
-    if component.Name == "DieselEngine" then
+    -- --------------------------- CLIENT WRITE EVENTS -------------------------- --
+    --print("WE MADE IT TO CW")
+
+        -- ----------------------- MTC TERMINAL COMMAND CACHE ----------------------- --
+    -- player terminal commands are cached by the Mechtrauma.AdvancedTerminal::NewPlayerMessage hook
+    -- the lua event dispatcher then syncs the cached command to the server for execution
+    if component.Name == "MTC" then
+        local terminal = MTUtils.GetComponentByName(component.item, "Mechtrauma.AdvancedTerminal")
+        message.WriteString(MT.commandCache.message[component.item.ID])
+        message.WriteInt32(MT.commandCache.width[component.item.ID])
+        message.WriteInt32(MT.commandCache.height[component.item.ID])
+    -- possibly deprecated
+    elseif component.Name == "DieselEngine" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
-        message.WriteBoolean(generator.DiagnosticMode)
         message.WriteBoolean(generator.IsOn)
         message.WriteSingle(generator.PowerToGenerate)
-        message.WriteBoolean(dieselEngine.DiagnosticMode)
-        message.WriteBoolean(dieselEngine.ShowStatus)
-        message.WriteBoolean(dieselEngine.ShowLevels)
-        message.WriteBoolean(dieselEngine.ShowTemps)
-    elseif component.Name == "MTC" then
-        message.WriteString(MT.C.commandCache[component.item.ID])
     end
 end)

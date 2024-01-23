@@ -4,18 +4,10 @@
 --MT.itemCacheCount = 0
 --MT.inventoryCache = {parts={}}
 --MT.inventoryCacheCount = 0
--- Establish Mechtrauma item cache
-MT.itemCache = {}
-MT.itemCacheCount = 0
-MT.inventoryCache = {parts={}}
-MT.inventoryCacheCount = 0
-MT.PriorityItemCache = {}
-MT.ambientTemperature = 60
 
-MT.oxygenVentCount = 0
 
 --table of tag functions - this is for mapping items to update functions
-MT.tagfunctions = {
+MT.itemUpdates = {
     airFilter={
         tags={"airFilter"},
         update=MT.UF.airFilter
@@ -124,7 +116,7 @@ MT.itemSpawnEvents = {
 function MT.updatePriorityItems()
     local updateItemsCounter = 0
    -- we spread the item updates out over the duration of an update so that the load isnt done all at once
-    for key, value in pairs(MT.PriorityItemCache) do
+    for key, value in pairs(MT.priorityItemCache) do
         -- make sure the items still exists
         if (key ~= nil and not key.Removed) then
             Timer.Wait(function ()
@@ -157,10 +149,10 @@ end
 -- called once for each item in MT.itemCache
 function MT.UpdateItem(item)
     -- loop through the tag functions to see if we have a matching function for the item tag(s)
-    for tagfunctiondata in MT.tagfunctions do
+    for itemUpdate in MT.itemUpdates do
         -- see if all required tags are present on the item
         local hasalltags = true
-        for tag in tagfunctiondata.tags do
+        for tag in itemUpdate.tags do
             if not item.HasTag(tag) then
                 hasalltags = false
                 break
@@ -168,7 +160,7 @@ function MT.UpdateItem(item)
         end
         -- call the function if all required tags are present
         if hasalltags then
-            tagfunctiondata.update(item)
+            itemUpdate.update(item)
         end
     end
 end
@@ -187,7 +179,7 @@ function MT.CacheItem(item)
 
                 --MT.C.HD[item].MTC = MT.C.buildMTC(item)
                 MT.C.HD[item] = {MTC=MT.C.buildMTC(item)}
-                print(tostring(MT.C.HD[item].MTC))
+                --print(tostring(MT.C.HD[item].MTC))
             end
             MT.itemCacheCount = MT.itemCacheCount + 1
 
@@ -221,9 +213,8 @@ end
 
 function MT.itemSpawnEvent(item)
     if item.HasTag("spawnevent") then
-        print("SPAWN EVENT DETECTED!")
+
         for itemSpawnEvent in MT.itemSpawnEvents do
-            print(tostring(itemSpawnEvent))
             -- see if all required tags are present on the item
             local hasalltags = true
             for tag in itemSpawnEvent.tags do
@@ -294,4 +285,3 @@ end)
     File.Write(MT.Path .. "/MTCHD.json", json.serialize(MT.C.HD))
 
  end)
-

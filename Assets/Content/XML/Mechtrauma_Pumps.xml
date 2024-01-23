@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-  
+
   <!-- PUMP MOUNT: -->
   <Item name="Pump Mount" description="" identifier="pump_mount" Tags="pump,pump_mount" showinstatusmonitor="false" category="Machine,Pump" interactthroughwalls="true" Scale="0.5" interactdistance="10" spritecolor="1.0,1.0,1.0,1.0" linkable="true" allowedlinks="turretammosource">
     <Sprite texture="Content/Items/Weapons/Loaders.png" depth="0.01" sourcerect="0,262,256,84" canflipy="false" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <SwappableItem price="0" origin="128,78" swapidentifier="pump">
-      <SchematicSprite texture="Content/UI/WeaponUI.png" sourcerect="0,425,256,117" />      
+      <SchematicSprite texture="Content/UI/WeaponUI.png" sourcerect="0,425,256,117" />
     </SwappableItem>
     <StaticBody width="80" radius="80" />
 
@@ -34,13 +34,13 @@
       <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
 	    <output name="waterGate" displayname="connection.watergateconn" />
       <output name="state_out" displayname="connection.stateout" />
-      <output name="condition_out" displayname="connection.conditionout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
 
   </Item>
 
 
-  <!-- WATER PUMP GATE: -->
+<!-- WATER PUMP GATE: -->
  <Item name="Water Pump Gate" identifier="water_pump_gate" tags="mtu,pumpgate,machine" IsActive="true" damagedbyrepairtools="true" pickdistance="150" waterproof="true" health="500" scale="0.6">
     <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.8" sourcerect="640,256,126,124" origin="0.5,0.5" />
     <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="CleanGate">
@@ -53,7 +53,7 @@
 	  <output name="waterGate_out" displayname="connection.watergateout" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1 " mindeteriorationdelay="15" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="90" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,200" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
       <RequiredSkill identifier="mechanical" level="15" />
@@ -65,12 +65,49 @@
       </StatusEffect>
     </Repairable>
      <aitarget maxsightrange="1000" maxsoundrange="2000" fadeouttime="5" />
-  </Item> 
+  </Item>
+
+
+<!-- FLUID GATE: aliases="water_pump_gate" -->
+ <Item name="Fluid Gate" identifier="mt_fluid_gate" tags="mtu,fluidgate,machine" IsActive="true" damagedbyrepairtools="true" pickdistance="150" waterproof="true" health="500" scale="0.6">
+    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" depth="0.8" sourcerect="96,896,150,116" origin="0.5,0.5" />
+    <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="CleanGate">
+      <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
+    </ItemContainer>
+
+	  <WaterGate canbeselected="true"/>
+
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+	  <output name="waterGate_out" displayname="connection.watergateout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <!--
+    <TriggerComponent triggeredby="Human, Item" force="500" radius="1000" distancebasedforce="true" ApplyEffectsToCharactersInsideSub="false">
+      <StatusEffect type="OnActive" target="This">
+      </StatusEffect>
+    </TriggerComponent> -->
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1 " mindeteriorationdelay="15" maxdeteriorationdelay="120" mindeteriorationcondition="0" RepairThreshold="90" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,200" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="mechanical" level="15" />
+      <RequiredItem items="wrench" type="equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="200" />
+        <Affliction identifier="lacerations" strength="1" />
+      </StatusEffect>
+    </Repairable>
+     <aitarget maxsightrange="1000" maxsoundrange="2000" fadeouttime="5" />
+  </Item>
+
 
   <!-- Advance water system -->
   <!-- TODO: Replace place holder models, damage and status effects-->
   <Item name="Water Drain" identifier="waterdrain" category="Machine" tags="" scale="0.5" linkable="true">
-    <Upgrade gameversion="0.10.0.0" scale="0.5" />   
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
     <Sprite texture="%ModDir%/Images/pumps/mt_pumps_large.png" sourcerect="650,279,264,60" depth="0.701" origin="0.5,0.5"/>
 	<WaterDrain MaxFlow="100" canbeselected="true">
 		<PumpInEmitter particle="watersplash" particlespersecond="80" position="25,-25" anglemin="230" anglemax="310" velocitymin="1" velocitymax="50" />
@@ -89,7 +126,7 @@
         <Affliction identifier="burn" strength="5" />
       </StatusEffect>
       <RequiredItem items="screwdriver" type="Equipped" />
-     
+
       <input name="toggle" displayname="connection.togglestate" />
       <input name="set_active" displayname="connection.setstate" />
 
@@ -110,7 +147,7 @@
         <Affliction identifier="stun" strength="4" />
       </StatusEffect>
     </Repairable>
-  </Item>  
+  </Item>
 
   <!-- CENTRAL PUMP: standard -->
   <Item name="Central Pump" identifier="central_water_pump" tags="pump,mtpump,Repairable" linkable="true" category="Machine" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
@@ -121,7 +158,7 @@
     <InfectedSprite texture="%ModDir%/Images/pumps/mt_pumps_large.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
 
     <SwappableItem canbebought="true" price="250" replacementonuninstall="pump_mount" origin="128,215" swapidentifier="centralpump">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" scale="0.2" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" scale="0.2" />
     </SwappableItem>
 
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
@@ -141,9 +178,9 @@
     </CentralPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" msg="MotorMount">
-       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
-       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
-       
+       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />
+       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+
        <!-- Slot0 -->
        <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
        </Containable>
@@ -169,7 +206,7 @@
       <output name="water" displayname="connection.waterconn" />
       <output name="state_out" displayname="connection.stateout" />
       <output name="condition_out" displayname="connection.conditionout" />
-      
+
     </ConnectionPanel>
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="60" maxdeteriorationdelay="270" MinDeteriorationCondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="-0.1,0.27" style="ItemUI" />
@@ -193,16 +230,16 @@
     <BrokenSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="220,0,220,440" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="440,0,220,440" maxcondition="0" />
     <InfectedSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" depth="0.8" sourcerect="660,0,220,440" origin="0.5,0.5"/>
-    
+
     <SwappableItem canbebought="true" price="250" replacementonuninstall="pump_mount" origin="128,215" swapidentifier="pump">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" sourcerect="880,0,220,440" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_TALL.png" sourcerect="880,0,220,440" />
     </SwappableItem>
 
     <!--<DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.79" offset="-130,70" sourcerect="52,456,43,43" origin="0.5,0.5" rotationspeed="-360">
       <AnimationConditional Voltage="gt 0.3" targetitemcomponent="Pump" />
       <AnimationConditional CurrFlow="gt 0.0" targetitemcomponent="Pump" />
       <IsActiveConditional Condition="gt 0.0" />
-    </DecorativeSprite> 
+    </DecorativeSprite>
     <DecorativeSprite texture="Content/Items/Pump/Pumps.png" depth="0.78" offset="-130,70" sourcerect="109,456,43,43"/>
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
       <sprite texture="%ModDir%/Images/mechtrauma_pumps.png" sourcerect="1536,0,34,54" depth="0.7" alpha="25.0" />
@@ -221,9 +258,9 @@
     </GatedPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" uilabel="motormount" msg="MotorMount">
-       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
-       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
-       
+       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />
+       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+
        <!-- Slot0 -->
        <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
        </Containable>
@@ -246,7 +283,7 @@
       <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
 	  <output name="waterGate" displayname="connection.watergateconn" />
       <output name="state_out" displayname="connection.stateout" />
-      <output name="condition_out" displayname="connection.conditionout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
 
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="60" maxdeteriorationdelay="270" MinDeteriorationCondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
@@ -263,6 +300,8 @@
       </StatusEffect>
     </Repairable>
   </Item>
+
+
 
   <!-- WATER PUMP: Tall2 - grey -->
   <Item name="Water Pump T2" identifier="water_pump_t2" aliases="water_pumpT2" variantof="water_pump_t1" allowrotatingineditor="true">
@@ -282,7 +321,7 @@
     <InfectedSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="512,1152,492,342" origin="0.5,0.5"/>
 
     <SwappableItem canbebought="true" price="250" replacementonuninstall="pump_mount" origin="128,215" swapidentifier="pump">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" scale="0.2" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" scale="0.2" />
     </SwappableItem>
     <!-- this light sucks
     <LightComponent range="40.0" lightcolor="0,70,60,255" powerconsumption="5" IsOn="true" move="270,-30"  pulseamount="0.80" pulsefrequency="0.3" castshadows="false" allowingameediting="false" >
@@ -302,11 +341,11 @@
     </GatedPump>
 
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" slotsperrow="1" hideitems="true" canbeselected="true" uilabel="motormount" msg="MotorMount">
-       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />            
-       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
-       
+       <GuiFrame relativesize="0.15,0.2" anchor="Center" canbeselected="true" minsize="110,220" relativeoffset="0.1,0.0" style="ItemUI" />
+       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">  
+       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
        </Containable>
      </ItemContainer>
 
@@ -327,7 +366,7 @@
       <input name="set_targetlevel" displayname="connection.settargetwaterlevel" />
       <output name="waterGate" displayname="connection.watergateconn" />
       <output name="state_out" displayname="connection.stateout" />
-      <output name="condition_out" displayname="connection.conditionout" />      
+      <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
 
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="60" maxdeteriorationdelay="270" MinDeteriorationCondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
@@ -361,10 +400,10 @@
     <InfectedSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1152,492,342" origin="0.5,0.5"/>
   </Item>
 
-   <!-- WATER PUMP SMALL: Bilge pump for smaller hulls  --> 
+   <!-- WATER PUMP SMALL: Bilge pump for smaller hulls  -->
    <Item name="" identifier="water_pump_small" tags="pump,mtpump" linkable="true" category="Machine" scale="0.5" damagedbyexplosions="true" explosiondamagemultiplier="0.2" allowrotatingineditor="true">
     <UpgradePreviewSprite scale="2.0" texture="Content/UI/WeaponUI.png" sourcerect="448,960,64,64" origin="0.5,0.45" />
-    
+
     <Sprite texture="%ModDir%/Images/mechtrauma_pumps.png" depth="0.8" sourcerect="1024,0,204,128" origin="0.5,0.5" />
     <InfectedSprite texture="content/Items/Pump/Pumps.png" sourcerect="1024,128,204,128" origin="0.5,0.5"/>
     <DamagedInfectedSprite texture="content/Items/Pump/Pumps.png" sourcerect="1024,128,204,128" origin="0.5,0.5"/>
@@ -380,19 +419,19 @@
 
     </BatteryPump>
 
-    
+
     <ItemContainer capacity="0" maxstacksize="1" itemsperrow="1" slotsperrow="2" hideitems="true" itempos="48,-175" iteminterval="123,0" containedspritedepths="0.81,0.81,.81,.99" canbeselected="true" msg="BatterySlot">
-       <GuiFrame relativesize="0.25,0.2" anchor="Center" minsize="420,220" relativeoffset="0.0,0.1" style="ItemUI" />            
-       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> 
-       <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" /> 
+       <GuiFrame relativesize="0.25,0.2" anchor="Center" minsize="420,220" relativeoffset="0.0,0.1" style="ItemUI" />
+       <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+       <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
        <!-- Slot0 -->
-       <SubContainer capacity="1" maxstacksize="1" >       
+       <SubContainer capacity="1" maxstacksize="1" >
         <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
         </Containable>
       </SubContainer>
 
       <SubContainer capacity="1" maxstacksize="1" >
-        <Containable items="mobilebattery,batterycell" > 
+        <Containable items="mobilebattery,batterycell" >
         </Containable>
       </SubContainer>
 

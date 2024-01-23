@@ -33,7 +33,7 @@ namespace Mechtrauma
 
         public void PreInitPatching()
         {
-            
+
         }
 
         private void InitUserData()
@@ -57,6 +57,7 @@ namespace Mechtrauma
             UserData.RegisterType<DataBox>();
             UserData.RegisterType<WaterDrain>();
             UserData.RegisterType<AdvancedTerminal>();
+            UserData.RegisterType<AdvTerminalMsg>();
             UserData.RegisterType<LuaNetEventDispatcher>();
 
             UserData.RegisterType(typeof(MTUtils));
@@ -95,11 +96,11 @@ namespace Mechtrauma
             UnloadUserData();
 #if SERVER
             // server-side code
-#elif CLIENT 
+#elif CLIENT
             // client-side code
 #endif
         }
-        
+
         List<string> ExtraPowerTypes = new List<string>() {
             "steam",
             "kinetic",
@@ -247,7 +248,7 @@ namespace Mechtrauma
             // Remove the power_in pin from the relay check as it causes an uncessary warning that doesn't affect it's functionality
             RelayComponent.connectionPairs.Remove("power_in");
         }
-        
-        
+
+
     }
 }

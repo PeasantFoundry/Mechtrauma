@@ -10,7 +10,7 @@ MT.PriorityDeltatime = MT.UpdateInterval/60 -- Time in seconds that transpires b
 
 Hook.Add("think", "MT.update", function()
 
-    -- only run updates if the game is running        
+    -- only run updates if the game is running
     if MT.HF.GameIsRunning() then
 
         MT.PriorityUpdateCooldown = MT.PriorityUpdateCooldown-1

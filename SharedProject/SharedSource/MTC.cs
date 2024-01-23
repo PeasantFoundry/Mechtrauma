@@ -13,11 +13,12 @@ namespace Mechtrauma
         //--- MT CLI >:)
         public bool IsWaiting { get; set; }
         public string WaitingFunction { get; set; }
+        public string GoTo { get; set; }
 
         [Serialize("", IsPropertySaveable.No)]
-        public string Token { get; set; } // 
+        public string Token { get; set; } //
         [Serialize("", IsPropertySaveable.No)]
-        public string DB { get; set; } // 
+        public string DB { get; set; } //
 
     }
 }

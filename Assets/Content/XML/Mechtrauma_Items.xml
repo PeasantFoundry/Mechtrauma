@@ -1447,7 +1447,7 @@
   </Item>
 
   <!-- ENGINE BLOCK: For use in machines such as a diesel engine -->
-  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="mtu,largeitem,engineBlock,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="Engine Block" identifier="mt_engine_block" Category="Fuel" Tags="mtu,largeitem,engineBlock,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.6">
     <PreferredContainer primary="mechcab"/>
     <Price baseprice="250" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -1580,7 +1580,7 @@
 
 
   <!-- CRANK ASSEMBLY: diesel engine block  -->
-  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="crankassembly,mtu,mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.5">
+  <Item name="Crank Assembly" identifier="mt_eb_crank_assembly" Category="Fuel" Tags="crankassembly,mtu,mediumitem,handtruck,part" maxstacksize="1" cargocontaineridentifier="" health="1000" scale="0.35">
     <PreferredContainer primary="mechcab"/>
     <Price baseprice="100" displaynonempty="true" minavailable="2">
       <Price storeidentifier="merchantoutpost" />
@@ -3049,7 +3049,7 @@
     <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="192,192,128,128" depth="0.8" origin="0.5,0.5" />
     <Body width="128" height="128" density="8" />
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
-    <StatusEffect type="OnWearing" target="This" stackable="false" >
+      <StatusEffect type="OnWearing" target="This" stackable="false" >
         <sound file="Content/Items/Weapons/ExplosionSmall1.ogg" range="2000" />
         <sound file="Content/Items/Weapons/ExplosionSmall2.ogg" range="2000" />
         <sound file="Content/Items/Weapons/ExplosionSmall3.ogg" range="2000" />
@@ -3059,8 +3059,6 @@
         </Explosion>
       </StatusEffect>
     </Holdable>
-
-
   </Item>
 
   <!-- SECURITY CONTROL:-->
@@ -3181,7 +3179,7 @@
     <MessageAreaGui Margin="0.15" Offset="-0.25,-0.5" TopPadding="0.04" HistoryBoxSize="0.77,0.6" InputBoxSize="0.79,0.1"
                     RelativeSpacing="0.02" RelativeSize="0.5,0.5" ShowInputBox="false" TextColor="255,150,0,255"
                     MessageFont="MonospacedFont"/>
-    <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.1" pivot="Left" anchor="Left" style="ItemUI" Color="20,20,20,200"/>
+    <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.1" pivot="Right" anchor="Right" style="ItemUI" Color="20,20,20,200"/>
     <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5" >
       <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1152,320,384,384" origin="0.5,0.5"/>
     </OuterSprite>
@@ -3191,7 +3189,7 @@
     <MTC/>
 
     <CustomInterface canbeselected="true" allowuioverlap="true" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="TopLeft" relativeoffset="0.09,0.5" style="ItemUI" linkuitocomponent="ItemContainer" />
+      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="Right" relativeoffset="0.09,0.5" style="ItemUI" linkuitocomponent="ItemContainer" />
 
       <!-- ACTION: ATTEMPT REPAIR -->
       <Button text="Attempt Repair">
@@ -3235,7 +3233,7 @@
 
 
 <!-- MT MOBILE:-->
-  <Item name="MT Mobile" identifier="mt_mobile" category="Electrical" Tags="mtu,mtc,narrowDisplay,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.15" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="MT Mobile" identifier="mt_mobile" category="Electrical" Tags="mtu,mtc,mtmobile,narrowDisplay,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.15" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -3247,16 +3245,10 @@
     <PreferredContainer primary="engineering_console" secondary="engcab" />
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
     <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="416,0,64,168" depth="0.6" origin="0.5,0.5" />
-    <Body width="128" height="128" density="8"/>
-    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" >
-
-      <StatusEffect type="Always" targettype="This" tags="statusmonitorexpansion" drawhudwhenequipped="false" setvalue="true" duration="0.1" stackable="false" targetslot="0" Comparison="And">
-        <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
-      </StatusEffect>
-    </Holdable>
-
+    <Body width="64" height="168" density="8"/>
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" />
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false" allowuioverlap="false" >
        <MessageAreaGui Margin="0.15" Offset="-0.35,-0.37" TopPadding="0.04" HistoryBoxSize="1.0,0.7" InputBoxSize="0.95,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.65,0.58" ShowInputBox="true" TextColor="160,200,10,255"
@@ -3266,17 +3258,13 @@
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1216,704,228,576" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
+
     <LuaNetEventDispatcher Name="MTC"/>
     <MTC/>
     <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" CrossHairScale="0.1" >
       <!-- <Crosshair texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,64,0,0" /> -->
       <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="0,0,64,64" />
       <Sound file="Content/Sounds/UI/DeadMsg.ogg" type="OnUse" range="1000.0" onlyinsamesub="true"/>
-      <!--
-      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
-      <StatusEffect type="OnUse">
-        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
-      </StatusEffect> -->
       <StatusEffect type="OnUse" target="Character">
 
         <LuaHook name="mtThermometer.onUse" />
@@ -3285,16 +3273,15 @@
     </RangedWeapon>
 
     <ItemContainer capacity="1" maxstacksize="1" canbeselected="true" hideitems="true" msg="ItemMsgOxygenRefill">
-      <Containable items="smallitem"/>
+      <Containable items="smallitem" excludeditems="mtmobile, mobilecontainer"/>
       <SubContainer slots="1">
         <Containable items="mt_hd"/>
       </SubContainer>
     </ItemContainer>
 
-
+<!-- -->
     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.3" anchor="TopRight" relativeoffset="0.2,0.0" style="ItemUI" linkuitocomponent="ItemContainer" />
-
+      <GuiFrame relativesize="0.175,0.3" anchor="TopRight" relativeoffset="0.2,0.0" style="ItemUI" linkuitocomponent="AdvancedTerminal" />
 
       <Button text="LINKER">
         <StatusEffect type="OnUse" target="This" >
@@ -3325,25 +3312,6 @@
       </Button>
 
     </CustomInterface>
-    <!--
-     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
-
-
-      <Button text="Pump Status Report">
-        <StatusEffect type="OnUse" target="This" >
-          <LuaHook name="maintenanceTablet_pr.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-
-       <Button text="FUSE STATUS REPORT">
-        <StatusEffect type="OnUse" target="This">
-          <LuaHook name="maintenanceTablet_fsr.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-    </CustomInterface> -->
   </Item>
 
   <!-- TECHNICAL TABLET:-->
@@ -3353,7 +3321,7 @@
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-50,0" selectkey="Select" pickkey="Use" msg="[E]PickUpTablet" PickingTime="0.5" attachable="true" attachedbydefault="false"/>
 
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false">
       <MessageAreaGui Margin="0.15" Offset="-0.38,-0.38" TopPadding="0.04" HistoryBoxSize="1.0,0.75" InputBoxSize="0.98,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255"
@@ -3385,7 +3353,8 @@
       </Button>
 
     </CustomInterface>
-     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
 
       <!-- REPORT: BALLAST PUMPS: -->
@@ -3415,7 +3384,7 @@
   </Item>
 
   <!-- MAINTENANCE TABLET:-->
-  <Item name="Maintenance Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="mtu,mtc,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="Maintenance Tablet" identifier="mt_maintenance_tablet" category="Electrical" Tags="mtu,mtc,mtmobile,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -3436,7 +3405,7 @@
     </Holdable>
 
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false">
        <MessageAreaGui Margin="0.15" Offset="-0.38,-0.41" TopPadding="0.04" HistoryBoxSize="1.0,0.725" InputBoxSize="0.95,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.775,0.61" ShowInputBox="true" TextColor="170,255,5,255"
@@ -3455,7 +3424,7 @@
         </Containable>
     </ItemContainer>
 
-    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="false">
       <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="-0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
 
       <!-- REPORT: POWER CONSUMPTION: -->
@@ -3475,7 +3444,8 @@
       </Button>
 
     </CustomInterface>
-     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
       <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
 
       <!-- REPORT: BALLAST PUMPS: -->
@@ -3495,24 +3465,14 @@
       </Button>
     </CustomInterface>
 
-    <!-- There is no way to completly close a window, at least i couldnt find a way, gui frame cant seem use status effects inside it -->
-      <MiniMap enableitemfinder="false" enablehullstatus="true" enablehullcondition="true" enableelectricalview="false" drawhudwhenequipped="true" displaybordersize="0.0" characterusable="false" allowuioverlap="false">
-          <GuiFrame relativesize="0.2,0.2" anchor="TopRight" pivot="TopRight" relativeoffset="0.0,0.0" style="ItemUI"/>
-
-          <StatusEffect type="OnWearing" target="This" enablehullstatus="false" enablehullcondition="false" setvalue="true"/>
-          <StatusEffect type="OnWearing" target="This" enablehullstatus="true" enablehullcondition="true" setvalue="true" comparison="and">
-              <RequiredItems items="handheldstatusmonitor" type="Contained" />
-          </StatusEffect>
-
-          <StatusEffect type="OnWearing" target="This" enableelectricalview="false" setvalue="true"/>
-          <StatusEffect type="OnWearing" target="This" enableelectricalview="true" setvalue="true" comparison="and">
-              <RequiredItem items="handheldelectricalmonitor" type="Contained"/>
-          </StatusEffect>
-      </MiniMap>
+    <!-- mini map-->
+    <MiniMap enableitemfinder="false" enablehullstatus="true" enablehullcondition="true" enableelectricalview="false" drawhudwhenequipped="true" displaybordersize="0.0" characterusable="false" allowuioverlap="false">
+        <GuiFrame relativesize="0.2,0.2" anchor="TopRight" pivot="TopRight" relativeoffset="0.0,0.0" style="ItemUI"/>
+    </MiniMap>
   </Item>
 
   <!-- USED MAINTENANCE TABLET:-->
-  <Item name="Maintenance Tablet Used" identifier="mt_maintenance_tablet_used" category="Electrical" Tags="mtu,mtc,smallitem,logic" variantof="mt_maintenance_tablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="Maintenance Tablet Used" identifier="mt_maintenance_tablet_used" category="Electrical" Tags="mtu,mtc,mtmobile,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="50">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -3525,7 +3485,7 @@
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
     <Sprite texture="%ModDir%/Images/Items/mt_computers.png" sourcerect="384,0,160,128" depth="0.6" origin="0.5,0.5" />
        <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false">
        <MessageAreaGui Margin="0.15" Offset="-0.38,-0.41" TopPadding="0.04" HistoryBoxSize="1.0,0.725" InputBoxSize="0.95,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.775,0.61" ShowInputBox="true" TextColor="170,255,5,255"
@@ -3540,7 +3500,7 @@
   </Item>
 
   <!-- DIAGNOSTIC TABLET:-->
-  <Item name="Diagnostic Tablet" identifier="mt_diagnostic_tablet" category="Electrical" Tags="mtu,mtc,smallitem,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="Diagnostic Tablet" identifier="mt_diagnostic_tablet" category="Electrical" Tags="mtu,mtc,mtmobile,smallitem,mttablet" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="150">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" multiplier="0.9" />
@@ -3562,7 +3522,7 @@
     <DataBox/>
     <Thermal/>
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false">
       <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="0,255,0,255"
@@ -3595,50 +3555,11 @@
         </Containable>
     </ItemContainer>
 
-    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="-0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
 
-      <!-- ACTION: DIAGNOSE ITEM -->
-      <Button text="DIAGNOSE ITEM">
-        <StatusEffect type="OnUse" target="This" >
-          <LuaHook name="diagnosticTablet_diagnoseItem.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-
-      <!-- ACTION: LINK -->
-       <Button text="Co2 Filter Status Report">
-        <StatusEffect type="OnUse" target="This">
-          <LuaHook name="diagnosticTablet_linkDiagnostics.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-
-    </CustomInterface>
-     <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Center" relativeoffset="0.01,0.2" style="ItemUI" linkuitocomponent="ItemContainer" />
-
-      <!-- REPORT: BALLAST PUMPS: -->
-      <Button text="Pump Status Report">
-        <StatusEffect type="OnUse" target="This" >
-          <LuaHook name="maintenanceTablet_pr.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-
-      <!-- Report 4: -->
-       <Button text="FUSE STATUS REPORT">
-        <StatusEffect type="OnUse" target="This">
-          <LuaHook name="maintenanceTablet_fsr.OnUse" />
-          <Sound file="%ModDir%/Sound/receipt1.ogg" range="500" />
-        </StatusEffect>
-      </Button>
-
-    </CustomInterface>
   </Item>
 
   <!-- MEDICAL TABLET:-->
-  <Item name="Medical Tablet" identifier="mt_medical_tablet" category="Electrical" Tags="smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
+  <Item name="Medical Tablet" identifier="mt_medical_tablet" category="Electrical" Tags="mtu,mtc,mtmobile,smallitem,logic" cargocontaineridentifier="metalcrate" scale="0.25" impactsoundtag="impact_metal_light" isshootable="true">
     <Price baseprice="150">
       <Price storeidentifier="merchantcity" multiplier="0.5" />
       <Price storeidentifier="merchantresearch" multiplier="1.25" />
@@ -3648,9 +3569,9 @@
     <Sprite texture="%ModDir%/Images/mt_computers.png" sourcerect="64,192,128,128" depth="0.8" origin="0.5,0.5" />
     <Body width="128" height="128" density="8" />
     <Holdable slots="Any,RightHand,LeftHand" holdangle="30" handle1="-10,0" msg="ItemMsgPickUpSelect" />
-
+    <!--
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> "
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=""
                       ReadOnly="false">
        <MessageAreaGui Margin="0.15" Offset="-0.4,-0.35" TopPadding="0.04" HistoryBoxSize="0.85,0.7" InputBoxSize="0.825,0.1"
                       RelativeSpacing="0.02" RelativeSize="0.8,0.61" ShowInputBox="true" TextColor="255,35,35,255"
@@ -3659,7 +3580,7 @@
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,0,384,288" origin="0.5,0.5"/>
       </OuterSprite>
-    </AdvancedTerminal>
+    </AdvancedTerminal>-->
     <!-- Mechtrauma Computer-->
     <LuaNetEventDispatcher Name="MTC"/>
     <MTC/>
@@ -5641,6 +5562,136 @@
 
     </Controller>
     </Item>
+
+  <!-- CNC: Mechanical Fabricator -->
+  <Item name="CNC Mechanical Fabricator v2" identifier="mt_cnc_fab" tags="ccn,mtu,donttakeitems,dontsellitems,cncfab" category="Machine" linkable="true" allowedlinks="deconstructor,locker" description="" scale="0.3" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="256,960,64,64" origin="0.5,0.45" />
+    <Sprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="0,0,360,512" depth="0.845"/> <!-- base -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="1152,0,100,192" depth="0.844" origin="0.5,0.6" offset="125,25" RandomOffset="50,5" offsetanim="Noise" offsetanimspeed="0.25" scale="1.2"> <!-- arm -->
+      <AnimationConditional Voltage="gt 0.5" targetitemcomponent="Fabricator" />
+      <AnimationConditional IsActive="True" targetitemcomponent="Fabricator" />
+      <IsActiveConditional Condition="gt 0.0" />
+    </DecorativeSprite>
+
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="782,0,360,512" depth="0.841" origin="0.45,0.5"/> <!-- glass -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="384,0,360,512" depth="0.840"/> <!-- case -->
+
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" alphablend="false" blinkfrequency="1" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="0,0,360,512" depth="0.025" alpha="1.0" />
+    </LightComponent>
+
+    <!--
+    <DecorativeSprite texture="%Moddir%/Images/boiler.png" sourcerect="380,40,100,118" depth="0.735" origin="0.5,0.5" offset="-2,10" offsetanim="Noise" offsetanimspeed="50.0" scale="0.7" rotation="0" rotationspeed="-200" canflipx="true">
+      <IsActiveConditional hastag="eq bubbles"/>
+    </DecorativeSprite>
+    <DecorativeSprite texture="%Moddir%/Images/boiler.png" sourcerect="380,40,100,118" depth="0.735" origin="0.5,0.5" offset="-2,10" offsetanim="Noise" offsetanimspeed="50.0" scale="0.7" rotation="0" rotationspeed="200" canflipx="true">
+      <IsActiveConditional hastag="eq bubbles"/>
+    </DecorativeSprite>
+
+    <DecorativeSprite texture="Content/Items/Fabricators/FabricatorsAndDeconstructors.png" depth="0.83" offset="-72,129" sourcerect="944,395,74,74" origin="0.5,0.5" rotationspeed="-715">
+      <AnimationConditional Voltage="gt 0.5" targetitemcomponent="Fabricator" />
+      <AnimationConditional IsActive="True" targetitemcomponent="Fabricator" />
+      <IsActiveConditional Condition="gt 0.0" />
+    </DecorativeSprite>
+
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" allowingameediting="false">
+      <sprite texture="Content/Items/Command/navigatorLights.png" depth="0.025" sourcerect="351,624,336,400" alpha="1.0" />
+    </LightComponent>
+
+    <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="5" IsOn="true" castshadows="false" blinkfrequency="1" allowingameediting="false">
+      <sprite texture="Content/Items/Command/navigatorLights.png" depth="0.025" sourcerect="688,624,336,400" alpha="1.0" />
+    </LightComponent>-->
+
+    <Fabricator canbeselected="true" powerconsumption="500.0" Fabricationspeed="1" msg="ItemMsgInteractSelect">
+      <GuiFrame relativesize="0.5,0.8" style="ItemUI" anchor="Center" />
+      <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true"/>
+      <poweronsound file="Content/Items/PowerOnLight1.ogg" range="600" loop="false" />
+      <StatusEffect type="InWater" target="This" condition="-0.5" />
+    </Fabricator>
+
+    <ConnectionPanel selectkey="Action" canbeselected="true" hudpriority="10" msg="ItemMsgRewireScrewdriver">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredSkill identifier="electrical" level="55" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="power_in" displayname="connection.powerin"/>
+      <output name="condition_out" displayname="connection.conditionout" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.50" mindeteriorationdelay="60" maxdeteriorationdelay="120" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.1,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55" />
+      <RequiredItem items="wrench" type="Equipped" />
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="15.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="5" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+
+    <ItemContainer capacity="4" canbeselected="true" hideitems="true" slotsperrow="4" uilabel="" allowuioverlap="false">
+    <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="9" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="10" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,64,64,64" origin="0.5,0.5" />
+    <SlotIcon slotindex="11" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,0,64,64" origin="0.5,0.5" />
+
+
+    <!-- ROW2 SLOT4-->
+    <SubContainer slots="1">
+      <Containable items="bearing_sleeve" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT5-->
+    <SubContainer slots="1">
+      <Containable items="copper_windings" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT6-->
+    <SubContainer slots="1">
+      <Containable items="copper" />
+    </SubContainer>
+
+    <!-- ROW2 SLOT7-->
+    <SubContainer slots="1">
+      <Containable items="plastic"/>
+    </SubContainer>
+
+    <!-- ROW3 SLOT8-->
+    <SubContainer slots="1">
+      <Containable items="sealed_bearing" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT9-->
+    <SubContainer slots="1">
+      <Containable items="grease_packet" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT10-->
+    <SubContainer slots="1">
+      <Containable items="steel" />
+    </SubContainer>
+
+    <!-- ROW3 SLOT11-->
+    <SubContainer slots="1">
+      <Containable items="rubber" />
+    </SubContainer>
+
+    </ItemContainer>
+
+    <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true"/>
+  </Item>
 
 
 <!-- CNC: Mechanical Fabricator -->

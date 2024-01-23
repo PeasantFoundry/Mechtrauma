@@ -6,7 +6,7 @@
     <Sprite texture="Content/Items/Weapons/Loaders.png" depth="0.01" sourcerect="0,262,256,84" canflipy="false" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <SwappableItem price="0" origin="128,78" swapidentifier="generator_diesel_large">
-      <SchematicSprite texture="Content/UI/WeaponUI.png" sourcerect="0,425,256,117" />      
+      <SchematicSprite texture="Content/UI/WeaponUI.png" sourcerect="0,425,256,117" />
     </SwappableItem>
     <StaticBody width="80" radius="80" />
 
@@ -27,34 +27,34 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    
+
     <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
     </SwappableItem>
 
     <aitarget sightrange="500" soundrange="5000" staticsight="true" fadeouttime="5"/>
-    
+
     <!-- Sound Light -->
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
-      </StatusEffect> 
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
     </LightComponent>
-    
-    <!-- Diagnostic Terminal 
+
+    <!-- Diagnostic Terminal
     <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
       <GuiFrame relativesize="0.25,0.2" relativeoffset="0.36,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" />
     </Terminal>-->
 
     <!-- Diagnostic Terminal -->
-    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> "
                       ReadOnly="false">
       <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255" 
+                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255"
                       MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
+      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
       </OuterSprite>
@@ -62,14 +62,14 @@
 
     <!-- Controls -->
     <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
-        <LuaHook name="maintenanceTablet_pcr.OnUse" /> 
+        <LuaHook name="maintenanceTablet_pcr.OnUse" />
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
     </CustomInterface>
     <Databox/>
     <Thermal/>
@@ -77,48 +77,48 @@
     <SimpleGenerator MaxPowerOut="5000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Left" style="ItemUI" />
     </SimpleGenerator>
-   
+
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
-      <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
-      <!-- SLOT 0-1 Oil -->  
-      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
-      <!-- SLOT 2 Oil Filter -->  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />
+      <!-- SLOT 0-1 Oil -->
+      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>
+      <!-- SLOT 2 Oil Filter -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOTs 3-8 DieselFuel -->  
+      <!-- SLOTs 3-8 DieselFuel -->
       <SubContainer capacity="6" maxstacksize="1" hideitems="true">
         <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
 
-      <!-- SLOTs 9-11 Oxygen -->  
+      <!-- SLOTs 9-11 Oxygen -->
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
-      </SubContainer>               
-    </ItemContainer>   
-        
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+    </ItemContainer>
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
-      <output name="power_out" displayname="connection.powerout" />      
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
@@ -128,21 +128,21 @@
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" targetitemcomponent="SimpleGenerator" volumeproperty="CurrFlow" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-      
+
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-    
+
     </Repairable>
   </Item>
 
@@ -151,75 +151,75 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,0,984,384" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,384,984,384" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    
+
     <SwappableItem canbebought="true" price="3000" replacementonuninstall="turrethardpoint" origin="128,215" swapidentifier="generator_diesel_large">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
     </SwappableItem>
-    
+
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
     <!-- Sound Light -->
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
-      </StatusEffect> 
-    </LightComponent>    
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
+    </LightComponent>
     <DieselEngine Generation="2" MaxHp="3000"/>
     <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>
-   
+
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="2" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />
 
-      <!-- SLOT 0 Oil -->  
-      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
-      <!-- SLOT 1 Oil Filter -->  
+      <!-- SLOT 0 Oil -->
+      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>
+      <!-- SLOT 1 Oil Filter -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOTs 2-5 DieselFuel -->  
+      <!-- SLOTs 2-5 DieselFuel -->
       <SubContainer capacity="4" maxstacksize="1" hideitems="true">
         <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
 
-      <!-- SLOTs 6-7 Oxygen -->  
+      <!-- SLOTs 6-7 Oxygen -->
       <SubContainer capacity="2" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
-      </SubContainer>               
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
     </ItemContainer>
 
     <!-- Controls -->
     <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.2,0.2" anchor="CenterRight" pivot="CenterLeft" relativeoffset="0.36,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
     </CustomInterface>
-        
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
-      <output name="power_out" displayname="connection.powerout" />      
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
       <output name="condition_out" displayname="connection.conditionout" />
-      <output name="power_generated" displayname="connection.powergenerated" />      
+      <output name="power_generated" displayname="connection.powergenerated" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
@@ -229,151 +229,149 @@
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-      
+
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-    
+
     </Repairable>
   </Item>
 
-  <!-- DIESEL GENERATOR S3000Da: Standard. -->
- <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <!-- DIESEL GENERATOR S3000DGa: Standard. -->
+ <Item name="s3000DGa - Masochist V" identifier="s3000DGa" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="engine_diesel">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
-    </SwappableItem>    
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
+    </SwappableItem>
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
     <!-- Sound Light -->
     <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
-      </StatusEffect> 
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
     </MTLight>
 
-  
- 
     <!-- Diesel Generator -->
-    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >  
-    </SimpleGenerator>    
+    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >
+    </SimpleGenerator>
     <DieselEngine Generation="3rd" EngineBlockLocation="0" MaxHp="3000"/>
     <Thermal MinOpTemp="-20" TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
     <LuaNetEventDispatcher Name="MTC"/>
     <MTC/>
     <!-- Diagnostic Terminal -->
     <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" allowuioverlap="false"
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> " 
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> "
                       ReadOnly="false">
       <MessageAreaGui Margin="0.15" Offset="-0.325,-0.375" TopPadding="0.04" HistoryBoxSize="1.0,0.9" InputBoxSize="0.9,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.525,0.475" ShowInputBox="true" TextColor="255,150,0,255" 
+                      RelativeSpacing="0.02" RelativeSize="0.525,0.475" ShowInputBox="true" TextColor="255,150,0,255"
                       MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.35,0.4" relativeoffset="0.31,-0.115" pivot="Center" anchor="Center" style="ItemUI" Color="20,20,20,200"/>    
+      <GuiFrame relativesize="0.35,0.4" relativeoffset="0.31,-0.115" pivot="Center" anchor="Center" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,960,448,292" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
 
-    <!-- Controls -->
+    <!-- Controls  linkuitocomponent="ItemContainer"  -->
     <CustomInterface canbeselected="true" allowuioverlap="false">
-      <GuiFrame relativesize="0.2,0.2" pivot="Center" anchor="Center" relativeoffset="-0.2,-0.204" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.2,0.2" pivot="Center" anchor="Center" relativeoffset="-0.22,-0.214" style="ItemUI" />
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
     </CustomInterface>
 
     <ItemContainer capacity="1" maxstacksize="1" slotsperrow="3"  allowuioverlap="false" canbeselected="true" PickingTime="5.0" hideitems="true">
       <GuiFrame relativesize="0.25,0.65" relativeoffset="0.0,0.0" pivot="Center" anchor="Center" style="ItemUI" uilabel="Engine" />
       <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,128,64,64" origin="0.5,0.5" /> <!-- engine block -->
       <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> <!-- oil -->
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> <!-- oil filter -->      
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> <!-- oil filter -->
       <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- diesel fuel -->
       <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" /> <!-- fuel filter -->
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" /> <!-- fuel pump -->      
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" /> <!-- fuel pump -->
       <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" /> <!-- battery -->
       <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> <!-- starter motor -->
       <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" /> <!-- dcm -->
       <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,128,64,64" origin="0.5,0.5" />  <!-- exhaust manifold -->
-      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />  <!-- aux 02 -->      
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />  <!-- aux 02 -->
       <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" /> <!-- air filter -->
-      <!-- SLOT 0 Engine Block -->  
-      <Containable items="mt_engine_block,engineblock" excludebroken="false" excludefullcondition="false"/>           
-      <!-- SLOT 1 Oil -->  
+      <!-- SLOT 0 Engine Block -->
+      <Containable items="mt_engine_block,engineblock" excludebroken="false" excludefullcondition="false"/>
+      <!-- SLOT 1 Oil -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>             
-      </SubContainer>      
-      <!-- SLOT 2 Oil Filter -->  
+        <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>
+      </SubContainer>
+      <!-- SLOT 2 Oil Filter -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
-      </SubContainer>      
-      <!-- SLOT 3 Diesel Fuel -->  
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 3 Diesel Fuel -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="diesel_fuel,dieselfuel" excludebroken="true" excludefullcondition="false"/>
-      </SubContainer>      
-      <!-- SLOT 4 Fuel Filter -->  
+      </SubContainer>
+      <!-- SLOT 4 Fuel Filter -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_fuel_filter,fuelfilter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOT 5 Fuel Pump -->  
+      <!-- SLOT 5 Fuel Pump -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_fuel_pump,fuelpump" excludebroken="true" excludefullcondition="false"/>
-      </SubContainer>      
-      <!-- SLOT 6 Battery -->  
+      </SubContainer>
+      <!-- SLOT 6 Battery -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_battery_lead_acid,labattery" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOT 7 Starter Motor -->  
+      <!-- SLOT 7 Starter Motor -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_starter_motor,electric_motor" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOT 8 DCM -->  
+      <!-- SLOT 8 DCM -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_dcm,dcm" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOTs 9 Exhaust Manifold -->  
+      <!-- SLOTs 9 Exhaust Manifold -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_eb_exhaust_manifold,exhaustmanifold" excludebroken="true" excludefullcondition="false"/>  
-      </SubContainer>            
-      <!-- SLOTs 10 Oxygen -->  
+        <Containable items="mt_eb_exhaust_manifold,exhaustmanifold" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOTs 10 Oxygen -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
-      </SubContainer>      
-      <!-- SLOT 11 Air Filter -->  
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 11 Air Filter -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_air_filter,airfilter" excludebroken="true" excludefullcondition="false"/>
-      </SubContainer>    
-               
+      </SubContainer>
+
     </ItemContainer>
 
-        
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
-      <output name="power_out" displayname="connection.powerout" />      
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
       <output name="condition_out" displayname="connection.conditionout" />
-      <output name="power_generated" displayname="connection.powergenerated" />      
+      <output name="power_generated" displayname="connection.powergenerated" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
@@ -383,73 +381,225 @@
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-      
+
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-    
+
+    </Repairable>
+  </Item>
+
+   <!-- DIESEL GENERATOR S3000Da: Standard. -->
+ <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
+    <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
+    <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="engine_diesel">
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
+    </SwappableItem>
+    <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
+
+    <!-- Sound Light -->
+    <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
+      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
+    </MTLight>
+
+    <!-- Diesel Generator -->
+    <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" accuracy="100" efficiency="99" reliability="98" minvoltage="0.5" >
+    </SimpleGenerator>
+    <DieselEngine Generation="3rd" EngineBlockLocation="0" MaxHp="3000"/>
+    <Thermal MinOpTemp="-20" TargetOpTemp="200" MaxOpTemp="220" FailTemp="300"/>
+    <LuaNetEventDispatcher Name="MTC"/>
+    <MTC/>
+    <!-- Diagnostic Terminal -->
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" allowuioverlap="false"
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol="> "
+                      ReadOnly="false">
+      <MessageAreaGui Margin="0.15" Offset="-0.325,-0.375" TopPadding="0.04" HistoryBoxSize="1.0,0.9" InputBoxSize="0.9,0.1"
+                      RelativeSpacing="0.02" RelativeSize="0.525,0.475" ShowInputBox="true" TextColor="255,150,0,255"
+                      MessageFont="MonospacedFont"/>
+      <GuiFrame relativesize="0.35,0.4" relativeoffset="0.31,-0.115" pivot="Center" anchor="Center" style="ItemUI" Color="20,20,20,200"/>
+      <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5">
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="768,960,448,292" origin="0.5,0.5"/>
+      </OuterSprite>
+    </AdvancedTerminal>
+
+    <!-- Controls  linkuitocomponent="ItemContainer"  -->
+    <CustomInterface canbeselected="true" allowuioverlap="false">
+      <GuiFrame relativesize="0.2,0.2" pivot="Center" anchor="Center" relativeoffset="-0.22,-0.214" style="ItemUI" />
+      <Button text="Engine On">
+        <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+      <Button text="Engine Off">
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
+    </CustomInterface>
+
+    <ItemContainer capacity="1" maxstacksize="1" slotsperrow="3"  allowuioverlap="false" canbeselected="true" PickingTime="5.0" hideitems="true">
+      <GuiFrame relativesize="0.25,0.65" relativeoffset="0.0,0.0" pivot="Center" anchor="Center" style="ItemUI" uilabel="Engine" />
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,128,64,64" origin="0.5,0.5" /> <!-- engine block -->
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> <!-- oil -->
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> <!-- oil filter -->
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,64,64,64" origin="0.5,0.5" /> <!-- diesel fuel -->
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" /> <!-- fuel filter -->
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" /> <!-- fuel pump -->
+      <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" /> <!-- battery -->
+      <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" /> <!-- starter motor -->
+      <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" /> <!-- dcm -->
+      <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,128,64,64" origin="0.5,0.5" />  <!-- exhaust manifold -->
+      <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />  <!-- aux 02 -->
+      <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" /> <!-- air filter -->
+      <!-- SLOT 0 Engine Block -->
+      <Containable items="mt_engine_block,engineblock" excludebroken="false" excludefullcondition="false"/>
+      <!-- SLOT 1 Oil -->
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>
+      </SubContainer>
+      <!-- SLOT 2 Oil Filter -->
+      <SubContainer capacity="1" maxstacksize="1">
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 3 Diesel Fuel -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="diesel_fuel,dieselfuel" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 4 Fuel Filter -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_fuel_filter,fuelfilter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 5 Fuel Pump -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_fuel_pump,fuelpump" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 6 Battery -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_battery_lead_acid,labattery" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 7 Starter Motor -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_starter_motor,electric_motor" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 8 DCM -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_dcm,dcm" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOTs 9 Exhaust Manifold -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_eb_exhaust_manifold,exhaustmanifold" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOTs 10 Oxygen -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+      <!-- SLOT 11 Air Filter -->
+      <SubContainer capacity="1" maxstacksize="1" hideitems="true">
+        <Containable items="mt_air_filter,airfilter" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+
+    </ItemContainer>
+
+
+    <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <input name="set_state" displayname="connection.setstate" />
+      <input name="toggle" displayname="connection.togglestate" />
+      <output name="kinetic_out" displayname="connection.kineticout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <output name="condition_out" displayname="connection.conditionout" />
+      <output name="power_generated" displayname="connection.powergenerated" />
+    </ConnectionPanel>
+
+    <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
+      <RequiredSkill identifier="mechanical" level="55"/>
+      <RequiredItem items="wrench" type="equipped"/>
+      <RequiredSkill identifier="electrical" level="55"/>
+      <RequiredItem items="screwdriver" type="equipped"/>
+      <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
+      <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
+
+      <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
+      <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="bleeding" strength="25" />
+        <Affliction identifier="lacerations" strength="25" />
+        <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+
+      <!-- At least you followed protocal -->
+      <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
+        <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
+        <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
+      </StatusEffect>
+
     </Repairable>
   </Item>
 
  <!-- DIESEL GENERATOR S2500Da: Yellow Cabinet. -->
  <Item name="Series C-2500Da" identifier="sC2500Da" tags="Power,Generator,mtupdate,mtpriority,dieselGenerator" category="Machine" linkable="false" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
     <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,0,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" /> 
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,0,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
 
     <SwappableItem canbebought="true" price="5000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="generator_diesel_large">
-      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />     
+      <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
     </SwappableItem>
 
 
     <!-- Sound Light -->
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
-      </StatusEffect> 
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
     </LightComponent>
-    
+
     <!-- Diesel Generator -->
     <Databox/>
     <Thermal/>
     <DieselEngine Generation="2" MaxHp="2500"/>
     <SimpleGenerator MaxPowerOut="2500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
-    </SimpleGenerator>   
+    </SimpleGenerator>
     <!-- Diagnostic Terminal -->
-    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" 
-                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> " 
+    <AdvancedTerminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false"
+                      drawhudwhenequipped="true" MaxLines="100" LineStartSymbol=">> "
                       ReadOnly="false">
       <MessageAreaGui Margin="0.15" Offset="-0.46,-0.425" TopPadding="0.04" HistoryBoxSize="0.9,0.7" InputBoxSize="0.9,0.1"
-                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255" 
+                      RelativeSpacing="0.02" RelativeSize="0.9,0.75" ShowInputBox="true" TextColor="250, 125, 15, 255"
                       MessageFont="MonospacedFont"/>
-      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>    
+      <GuiFrame relativesize="0.25,0.35" relativeoffset="0.4,-0.001" pivot="BottomLeft" anchor="CenterRight" style="ItemUI" Color="20,20,20,200"/>
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.0">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="0,640,384,248" origin="0.5,0.5"/>
       </OuterSprite>
     </AdvancedTerminal>
-   
-   
+
+
     <!-- Controls -->
     <CustomInterface canbeselected="true" allowuioverlap="true">
-      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.24,0.2" anchor="CenterRight" pivot="TopLeft" relativeoffset="0.375,0.001" style="ItemUI" linkuitocomponent="ItemContainer" />
       <Button text="Engine On">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
       </Button>
       <Button text="Engine Off">
-        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>        
-      </Button>      
+        <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true"/>
+      </Button>
     </CustomInterface>
 
     <ItemContainer capacity="2" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
@@ -464,34 +614,34 @@
       <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
       <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,0,64,64" origin="0.5,0.5" />  <!-- AUX OXYGEN -->
 
-      <!-- SLOT 0-1 Oil -->  
-      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>     
-      <!-- SLOT 2 Oil Filter -->  
+      <!-- SLOT 0-1 Oil -->
+      <Containable items="oil" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_barrel,oil_barrel"/>
+      <!-- SLOT 2 Oil Filter -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>     
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-      <!-- SLOTs 3-5 DieselFuel -->  
+      <!-- SLOTs 3-5 DieselFuel -->
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
         <Containable items="diesel_fuel" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
 
-      <!-- SLOTs 6-8 Oxygen -->  
+      <!-- SLOTs 6-8 Oxygen -->
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>  
-      </SubContainer>               
-    </ItemContainer> 
-  
-        
+        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+    </ItemContainer>
+
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
-      <output name="power_out" displayname="connection.powerout" />      
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
@@ -501,11 +651,11 @@
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
@@ -513,20 +663,20 @@
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
-      </StatusEffect>    
+      </StatusEffect>
     </Repairable>
   </Item>
 
   <!-- DIESEL GENERATOR S2500Db: Blue Cabinet. -->
   <Item name="Series C-2500Db Diesel Generator" identifier="sC2500Db" variantof="sC2500Da" scale="0.5">
     <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,512,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,512,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
   </Item>
 
   <!-- DIESEL GENERATOR S2500Dc: Red Cabinet. -->
   <Item name="Series C-2500Dc Diesel Generator" identifier="sC2500Dc" variantof="sC2500Da" scale="0.5">
     <Sprite name="sC2500Da" texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="0,1024,640,386" depth="0.8" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />    
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/series_C.png" sourcerect="768,1024,768,386" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
   </Item>
 
 
@@ -537,15 +687,15 @@
   <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="0,768,212,256" depth="0.81" origin="0.5,0.5" />
   <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="80" fadein="true" />
   <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mechtrauma_generators.png" sourcerect="256,768,212,256" origin="0.5,0.5" depth="0.81" maxcondition="0" />
-  
+
   <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
-        
+
     <!-- Sound Light -->
     <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />    
-      </StatusEffect> 
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
+      </StatusEffect>
     </LightComponent>
     <Databox/>
     <Thermal/>
@@ -553,54 +703,54 @@
     <SimpleGenerator MaxPowerOut="1500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
     </SimpleGenerator>
-   
-  
+
+
     <ItemContainer capacity="0" maxstacksize="1" slotsperrow="3" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.4" anchor="Center" style="ItemUI" uilabel="Engine" />
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>       
+        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>
       </SubContainer>
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>        
+        <Containable items="oil_filter" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
-      </SubContainer>     
+      </SubContainer>
       <SubContainer capacity="3" maxstacksize="1" hideitems="true">
         <Containable items="diesel_fuel_can" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
-   
-           
+
+
     </ItemContainer>
-         
-    <!-- INTERFACE: On/Off-->     
+
+    <!-- INTERFACE: On/Off-->
      <CustomInterface canbeselected="true" allowuioverlap="false">
-      <GuiFrame relativesize="0.25,0.2" anchor="Center" relativeoffset="0.1,-0.01" style="ItemUI" linkuitocomponent="ItemContainer" />     
+      <GuiFrame relativesize="0.25,0.2" anchor="Center" relativeoffset="0.1,-0.01" style="ItemUI" linkuitocomponent="ItemContainer" />
       <Button text="START ENGINE">
         <StatusEffect type="OnUse" target="This" IsOn="true" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
-          
+
         </StatusEffect>
       </Button>
       <Button text="STOP ENGINE">
         <StatusEffect type="OnUse" target="This" IsOn="false" setvalue="true" targetitemcomponent="SimpleGenerator" voltage="1.0" disabledeltatime="true">
         </StatusEffect>
-      </Button>      
+      </Button>
     </CustomInterface>
 
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
+      <RequiredItem items="screwdriver" type="Equipped"/>
       <input name="set_state" displayname="connection.setstate" />
       <input name="toggle" displayname="connection.togglestate" />
-      <output name="power_out" displayname="connection.powerout" />      
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />      
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
       <output name="condition_out" displayname="connection.conditionout" />
     </ConnectionPanel>
 
@@ -613,21 +763,21 @@
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-      
+
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
       </StatusEffect>
-     
+
     </Repairable>
   </Item>
 
@@ -637,8 +787,8 @@
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
-    
-    
+
+
     <Price baseprice="550" displaynonempty="true" minavailable="1">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" minavailable="1" />
@@ -649,14 +799,14 @@
     </Price>
 
     <aitarget sightrange="500" soundrange="250" staticsight="true" fadeouttime="5"/>
-   
+
     <!-- Sound Light -->
     <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" depth="0.54">
       <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
-      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">        
-        <Conditional IsOn="true" target="This"/>      
-          
-      </StatusEffect> 
+      <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
+        <Conditional IsOn="true" target="This"/>
+
+      </StatusEffect>
     </LightComponent>
     <Databox/>
     <Thermal/>
@@ -665,10 +815,10 @@
     <SimpleGenerator MaxPowerOut="500" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->
       <StatusEffect type="Always" target="This" IsOn="true" disabledeltatime="true" Comparison="And">
-        <RequiredItem items="keys,screwdriver" type="Contained" mincondition="5.0" />     
-        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />  
-        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />   
-      </StatusEffect>  
+        <RequiredItem items="keys,screwdriver" type="Contained" mincondition="5.0" />
+        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />
+        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />
+      </StatusEffect>
 
       <!-- Power off! -->
       <StatusEffect type="Always" target="This" IsOn="false" IsPermanent="false" delay="1" stackable="false" Comparison="And" />
@@ -678,20 +828,20 @@
     <Body width="224" height="136" density="90" />
     <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="[E]MoveGenerator" PickingTime="2.0" holdpos="75,-125" disablerotation="true" handle1="0,0" handle2="0,0" holdangle="45" attachable="true" attachedbydefault="true">
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.25" setvalue="true" />
-    </Holdable>        
+    </Holdable>
 
-    <!-- Inventory --> 
+    <!-- Inventory -->
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
       <!-- Oil -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>           
+        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>
       </SubContainer>
       <!-- Filter -->
       <SubContainer capacity="1" maxstacksize="1">
@@ -703,22 +853,22 @@
       </SubContainer>
       <!-- Aux Oxygen -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank" excludebroken="true" excludefullcondition="false"/>      
-      </SubContainer>             
-    </ItemContainer>    
+        <Containable items="oxygentank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+    </ItemContainer>
 
     <!-- KEY Storage! Don't lose the key! -->
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
       <Containable items="keys,screwdriver,wire" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-    </ItemContainer>  
-        
+    </ItemContainer>
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
-      <output name="power_out" displayname="connection.powerout" />      
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <output name="power_out" displayname="connection.powerout" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
       <RequiredSkill identifier="mechanical" level="55"/>
@@ -731,24 +881,24 @@
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
-      </StatusEffect>      
+      </StatusEffect>
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
-      </StatusEffect>    
-    </Repairable> 
+      </StatusEffect>
+    </Repairable>
   </Item>
-  
+
   <!-- DIESEL GENERATOR PDG250: Portable Power!. -->
   <Item name="PDG250" identifier="PDG250" tags="Power,Portable,keyignition,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.3">
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
-    
+
     <Price baseprice="550" displaynonempty="true" minavailable="0">
       <Price storeidentifier="merchantoutpost" />
       <Price storeidentifier="merchantcity" minavailable="1" />
@@ -759,14 +909,14 @@
     </Price>
 
     <aitarget sightrange="500" soundrange="250" staticsight="true" fadeouttime="5"/>
-   
+
     <!-- Sound Light -->
     <LightComponent range="30.0" lightcolor="0,255,200,200" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" depth="0.54">
       <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
-        <Conditional IsOn="true" target="This"/>      
-        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />    
-      </StatusEffect> 
+        <Conditional IsOn="true" target="This"/>
+        <sound file="%ModDir%/Sound/diesel_sound.ogg" type="OnActive" range="50" loop="true" />
+      </StatusEffect>
     </LightComponent>
     <Databox/>
     <Thermal/>
@@ -775,9 +925,9 @@
     <SimpleGenerator MaxPowerOut="250" IsOn="false" powerconsumption="0" minvoltage="0.5" >
       <!-- Power on! -->
       <StatusEffect type="Always" target="This" IsOn="true" disabledeltatime="true" Comparison="And">
-        <RequiredItem items="keys,screwdriver" type="Contained" mincondition="5.0" />     
-        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />   
-      </StatusEffect>  
+        <RequiredItem items="keys,screwdriver" type="Contained" mincondition="5.0" />
+        <RequiredItem items="diesel_fuel_can" type="Contained" mincondition="5.0" />
+      </StatusEffect>
 
       <!-- Power off! -->
       <StatusEffect type="Always" target="This" IsOn="false" IsPermanent="false" delay="1" stackable="false" Comparison="And" />
@@ -785,22 +935,22 @@
 
     <!-- This can be moved -->
     <Body width="224" height="136" density="90" />
-    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="[E]MoveGenerator" PickingTime="2.0" holdpos="75,-125" disablerotation="true" handle1="0,0" handle2="0,0" holdangle="45" attachable="true" attachedbydefault="true">      
+    <Holdable selectkey="Select" pickkey="Use" slots="RightHand+LeftHand" msg="[E]MoveGenerator" PickingTime="2.0" holdpos="75,-125" disablerotation="true" handle1="0,0" handle2="0,0" holdangle="45" attachable="true" attachedbydefault="true">
       <StatusEffect type="Always" target="Character" SpeedMultiplier="0.4" setvalue="true" />
-    </Holdable>        
+    </Holdable>
 
-    <!-- Inventory --> 
+    <!-- Inventory -->
     <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
       <GuiFrame relativesize="0.25,0.2" anchor="Center" style="ItemUI" uilabel="Engine" />
       <Containable items="keys,screwdriver" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" /> 
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" /> 
+      <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,64,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,0,64,64" origin="0.5,0.5" />
+      <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,0,64,64" origin="0.5,0.5" />
       <!-- Oil -->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>           
+        <Containable items="oil" excludebroken="true" excludefullcondition="false" excludeditems="oil_barrel"/>
       </SubContainer>
       <!-- Filter -->
       <SubContainer capacity="1" maxstacksize="1">
@@ -812,45 +962,45 @@
       </SubContainer>
       <!-- Aux Oxygen -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank" excludebroken="true" excludefullcondition="false"/>      
-      </SubContainer>             
-    </ItemContainer>     
+        <Containable items="oxygentank" excludebroken="true" excludefullcondition="false"/>
+      </SubContainer>
+    </ItemContainer>
 
     <!-- KEY Storage! Don't lose the key! -->
       <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="true">
         <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" /> <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
         <Containable items="keys,screwdriver,wire" excludebroken="false" excludefullcondition="false" excludeditems="diesel_fuel_can"/>
-      </ItemContainer>  
-        
+      </ItemContainer>
+
     <ConnectionPanel selectkey="Action" canbeselected = "true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel"/>
-      <RequiredItem items="screwdriver" type="Equipped"/>      
-      <output name="power_out" displayname="connection.powerout" />      
+      <RequiredItem items="screwdriver" type="Equipped"/>
+      <output name="power_out" displayname="connection.powerout" />
     </ConnectionPanel>
-    
+
     <Repairable selectkey="Action" header="mechanicalrepairsheader" deteriorationspeed="0.12" mindeteriorationdelay="1" maxdeteriorationdelay="1" mindeteriorationcondition="0" RepairThreshold="80" fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairWrench" hudpriority="10">
       <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI"/>
-      <RequiredSkill identifier="mechanical" level="55"/>      
+      <RequiredSkill identifier="mechanical" level="55"/>
       <RequiredItem items="wrench" type="equipped"/>
       <RequiredSkill identifier="electrical" level="55"/>
       <RequiredItem items="screwdriver" type="equipped"/>
       <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="smoke" particleburstamount="3" particleburstinterval="0.5" particlespersecond="2" scalemin="1" scalemax="2.5" anglemin="0" anglemax="359" velocitymin="-50" velocitymax="50" mincondition="0.0" maxcondition="50.0" />
       <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" mincondition="0.0" maxcondition="15.0" />
-      
+
       <!-- Don't stick your arm in a generator when it's running! What's wrong with you? -->
       <StatusEffect type="OnFailure" target="This,Character" Condition="-50.0" targetlimbs="LeftHand,RightHand" >
         <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="bleeding" strength="25" />       
+        <Affliction identifier="bleeding" strength="25" />
         <Affliction identifier="lacerations" strength="25" />
         <Conditional IsOn="true" targetitemcomponent="SimpleGenerator"/>
-      </StatusEffect>      
+      </StatusEffect>
       <!-- At least you followed protocal -->
       <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand" >
         <Affliction identifier="bleeding" strength="25" /> <!-- move to hook, do skill check-->
         <Conditional IsOn="false" targetitemcomponent="SimpleGenerator"/>
-      </StatusEffect>    
-    </Repairable> 
+      </StatusEffect>
+    </Repairable>
 
   </Item>
 

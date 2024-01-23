@@ -8,7 +8,7 @@ namespace Mechtrauma;
 public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 {
     private bool _synchroRequestReceived = false;
-    
+
     partial void InitializeXml(ContentXElement? element)
     {
         if (element is null)
@@ -16,7 +16,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             ModUtils.Logging.PrintError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
             return;
         }
-        
+
         TextColor = element.GetAttributeColor("TextColor", Color.Green);
     }
 
@@ -26,11 +26,11 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         ClearHistoryLocal();
         item.CreateServerEvent(this);
     }
-    
+
     private partial void TrimHistory(int excess)
     {
         int maxLines = Math.Max(0, MaxLines - excess);
-        
+
         while (MessagesHistory.Count > maxLines)
         {
             MessagesHistory.RemoveAt(0);    // trim oldest
@@ -42,21 +42,21 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         MessagesHistory.Clear();
         ToProcess.Clear();
     }
-    
+
     public partial void SendMessage(string text, Color color) => SendMessage(text, color, false);
 
     public partial void SendMessage(string text, Color color, bool overrideReadonly)
     {
         if (ReadOnly && !overrideReadonly)
             return;
-        
-        ToProcess.Enqueue(new AdvTerminalMsg(text, color));
+
+        ToProcess.Enqueue(new AdvTerminalMsg(text, color, 0, 0));
         item.CreateServerEvent(this);
     }
 
     private partial void SendMessageLocal(string text, Color color)
     {
-        MessagesHistory.Add(new AdvTerminalMsg(text, color));
+        MessagesHistory.Add(new AdvTerminalMsg(text, color, 0, 0));
         TrimHistory(0);
         item.SendSignal(text, "signal_out");
         GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
@@ -91,9 +91,11 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         {
             string text = msg.ReadString();
             Color color = msg.ReadColorR8G8B8A8();
-            ToProcess.Enqueue(new AdvTerminalMsg(text, color));
+            int Width = msg.ReadInt32();
+            int Height = msg.ReadInt32();
+            ToProcess.Enqueue(new AdvTerminalMsg(text, color, Width, Height));
         }
-        item.CreateServerEvent(this);   
+        item.CreateServerEvent(this);
     }
 
 #pragma warning disable CS8625
@@ -102,7 +104,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         // trim history accounting for new messages
         TrimHistory(ToProcess.Count);
-        
+
         // set evt code
         msg.WriteByte(_synchroRequestReceived ? (byte)1 : (byte)0);
 
@@ -114,7 +116,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
         if (msgCount < 1)
             return; // no messages to write
-        
+
         // add messages
         if (_synchroRequestReceived)
         {
@@ -126,7 +128,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
                 msg.WriteColorR8G8B8A8(terminalMsg.Color);
             }
         }
-        
+
         // process enqueued messages, add to local and send to clients
         while (ToProcess.Count > 0)
         {

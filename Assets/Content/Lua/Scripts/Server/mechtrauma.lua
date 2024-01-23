@@ -3,7 +3,7 @@ local buffer = {} -- signal buffer
 
 Hook.Add("item.equip", "MT.hotItemEquipped", function(item, character)
   local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
-  
+
   -- burn the fool holding this
   if thermal and thermal.Temperature ~= nil then
     if thermal.Temperature > 150 then
@@ -43,8 +43,8 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
      character = targets[10]
     else
       for k, v in pairs(targets) do
-        if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?          
-          character = targets[k] 
+        if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?
+          character = targets[k]
           end
       end
   end
@@ -54,11 +54,11 @@ Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(ef
 
   -- is electrocution enabled?
   if MT.Config.DisableElectrocution == true then
-    -- check if you're a junctionbox or a fusepanel   
-    if item.HasTag("junctionbox") then -- need to add fuse panel support later  
+    -- check if you're a junctionbox or a fusepanel
+    if item.HasTag("junctionbox") then -- need to add fuse panel support later
       -- i don't know why an item would have a junctionbox tag but no PowerTransfer Component but this makes the code harder to break
       local powerComponent = MTUtils.GetComponentByName(item, ".PowerTransfer");
-      local electrocutionStrength = MT.HF.Clamp((powerComponent.PowerLoad/100 or 2000) * (powerComponent.Voltage or 1), 1, 200) 
+      local electrocutionStrength = MT.HF.Clamp((powerComponent.PowerLoad/100 or 2000) * (powerComponent.Voltage or 1), 1, 200)
       print("electrocutionStrength: ", electrocutionStrength)
 
       -- explosion
@@ -80,7 +80,7 @@ end)
       if rightHandItem.HasTag("electricalrepairtool") then
         NT.TraumamputateLimb(targets[8],LimbType.RightArm)
       elseif leftHandItem.HasTag("electricalrepairtool") then
-        NT.TraumamputateLimb(targets[8],LimbType.LeftArm)    
+        NT.TraumamputateLimb(targets[8],LimbType.LeftArm)
       end]]
 
 
@@ -92,8 +92,8 @@ Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, del
      character = targets[6]
     else
       for k, v in pairs(targets) do
-        if tostring(v) == "Human" then -- instead of looping, would it be possible to make a target indexed table instead of key indexed?                    
-          character = targets[k] 
+        if tostring(v) == "Human" then
+          character = targets[k]
           end
       end
   end
@@ -102,16 +102,16 @@ Hook.Add("mechtraumaAmputation.OnFailure", "MT.amputation", function(effect, del
   local leftHandItem = character.Inventory.GetItemInLimbSlot(InvSlotType.LeftHand)
 
   -- Check to see if NT is enabled
-  if NT and not character.IsBot then -- Yes? Neurotrauma amputation time!     
-    -- Check the hands for an item with the tag "mechanicalrepairtool" in sequence to avoid cutting off both arms at once. We are merciful. 
+  if NT and not character.IsBot then -- Yes? Neurotrauma amputation time!
+    -- Check the hands for an item with the tag "mechanicalrepairtool" in sequence to avoid cutting off both arms at once. We are merciful.
     if rightHandItem.HasTag("mechanicalrepairtool") then
       NT.TraumamputateLimb(character,LimbType.RightArm)
     elseif leftHandItem.HasTag("mechanicalrepairtool") then
-      NT.TraumamputateLimb(character,LimbType.LeftArm)    
+      NT.TraumamputateLimb(character,LimbType.LeftArm)
     end
   else
       --No? do something vanilla
-      if rightHandItem.HasTag("mechanicalrepairtool") then        
+      if rightHandItem.HasTag("mechanicalrepairtool") then
         MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.RightArm,100)
       elseif leftHandItem.HasTag("mechanicalrepairtool") then
         MT.HF.AddAfflictionLimb(character,"lacerations",LimbType.LeftArm,100)
@@ -150,10 +150,10 @@ Hook.Add("signalReceived.average_component", "MT.averageComponent", function(sig
     if connection.Name == "input_6" then
       itemBuffer[6] = signal.value
     end
-  
+
   -- *input_1 is the trigger signal, we will only calculate and send the output when the trigger signal is received
   if itemBuffer[1] ~= nil then
-    for k, v in pairs(itemBuffer) do        
+    for k, v in pairs(itemBuffer) do
       connectionSum = connectionSum + v
       connectionCount = connectionCount + 1
     end
@@ -191,7 +191,7 @@ Hook.Add("securityControl_auth.OnUse", "MT.idScan", function(effect, deltaTime, 
     local scannedItem = item.OwnInventory.GetItemAt(0)
     if scannedItem.Prefab.Identifier.Value == "idcard" then
       local idCard = MTUtils.GetComponentByName(scannedItem, "Barotrauma.Items.Components.IdCard")
-      
+
       MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******AUTHORIZATION REQUEST*******")
       terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Requestor: " .. idCard.OwnerName
       terminal.ShowMessage = MT.HF.Round(Game.GameScreen.GameTime, 0) .. ".T Employee ID: " .. idCard.SubmarineSpecificID
@@ -209,8 +209,8 @@ Hook.Add("securityControl_auth.OnUse", "MT.idScan", function(effect, deltaTime, 
       item.SendSignal("test", "dataout")
     else
       MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******UNKNOWN REQUEST*******")
-    end  
-  -- Request with no ID   
+    end
+  -- Request with no ID
   else
     MT.HF.SendTerminalColorMessage(item, terminal, Color(255, 50, 25, 255), "*******INSERT AUTHORIZATION CARD*******")
   end
@@ -218,7 +218,7 @@ end)
 
 -- ***** REPAIR KIT  *****
 
-Hook.Add("repairKit_attemptRepair.OnUse", "MT.attemptRepair", function(effect, deltaTime, item, targets, worldPosition, client)  
+Hook.Add("repairKit_attemptRepair.OnUse", "MT.attemptRepair", function(effect, deltaTime, item, targets, worldPosition, client)
   MT.F.attemptRepair(item, item.OwnInventory.GetItemAt(0))
 end)
 -- --
@@ -248,12 +248,12 @@ end)
 
 
 -- ----- REPORT c02 -----
-Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)  
+Hook.Add("maintenanceTablet_csr.OnUse", "MT.co2FilterStatusReport", function(effect, deltaTime, item, targets, worldPosition, client)
   MT.F.reportTypes.c02(item)
 end)
 
 -- ----- REPORT PUMP -----
-Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, deltaTime, item, targets, worldPosition, client)  
+Hook.Add("maintenanceTablet_pr.OnUse", "MT.ballastPumpReport", function(effect, deltaTime, item, targets, worldPosition, client)
   MT.F.reportTypes.pump(item)
 end)
 
