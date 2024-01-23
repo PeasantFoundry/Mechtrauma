@@ -17,6 +17,15 @@ public class LiquidTransfer : ItemComponent
         get => _maxFlowRate;
         set => _maxFlowRate = Math.Max(0, value);
     }
+
+    private float _pressureOutputRatio;
+
+    [Editable(0.1f, 10f), Serialize(1f, IsPropertySaveable.Yes, "Exit/Outlet pressure adjustment multiplier.")]
+    public float PressureOutputRatio
+    {
+        get => _pressureOutputRatio;
+        set => _pressureOutputRatio = Math.Clamp(value, 0.1f, 10f);
+    }
     
     public static readonly string SIGNAL_VOLUMETRIC_RATE = "output_flow_rate";
     public static readonly string SIGNAL_PRESSURE = "output_flow_rate";
@@ -28,6 +37,14 @@ public class LiquidTransfer : ItemComponent
     
     public LiquidTransfer(Item item, ContentXElement element) : base(item, element)
     {
+        IsActive = true;
+    }
+
+    public override void OnItemLoaded()
+    {
+        base.OnItemLoaded();
+        // randomize the initial count to stagger updates a bit and reduce lag spikes from network updates.
+        _ticksUntilUpdate = Rand.Range(0, IFluidDevice.WaitTicksBetweenUpdates);    
     }
 
     public override void Update(float deltaTime, Camera cam)
@@ -69,6 +86,13 @@ public class LiquidTransfer : ItemComponent
             if (!sampleLiquid.Any())
                 return;
 
+            var sampleProperties = FluidDatabase.Instance.GetFluidProperties(sampleLiquid[0].Identifier,
+                FluidProperties.PhaseType.Liquid);
+            // for performance purposes, we take the acceleration ratio of the first fluid only. 
+            // if needed, should be changed to take the acceleration from the highest volume fluid.
+            // However, this requires withdrawing fluid pre-emptively.
+            var sampleAccelRatio = sampleProperties?.AccelerationRatio ?? 0f;
+
             foreach (IFluidDevice device in consumers)
             {
                 foreach (var container in device.GetFluidContainersByGroup<LiquidContainer>(ILiquidData.SymbolConnInput))       
@@ -86,21 +110,15 @@ public class LiquidTransfer : ItemComponent
             }
             
             // calculate fluid proportions per container.          
-            float sum = 0;
-            float sumVolume = 0;
-            foreach (LiquidData data in sampleLiquid)
-            {
-                sumVolume += data.Volume;
-            }
-            
+            float sumProportions = 0;
             int tankCount = consumerTanks.Count;
             // calculate proportions
             // stack overflow protection limit of 128
-            Span<float> proportions = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            //Span<float> proportions = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> deltaPressures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> apertures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> velocities = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> availableVolumes = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> toTransferVolume = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
 
             // calculate stats
             for (int i = 0; i < consumerTanks.Count; i++)
@@ -108,20 +126,22 @@ public class LiquidTransfer : ItemComponent
                 var tank = consumerTanks[i];
                 deltaPressures[i] = producerTank.Pressure - tank.Pressure;
                 apertures[i] = tank.GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
-                sum += deltaPressures[i] * apertures[i];
-                availableVolumes[i] = Math.Min(sumVolume, sampleLiquid.Sum(l => tank.GetMaxFreeVolume(l)));
-                if (FluidDatabase.Instance.GetFluidProperties(sampleLiquid[0].Identifier,
-                        FluidProperties.PhaseType.Liquid) is { } liquidProps)
-                {
-                    velocities[i] = producerTank.Velocity + deltaPressures[i] * liquidProps.AccelerationRatio;
-                }
-                else
-                {
-                    velocities[i] = producerTank.Velocity;
-                }
+                sumProportions += deltaPressures[i] * apertures[i]; 
+                velocities[i] = producerTank.Velocity + deltaPressures[i] * sampleAccelRatio;
+            }
+
+            for (int i = 0; i < consumerTanks.Count; i++)
+            {
+                var proportion = deltaPressures[i] * apertures[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
+                toTransferVolume[i] = Math.Min(producerTank.Volume,
+                    consumerTanks[i].GetMaxFreeVolume<LiquidData, ImmutableList<LiquidData>>(sampleLiquid));
             }
             
             // calculate amount of volume to be sent to consumers
+            
+            
+            // check against limits
+            
             
             // send volume
             

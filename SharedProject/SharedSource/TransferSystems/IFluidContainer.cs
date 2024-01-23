@@ -26,7 +26,16 @@ public interface IFluidContainer
     
     public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
     public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
-    public float GetMaxFreeVolume<T>(T fluidData) where T : IFluidData, new();
+    public float GetMaxFreeVolume<T>(in T fluidData) where T : IFluidData, new();
+    /// <summary>
+    /// Given a sample list (no volume), returns the available volume for storing any combination of the fluids in the list
+    /// at their supplied values (pressure, temperature, etc.).
+    /// </summary>
+    /// <param name="fluidData"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T2"></typeparam>
+    /// <returns></returns>
+    public float GetMaxFreeVolume<T,T2>(T2 fluidData) where T : IFluidData, new() where T2 : IEnumerable<T>;
 
     public float GetApertureSizeForConnection(string connName);
     public void SetApertureSizeForConnection(string connName, float value);

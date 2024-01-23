@@ -77,7 +77,12 @@ public class LiquidContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T>(T fluidData) where T : IFluidData, new()
+    public float GetMaxFreeVolume<T>(in T fluidData) where T : IFluidData, new()
+    {
+        throw new NotImplementedException();
+    }
+
+    public float GetMaxFreeVolume<T,T2>(T2 fluidData) where T : IFluidData, new() where T2 : IEnumerable<T>
     {
         throw new NotImplementedException();
     }
