@@ -26,8 +26,8 @@ public interface IFluidContainer
     
     public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
     public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
+    public float GetMaxFreeVolume<T>(T fluidData) where T : IFluidData, new();
 
     public float GetApertureSizeForConnection(string connName);
-
     public void SetApertureSizeForConnection(string connName, float value);
 }

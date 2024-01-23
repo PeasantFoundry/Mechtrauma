@@ -7,6 +7,21 @@ public class LiquidTransfer : ItemComponent
 {
     #region VARS
 
+    [Editable, Serialize(true, IsPropertySaveable.Yes, "Are transfers enabled?")]
+    public bool IsEnabled { get; set; }
+
+    private float _maxFlowRate;
+    [Editable, Serialize(float.MaxValue-1f, IsPropertySaveable.Yes, "Max flow rate (L).")]
+    public float MaxFlowRate
+    {
+        get => _maxFlowRate;
+        set => _maxFlowRate = Math.Max(0, value);
+    }
+    
+    public static readonly string SIGNAL_VOLUMETRIC_RATE = "output_flow_rate";
+    public static readonly string SIGNAL_PRESSURE = "output_flow_rate";
+    public static readonly string SIGNAL_VELOCITY = "output_velocity";
+
     private int _ticksUntilUpdate = 0;
 
     #endregion
@@ -18,11 +33,14 @@ public class LiquidTransfer : ItemComponent
     public override void Update(float deltaTime, Camera cam)
     {
         base.Update(deltaTime, cam);
-        _ticksUntilUpdate--;
-        if (_ticksUntilUpdate < 1)
+        if (IsEnabled)
         {
-            _ticksUntilUpdate = IFluidDevice.WaitTicksBetweenUpdates;
-            UpdateLiquidTransfers();
+            _ticksUntilUpdate--;
+            if (_ticksUntilUpdate < 1)
+            {
+                _ticksUntilUpdate = IFluidDevice.WaitTicksBetweenUpdates;
+                UpdateLiquidTransfers();
+            }
         }
     }
 
@@ -46,35 +64,70 @@ public class LiquidTransfer : ItemComponent
                 return;
             
             // get valid consumers
+            var sampleLiquid = producerTank.TakeFluidProportional<LiquidData>(0f).ToImmutableList();
+
+            if (!sampleLiquid.Any())
+                return;
+
             foreach (IFluidDevice device in consumers)
             {
-                foreach (var container in device.GetFluidContainersByGroup<LiquidContainer>(ILiquidData.SymbolConnInput))
+                foreach (var container in device.GetFluidContainersByGroup<LiquidContainer>(ILiquidData.SymbolConnInput))       
                 {
+                    if (container is null)
+                        continue;
                     if (container.Pressure - producerTank.Pressure > float.Epsilon) // back pressure excess
                         continue;
                     if (container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput) < float.Epsilon) // valve closed
+                        continue;
+                    if (!container.CanPutFluids(sampleLiquid))
                         continue;
                     consumerTanks.Add(container);
                 }
             }
             
-            // check if consumers can accept the fluids the producer has available
-            var liquidData = producerTank.TakeFluidProportional<LiquidData>(0f);    //sample
-            consumerTanks = consumerTanks.Where(c => c.CanPutFluids(liquidData)).ToList();
-
-            // calculate fluid proportions per container.
+            // calculate fluid proportions per container.          
             float sum = 0;
-            foreach (var container in consumerTanks)
+            float sumVolume = 0;
+            foreach (LiquidData data in sampleLiquid)
             {
-                sum += (producerTank.Pressure - container.Pressure) * container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
+                sumVolume += data.Volume;
             }
-
             
-            // send fluid to consumers
-        }
+            int tankCount = consumerTanks.Count;
+            // calculate proportions
+            // stack overflow protection limit of 128
+            Span<float> proportions = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> deltaPressures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> apertures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> velocities = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> availableVolumes = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
 
+            // calculate stats
+            for (int i = 0; i < consumerTanks.Count; i++)
+            {
+                var tank = consumerTanks[i];
+                deltaPressures[i] = producerTank.Pressure - tank.Pressure;
+                apertures[i] = tank.GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
+                sum += deltaPressures[i] * apertures[i];
+                availableVolumes[i] = Math.Min(sumVolume, sampleLiquid.Sum(l => tank.GetMaxFreeVolume(l)));
+                if (FluidDatabase.Instance.GetFluidProperties(sampleLiquid[0].Identifier,
+                        FluidProperties.PhaseType.Liquid) is { } liquidProps)
+                {
+                    velocities[i] = producerTank.Velocity + deltaPressures[i] * liquidProps.AccelerationRatio;
+                }
+                else
+                {
+                    velocities[i] = producerTank.Velocity;
+                }
+            }
+            
+            // calculate amount of volume to be sent to consumers
+            
+            // send volume
+            
+        } 
+    
         
-
         bool TryGetProducerAndConsumers()
         {
             bool success = false;

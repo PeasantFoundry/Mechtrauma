@@ -77,6 +77,11 @@ public class LiquidContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
+    public float GetMaxFreeVolume<T>(T fluidData) where T : IFluidData, new()
+    {
+        throw new NotImplementedException();
+    }
+
     public float GetApertureSizeForConnection(string connName)
     {
         throw new NotImplementedException();
