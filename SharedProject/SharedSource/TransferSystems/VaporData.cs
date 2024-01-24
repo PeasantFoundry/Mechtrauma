@@ -10,7 +10,8 @@ public struct VaporData : IVaporData
     public float Temperature { get; }
     public float Velocity { get; }
     public float Volume { get; }
-    
+    public float Mass { get; }
+
     public void UpdateForDensity(float newDensity)
     {
         throw new NotImplementedException();
@@ -36,4 +37,8 @@ public struct VaporData : IVaporData
         throw new NotImplementedException();
     }
 
+    public void UpdateForMass(float newMass)
+    {
+        throw new NotImplementedException();
+    }
 }
