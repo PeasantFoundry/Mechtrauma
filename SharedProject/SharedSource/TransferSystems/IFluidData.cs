@@ -9,9 +9,12 @@ public interface IFluidData
     public float Temperature { get; }
     public float Velocity { get; }
     public float Volume { get; }
+    public float Mass { get; }
 
     public void UpdateForDensity(float newDensity);
     public void UpdateForPressure(float newPressure);
     public void UpdateForTemperature(float newTemperature);
     public void UpdateForVelocity(float newVelocity);
+    public void UpdateForVolume(float newVolume);
+    public void UpdateForMass(float newMass);
 }

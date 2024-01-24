@@ -2,7 +2,7 @@
 
 public class VaporContainer : IFluidContainer
 {
-    public ref readonly Dictionary<string, IFluidData> ContainedFluids => throw new NotImplementedException();
+    public Dictionary<string, IFluidData> ContainedFluids { get; protected set; } = new();
 
     public float AvgDensity { get; }
     public float Pressure { get; }

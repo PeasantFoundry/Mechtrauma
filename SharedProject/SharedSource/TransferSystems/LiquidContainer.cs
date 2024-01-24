@@ -41,12 +41,28 @@ public class LiquidContainer : IFluidContainer
 
     public void UpdateForVolume(float newVolume)
     {
-        throw new NotImplementedException();
+        newVolume = Math.Max(0f, newVolume);
+        var ratio = newVolume / Volume;
+        Volume = newVolume;
+        if (newVolume < 0.001f)
+        {
+            Volume = 0f;
+            ContainedFluids.Clear();    // empty container
+            return;
+        }
+        foreach (var fluid in ContainedFluids)
+        {
+            fluid.Value.UpdateForVolume(fluid.Value.Volume * ratio);
+        }
     }
 
     public void UpdateForContainerVolume(float newVolume)
     {
-        throw new NotImplementedException();
+        ContainerVolume = Math.Max(0f, newVolume);
+        if (ContainerVolume < Volume)
+        {
+            UpdateForVolume(newVolume);
+        }
     }
 
     public void UpdateForMass(float newMass)
@@ -56,7 +72,7 @@ public class LiquidContainer : IFluidContainer
 
     public bool CanTakeFluid()
     {
-        throw new NotImplementedException();
+        return ContainedFluids.Any() & Volume > float.Epsilon;
     }
 
     public IReadOnlyList<T> TakeFluidProportional<T>(float volume) where T : IFluidData, new()

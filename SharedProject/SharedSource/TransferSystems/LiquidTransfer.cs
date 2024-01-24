@@ -1,5 +1,6 @@
 ﻿using Barotrauma;
 using Barotrauma.Items.Components;
+using FarseerPhysics.Dynamics;
 
 namespace Mechtrauma.TransferSystems;
 
@@ -25,6 +26,15 @@ public class LiquidTransfer : ItemComponent
     {
         get => _pressureOutputRatio;
         set => _pressureOutputRatio = Math.Clamp(value, 0.1f, 10f);
+    }
+
+    private float _velocityOutputRatio;
+
+    [Editable(0.1f, 10f), Serialize(1f, IsPropertySaveable.Yes, "Exit/Outlet velocity adjustment multiplier.")]
+    public float VelocityOutputRatio
+    {
+        get => _velocityOutputRatio;
+        set => _velocityOutputRatio = Math.Clamp(value, 0.1f, 10f);
     }
     
     public static readonly string SIGNAL_VOLUMETRIC_RATE = "output_flow_rate";
@@ -130,7 +140,7 @@ public class LiquidTransfer : ItemComponent
             }
             
             var producerAperture = producerTank.GetApertureSizeForConnection(ILiquidData.SymbolConnOutput);
-            var maxOutVolume = producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum);
+            var maxOutVolume = Math.Min(producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), MaxFlowRate * IFluidDevice.FixedDeltaTime);
             var proportionRel = 0f;
             
             // calculate stats
@@ -140,7 +150,7 @@ public class LiquidTransfer : ItemComponent
                 deltaPressures[i] = producerTank.Pressure - tank.Pressure;
                 proportionsAbs[i] = deltaPressures[i] * apertures[i];
                 sumProportions += proportionsAbs[i]; 
-                velocities[i] = producerTank.Velocity + deltaPressures[i] * sampleAccelRatio;
+                velocities[i] = (producerTank.Velocity + deltaPressures[i] * sampleAccelRatio) * VelocityOutputRatio;
             }
 
             for (int i = 0; i < consumerTanks.Count; i++)
