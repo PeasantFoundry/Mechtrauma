@@ -113,37 +113,52 @@ public class LiquidTransfer : ItemComponent
             float sumProportions = 0;
             int tankCount = consumerTanks.Count;
             // calculate proportions
-            // stack overflow protection limit of 128
-            //Span<float> proportions = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> deltaPressures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> apertures = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> velocities = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> toTransferVolume = tankCount < 128 ? stackalloc float[tankCount] : new float[tankCount];
+            // stack overflow protection limit of 64
+            
+            // alloc memory
+            Span<float> proportionsAbs = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> deltaPressures = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> apertures = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> velocities = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> toTransferVolume = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
 
+            var consumerApertureSum = 0f;
+            for (int i = 0; i < consumerTanks.Count; i++)
+            {
+                apertures[i] = consumerTanks[i].GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
+                consumerApertureSum += apertures[i];
+            }
+            
+            var producerAperture = producerTank.GetApertureSizeForConnection(ILiquidData.SymbolConnOutput);
+            var maxOutVolume = producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum);
+            var proportionRel = 0f;
+            
             // calculate stats
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 var tank = consumerTanks[i];
                 deltaPressures[i] = producerTank.Pressure - tank.Pressure;
-                apertures[i] = tank.GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
-                sumProportions += deltaPressures[i] * apertures[i]; 
+                proportionsAbs[i] = deltaPressures[i] * apertures[i];
+                sumProportions += proportionsAbs[i]; 
                 velocities[i] = producerTank.Velocity + deltaPressures[i] * sampleAccelRatio;
             }
 
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                var proportion = deltaPressures[i] * apertures[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
-                toTransferVolume[i] = Math.Min(producerTank.Volume,
+                proportionRel = proportionsAbs[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
+                // lower of volume from producer and consumer tank limits
+                toTransferVolume[i] = Math.Min(maxOutVolume * proportionRel,
                     consumerTanks[i].GetMaxFreeVolume<LiquidData, ImmutableList<LiquidData>>(sampleLiquid));
             }
             
-            // calculate amount of volume to be sent to consumers
-            
-            
-            // check against limits
-            
-            
-            // send volume
+            // extract volume and send 
+            for (int i = 0; i < consumerTanks.Count; i++)
+            {
+                consumerTanks[i].PutFluids(producerTank.TakeFluidProportional<LiquidData>(toTransferVolume[i]));
+                // V1*A1 = V2*A2
+                consumerTanks[i].UpdateForVelocity(
+                    velocities[i] * producerAperture / apertures[i]); 
+            }
             
         } 
     
