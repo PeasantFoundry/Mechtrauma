@@ -8,6 +8,7 @@ public interface IFluidData
     public float Pressure { get; }
     public float Temperature { get; }
     public float Velocity { get; }
+    public float Volume { get; }
 
     public void UpdateForDensity(float newDensity);
     public void UpdateForPressure(float newPressure);

@@ -1,30 +1,42 @@
 ﻿namespace Mechtrauma.TransferSystems;
 
-public class LiquidContainer : IFluidContainer
+public class LiquidContainer : IFluidContainer 
 {
-    public ref readonly Dictionary<string, IFluidData> ContainedFluids => throw new NotImplementedException();
+    public Dictionary<string, IFluidData> ContainedFluids { get; protected set; }
 
-    public float AvgDensity { get; }
-    public float Pressure { get; }
-    public float Temperature { get; }
-    public float Velocity { get; }
-    public float Volume { get; }
-    public float ContainerVolume { get; }
-    public float FluidMass { get; }
+    public float AvgDensity { get; protected set; }
+    public float Pressure { get; protected set; }
+    public float Temperature { get; protected set; }
+    public float Velocity { get; protected set; }
+    public float Volume { get; protected set; }
+    public float ContainerVolume { get; protected set; }
+    public float FluidMass { get; protected set; }
     
     public void UpdateForPressure(float newPressure)
     {
-        throw new NotImplementedException();
+        Pressure = Math.Max(0f, newPressure);
+        foreach (var fluid in ContainedFluids)
+        {
+            fluid.Value.UpdateForPressure(Pressure);
+        }
     }
 
     public void UpdateForTemperature(float newTemperature)
     {
-        throw new NotImplementedException();
+        Temperature = Math.Max(0f, newTemperature);
+        foreach (var fluid in ContainedFluids)
+        {
+            fluid.Value.UpdateForTemperature(Temperature);
+        }
     }
 
     public void UpdateForVelocity(float newVelocity)
     {
-        throw new NotImplementedException();
+        Velocity = Math.Max(0f, newVelocity);
+        foreach (var fluid in ContainedFluids)
+        {
+            fluid.Value.UpdateForVelocity(Velocity);
+        }
     }
 
     public void UpdateForVolume(float newVolume)

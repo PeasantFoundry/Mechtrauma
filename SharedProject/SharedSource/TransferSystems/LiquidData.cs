@@ -9,7 +9,7 @@ public struct LiquidData : ILiquidData
     public float Temperature { get; }
     public float Velocity { get; }
     public float Volume { get; }
-    
+
     public void UpdateForDensity(float newDensity)
     {
         throw new NotImplementedException();

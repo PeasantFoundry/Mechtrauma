@@ -2,7 +2,7 @@
 
 public interface IFluidContainer
 {
-    public ref readonly Dictionary<string, IFluidData> ContainedFluids { get; }
+    public Dictionary<string, IFluidData> ContainedFluids { get; }
     public float AvgDensity { get; }
     public float Pressure { get; }
     public float Temperature { get; }
