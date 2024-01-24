@@ -152,14 +152,12 @@ public class LiquidTransfer : ItemComponent
             }
             
             // extract volume and send 
+            var consumerApertureRatio = producerAperture / consumerApertureSum;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 consumerTanks[i].PutFluids(producerTank.TakeFluidProportional<LiquidData>(toTransferVolume[i]));
-                // V1*A1 = V2*A2
-                consumerTanks[i].UpdateForVelocity(
-                    velocities[i] * producerAperture / apertures[i]); 
+                consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); 
             }
-            
         } 
     
         
