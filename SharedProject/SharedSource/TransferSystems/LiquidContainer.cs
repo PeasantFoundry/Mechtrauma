@@ -1,6 +1,6 @@
 ﻿namespace Mechtrauma.TransferSystems;
 
-public class LiquidContainer : IFluidContainer 
+public class LiquidContainer : IFluidContainer
 {
     public Dictionary<string, IFluidData> ContainedFluids { get; protected set; }
 
@@ -41,15 +41,20 @@ public class LiquidContainer : IFluidContainer
 
     public void UpdateForVolume(float newVolume)
     {
-        newVolume = Math.Max(0f, newVolume);
-        var ratio = newVolume / Volume;
-        Volume = newVolume;
-        if (newVolume < 0.001f)
+        newVolume = Math.Clamp(newVolume, 0f, ContainerVolume);
+        if (newVolume < 0.01f)
         {
             Volume = 0f;
             ContainedFluids.Clear();    // empty container
+            FluidMass = 0f;
+            AvgDensity = 0f;
             return;
         }
+        
+        var ratio = newVolume / Volume;
+        Volume = newVolume;
+        FluidMass *= ratio;
+        
         foreach (var fluid in ContainedFluids)
         {
             fluid.Value.UpdateForVolume(fluid.Value.Volume * ratio);
@@ -67,7 +72,7 @@ public class LiquidContainer : IFluidContainer
 
     public void UpdateForMass(float newMass)
     {
-        throw new NotImplementedException();
+        UpdateForVolume(newMass / FluidMass / AvgDensity);
     }
 
     public bool CanTakeFluid()
@@ -75,17 +80,18 @@ public class LiquidContainer : IFluidContainer
         return ContainedFluids.Any() & Volume > float.Epsilon;
     }
 
-    public IReadOnlyList<T> TakeFluidProportional<T>(float volume) where T : IFluidData, new()
+    public T2 TakeFluidProportional<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
+    {
+        List<T> l = new List<T>();
+        throw new NotImplementedException();
+    }
+
+    public T2 TakeFluidBottom<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
     {
         throw new NotImplementedException();
     }
 
-    public IReadOnlyList<T> TakeFluidBottom<T>(float volume) where T : IFluidData, new()
-    {
-        throw new NotImplementedException();
-    }
-
-    public IReadOnlyList<T> TakeFluidTop<T>(float volume) where T : IFluidData, new()
+    public T2 TakeFluidTop<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
     {
         throw new NotImplementedException();
     }
@@ -95,12 +101,12 @@ public class LiquidContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new()
+    public bool CanPutFluids<T, T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>
     {
         throw new NotImplementedException();
     }
 
-    public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new()
+    public bool PutFluids<T, T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>
     {
         throw new NotImplementedException();
     }
@@ -110,7 +116,7 @@ public class LiquidContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T,T2>(T2 fluidData) where T : IFluidData, new() where T2 : IEnumerable<T>
+    public float GetMaxFreeVolume<T, T2>(in T2 fluidData) where T : IFluidData, new() where T2 : IList<T>
     {
         throw new NotImplementedException();
     }

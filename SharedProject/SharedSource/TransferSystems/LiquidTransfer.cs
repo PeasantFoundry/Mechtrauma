@@ -91,7 +91,7 @@ public class LiquidTransfer : ItemComponent
                 return;
             
             // get valid consumers
-            var sampleLiquid = producerTank.TakeFluidProportional<LiquidData>(0f).ToImmutableList();
+            var sampleLiquid = producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(0f);
 
             if (!sampleLiquid.Any())
                 return;
@@ -113,7 +113,7 @@ public class LiquidTransfer : ItemComponent
                         continue;
                     if (container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput) < float.Epsilon) // valve closed
                         continue;
-                    if (!container.CanPutFluids(sampleLiquid))
+                    if (!container.CanPutFluids<LiquidData, List<LiquidData>>(sampleLiquid))
                         continue;
                     consumerTanks.Add(container);
                 }
@@ -158,14 +158,14 @@ public class LiquidTransfer : ItemComponent
                 proportionRel = proportionsAbs[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
                 // lower of volume from producer and consumer tank limits
                 toTransferVolume[i] = Math.Min(maxOutVolume * proportionRel,
-                    consumerTanks[i].GetMaxFreeVolume<LiquidData, ImmutableList<LiquidData>>(sampleLiquid));
+                    consumerTanks[i].GetMaxFreeVolume<LiquidData, List<LiquidData>>(sampleLiquid));
             }
             
             // extract volume and send 
             var consumerApertureRatio = producerAperture / consumerApertureSum;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                consumerTanks[i].PutFluids(producerTank.TakeFluidProportional<LiquidData>(toTransferVolume[i]));
+                consumerTanks[i].PutFluids<LiquidData, List<LiquidData>>(producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(toTransferVolume[i]));
                 consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); 
             }
         } 

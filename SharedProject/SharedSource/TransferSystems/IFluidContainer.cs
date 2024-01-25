@@ -19,13 +19,13 @@ public interface IFluidContainer
     public void UpdateForMass(float newMass);
 
     public bool CanTakeFluid();
-    public IReadOnlyList<T> TakeFluidProportional<T>(float volume) where T : IFluidData, new();
-    public IReadOnlyList<T> TakeFluidBottom<T>(float volume) where T : IFluidData, new();
-    public IReadOnlyList<T> TakeFluidTop<T>(float volume) where T : IFluidData, new();
+    public T2 TakeFluidProportional<T,T2>(float volume) where T : IFluidData, new() where T2 : IList<T>;
+    public T2 TakeFluidBottom<T,T2>(float volume) where T : IFluidData, new() where T2 : IList<T>;
+    public T2 TakeFluidTop<T,T2>(float volume) where T : IFluidData, new() where T2 : IList<T>;
     public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : IFluidData, new();    
     
-    public bool CanPutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
-    public bool PutFluids<T>(IReadOnlyList<T> fluids) where T : IFluidData, new();
+    public bool CanPutFluids<T,T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>;
+    public bool PutFluids<T,T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>;
     public float GetMaxFreeVolume<T>(in T fluidData) where T : IFluidData, new();
     /// <summary>
     /// Given a sample list (no volume), returns the available volume for storing any combination of the fluids in the list
@@ -35,7 +35,7 @@ public interface IFluidContainer
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="T2"></typeparam>
     /// <returns></returns>
-    public float GetMaxFreeVolume<T,T2>(T2 fluidData) where T : IFluidData, new() where T2 : IEnumerable<T>;
+    public float GetMaxFreeVolume<T,T2>(in T2 fluidData) where T : IFluidData, new() where T2 : IList<T>;
 
     public float GetApertureSizeForConnection(string connName);
     public void SetApertureSizeForConnection(string connName, float value);
