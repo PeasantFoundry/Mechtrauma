@@ -2,14 +2,14 @@
 
 public struct LiquidData : ILiquidData
 {
-    public string Identifier { get; }
-    public string FriendlyName { get; }
-    public float Density { get; }
-    public float Pressure { get; }
-    public float Temperature { get; }
-    public float Velocity { get; }
-    public float Volume { get; }
-    public float Mass { get; }
+    public string Identifier { get; init; }
+    public string FriendlyName { get; init; }
+    public float Density { get; private set; }
+    public float Pressure { get; private set; }
+    public float Temperature { get; private set; }
+    public float Velocity { get; private set; }
+    public float Volume { get; private set; }
+    public float Mass { get; private set; }
 
     public void UpdateForDensity(float newDensity)
     {
@@ -39,5 +39,13 @@ public struct LiquidData : ILiquidData
     public void UpdateForMass(float newMass)
     {
         throw new NotImplementedException();
+    }
+
+    public T Clone<T>() where T : struct, IFluidData
+    {
+        if (typeof(T) != typeof(LiquidData))
+            return new T();
+        var data = this;    // struct copy
+        return (T)(ILiquidData)data;
     }
 }

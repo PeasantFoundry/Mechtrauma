@@ -41,4 +41,9 @@ public struct VaporData : IVaporData
     {
         throw new NotImplementedException();
     }
+
+    public T Clone<T>() where T : struct, IFluidData
+    {
+        throw new NotImplementedException();
+    }
 }

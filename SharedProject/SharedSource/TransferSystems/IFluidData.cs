@@ -17,4 +17,5 @@ public interface IFluidData
     public void UpdateForVelocity(float newVelocity);
     public void UpdateForVolume(float newVolume);
     public void UpdateForMass(float newMass);
+    public T Clone<T>() where T : struct, IFluidData;
 }

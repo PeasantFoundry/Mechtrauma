@@ -46,45 +46,46 @@ public class VaporContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public T2 TakeFluidProportional<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
+    public T2 TakeFluidProportional<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
 
-    public T2 TakeFluidBottom<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
+    public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
 
-    public T2 TakeFluidTop<T, T2>(float volume) where T : IFluidData, new() where T2 : IList<T>
+    public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
 
-    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : IFluidData, new()
+    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData
     {
         throw new NotImplementedException();
     }
 
-    public bool CanPutFluids<T, T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>
+    public bool CanPutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
 
-    public bool PutFluids<T, T2>(in T2 fluids) where T : IFluidData, new() where T2 : IList<T>
+    public bool PutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T>(in T fluidData) where T : IFluidData, new()
+    public float GetMaxFreeVolume<T>(in T fluidData) where T : struct, IFluidData
     {
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T, T2>(in T2 fluidData) where T : IFluidData, new() where T2 : IList<T>
+    public float GetMaxFreeVolume<T, T2>(in T2 fluidData) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }
+
 
     public float GetApertureSizeForConnection(string connName)
     {
