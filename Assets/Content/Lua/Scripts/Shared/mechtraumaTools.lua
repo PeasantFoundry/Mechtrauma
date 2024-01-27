@@ -50,7 +50,7 @@ end
 --                                    HOOKS                                   --
 -- -------------------------------------------------------------------------- --
 
--- infared themometer 
+-- infared themometer
 Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     local target =  item.ParentInventory.Owner.FocusedItem
@@ -75,7 +75,7 @@ Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delt
 
 end)
 
-Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, item, targets, worldPosition, client)    
+Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, item, targets, worldPosition, client)
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     local targetItem
     if item.OwnInventory.GetItemAt(0) ~= nil then
@@ -92,12 +92,12 @@ Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, ite
     end
 
     terminal.TextColor = Color.Gray
-    MT.HF.BlankTerminalLines(terminal, 10)  
+    MT.HF.BlankTerminalLines(terminal, 10)
     terminal.SendMessage("PROCESSING REQUEST...", Color.Gray)
     MT.HF.BlankTerminalLines(terminal, 1)
     terminal.TextColor = Color(250,100,60,255)
 
-    local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")      
+    local tagTable = MT.HF.Split(string.lower(targetItem.Tags),",")
     --terminal.TextColor = Color(250,100,60,255)
     terminal.SendMessage("*DIAGNOSTIC RESULT*")
     terminal.SendMessage("TARGET: " .. targetItem.name, Color(250,100,60,255))
@@ -108,8 +108,8 @@ Hook.Add("mtMoblie_readTags.OnUse", "MT.moblie", function(effect, deltaTime, ite
 
   end)
 
--- hand truck 
-Hook.Add("mtHandTruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+-- hand truck
+Hook.Add("mtHandTruck.onUse", "MT.handTruck", function(statusEffect, delta, item)
     local target =  item.ParentInventory.Owner.FocusedItem
     -- move the target into the hand truck, if you can
     if target ~= nil then item.OwnInventory.TryPutItem(target, owner) end
@@ -121,7 +121,7 @@ Hook.Add("mtHandTruck.onUse", "mtLinker.mtLinker", function(statusEffect, delta,
 end)
 
 -- hand cuffs
-Hook.Add("mtHandCuff.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+Hook.Add("mtHandCuff.onUse", "MT.cuffs", function(statusEffect, delta, item)
     local source = item.ParentInventory.Owner
     local target = item.ParentInventory.Owner.FocusedCharacter
     if not target then return end -- abort if there is no target
@@ -152,28 +152,63 @@ Hook.Add("mtHandCuff.onUse", "mtLinker.mtLinker", function(statusEffect, delta, 
     end
 end)
 
-Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+-- ----------------------------- MT ITEM LINKER ----------------------------- --
+Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(effect, deltaTime, item, targets, worldPosition, client)
+    MT.T.Linker(item)
+end)
 
-    --local target = findtarget.findtarget(item)
+-- ----------------------------- ONE WAY LINKER ----------------------------- --
+function MT.T.diagnosticLink(item, diagnosticProgram)
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local mtc = MTUtils.GetComponentByName(item, "Mechtrauma.MTC")
     local target = findtarget.findtarget(item)
 
-    if CLIENT and Game.IsMultiplayer then
-        return
-    end
+    --local target = findtarget.findtarget(item)
+
+    -- SERVER ONLY
+    if CLIENT and Game.IsMultiplayer then return end
     local owner = findtarget.FindClientCharacter(item.ParentInventory.Owner)
 
+    -- NO TARGET
     if target == nil then
-        AddMessage("No item found", owner)
+        if terminal then terminal.SendMessage("NO TARGET", Color(255,100,50,255)) else AddMessage("No item found", owner) end
         return
     end
+
+    local otherTarget = item
+
+    --// clear any previous diagnostic links
+    if MT.C.HD[item].MTC.cd.dieseldoctor then
+        -- set the diagnostic link to the target
+        MT.C.HD[item].MTC.cd.dieseldoctor.diagnosticLinkID = target.ID
+        terminal.SendMessage("Diagnostic link set to " .. tostring(target), Color(255,100,50,255))
+    end
+end
+
+-- ----------------------------- TWO WAY LINKER ----------------------------- --
+function MT.T.Linker(effect, deltaTime, item, targets, worldPosition, client)
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local target = findtarget.findtarget(item)
+    --local target = findtarget.findtarget(item)
+
+    -- SERVER ONLY
+    if CLIENT and Game.IsMultiplayer then return end
+    local owner = findtarget.FindClientCharacter(item.ParentInventory.Owner)
+
+    -- NO TARGET
+    if target == nil then
+        if terminal then terminal.SendMessage("NO TARGET", Color(255,100,50,255)) else AddMessage("No item found", owner) end
+        return
+    end
+
 
     if links[item] == nil then
         links[item] = target
-        AddMessage(string.format("Link Start: \"%s\"", target.Name), owner)
+        -- terminal vs chat message
+        if terminal then terminal.SendMessage("Link Start: " .. target.Name, Color(255,100,50,255)) else AddMessage(string.format("Link Start: \"%s\"", target.Name), owner) end
         findtarget.currsor_pos = 0
     else
         local otherTarget = links[item]
-
         if otherTarget == target then
             AddMessage("The linked items cannot be the same", owner)
             links[item] = nil
@@ -215,9 +250,7 @@ Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(statusEffect, delta, it
         links[item] = nil
         findtarget.currsor_pos = 0
     end
-end)
-
-
+end
 -- -------------------------------------------------------------------------- --
 --                               more functions                               --
 -- -------------------------------------------------------------------------- --
@@ -269,7 +302,7 @@ end)
         end
         return closest
     end
-    
+
     findtarget.findtarget = function(item)
         if CLIENT and Game.IsMultiplayer then
             -- for better accuracy
@@ -280,7 +313,7 @@ end)
             Networking.Send(msg)
             return
         end
-    
+
         -- SinglePlayer
         if not Game.IsMultiplayer then
             findtarget.cursor_pos = item.ParentInventory.Owner.CursorWorldPosition
@@ -289,19 +322,18 @@ end)
         if not findtarget.cursor_updated and Game.IsMultiplayer then
             findtarget.cursor_pos = item.WorldPosition
         end
-    
+
         if item.ParentInventory == nil or item.ParentInventory.Owner == nil then return end
-    
+
         local target = FindClosestItem(item.Submarine, findtarget.cursor_pos)
         return target
     end
-    
+
     Networking.Receive("lualinker.clientsidevalue", function(msg)
         local position = Vector2(msg.ReadSingle(), msg.ReadSingle())
         findtarget.cursor_pos = position
         findtarget.cursor_updated = true
     end)
-    
+
     return findtarget
-    
-    
+

@@ -12,6 +12,10 @@ MT.itemUpdates = {
         tags={"airFilter"},
         update=MT.UF.airFilter
     },
+    cardboardbox={
+        tags={"cardboardbox"},
+        update=MT.UF.cardBoardBox
+    },
     centralComputer={
         tags={"centralcomputer"},
         update=MT.UF.centralComputer
@@ -31,6 +35,10 @@ MT.itemUpdates = {
     cylinderHead={
         tags={"cylinderHead"},
         update=MT.UF.cylinderHead
+    },
+    dieselCalibration={
+        tags={"dieselCalibration"},
+        update=MT.UF.dieselCalibration
     },
     dieselEngine={
         tags={"dieselEngine"},
@@ -194,8 +202,15 @@ function MT.CacheItem(item)
                 MT.itemCache[item].counter = 0
                 MT.itemCacheCount = MT.itemCacheCount + 1
         end
-
+    elseif not MT.priorityItemCache[item] then
+        if item.HasTag("MTPU") then
+            MT.priorityItemCache[item] = {}
+            MT.priorityItemCache[item].counter = 0
+            MT.priorityItemCacheCount = MT.priorityItemCacheCount + 1
+        end
     end
+
+
     -- populate the parts inventory
     if not MT.inventoryCache[item] then
         -- add the parts to the inventoryCache

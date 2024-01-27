@@ -19,7 +19,7 @@ function MT.HF.string:split( inSplitPattern, outResults )
     end
     table.insert( outResults, string.sub( self, theStart ) )
     return outResults
-  end 
+  end
   --]]
 
 -- -------------------------------------------------------------------------- --
@@ -43,7 +43,7 @@ function MT.Net.ServerEventRead(component, message, client)
     print(tostring(message))
     print(tostring(client))
     if component.Name == "DieselEngine" then
-    
+
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
         generator.DiagnosticMode = message.ReadBoolean()
@@ -60,7 +60,7 @@ end
 function MT.Net.ServerEventWrite(component, message, client, extradata)
     print("WE MADE IT TO SW")
     if component.Name == "DieselEngine" then
-    
+
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")
         local dieselEngine = MTUtils.GetComponentByName(component.item, "Mechtrauma.DieselEngine")
         message.WriteBoolean(generator.DiagnosticMode)
@@ -139,15 +139,29 @@ function MT.HF.Split(string, inSplitPattern, outResults )
     return outResults
   end
 
+  function MT.HF.extractNumber(inputString, type)
+        -- type determines the type of number to return, int or float
+        -- default type is int because **** floats
+        if not type then type = "int" end
+
+        local cleanedString = inputString:gsub("[^%d.]", "")  -- Remove non-digit characters except for periods
+        local number = tonumber(cleanedString)
+
+        if not number then return nil end
+
+        if type == "int" then number = math.floor(number) end -- Round down to the nearest integer
+        return number
+    end
+
 
 -- -------------------------------------------------------------------------- --
 --                           MATHIMATICAL OPERATINS                           --
 -- -------------------------------------------------------------------------- --
--- TODO: pass thermal variables for thermal mass and conductivity 
+-- TODO: pass thermal variables for thermal mass and conductivity
 
 -- TODO: check for a more elegant way to handle in C#
 function MT.HF.mirrorParentThermal(item)
-    local childThermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")    
+    local childThermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
 
     if item.ParentInventory == nil or LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then
         -- NOT CONTAINED -> adjust to ambientTemperature
@@ -173,7 +187,7 @@ function MT.HF.mirrorParentThermal(item)
         end
     else
         -- Contained in an item with no thermal componenet
-        if not MT.HF.approxEquals(childThermal.Temperature, MT.ambientTemperature) then childThermal.Temperature = MT.HF.getNewTemp(childThermal.Temperature, MT.ambientTemperature, item.InWater) end    
+        if not MT.HF.approxEquals(childThermal.Temperature, MT.ambientTemperature) then childThermal.Temperature = MT.HF.getNewTemp(childThermal.Temperature, MT.ambientTemperature, item.InWater) end
     end
 end
 
@@ -210,7 +224,7 @@ function MT.HF.approxEquals(number1, number2, tolerance)
         tolerance = tolerance or 1 -- defaults to 1 if no tolerance argument
         return math.abs(number1 - number2) <= tolerance
 end
--- subtracts single amount from a list of items sequentially  
+-- subtracts single amount from a list of items sequentially
 function MT.HF.subFromListSeq (amount, list)
     local targetedItems ={}
     for k, item in pairs(list) do
@@ -231,7 +245,7 @@ end
 -- subtracts amount from list by dispursing/sharing it equally
 function MT.HF.subFromListDis (amount, list)
     for k, item in pairs(list) do
-        item.Condition = item.Condition - (amount / #list)        
+        item.Condition = item.Condition - (amount / #list)
     end
 end
 
@@ -256,9 +270,9 @@ end
 -- restricts an output to a range
 function MT.HF.Clamp(num, min, max)
     if(num<min) then
-        num = min 
-    elseif(num>max) then 
-        num = max 
+        num = min
+    elseif(num>max) then
+        num = max
     end
     return num
 end
@@ -313,7 +327,7 @@ function MT.HF.weightedRandom(weights)
 end
 
 -- returns an unrounded random number
-function MT.HF.RandomRange(min,max) 
+function MT.HF.RandomRange(min,max)
     return min+math.random()*(max-min)
 end
 
@@ -330,11 +344,11 @@ print("Selected index:", selectedIndex)
 -- -------------------------------------------------------------------------- --
 
 function MT.HF.FindClosestItem(submarine, position, type)
-    
+
     local closestItem = nil
     if type == "handtruck" then
-        
-         -- any item?       
+
+         -- any item?
          for key, value in pairs(submarine and submarine.GetItems(false) or Item.ItemList) do
             if value.HasTag("handtruck") or value.HasTag("crate") and value.ParentInventory == nil and value.NonInteractable == false then
                 if Vector2.Distance(position, value.WorldPosition) < 100 then
@@ -353,7 +367,7 @@ function MT.HF.FindClosestItem(submarine, position, type)
         return closestItem
 
     else
-        -- lua linker logic 
+        -- lua linker logic
         for key, value in pairs(submarine and submarine.GetItems(false) or Item.ItemList) do
             if value.Linkable and not value.HasTag("notlualinkable") and not value.HasTag("crate") and not value.HasTag("ammobox") and not value.HasTag("door") and not value.HasTag("smgammo") and not value.HasTag("hmgammo") and value.NonInteractable == false then
                 -- check if placable or if it does not have holdable component
@@ -379,7 +393,7 @@ function MT.HF.FindClosestItem(submarine, position, type)
                     end
                 end
             end
-        end    
+        end
         print(tostring(closestItem))
         return closestItem
     end
@@ -399,9 +413,9 @@ end
 
   -- shouldn't this be depricated?
 function MT.HF.findComponent(item, value)
-for comp in item.Components do      
+for comp in item.Components do
     if tostring(comp) == "Barotrauma.Items.Components." .. value then
-    return comp 
+    return comp
     end
 end
 return nil
@@ -409,8 +423,8 @@ end
 
 -- add function for removing useless lag causing items broken fuses,filters,emptycrates,
 function MT.HF.MechtraumaClean()
-    for k, item in pairs(Item.ItemList) do        
-        local pickableComponent = MTUtils.GetComponentByName(item, ".Pickable") 
+    for k, item in pairs(Item.ItemList) do
+        local pickableComponent = MTUtils.GetComponentByName(item, ".Pickable")
         if pickableComponent and pickableComponent.IsAttached == false and item.parentInventory == nil and not MTUtils.GetComponentByName(item, ".Wire") and item.container == nil and not item.HasTag("door") and not item.HasTag("ductblock") and item.ConditionPercentage < 1 then
             print("Item is cleanable: ", item)
             MT.HF.RemoveItem(item)
@@ -430,21 +444,21 @@ function MT.HF.BlankTerminalLines(terminal, lines, string)
     end
 end
 
--- DEPRICATED: colored terminal message 
+-- DEPRICATED: colored terminal message
 function MT.HF.SendTerminalColorMessage(item, terminal, color, message)
     local terminalOrgiginalColor = terminal.TextColor -- save the current terminal color
     local property = terminal.SerializableProperties[Identifier("TextColor")]
-  
+
             terminal.TextColor = color
             if SERVER then Networking.CreateEntityEvent(item, Item.ChangePropertyEventData(property, terminal)) end
-   
+
             terminal.ShowMessage = message
             if SERVER then terminal.SyncHistory()  end
-    --Timer.Wait(function() end,  10000) -- 100 = .1 second       
+    --Timer.Wait(function() end,  10000) -- 100 = .1 second
 end
 
 -- synce serialized property
--- be sure to pass property as a string 
+-- be sure to pass property as a string
 function MT.HF.SyncToClient(property, target)
                 Networking.CreateEntityEvent(target, Item.ChangePropertyEventData(target.SerializableProperties[Identifier(property)], target))
 end
@@ -453,7 +467,7 @@ end
 -- fucked by Hadrada on 11/12/22
 -- unfucked by Mannatu on 11/13/22
 function MT.HF.ItemIsWornInOuterClothesSlot(item)
-    if item.ParentInventory == nil then return false end 
+    if item.ParentInventory == nil then return false end
     if not LuaUserData.IsTargetType(item.ParentInventory, "Barotrauma.CharacterInventory") then return false end
     if item.ParentInventory.GetItemInLimbSlot(InvSlotType.OuterClothes) ~= item then return false end
 
@@ -465,7 +479,7 @@ function MT.HF.ItemIsWornInOuterClothesSlot(item)
 --                           TESTING AND VALIDATION                           --
 -- -------------------------------------------------------------------------- --
 
---this is a testing function for damaging machines during a round 
+--this is a testing function for damaging machines during a round
 function MT.HF.DamageFocusedItem(amount)
     local item = Client.ClientList[1].Character.FocusedItem
     item.condition = item.condition - amount
@@ -477,14 +491,14 @@ end
 -- utility for checking there are missing items from the cache
 function MT.HF.VerifyItemCache()
     print(" MT.itemCache BEFORE update: ", MT.itemCacheCount)
-    -- flag the round as started    
+    -- flag the round as started
         -- loop through the item list and find items for the cache
-        for k, item in pairs(Item.ItemList) do  
-           if item.HasTag("mtu") or (item.HasTag("diving") and item.HasTag("deepdiving")) then            
+        for k, item in pairs(Item.ItemList) do
+           if item.HasTag("mtu") or (item.HasTag("diving") and item.HasTag("deepdiving")) then
                 if  MT.itemCache[item] then
                     print("Item Already Exists: ", item)
                 else
-                    print("Found a missing item: ", item, "adding it to the cache")                    
+                    print("Found a missing item: ", item, "adding it to the cache")
                      MT.itemCache[item] = true
                      MT.itemCache[item].counter = 0
                      MT.itemCacheCount =  MT.itemCacheCount + 1
@@ -492,7 +506,7 @@ function MT.HF.VerifyItemCache()
            end
        end
        print(" MT.itemCache AFTER update: ",  MT.itemCacheCount)
-       
+
 end
 
 
@@ -517,7 +531,7 @@ function MT.HF.Fibrillate(character,amount)
     local previousAmount = tachycardia/5
     if fibrillation > 0 then previousAmount = fibrillation+20 end
     local newAmount = previousAmount + amount
-  
+
     -- 0-20: 0-100% tachycardia
     -- 20-120: 0-100% fibrillation
     -- >120: cardiac arrest
@@ -566,7 +580,7 @@ function MT.HF.GetAfflictionStrengthLimb(character,limbtype,identifier,defaultva
     if character==nil or character.CharacterHealth==nil or character.AnimController==nil then return defaultvalue end
     local limb = character.AnimController.GetLimb(limbtype)
     if limb==nil then return defaultvalue end
-    
+
     local aff = character.CharacterHealth.GetAffliction(identifier,limb)
     local res = defaultvalue or 0
     if(aff~=nil) then
@@ -615,7 +629,7 @@ function MT.HF.SetAfflictionLimb(character,identifier,limbtype,strength,aggresso
     character.CharacterHealth.ApplyAffliction(character.AnimController.GetLimb(limbtype),affliction,false)
 end
     -- turn target aggressive if damaging
---    if(aggressor ~= nil and character~=aggressor) then 
+--    if(aggressor ~= nil and character~=aggressor) then
 --        if prevstrength == nil then prevstrength = 0 end
 --
 --        local dmg = affliction.GetVitalityDecrease(character.CharacterHealth,strength-prevstrength)
@@ -662,7 +676,7 @@ end
 function PrintChat(msg)
     if SERVER then
         -- use server method
-        Game.SendMessage(msg, ChatMessageType.Server) 
+        Game.SendMessage(msg, ChatMessageType.Server)
     else
         -- use client method
         Game.ChatBox.AddMessage(ChatMessage.Create("", msg, ChatMessageType.Server, nil))
@@ -739,7 +753,7 @@ end
 function MT.HF.SpawnItemPlusFunction(identifier,func,params,inventory,targetslot,position)
     local prefab = ItemPrefab.GetItemPrefab(identifier)
     if params == nil then params = {} end
-    
+
     if SERVER then
         Entity.Spawner.AddItemToSpawnQueue(prefab, position or inventory.Container.Item.WorldPosition, nil, nil, function(newitem)
             if inventory~=nil then
@@ -762,7 +776,7 @@ end
 function MT.HF.GiveItemPlusFunction(identifier,func,params,character)
     local prefab = ItemPrefab.GetItemPrefab(identifier)
     if params == nil then params = {} end
-    
+
     if SERVER then
         Entity.Spawner.AddItemToSpawnQueue(prefab, character.WorldPosition, nil, nil, function(newitem)
             if character.Inventory~=nil then
@@ -827,7 +841,7 @@ function MT.HF.CharacterToClient(character)
     if not SERVER then return nil end
 
     for key,client in pairs(Client.ClientList) do
-        if client.Character == character then 
+        if client.Character == character then
             return client
         end
     end
@@ -840,7 +854,7 @@ function MT.HF.ClientFromName(name)
     if not SERVER then return nil end
 
     for key,client in pairs(Client.ClientList) do
-        if client.Name == name then 
+        if client.Name == name then
             return client
         end
     end
@@ -858,13 +872,13 @@ end
 --sadly, Game.RoundStarted does not work for singleplayer (sub editor)
 function MT.HF.GameIsRunning()
     if SERVER then
-            
+
         return Game.RoundStarted
-    
+
     else
-        
+
         if Game.Paused then return false end
-        
+
         -- return true
         return Game.GameSession and Game.GameSession.IsRunning
     end
@@ -892,7 +906,7 @@ function MT.HF.PutItemInsideItem(container,identifier,index)
         previtem.Drop()
     end
 
-    Timer.Wait(function() 
+    Timer.Wait(function()
         if SERVER then
             -- use server spawn method
             local prefab = ItemPrefab.GetItemPrefab(identifier)
@@ -908,7 +922,7 @@ function MT.HF.PutItemInsideItem(container,identifier,index)
     10)
 end
 
-function MT.HF.HasTalent(character,talentidentifier) 
+function MT.HF.HasTalent(character,talentidentifier)
 
     local talents = character.Info.UnlockedTalents
 
@@ -919,7 +933,7 @@ function MT.HF.HasTalent(character,talentidentifier)
     return false
 end
 
-function MT.HF.CharacterDistance(char1,char2) 
+function MT.HF.CharacterDistance(char1,char2)
     return MT.HF.Distance(char1.WorldPosition,char2.WorldPosition)
 end
 
@@ -927,39 +941,39 @@ function MT.HF.Distance(v1,v2)
     return Vector2.Distance(v1,v2)
 end
 
-function MT.HF.GetOuterWearIdentifier(character) 
+function MT.HF.GetOuterWearIdentifier(character)
     return MT.HF.GetCharacterInventorySlotIdentifer(character,4)
 end
-function MT.HF.GetInnerWearIdentifier(character) 
+function MT.HF.GetInnerWearIdentifier(character)
     return MT.HF.GetCharacterInventorySlotIdentifer(character,3)
 end
-function MT.HF.GetHeadWearIdentifier(character) 
+function MT.HF.GetHeadWearIdentifier(character)
     return MT.HF.GetCharacterInventorySlotIdentifer(character,2)
 end
 
-function MT.HF.GetCharacterInventorySlotIdentifer(character,slot) 
+function MT.HF.GetCharacterInventorySlotIdentifer(character,slot)
     local item = character.Inventory.GetItemAt(slot)
     if item==nil then return nil end
     return item.Prefab.Identifier.Value
 end
 
-function MT.HF.GetItemInRightHand(character) 
+function MT.HF.GetItemInRightHand(character)
     return MT.HF.GetCharacterInventorySlot(character,6)
 end
-function MT.HF.GetItemInLeftHand(character) 
+function MT.HF.GetItemInLeftHand(character)
     return MT.HF.GetCharacterInventorySlot(character,5)
 end
-function MT.HF.GetOuterWear(character) 
+function MT.HF.GetOuterWear(character)
     return MT.HF.GetCharacterInventorySlot(character,4)
 end
-function MT.HF.GetInnerWear(character) 
+function MT.HF.GetInnerWear(character)
     return MT.HF.GetCharacterInventorySlot(character,3)
 end
-function MT.HF.GetHeadWear(character) 
+function MT.HF.GetHeadWear(character)
     return MT.HF.GetCharacterInventorySlot(character,2)
 end
 
-function MT.HF.GetCharacterInventorySlot(character,slot) 
+function MT.HF.GetCharacterInventorySlot(character,slot)
     return character.Inventory.GetItemAt(slot)
 end
 
@@ -992,7 +1006,7 @@ function MT.HF.ReplaceString(original,find,replace)
 end
 
 function MT.HF.Explode(entity,range,force,damage,structureDamage,itemDamage,empStrength,ballastFloraStrength)
-    
+
     range = range or 0
     force = force or 0
     damage = damage or 0

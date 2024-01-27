@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+    <!-- CARDBOARD BOXES: -->
+    <!-- DELIVERY BOX: -->
+    <Override>
+        <Item name="Delivery Box"
+              identifier="metalcrate"
+              tags="mtu,cardboardbox,crate,allowcleanup"
+              aliases="metalcrate_event"
+              scale="0.32"
+              linkable="true"
+              pickdistance="150"
+              showcontentsintooltip="true"
+              impactsoundtag="impact_soft">
+            <Deconstruct time="5">
+                <Item identifier="organicfiber" />
+            </Deconstruct>
+            <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+            <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
+            <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
+            <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="320,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.4" IgnoreTint="True" />
+            <Body width="244" height="128" density="25" />
+            <Holdable slots="RightHand+LeftHand"
+                      holdpos="75,-125"
+                      disablerotation="true"
+                      handle1="0,0"
+                      handle2="0,0"
+                      holdangle="45"
+                      aimable="false"
+                      msg="ItemMsgPickUpSelect" />
+            <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+                <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
+            </ItemContainer>
+            <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
+            <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
+            <Upgrade gameversion="1.1.0.0" maxstacksize="64">
+                <ItemContainer maxstacksize="64" />
+            </Upgrade>
+        </Item>
+
+         <Item name="" identifier="mediccrate" variantof="mt_box_medical" />
+         <Item name="" identifier="explosivecrate" variantof="mt_box_explosive"/>
+
+    </Override>
+    <!-- *********************************************************************** -->
+
+
+    <!-- Explosives Cardboard Box: -->
+    <Item name="Explosives Delivery Box"
+          identifier="mt_box_explosive"
+          tags="mtu,cardboardbox,crate,allowcleanup"
+          aliases="metalcrate_event"
+          scale="0.32"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_soft">
+        <Deconstruct time="5">
+            <Item identifier="organicfiber" />
+        </Deconstruct>
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="448,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.35" IgnoreTint="True" />
+        <Body width="244" height="128" density="25" />
+        <Holdable slots="RightHand+LeftHand"
+                  holdpos="75,-125"
+                  disablerotation="true"
+                  handle1="0,0"
+                  handle2="0,0"
+                  holdangle="45"
+                  aimable="false"
+                  msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
+        </ItemContainer>
+    </Item>
+
+    <!-- Chemical Cardboard Box: -->
+    <Item name="Chemicals Delivery Box"
+          identifier="mt_box_chemical"
+          tags="mtu,cardboardbox,crate,allowcleanup"
+          aliases="metalcrate_event"
+          scale="0.32"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_soft">
+        <Deconstruct time="5">
+            <Item identifier="organicfiber" />
+        </Deconstruct>
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.35" IgnoreTint="True" />
+        <Body width="244" height="128" density="25" />
+        <Holdable slots="RightHand+LeftHand"
+                  holdpos="75,-125"
+                  disablerotation="true"
+                  handle1="0,0"
+                  handle2="0,0"
+                  holdangle="45"
+                  aimable="false"
+                  msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
+        </ItemContainer>
+    </Item>
+
+    <!-- Medical Cardboard Box: -->
+    <Item name="Medical Delivery Box"
+          identifier="mt_box_medical"
+          tags="mtu,cardboardbox,crate,allowcleanup"
+          aliases="metalcrate_event"
+          scale="0.32"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_soft">
+        <Deconstruct time="5">
+            <Item identifier="organicfiber" />
+        </Deconstruct>
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="256,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.4" IgnoreTint="True" />
+        <Body width="244" height="128" density="25" />
+        <Holdable slots="RightHand+LeftHand"
+                  holdpos="75,-125"
+                  disablerotation="true"
+                  handle1="0,0"
+                  handle2="0,0"
+                  holdangle="45"
+                  aimable="false"
+                  msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
+        </ItemContainer>
+    </Item>
+    <!-- *********************************************************************** -->
+    <!-- MECHTRAUMA CASES -->
+    <!-- *********************************************************************** -->
+    <!-- Smaller versions of Mechtrauma crates, used for dedicated storage. -->
+    <!-- PARTS SHELF: -->
+    <Item name="Parts Shelf" identifier="mt_parts_shelf" tags="container,cargocontainer,caseShelf" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="1024,64,186,368" depth="0.84" origin="0.5,0.5" />
+        <ItemContainer capacity="8"
+                       slotsperrow="4"
+                       maxstacksize="1"
+                       canbeselected="true"
+                       hideitems="false"
+                       itempos="92,-24"
+                       iteminterval="0,-46"
+                       msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.3,0.3" anchor="Center" style="ItemUI" />
+            <Containable items="mtcase" />
+        </ItemContainer>
+    </Item>
+    <!-- CASE: Mechanical Parts -->
+    <Item name="Diesel Parts Case"
+          identifier="mtcase_diesel_parts"
+          tags="mtcase,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy"
+          canflipx="false">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,896,236,128" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,832,236,64" depth="0.55" />
+        <Body width="236" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="4" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <!-- ***************************** SLOT ICONS ****************************** -->
+            <!-- oil filters 0 -3 -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- fuel filters 4-5 -->
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <!-- fuel pumps 6-7 -->
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <!-- air filter 8-9 -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <!-- gasket 10-11 -->
+            <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <!-- dcm -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
+            <!-- oxygen sensor -->
+            <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" />
+            <!-- pressure sensor -->
+            <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" />
+            <!-- battery -->
+            <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
+            <!-- starter motor -->
+            <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+
+            <!-- ***************************** CONTAINERS ****************************** -->
+            <!-- oil filter: 0-3 -->
+            <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+            <!-- fuel filter: 4-5 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- fuel pump: 6-7 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelpump" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- air filter: 8-9 -->
+            <SubContainer capacity="2">
+                <Containable items="airfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- gasket: 10-11 -->
+            <SubContainer capacity="2">
+                <Containable items="gasket" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- dcm: 12 -->
+            <SubContainer capacity="1">
+                <Containable items="dcm" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- oxygen sensor: 13 -->
+            <SubContainer capacity="1">
+                <Containable items="oxygensensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- pressure sensor: 14 -->
+            <SubContainer capacity="1">
+                <Containable items="pressuresensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- battery: 15 -->
+            <SubContainer capacity="1">
+                <Containable items="battery" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+        </ItemContainer>
+    </Item>
+    <!-- CASE: Parts General -->
+    <Item name="Components Case"
+          identifier="mtcase_components"
+          tags="mtcase,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy"
+          canflipx="false">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,1152,236,128" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,1088,236,64" depth="0.55" />
+        <Body width="236" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="4" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- oil filter -->
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- oil filter -->
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- oil filter -->
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- oil filter -->
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <!-- fuel filter -->
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <!-- fuel filter -->
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <!-- fuel pump -->
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <!-- fuel pump -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <!-- air filter -->
+            <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <!-- air filter -->
+            <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <!-- gasket -->
+            <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <!-- gasket -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
+            <!-- dcm -->
+            <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" />
+            <!-- oxygen sensor -->
+            <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" />
+            <!-- pressure sensor -->
+            <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
+            <!-- battery -->
+            <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+            <!-- starter motor -->
+            <!-- oil filter: 0-3 -->
+            <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+            <!-- fuel filter: 4-5 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- fuel pump: 6-7 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelpump" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- air filter: 8-9 -->
+            <SubContainer capacity="2">
+                <Containable items="airfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- gasket: 10-11 -->
+            <SubContainer capacity="2">
+                <Containable items="gasket" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- dcm: 12 -->
+            <SubContainer capacity="1">
+                <Containable items="dcm" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- oxygen sensor: 13 -->
+            <SubContainer capacity="1">
+                <Containable items="oxygensensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- pressure sensor: 14 -->
+            <SubContainer capacity="1">
+                <Containable items="pressuresensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- battery: 15 -->
+            <SubContainer capacity="1">
+                <Containable items="battery" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+        </ItemContainer>
+    </Item>
+    <!-- CASE: Components -->
+    <Item name="Parts Case"
+          identifier="mtcase_parts"
+          tags="mtcase,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          canflipx="false"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,640,236,128" depth="0.54" origin="0.5,0.5" canflipx="false" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,576,236,64" depth="0.55" canflipx="false" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- oil filter -->
+            <!-- oil filter: 0-3 -->
+            <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+        </ItemContainer>
+    </Item>
+    <!-- *********************************************************************** -->
+    <!-- MECHTRAUMA CRATES -->
+    <!-- *********************************************************************** -->
+    <!-- CRATE: Medical -->
+    <Item name=""
+          identifier="mtcrate_medical"
+          tags="crate,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,320,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+        </ItemContainer>
+    </Item>
+    <!-- CRATE: Mechanical -->
+    <Item name="Mechanical Crate"
+          identifier="mtcrate_mechanical"
+          tags="crate,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+        </ItemContainer>
+    </Item>
+    <!-- CRATE: Generic -->
+    <Item name="Generic Crate"
+          identifier="mtcrate_generic"
+          tags="crate,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,192,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+        </ItemContainer>
+    </Item>
+    <!-- CRATE: Rusty -->
+    <Item name="Rusty Crate"
+          identifier="mtcrate_rusty"
+          tags="crate,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="64,448,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+        </ItemContainer>
+    </Item>
+    <!-- *********************************************************************** -->
+    <!-- UTILITY CONTAINERS -->
+    <!-- *********************************************************************** -->
+    <!-- CARGO CRANE: -->
+    <Item name="Cargo Crane"
+          identifier="cargo_crane"
+          tags="decorative"
+          linkable="true"
+          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.6">
+        <Sprite texture="%ModDir%/Images/cargo_crane.png" depth="0.84" sourcerect="0,0,724,360" origin="0.5,0.5" />
+        <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="28,-132" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
+        </ItemContainer>
+    </Item>
+    <!-- *********************************************************************** -->
+    <!-- CARGO AND STORAGE CONTAINERS -->
+    <!-- *********************************************************************** -->
+    <!-- shipping container style containers -->
+    <!-- STORAGE CLOSET: LEGACY - (probably should depricate) -->
+    <Item name="Storage Closet" identifier="closet" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.6">
+        <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="768,448,256,433" origin="0.5,0.5" />
+        <ItemContainer capacity="12" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" />
+        </ItemContainer>
+    </Item>
+    <!-- CARGO CONTRAINER SMALL: (does NOT allow spawning of mission cargo) -->
+    <Item name="s12 Cargo Container" identifier="s12a_container" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.5">
+        <Sprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.84" sourcerect="0,0,312,440" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.83" sourcerect="320,0,312,440" spritecolor="255,255,255,255" origin="0.75,0.5" IgnoreTint="True" />
+        <ItemContainer capacity="9" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" />
+        </ItemContainer>
+    </Item>
+    <!-- CARGO CONTRAINER SMALL: (does NOT allow spawning of mission cargo) -->
+    <Item name="s12 Cargo Container" identifier="s12b_container" nameidentifier="s12a_container" variantof="s12a_container" scale="0.5">
+        <Sprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.84" sourcerect="640,0,312,440" origin="0.5,0.5" />
+    </Item>
+    <!-- CARGO CONTAINER: Open. (does NOT allow spawning of mission cargo) -->
+    <Item name="Cargo Container Open"
+          identifier="cargo_container_open"
+          aliases="shipping_container_open"
+          tags="container,locker,suppliescontainer"
+          depth="0.84"
+          linkable="true"
+          pickdistance="150"
+          waterproof="false"
+          scale="0.6">
+        <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="1028,0,256,396" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/mechtrauma_containers.png" sourcerect="0,0,1024,436" depth="0.841" origin="0.0,0.5" offset="-128,0" />
+        <ItemContainer capacity="32" slotsperrow="8" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
+        </ItemContainer>
+    </Item>
+    <!-- CARGO CONTAINER: Closed. (allow spawning of mission cargo) -->
+    <Item name="Cargo Container Closed"
+          identifier="mt_cargo_container_closed"
+          aliases="shipping_container_closed"
+          tags="container,suppliescontainer,locker,cargocontainer"
+          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed"
+          depth="0.84"
+          linkable="true"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.6">
+        <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,0,1024,436" origin="0.5,0.5" />
+        <ItemContainer capacity="32" slotsperrow="10" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
+        </ItemContainer>
+    </Item>
+    <!-- STORAGE CONTAINER: Single. (allow spawning of mission cargo) -->
+    <Item name="Cargo Container Small"
+          identifier="mt_cargo_container_single"
+          aliases="storage_container_single"
+          tags="container,suppliescontainer,locker, cargocontainer"
+          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed,fabricator,cncfab"
+          depth="0.84"
+          linkable="true"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.6">
+        <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />
+        <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.45" anchor="Center" relativeoffset="-0.01,0.0" style="ItemUI" />
+            <Containable identifiers="smallitem,mediumitem" />
+        </ItemContainer>
+    </Item>
+    <!-- *********************************************************************** -->
+    <!-- MISC CONTAINERS -->
+    <!-- *********************************************************************** -->
+
+
+    <!-- STORAGE CABINET: -->
+    <Item name="Storage Cabinet"
+          identifier="storage_cabinet"
+          Aliases="steelcabinet"
+          category="Misc"
+          tags="locker,container"
+          linkable="true"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.5">
+        <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,896,256,320" />
+        <trigger x="0" y="0" width="256" height="320" />
+        <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
+            <Containable identifiers="smallitem" />
+        </ItemContainer>
+    </Item>
+
+
+    <!-- GEAR LOCKER: Gear locker, for storing SCBA suits as well as diving suits (I didnt' want to override the vanilla lockers)  -->
+    <Item name="Gear Locker" identifier="gear_locker" category="Equipment" tags="container,divingsuitcontainer,divingsuitcontainerwindow,gearcontainerwindow" pickdistance="50" scale="0.5">
+        <Sprite name="Diving Suit Locker Vertical" texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="714,1,99,256" origin="0.5,0.5" />
+        <ItemContainer hideitems="false"
+                       drawinventory="true"
+                       capacity="1"
+                       slotsperrow="1"
+                       itempos="0,0"
+                       iteminterval="0,0"
+                       canbeselected="true"
+                       msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+            <Containable items="deepdiving,gear" />
+        </ItemContainer>
+    </Item>
+
+
+
+    <!-- MECHCABINET (quick cab / grab cab) -->
+    <Item name="Mechcab" identifier="mechcab" tags="container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
+        <Sprite texture="%ModDir%/Images/mechcab.png" depth="0.84" sourcerect="0,0,128,128" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/mechcab.png" sourcerect="128,0,128,128" depth="0.80" offset="9,-7" origin="0.5,0.5" />
+        <ItemContainer capacity="1"
+                       slotsperrow="1"
+                       maxstacksize="64"
+                       canbeselected="true"
+                       hideitems="false"
+                       itempos="64,-64"
+                       iteminterval="0,0"
+                       autointeractwithcontained="true"
+                       msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
+            <Containable items="smallitem,mediumitem" />
+        </ItemContainer>
+    </Item>
+</Items>

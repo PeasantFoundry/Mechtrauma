@@ -109,6 +109,57 @@ if item.HasTag("narrowDisplay") then
   end
 end
 
+
+function MT.CLI.xray(item, terminal, mtc, message, command, argument, size)
+  -- -------------------------------------------------------------------------- --
+  --                                 VALIDATION                                 --
+  -- -------------------------------------------------------------------------- --
+
+  -- validate current directory
+  MT.CLI.BTR(item)
+  -- validate target file
+  if not MT.C.HD[item].MTC.cd[argument] then
+    -- index match failed, check for a name match
+    local foundNameMatch = false
+    for k,v in pairs(MT.C.HD[item].MTC.cd) do
+      if v.name and string.lower(v.name) == string.lower(argument) then
+        argument = k -- set the argument to the key
+        foundNameMatch = true
+        break
+       end
+    end
+    if not foundNameMatch then
+      terminal.SendMessage("FILE NOT FOUND: " .. MT.C.HD[item].MTC.cdp .. "." .. argument, Color(250,100,60,255))
+      return
+    end
+  end
+
+  -- -------------------------------------------------------------------------- --
+  --                          READ DOCUMENT (TXT, ETC)                          --
+  -- -------------------------------------------------------------------------- --
+  -- probably needs to be broken out into its own module like pBank
+  local type = MT.C.HD[item].MTC.cd[argument].type
+
+  --// header
+  terminal.ClearHistory()
+  terminal.SendMessage("beginning xray...", Color.Gray)
+  terminal.SendMessage(string.rep("-", size.displayWCH), Color.Gray)
+  terminal.SendMessage(MT.CLI.randomString(size.displayWCH, "hexadecimal"))
+  -- VALIDATION: file type
+   -- ---------------------------- DISPLAY: DOCUMENT --------------------------- --
+   local filePath = MT.C.HD[item].MTC.cdp.."/"..argument.."."..type
+   local file = MT.C.HD[item].MTC.cd[argument]
+    terminal.SendMessage(MT.CLI.textCenter(filePath,  size.displayWCH, "hexadecimal"))
+
+    for k, v in pairs(MT.C.HD[item].MTC.cd[argument]) do
+      --if k ~= "type" and k ~= "name" and k ~= "registeredName" and k ~= "registeredID" then -- this is going to get out of hand, quickly.
+        terminal.SendMessage(MT.CLI.textCenter(tostring(k) .. MT.CLI.randomString(4, "hexadecimal") .. v, size.displayWCH, "binary"))
+    end
+      --terminal.SendMessage(tostring(k) .. ": " .. v)
+      mtc.IsWaiting = false
+      terminal.SendMessage(MT.CLI.textCenter("press any key to exit...", size.displayWCH, " "), Color.Gray)
+end
+
 -- --------------------------- MTOS READER COMMAND -------------------------- --
 -- reads record such as SMS or TXT
 function MT.CLI.read(item, terminal, mtc, message, command, argument, size)
@@ -164,48 +215,52 @@ function MT.CLI.read(item, terminal, mtc, message, command, argument, size)
 
   elseif MT.C.HD[item].MTC.cd[argument].type == "SMS" then
 
-  -- -------------------------------------------------------------------------- --
-  --                              READ SMS MESSAGE                              --
-  -- -------------------------------------------------------------------------- --
-  local index = argument
-  local sms
-    -- might be duplicate validation now...
-    if not MT.C.HD[item].MTC.cd[index] or not MT.C.HD[item].MTC.cd[index].type then
-      terminal.SendMessage("FILE NOT FOUND: " .. MT.C.HD[item].MTC.cdp .. "." .. argument, Color(250,100,60,255))
-    end
-
-  if MT.C.HD[item].MTC.cd[index].type == "SMS" then
-    -- attempt to open SMS message
-    terminal.ClearHistory()
-    terminal.SendMessage("opening message...", Color.Gray)
-    if not MT.C.HD[item].MTC.cd[index] then
-        terminal.SendMessage("Message not found: " .. MT.C.HD[item].MTC.cdp .. "." .. argument .. ".SMS", Color(250,100,60,255))
-    else
-        if item.HasTag("narrowDisplay") then
-          sms = MT.C.HD[item].MTC.cd[index]
-          terminal.SendMessage("[" .. sms.type .. " | ID:" .. argument .. "] - [@:" .. sms.at .. ".T]")
-          terminal.SendMessage("[TO: #" .. sms.to .. " | FROM: #" .. sms.from .. "]")
-          terminal.SendMessage("••••••••••••••••••••••••••••••••")
-          terminal.SendMessage("[MESSAGE]")
-          terminal.SendMessage(sms.message)
-          terminal.SendMessage("[/MESSAGE]")
-          terminal.SendMessage("••••••••••••••••••••••••••••••••")
-        else
-          sms = MT.C.HD[item].MTC.cd[index]
-          terminal.SendMessage("[" .. sms.type .. " | ID:" .. argument .. "] - [@:" .. sms.at .. ".T] " .. " [TO: #" .. sms.to .. " | FROM: #" .. sms.from .. "]")
-          terminal.SendMessage("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••")
-          terminal.SendMessage("[MESSAGE]")
-          terminal.SendMessage(sms.message)
-          terminal.SendMessage("[/MESSAGE]")
-          terminal.SendMessage("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••")
-        end
+    -- -------------------------------------------------------------------------- --
+    --                              READ SMS MESSAGE                              --
+    -- -------------------------------------------------------------------------- --
+    local index = argument
+    local sms
+      -- might be duplicate validation now...
+      if not MT.C.HD[item].MTC.cd[index] or not MT.C.HD[item].MTC.cd[index].type then
+        terminal.SendMessage("FILE NOT FOUND: " .. MT.C.HD[item].MTC.cdp .. "." .. argument, Color(250,100,60,255))
       end
+    -- this is not duplicate validation
+    if MT.C.HD[item].MTC.cd[index].type == "SMS" then
+      -- attempt to open SMS message
+      terminal.ClearHistory()
+      terminal.SendMessage("opening message...", Color.Gray)
+      if not MT.C.HD[item].MTC.cd[index] then
+          terminal.SendMessage("Message not found: " .. MT.C.HD[item].MTC.cdp .. "." .. argument .. ".SMS", Color(250,100,60,255))
+      else
+          if item.HasTag("narrowDisplay") then
+            sms = MT.C.HD[item].MTC.cd[index]
+            terminal.SendMessage("[" .. sms.type .. " | ID:" .. argument .. "] - [@:" .. sms.at .. ".T]")
+            terminal.SendMessage("[TO: #" .. sms.to .. " | FROM: #" .. sms.from .. "]")
+            terminal.SendMessage("••••••••••••••••••••••••••••••••")
+            terminal.SendMessage("[MESSAGE]")
+            terminal.SendMessage(sms.message)
+            terminal.SendMessage("[/MESSAGE]")
+            terminal.SendMessage("••••••••••••••••••••••••••••••••")
+          else
+            sms = MT.C.HD[item].MTC.cd[index]
+            terminal.SendMessage("[" .. sms.type .. " | ID:" .. argument .. "] - [@:" .. sms.at .. ".T] " .. " [TO: #" .. sms.to .. " | FROM: #" .. sms.from .. "]")
+            terminal.SendMessage("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••")
+            terminal.SendMessage("[MESSAGE]")
+            terminal.SendMessage(sms.message)
+            terminal.SendMessage("[/MESSAGE]")
+            terminal.SendMessage("••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••")
+          end
+        end
     elseif MT.C.HD[item].MTC.cd[index].type == "TXT" then
-      -- TXT reading
-      terminal.SendMessage("opening document...", Color.Gray)
+        -- TXT reading
+        terminal.SendMessage("opening document...", Color.Gray)
     else
-      terminal.SendMessage("*UNKNOWN FILE TPYE* ", Color(250,100,60,255))
+        terminal.SendMessage("*UNKNOWN FILE TPYE* ", Color(250,100,60,255))
+        return
     end
+  else
+    terminal.SendMessage("*UNKNOWN FILE TPYE* ", Color(250,100,60,255))
+    return
   end
 end
 
@@ -325,9 +380,9 @@ function MT.CLI.lock(item, terminal, mtc, message, command, argument, size)
 
   -- body
   if encodedPIN and encodedPIN == MT.C.HD[item].MTC.root.user.profile.password then
-    terminal.SendMessage("•WELCOME, " .. user .. "!•", Color(75,150,250,255))
-    MT.HF.BlankTerminalLines(terminal, 1, "")
+    MT.CLI.dWelcome(item, terminal, size)
     mtc.IsWaiting = false -- reset the waiting flag
+    return
   else
     terminal.SendMessage(MT.CLI.textCenter("ENTER PIN:", size.displayWCH))
     if mtc.IsWaiting and encodedPIN ~= MT.C.HD[item].MTC.root.profile.user.password then
@@ -466,7 +521,7 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument, size)
         -- executables
         for record, v in pairs(exe) do
             --terminal.SendMessage("<EXE>..| " .. v.name .. "/")
-            terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<EXE> ")
+            terminal.SendMessage(v.name ..  "." .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<EXE> ")
         end
         -- messages
         for id, sms in pairs(sms) do
@@ -480,12 +535,12 @@ function MT.CLI.ls(item, terminal, mtc, message, command, argument, size)
         -- system files
         for record, v in pairs(sys) do
           -- terminal.SendMessage("<SYS>...| " .. v.name)
-          terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<SYS> ")
+          terminal.SendMessage(v.name ..  "." .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<SYS> ")
         end
         -- documents
         for record, v in pairs(txt) do
           -- terminal.SendMessage("<TXT>..| " .. v.name)
-          terminal.SendMessage(v.name ..  "/" .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<TXT> ")
+          terminal.SendMessage(v.name ..  "." .. string.rep(".", string.len(tostring(item)) - string.len(v.name) - 5) .. "<TXT> ")
         end
 
         -- --------------------------------- FOOTER --------------------------------- --
@@ -513,7 +568,7 @@ function MT.CLI.cd(item, terminal, mtc, message, command, argument, size)
     MT.CLI.BTR(item)
 
     -- <- go back one directory
-    if argument == "-" or argument == ".." or message == "cd.." and MT.C.HD[item].MTC.cdp ~= "/MTC/root" then
+    if (argument == "-" or argument == ".." or message == "cd..") and MT.C.HD[item].MTC.cdp ~= "/MTC/root" then
       MT.C.HD[item].MTC.cdp = MT.CLI.getParentDirectoryPath(MT.C.HD[item].MTC.cdp) -- update current path to parent path
       MT.C.HD[item].MTC.cd = MT.CLI.getDirectory(MT.C.HD[item].MTC.root, MT.C.HD[item].MTC.cdp) -- update current table reference to partent table reference
       MT.CLI.ls(item, terminal, "ls", "ls", "")
@@ -528,6 +583,11 @@ function MT.CLI.cd(item, terminal, mtc, message, command, argument, size)
       MT.C.HD[item].MTC.cdp = MT.C.HD[item].MTC.cdp .. "/" .. argument -- extend the current directory path
       MT.C.HD[item].MTC.cd =  MT.C.HD[item].MTC.cd[argument] -- update the current directory
       MT.CLI.ls(item, terminal, "ls", "ls", "") -- automatically list new directory
+    -- already in root, can't go back
+    elseif MT.C.HD[item].MTC.cdp == "/MTC/root" and (argument == "-" or argument == ".." or message == "cd..") then
+      print(message)
+      print("made it here:" .. command .. (argument or ""))
+      terminal.SendMessage("INVALID OPERATION: " .. message .. " already in root directory.", Color(250,100,60,255))
 
     else
       terminal.SendMessage("INVALID DIRECTORY: " .. MT.C.HD[item].MTC.cdp .. "/" .. argument, Color(250,100,60,255))
@@ -654,7 +714,8 @@ function MT.CLI.mv(item, terminal, mtc, message, command, argument, copy)
       destinationPath[source] = MT.C.HD[item].MTC.cd[source]
       -- EXECUTION: delete the source
       if MT.C.HD[item].MTC.cd[argument] then
-        if copy == false then MT.C.HD[item].MTC.cd[argument] = nil end
+        if copy == false then
+              MT.C.HD[item].MTC.cd[argument] = nil end
               MT.CLI.ls(item, terminal)
               terminal.SendMessage("*OPERATION SUCCESFUL*")
               terminal.SendMessage("your file is now located at...", Color.Gray)
@@ -671,6 +732,7 @@ end
   -- ---------------------- MTOS CLI EXECUTABLES COMMAND ---------------------- --
 function MT.CLI.run(item, terminal, mtc, message, command, argument, size)
     local formattedArgument = argument:match("([^%.]*)%.?.*$")
+    if not MT.C.HD[item].MTC.cd[formattedArgument] then terminal.SendMessage("FILE NOT FOUND: " .. MT.C.HD[item].MTC.cdp .. "." .. formattedArgument .. ".EXE", Color(250,100,60,255)) return end
     if string.lower(MT.C.HD[item].MTC.cd[formattedArgument].type) ~= "exe" then terminal.SendMessage("INVALID FILE TYPE: " .. MT.C.HD[item].MTC.cdp .. "/" .. formattedArgument .. "." .. MT.C.HD[item].MTC.cd[formattedArgument].type, Color(250,100,60,255)) return end
     local execute = function()
       local functionToRun = MT.C.HD[item].MTC.cd[formattedArgument].functionToCall
@@ -682,7 +744,7 @@ function MT.CLI.run(item, terminal, mtc, message, command, argument, size)
           print("Error loading code: " .. errorMessage)
       else
           -- Execute the loaded function
-          loadedFunction()(item, terminal, mtc, nil, size)
+          loadedFunction()(item, terminal, mtc, nil, nil, nil, size)
           -- 'result' will contain the result of the executed function
       end
     end
@@ -711,7 +773,7 @@ end
 
 
 -- registers a MTC to a user (this is how player claim devices)
-function MT.CLI.register(item, terminal, mtc, response, size)
+function MT.CLI.register(item, terminal, mtc, response, command, argument, size)
   -- check for an existing profile
   local profile = MT.CLI.getProfile(item)
   if profile then
@@ -789,33 +851,139 @@ end
 -- -------------------------------------------------------------------------- --
 --                          MTC EXECUTABLE FUNCTIONS                          --
 -- -------------------------------------------------------------------------- --
-function MT.CLI.textcolor(item, terminal, mtc, response, size)
+function MT.CLI.dieselDoctor(item, terminal, mtc, response, command, argument, size)
+  local dieselDoctor = MT.C.HD[item].MTC.cd.dieseldoctor
+  local diagnosticLink
+  if dieselDoctor.diagnosticLinkID then diagnosticLink = Entity.FindEntityByID(tonumber(dieselDoctor.diagnosticLinkID)) end
 
-    if response == nil then -- there sh
-        terminal.SendMessage("What color would you like? Green or Red")
-        mtc.IsWaiting = true
-        mtc.WaitingFunction = "MT.CLI.textcolor"
-    else
-        if response == "red" then
-            terminal.TextColor = Color(255,100,50,255)
-            terminal.SendMessage("Success! exiting program.")
-            mtc.IsWaiting = false
-            return
-            elseif response == "green" then
-                terminal.TextColor = Color.Lime
-                terminal.SendMessage("Success! exiting program.")
-                mtc.IsWaiting = false
-                return
+  MT.CLI.header(item, terminal, size.displayWCH)
 
-                elseif response == "exit" then
-                  mtc.IsWaiting = false
-                    terminal.SendMessage("-Terminating Program-")
-                    return
-        else
-            terminal.SendMessage("!INVALID COLOR: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
-        end
+  --if response ~= nil then response = string.lower(response) print("response: " .. response) end -- just to be sure...
+
+    if response == nil or response == "" then
+      mtc.IsWaiting = true
+      mtc.WaitingFunction = "MT.CLI.dieselDoctor"
+
+      -- options
+      terminal.SendMessage(MT.CLI.textCenter("DIESEL DOCTOR", size.displayWCH), "-")
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-14s","(1) Link"), size.displayWCH))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-14s","(2) View"), size.displayWCH))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-14s","(3) Calibrate"), size.displayWCH))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-14s","(4) EXIT"), size.displayWCH))
+    elseif response == "1" then
+      terminal.SendMessage(MT.CLI.textCenter("Linking mode enabled:", size.displayWCH), Color.Gray)
+      if diagnosticLink then
+        terminal.SendMessage("CURRENT DIAGNOSTIC LINK: " .. tostring(diagnosticLink))
+      else
+        terminal.SendMessage("NO LINKS FOUND", Color.Gray)
+      end
+      terminal.SendMessage("(Press any key to continue)", Color.Gray)
+      mtc.IsWaiting = true
+      mtc.WaitingFunction = "MT.CLI.dieselDoctor"
+      mtc.TriggerFunction = "MT.T.diagnosticLink"
+    elseif response == "2" then
+    elseif response == "3" then
+      item.AddTag("MTPU")
+      item.AddTag("dieselCalibration")
+      MT.priorityItemCache[item] = {}
+      -- calibation magic :)
+
+
+    elseif response == "4" or response == "exit" then
+      mtc.IsWaiting = false
+      item.ReplaceTag("MTPU","")
+      item.ReplaceTag("dieselCalibration","")
+      terminal.SendMessage("terminating program...", Color.Gray)
+      return
     end
 end
+
+-- ------------------------- TEXTCOLOR.exe FUNCTIONS ------------------------ --
+function MT.CLI.textcolor(item, terminal, mtc, response, command, argument, size)
+  MT.CLI.header(item, terminal, size.displayWCH)
+  if response ~= nil then response = string.lower(response) end -- just to be sure...
+
+    if response == nil then
+      mtc.IsWaiting = true
+      mtc.WaitingFunction = "MT.CLI.textcolor"
+      -- options
+      terminal.SendMessage(MT.CLI.textCenter("Please select a color option:", size.displayWCH))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(1) Red"), size.displayWCH), Color(250,100,60,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(2) Green"), size.displayWCH), Color(160,200,10,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(3) Blue"), size.displayWCH), Color(15,50,225,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(4) Orange"), size.displayWCH), Color(255,125,25,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(5) Purple"), size.displayWCH),Color(175,50,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(6) Toots"), size.displayWCH), Color(100,250,150,255))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(7) CUSTOM"), size.displayWCH))
+      terminal.SendMessage(MT.CLI.textCenter(string.format("%-15s","(8) EXIT"), size.displayWCH))
+
+    else
+      if response == "1" or response == "red" then
+        terminal.TextColor = Color(255,100,60,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "2" or response == "green"  then
+        terminal.TextColor = Color(160,200,10,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "3" or response == "blue"  then
+        terminal.TextColor = Color(15,50,225,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "4" or response == "orange"  then
+        terminal.TextColor = Color(255,125,25,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "5" or response == "purple"  then
+        terminal.TextColor = Color(175,50,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "6" or response == "toots"  then
+        terminal.TextColor = Color(100,250,150,255)
+        terminal.SendMessage("Success! exiting program.")
+        mtc.IsWaiting = false
+        return
+      elseif response == "7" or response == "custom"  then
+        terminal.SendMessage("Please enter a custom RGBA color code:", Color.Gray)
+        terminal.SendMessage("The values for red, green, and blue range from 0 to 255 and are separated by commas")
+        terminal.SendMessage("example: 255,100,60")
+        mtc.IsWaiting = true
+        mtc.WaitingFunction = "MT.CLI.customTextcolor"
+      elseif response == "8" or response == "exit" then
+        mtc.IsWaiting = false
+        terminal.SendMessage("terminating program...", Color.Gray)
+        return
+      else
+        terminal.SendMessage("!INVALID COLOR: " .. response .. " . To cancel, type exit.", Color(250,100,60,255))
+        MT.CLI.textcolor(item, terminal, mtc, nil, nil, nil, size)
+      end
+    end
+end
+
+function MT.CLI.customTextcolor(item, terminal, mtc, response, command, argument, size)
+  if response ~= nil then
+    local colorTable = MT.HF.Split(response, ",")
+    if #colorTable == 3 then
+      terminal.TextColor = Color(tonumber(colorTable[1]), tonumber(colorTable[2]), tonumber(colorTable[3]), 255)
+      terminal.SendMessage("Success! exiting program.")
+      mtc.IsWaiting = false
+      return
+    else
+      terminal.SendMessage("!INVALID COLOR CODE!", Color(250,100,60,255))
+      terminal.SendMessage("Please enter a custom RGBA color code:", Color.Gray)
+      terminal.SendMessage("The values for red, gree, and blue range from 0 to 255 and are separated by commas")
+      terminal.SendMessage("example: 255,100,60")
+      mtc.IsWaiting = true
+      mtc.WaitingFunction = "MT.CLI.customTextcolor"
+    end
+  end
+end
+
 
 -- -------------------------------------------------------------------------- --
 --                            MTC EXECUTABLES TABLE                           --
@@ -1154,6 +1322,18 @@ MT.CLI.errors = {
         functionToCall = MT.CLI.text,
         allowedItems = {"MTC", "terminal"}
     },
+    xray = {
+      help = "filename ",
+      helpDetails = "reads all files",
+      helpExample = "'read profile'",
+      altCommands = {"xr"},
+      requireCCN = false,
+      requireARG = true,
+      requireSYS = "xray",
+      requireSYSv = 0.5,
+      functionToCall = MT.CLI.xray,
+      allowedItems = {"mtc", "mtmobile"}
+  },
 }
 
 
@@ -1172,7 +1352,14 @@ MT.CLI.errors = {
 
 --called once for each terminal message sent by a player (unless terminal is waiting)
 function MT.CLI.terminalCommand(item, terminal, mtc, message, width, height)
+  -- --------------------- BEHOLD: THE ABOMINATION OF SIZE -------------------- --
   local size = {displayHPX = height, displayHCH = height, displayWPX = width, displayWCH = width / 9.66, fontSize=14, fontW = (14 * .69) }
+  -- pixels
+  terminal.WPX = width
+  terminal.HPX = height
+  -- characters
+  terminal.WCH = width / 9.66 -- wtf
+  terminal.HCH = height
 
 
   -- add terminal waiting logic here as it is server side
@@ -1187,7 +1374,7 @@ function MT.CLI.terminalCommand(item, terminal, mtc, message, width, height)
         print("Error loading code: " .. errorMessage)
     else
         -- Execute the loaded function
-        waitingFunction()(item, terminal, mtc, string.lower(message), size)
+        waitingFunction()(item, terminal, mtc, string.lower(message), nil, nil, size)
     end
   else
     -- -------------------------------------------------------------------------- --
@@ -1256,14 +1443,92 @@ end
 function MT.CLI.textCenter(string, displayWCH, fillWith)
   local offset = (displayWCH - string.len(string)) / 2
   if fillWith == nil then fillWith = " " end -- nill check, defaults to space filler
-  return string.rep(fillWith, offset) .. string
+  if fillWith == "binary" then
+    return MT.CLI.randomString(offset, "binary") .. string .. MT.CLI.randomString(offset, "binary")
+
+  elseif fillWith == "hexadecimal" then
+    return MT.CLI.randomString(offset, "hexadecimal") .. string .. MT.CLI.randomString(offset, "hexadecimal")
+  else
+    return string.rep(fillWith, offset) .. string .. string.rep(fillWith, offset)
+  end
 end
+
+function MT.CLI.randomString(length, format)
+  local randomString = ""
+  if format == "binary" then
+      for i = 1, length do
+          randomString = randomString .. tostring(math.random(0, 1))
+      end
+  elseif format == "hexadecimal" then
+      for i = 1, length do
+          randomString = randomString .. string.format("%x", math.random(0, 15))
+      end
+  else
+      return "Invalid format specified. Choose 'binary' or 'hexadecimal'."
+  end
+  return randomString
+end
+
 
 -- -------------------------------------------------------------------------- --
 --                               DISPLAY SCREENS                              --
 -- -------------------------------------------------------------------------- --
 -- reusable display screens for the CLI UI
 
+function MT.CLI.testDisplay(item, terminal, displayWCH, value, center, max, color)
+  local align = center
+
+  -- ALIGNMENT: right
+  if value > center then
+    align = "right"
+
+  -- ALIGNMENT: left
+  elseif value < center then
+    -- if the target value/ range is negatic, align left and convert max/value to positve values (for string calculation)
+    align = "left"
+    if max < 0 then max = max * -1 end
+    if value < 0 then value = value * -1 end
+  -- ALIGNMENT: center
+  else
+    -- you're spot on
+  end
+
+
+  local side = ((displayWCH - 5) / 3) -- so much for monospaced.....
+  local percentage = value / max
+  local barLength = MT.HF.Round(side * percentage, 0)
+
+  -- ALIGNMENT: LEFT (negative rage)
+  if align == "left" then
+    terminal.SendMessage(string.rep("▓", (side - barLength)) .. string.rep("█", barLength) .. "|" .. string.rep("▓", side))
+    --[[
+    if value / max > .5 then
+      terminal.SendMessage(string.rep("▓", (side - barLength)) .. string.rep("█", barLength) .. "|" .. string.rep("▓", side), Color(250,100,25,255))
+    elseif value / max > .25 then
+      terminal.SendMessage(string.rep("▓", (side - barLength)) .. string.rep("█", barLength) .. "|" .. string.rep("▓", side), Color(250,200,50,255))
+    else
+      terminal.SendMessage(string.rep("▓", (side - barLength)) .. string.rep("█", barLength) .. "|" .. string.rep("▓", side))
+    end]]
+
+  -- ALIGNMENT: RIGHT (positive range)
+  elseif align == "right" then
+    terminal.SendMessage(string.rep("▓", side) .. "|" .. string.rep("█", barLength) .. string.rep("▓", (side - barLength)))
+    --[[
+    if value / max > .5 then
+      terminal.SendMessage(string.rep("▓", side) .. "|" .. string.rep("█", barLength) .. string.rep("▓", (side - barLength)), Color(250,100,25,255))
+    elseif value / max > .25 then
+      terminal.SendMessage(string.rep("▓", side) .. "|" .. string.rep("█", barLength) .. string.rep("▓", (side - barLength)), Color(250,200,50,255))
+    else
+      terminal.SendMessage(string.rep("▓", side) .. "|" .. string.rep("█", barLength) .. string.rep("▓", (side - barLength)))
+    end]]
+
+  -- ALIGNMENT: center
+  else
+    terminal.SendMessage(string.rep("▓", side) .. "|" .. string.rep("▓", side))
+  end
+end
+
+-- --------------------------------- HEADER --------------------------------- --
 function MT.CLI.header(item, terminal, displayWCH)
   terminal.ClearHistory()
   terminal.SendMessage(string.rep("_", (displayWCH)))
@@ -1271,12 +1536,13 @@ function MT.CLI.header(item, terminal, displayWCH)
   terminal.SendMessage("@" .. tostring(item))
   terminal.SendMessage("ClockTime: " .. MT.HF.Round(Game.GameScreen.GameTime, 2) .. "T" )
 end
-
+-- --------------------------------- FOOTER --------------------------------- --
 function MT.CLI.footer(item, terminal, displayWCH)
   terminal.SendMessage("Mechtrauma OS v" .. tostring(MT.C.HD[item].MTC.root.mtos.kernel.ver))
   terminal.SendMessage(string.rep("_", (displayWCH)))
 end
 
+-- --------------------------------- WELCOME -------------------------------- --
 function MT.CLI.dWelcome(item, terminal, size)
   local profile = MT.CLI.getProfile(item)
   local user = "USER" if profile then user = profile.registeredName end
@@ -1286,6 +1552,7 @@ function MT.CLI.dWelcome(item, terminal, size)
   ---print("width: " .. terminal.CGUIX .. " Height: " .. terminal.CGUIY)
   print("widthPX: " .. size.displayWPX .. " HeightPX: " .. size.displayHPX)
   print("widthCH: " .. size.displayWCH .. " HeightCH: " .. size.displayHCH)
+  print("widthPX: " .. terminal.WPX .. " heightPX: " .. terminal.HPX)
 
   -- ----------------------------- WELCOME SCREEN: ---------------------------- --
   -- head

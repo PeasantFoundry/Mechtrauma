@@ -44,7 +44,6 @@ MT.C.diagnosticTags = { -- may want to move this to a part fault tag table? or h
     fixSkill = "mechanical",
     requiredSkill = 30
   }
-
 }
 
 MT.C.Sample = {
@@ -118,6 +117,11 @@ function MT.C.buildMTC(item, rebuild)
           name="textcolor",
           functionToCall = "MT.CLI.textcolor",
         },
+        dieseldoctor={
+          type="EXE",
+          name="dieselDoctor",
+          functionToCall = "MT.CLI.dieselDoctor",
+        },
         register={
           type="EXE",
           name="register",
@@ -134,7 +138,7 @@ function MT.C.buildMTC(item, rebuild)
     }
   },
   counters={
-    smsIN=0,
+    smsIN=0, -- move to SMS SYS?
     smsOUT=0
   }
 }
@@ -192,6 +196,27 @@ function MT.C.tabletDiagnoseItem(item, targetItem, terminal)
     terminal.SendMessage("**********END REPORT**********")
   end
 end
+
+-- ----- REPORT PARTS -----
+Hook.Add("MTC_trigger.onUse", "MTC.triggerFunction", function(effect, deltaTime, item, targets, worldPosition, client)
+    -- get the terminal component
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local mtc = MTUtils.GetComponentByName(item, "Mechtrauma.MTC")
+
+    -- ---------------------------- TRIGGER FUNCTION ---------------------------- --
+    if mtc.triggerFunction == nil then return end -- nil check
+    local targetFunction = mtc.triggerFunction
+    local loadedFunction, errorMessage = load("return " .. targetFunction)
+
+    -- Check if there were any errors during loading
+    if not loadedFunction then
+        print("Error loading code: " .. errorMessage)
+    else
+        -- Execute the loaded function
+        loadedFunction()(item)
+    end
+end)
+
 
 -- ----- REPORT PARTS -----
 Hook.Add("maintenanceTablet_rparts.OnUse", "MT.partsInventoryReport", function(effect, deltaTime, item, targets, worldPosition, client)

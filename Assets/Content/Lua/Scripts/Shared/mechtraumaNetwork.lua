@@ -64,29 +64,28 @@ Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerRead", "MT.Net.SR", function(c
         component.SendEvent()
 
     elseif component.Name == "MTC" then
-        local cliCommand = message.ReadString() -- read from MT.commandCache.message
-        local width = message.ReadInt32() -- read from MT.commandCache.width
-        local height = message.ReadInt32() -- read from MT.commandCache.height
+        local cliCommand = message.ReadString()
+        local width = message.ReadInt32()
+        local height = message.ReadInt32()
         local terminal = MTUtils.GetComponentByName(component.item, "Mechtrauma.AdvancedTerminal")
         local mtc = MTUtils.GetComponentByName(component.item, "Mechtrauma.MTC")
 
-        -- VALIDATION: make sure we have a terminal and a message
-        if terminal and message ~= nil then
-            -- EXECUTION: here goes nothing!
-            MT.CLI.terminalCommand(terminal.item, terminal, mtc, cliCommand, width, height)
-        end
+        --if not terminal.MessagesHistory.Count then return end -- nil check
+        --local lastMessage = terminal.MessagesHistory[terminal.MessagesHistory.Count-0]
 
         -- -------- THIS WONT WORK FOR MULTIPLE TERMINAL COMPONENTS - RIGHT? -------- --
-        -- we may need support for multiple net dispatchers per item....
-
-
+        --[[if terminal then
+        component.SendEvent()]]
+        -- ok this is getting messy, I take it back. I do want multiple dispatcher components per item
+        if terminal and message ~= nil then
+            MT.CLI.terminalCommand(terminal.item, terminal, mtc, cliCommand, width, height)
+        end
     end
 end)
 
 Hook.Add("Mechtrauma.LuaNetEventDispatcher::ServerWrite", "MT.Net.SW", function(component, message, client, extradata)
     -- --------------------------- SERVER WRITE EVENTS -------------------------- --
-     -- debug printing: print("WE MADE IT TO SW")
-
+     -- debug printing: print("WE MADE IT TO CR")
     -- possibly depricated
     if component.Name == "DieselEngine" then
         local generator = MTUtils.GetComponentByName(component.item, "Mechtrauma.SimpleGenerator")

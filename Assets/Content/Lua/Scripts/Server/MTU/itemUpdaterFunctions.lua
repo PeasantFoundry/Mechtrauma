@@ -401,6 +401,34 @@ function MT.UF.airFilter(item)
     if item.OwnInventory.GetItemAt(0) then item.AddTag("blocked") else item.ReplaceTag("blocked", "") end
 end
 
+function MT.UF.cardBoardBox(item)
+    if item.InWater then
+       item.condition = item.condition - 5
+    end
+
+    if item.condition < 1 then
+       item.remove()
+    end
+
+end
+-- priority baby!
+function MT.UF.dieselCalibration(item)
+    local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
+    local width = terminal.WCH
+    terminal.ClearHistory()
+    MT.CLI.header(item, terminal, width)
+    terminal.SendMessage(MT.CLI.textCenter("CALIBRATION", width, "-"))
+
+    terminal.SendMessage("Fuel Mapping:")
+    MT.CLI.testDisplay(item, terminal, width, math.random(40,60), 0, 100)
+    terminal.SendMessage("Injection Timing:")
+    MT.CLI.testDisplay(item, terminal, width, math.random(-10,10), 0, 100)
+    terminal.SendMessage("Boost Pressure:")
+    MT.CLI.testDisplay(item, terminal, width, math.random(-10,10), 0, 100)
+    terminal.SendMessage("Vibration Level:")
+    MT.CLI.testDisplay(item, terminal, width, math.random(-40,-60), 0, -100)
+end
+
 -- called by item update cycle
 function MT.UF.dieselEngine(item)
     local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")

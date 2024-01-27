@@ -15,6 +15,11 @@ public partial class AdvancedTerminal : ItemComponent
 
     //--- HADRADA WAS HERE
     public string Token { get; set; } //
+    public int WPX { get; set; }
+    public int HPX { get; set; }
+    public int WCH { get; set; }
+    public int HCH { get; set; }
+
 
     //--- SYMBOLS
     public static readonly string EVENT_ONNEWMESSAGE = "Mechtrauma.AdvancedTerminal::NewMessage"; // args: (this, text, color)

@@ -1051,12 +1051,10 @@ function MT.DF.combustion(item, dieselSeries, targetPower)
         terminal.ClearHistory()
         -- SHOW: Status - only display if there is a terminal, ignition is implicit
         if dieselEngine.combustion == true then
-            terminal.SendMessage("*COMBUSTION: " .. MT.HF.Round(DieselEngine.generatedHP, 0) .. "kW GENERATED*", Color(255,100,50,255))
-            terminal.SendMessage("Temperature: " .. MT.HF.Round(thermal.Temperature, 0) .. "F", MT.DF.getTemperatureZone(thermal.Temperature, DieselEngine.OperatingTemperature, "color"))
-            terminal.SendMessage(string.format("%-5s", MT.HF.Round(DieselEngine.CoolantLevel * 100, 1) .. "%") .. " coolant.", Color(150,255,175,255))
-            --terminal.SendMessage(string.format("%-5s", dieselEngine.oilTime .. "m") .. " of Oil remaining.", Color(150,130,100,255))
-            --terminal.SendMessage(string.format("%-5s", dieselEngine.filterTime .. "m") .. " of Oil Filtration remaining.", Color(150,130,100,255))
-            --terminal.SendMessage(string.format("%-5s", dieselEngine.oxygenTime .. "m") .. " of Oxygen remaining.", Color(150,225,255,255))
+            --terminal.SendMessage("*COMBUSTION: " .. MT.HF.Round(DieselEngine.generatedHP, 0) .. "kW GENERATED*", Color(255,100,50,255))
+            --terminal.SendMessage("Temperature: " .. MT.HF.Round(thermal.Temperature, 0) .. "F", MT.DF.getTemperatureZone(thermal.Temperature, DieselEngine.OperatingTemperature, "color"))
+            --terminal.SendMessage(string.format("%-5s", MT.HF.Round(DieselEngine.CoolantLevel * 100, 1) .. "%") .. " coolant.", Color(150,255,175,255))
+
         end
     end
     -- -------------------------------------------------------------------------- --

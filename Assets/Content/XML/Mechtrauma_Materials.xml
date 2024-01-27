@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+    <!-- SCRAP STEEL: -->
+    <Item name="Scrap Steel"
+          identifier="scrap_steel"
+          Category="material"
+          Tags="smallitem,material,mechanical"
+          maxstacksize="64"
+          cargocontaineridentifier="metalcrate"
+          health="10"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,256,56,64" depth="0.55" origin="0.5,0.5" />
+        <Body width="64" height="64" density="60" />
+        <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- SCRAP aluminium: -->
+    <Item name="Scrap aluminium"
+          identifier="scrap_aluminium"
+          Category="material"
+          Tags="smallitem,material,mechanical"
+          maxstacksize="64"
+          cargocontaineridentifier="metalcrate"
+          health="10"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="64,256,56,64" depth="0.55" origin="0.5,0.5" />
+        <Body width="64" height="64" density="60" />
+        <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- SCRAP COPPER: -->
+    <Item name="Scrap Copper"
+          identifier="scrap_copper"
+          Category="material"
+          Tags="smallitem,material,mechanical"
+          maxstacksize="64"
+          cargocontaineridentifier="metalcrate"
+          health="10"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <PreferredContainer primary="wrecksupplycab,beaconsupplycab" amount="10" spawnprobability="0.5" />
+        <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="10" spawnprobability="0.5" />
+        <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="10" spawnprobability="0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="64,320,56,64" depth="0.55" origin="0.5,0.5" />
+        <Body width="64" height="64" density="60" />
+        <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- GREASE CAN: -->
+    <Item name="Grease Can"
+          identifier="grease_can"
+          Category="Equipment"
+          Tags="smallitem,grease,mechanical"
+          maxstacksize="8"
+          cargocontaineridentifier="metalcrate"
+          health="100"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <Price baseprice="50" displaynonempty="true" minavailable="2">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+        </Price>
+        <Deconstruct time="4">
+            <Item identifier="scrap_steel" />
+        </Deconstruct>
+
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,0,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,0,128,128" depth="0.55" origin="0.5,0.5" />
+        <Body width="128" height="128" density="20" />
+        <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+</Items>

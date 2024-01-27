@@ -349,6 +349,7 @@
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="mt_eb_exhaust_manifold,exhaustmanifold" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
+
       <!-- SLOTs 10 Oxygen -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
         <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
@@ -503,7 +504,7 @@
       </SubContainer>
       <!-- SLOTs 10 Oxygen -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="oxygentank,oxygentank_fr,oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="oxygentank,oxygentank_fr,mt_oxygen_transfer_tank" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 11 Air Filter -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+    <!-- GREASE PACKET: -->
+    <Item name="Grease Packet"
+          identifier="grease_packet"
+          Category="Equipment"
+          Tags="smallitem,grease,mechanical"
+          maxstacksize="64"
+          cargocontaineridentifier="metalcrate"
+          health="10"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <Price baseprice="10" displaynonempty="true" minavailable="2">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+        </Price>
+        <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="5">
+            <RequiredItem identifier="grease_can" />
+        </Fabricate>
+
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,0,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,0,128,128" depth="0.55" origin="0.5,0.5" />
+        <Body width="128" height="128" density="20" />
+        <Holdable canbecombined="true" holdpos="0,-130" handle1="0,130" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- SEALED BEARING: This is a sealed bearing for use in machines. -->
+    <Item name="Sealed Bearing"
+          identifier="sealed_bearing"
+          Category="Equipment"
+          Tags="smallitem,bearing,part"
+          maxstacksize="16"
+          cargocontaineridentifier="metalcrate"
+          health="100"
+          scale="0.25">
+        <PreferredContainer primary="mechcab" />
+        <Price baseprice="50" displaynonempty="true" minavailable="2">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+        </Price>
+        <Deconstruct time="10">
+            <Item identifier="scrap_steel" />
+            <Item identifier="scrap_copper" />
+        </Deconstruct>
+        <!-- SEALED BEARING: Make a new set of bearings. -->
+        <Fabricate suitablefabricators="CNC,fabricator" amount="8" requiredtime="30">
+            <RequiredSkill identifier="mechanical" level="35" />
+            <RequiredItem identifier="steel" amount="2" />
+            <RequiredItem identifier="bearing_sleeve" amount="8" />
+            <RequiredItem identifier="grease_packet" />
+        </Fabricate>
+        <!-- SEALED BEARING: Recycle - no need for recyle as sealed bearings are only used in fabrication -->
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,0,128,96" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,0,128,96" depth="0.55" />
+        <Body width="128" height="105" density="60" />
+        <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- COPPER WINDINGS: Copper windings for repairing electric motors -->
+    <Item name="Copper Windings"
+          identifier="copper_windings"
+          Category="Equipment"
+          Tags="smallitem,mechanical"
+          maxstacksize="16"
+          cargocontaineridentifier="metalcrate"
+          health="100"
+          scale="0.3">
+        <PreferredContainer primary="mechcab" />
+        <Price baseprice="25" displaynonempty="true" minavailable="2">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+        </Price>
+        <Deconstruct time="10">
+            <Item identifier="scrap_copper" />
+            <Item identifier="scrap_copper" />
+        </Deconstruct>
+        <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="30">
+            <RequiredSkill identifier="mechanical" level="35" />
+            <RequiredItem identifier="copper" />
+        </Fabricate>
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,0,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,0,128,128" depth="0.55" />
+        <Body width="128" height="128" density="60" />
+        <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+    <!-- BEARING SLEEVE: Copper bearing sleeve for refitting bearings -->
+    <Item name="Bearing Sleeve"
+          identifier="bearing_sleeve"
+          Category="Equipment"
+          Tags="smallitem,mechanical"
+          maxstacksize="16"
+          cargocontaineridentifier="metalcrate"
+          health="100"
+          scale="0.5">
+        <PreferredContainer primary="mechcab" />
+        <Price baseprice="15" displaynonempty="true" minavailable="2">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="0.9" minavailable="5" />
+        </Price>
+        <Deconstruct time="10">
+            <Item identifier="scrap_copper" />
+        </Deconstruct>
+        <Fabricate suitablefabricators="fabricator,cncfab" amount="8" requiredtime="30">
+            <RequiredSkill identifier="mechanical" level="35" />
+            <RequiredItem identifier="copper" />
+        </Fabricate>
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="640,128,64,64" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="640,128,64,64" depth="0.55" />
+        <Body width="128" height="128" density="60" />
+        <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
+
+</Items>

@@ -35,17 +35,24 @@ namespace Mechtrauma
         }
 
         //EngineBlock
-        public float HorsePower;
+        public float HorsePower; // should be on the engine block
+
+        //Calibration Fields
+        public int FuelMapping { get; set; }  // air:fuel - by calibrating the fuel mapping, technicians can optimize the engine’s fuel efficiency and power delivery.
+        public int InjectionTiming { get; set; } // by calibrating the injection timing, technicians can optimize the combustion process, resulting in improved power output and reduced emissions.
+        public int BoostPressure { get; set; } // by adjusting the boost pressure, technicians can increase the engine’s power output without sacrificing fuel efficiency. It is crucial to calibrate the boost pressure carefully to prevent over-boosting, which can lead to engine damage.
+
+        // sensors monitor parameters such as engine speed, temperature, pressure, and exhaust gas composition.
 
         // standard fields
-        // public float Temperature = 60.0f; 60 is default temperature 
+        // public float Temperature = 60.0f; 60 is default temperature
 
         [Serialize("> ", IsPropertySaveable.Yes)]
-        public string? Generation { get; set; } // 3rd generation requires the new part functionality, 2nd gen are legacy generators 1st gen was the XML only generators.  
-        
+        public string? Generation { get; set; } // 3rd generation requires the new part functionality, 2nd gen are legacy generators 1st gen was the XML only generators.
+
         [Serialize( -1, IsPropertySaveable.Yes)]
         public int EngineBlockLocation { get; set; } // index location for engine block
-                                                      //public string Generation { get; set; } 
+                                                      //public string Generation { get; set; }
 
         public float RatedHP = 2000f; // default HP if there is no engine block
         public float MaxHP = 2000f; // calculated HP from parts and enhancements
@@ -53,9 +60,9 @@ namespace Mechtrauma
 
         public float CoolantVol = 0.0f; // CL
         public float CoolantCapacity = 6000.0f; // CL
-        public float CoolantLevel = 0.0f; // %        
+        public float CoolantLevel = 0.0f; // %
         public float CoolingAvailable = 0.0f; // BTU - change to CoolingCapacity
-        public float OperatingTemperature = 200.0f; // F        
+        public float OperatingTemperature = 200.0f; // F
         public float CoolingCapacity = 150000.0f; // BTU - change to MaxCoolingCapacity
         public float CoolingNeeded = 0.0f; // BTU
         public float HeatGenerated = 0.0f; // BTU
