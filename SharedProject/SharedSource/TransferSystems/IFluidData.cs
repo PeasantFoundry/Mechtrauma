@@ -10,6 +10,7 @@ public interface IFluidData
     public float Velocity { get; }
     public float Volume { get; }
     public float Mass { get; }
+    public FluidProperties.PhaseType Phase { get; }
 
     public void UpdateForDensity(float newDensity);
     public void UpdateForPressure(float newPressure);

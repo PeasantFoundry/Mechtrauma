@@ -10,6 +10,28 @@ public struct LiquidData : ILiquidData
     public float Velocity { get; private set; }
     public float Volume { get; private set; }
     public float Mass { get; private set; }
+    public FluidProperties.PhaseType Phase { get; } = FluidProperties.PhaseType.Liquid;
+
+    public LiquidData(string identifier, string friendlyName)
+    {
+        Identifier = identifier;
+        FriendlyName = friendlyName;
+
+        if (FluidDatabase.Instance.GetFluidProperties(identifier, FluidProperties.PhaseType.Liquid) is { } properties)
+        {
+            Density = properties.DensitySTP;
+        }
+        else
+        {
+            Density = 0f;
+        }
+
+        Pressure = 100000f; // 1 Bar / 10 kPa / STP
+        Temperature = 273.15f; // kelvin / 0°C / 32°F / STP
+        Mass = 0f;
+        Volume = 0f;
+        Velocity = 0f;
+    }
 
     public void UpdateForDensity(float newDensity)
     {
@@ -45,7 +67,6 @@ public struct LiquidData : ILiquidData
     {
         if (typeof(T) != typeof(LiquidData))
             return new T();
-        var data = this;    // struct copy
-        return (T)(ILiquidData)data;
+        return (T)(ILiquidData)this;
     }
 }

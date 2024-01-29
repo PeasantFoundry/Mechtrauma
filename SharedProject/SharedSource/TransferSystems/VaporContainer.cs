@@ -3,6 +3,7 @@
 public class VaporContainer : IFluidContainer
 {
     public Dictionary<string, IFluidData> ContainedFluids { get; protected set; } = new();
+    public HashSet<string> FluidRestrictions { get; }
 
     public float AvgDensity { get; protected set; }
     public float Pressure { get; protected set; }
@@ -71,7 +72,7 @@ public class VaporContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public bool PutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
+    public bool PutFluids<T, T2>(in T2 fluids, bool overrideChecks = false) where T : struct, IFluidData where T2 : IList<T>, new()
     {
         throw new NotImplementedException();
     }

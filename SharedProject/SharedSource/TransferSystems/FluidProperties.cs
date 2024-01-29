@@ -38,11 +38,15 @@ public class FluidProperties
     /// How much velocity is added from a fluid based on pressure differential.
     /// </summary>
     public float AccelerationRatio { get; init; }
-
+    /// <summary>
+    /// Density at IUPAC STP.
+    /// </summary>
+    public float DensitySTP { get; init; }
+    
     public enum PhaseType
     {
         Liquid, Vapor
     }
-    
+
     // todo: add vapor and liquid tables support in subtypes
 }

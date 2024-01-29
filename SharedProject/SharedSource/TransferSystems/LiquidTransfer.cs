@@ -19,13 +19,13 @@ public class LiquidTransfer : ItemComponent
         set => _maxFlowRate = Math.Max(0, value);
     }
 
-    private float _pressureOutputRatio;
+    private float _deltaPressureRatio;
 
     [Editable(0.1f, 10f), Serialize(1f, IsPropertySaveable.Yes, "Exit/Outlet pressure adjustment multiplier.")]
-    public float PressureOutputRatio
+    public float DeltaPressureRatio
     {
-        get => _pressureOutputRatio;
-        set => _pressureOutputRatio = Math.Clamp(value, 0.1f, 10f);
+        get => _deltaPressureRatio;
+        set => _deltaPressureRatio = Math.Clamp(value, 0.1f, 10f);
     }
 
     private float _velocityOutputRatio;
@@ -147,7 +147,7 @@ public class LiquidTransfer : ItemComponent
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 var tank = consumerTanks[i];
-                deltaPressures[i] = producerTank.Pressure - tank.Pressure;
+                deltaPressures[i] = (producerTank.Pressure - tank.Pressure) * DeltaPressureRatio;
                 proportionsAbs[i] = deltaPressures[i] * apertures[i];
                 sumProportions += proportionsAbs[i]; 
                 velocities[i] = (producerTank.Velocity + deltaPressures[i] * sampleAccelRatio) * VelocityOutputRatio;
@@ -165,8 +165,13 @@ public class LiquidTransfer : ItemComponent
             var consumerApertureRatio = producerAperture / consumerApertureSum;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                consumerTanks[i].PutFluids<LiquidData, List<LiquidData>>(producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(toTransferVolume[i]));
-                consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); 
+                if (consumerTanks[i].PutFluids<LiquidData, List<LiquidData>>(
+                        producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(toTransferVolume[i]), 
+                        overrideChecks: true))  // we already ran checks earlier
+                {
+                    consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); //velocity different form fluids
+                    consumerTanks[i].UpdateForPressure(producerTank.Pressure + deltaPressures[i]);
+                }
             }
         } 
     
