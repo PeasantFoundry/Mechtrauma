@@ -54,12 +54,12 @@ public class VaporContainer : IFluidContainer
 
     public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        throw new NotImplementedException();
+        return TakeFluidProportional<T, T2>(volume);
     }
 
     public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        throw new NotImplementedException();
+        return TakeFluidProportional<T, T2>(volume);
     }
 
     public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData

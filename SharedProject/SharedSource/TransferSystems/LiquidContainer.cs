@@ -61,7 +61,8 @@ public class LiquidContainer : IFluidContainer
         newVolume = Math.Clamp(newVolume, 0f, ContainerVolume);
         if (newVolume < 0.01f)
         {
-            ContainedFluids.Clear();    // empty container
+            _containedFluids.Clear();    // empty container
+            _fluidsByDensity.Clear();
             Volume = 0f;
             FluidMass = 0f;
             AvgDensity = 0f;
@@ -104,6 +105,9 @@ public class LiquidContainer : IFluidContainer
 
     public T2 TakeFluidProportional<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
+        if (this.Volume < float.Epsilon)
+            return new T2();
+        
         T2 fluidData = new T2();
         float volumeRatio = Math.Clamp(volume, 0f, Volume) / Volume;
         foreach (var data in _containedFluids)
@@ -118,11 +122,11 @@ public class LiquidContainer : IFluidContainer
 
     public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        if (typeof(T) != typeof(LiquidData))
+        if (this.Volume < float.Epsilon || typeof(T) != typeof(LiquidData))
         {
             return new T2();
         }
-        
+
         T2 outList = new ();
         for (int i = _fluidsByDensity.Count-1; i > -1; i--)
         {
@@ -148,7 +152,7 @@ public class LiquidContainer : IFluidContainer
 
     public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        if (typeof(T) != typeof(LiquidData))
+        if (this.Volume < float.Epsilon || typeof(T) != typeof(LiquidData))
         {
             return new T2();
         }
@@ -179,7 +183,7 @@ public class LiquidContainer : IFluidContainer
 
     public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData
     {
-        if (!_containedFluids.ContainsKey(name) || typeof(T) != typeof(LiquidData))
+        if (this.Volume < float.Epsilon || !_containedFluids.ContainsKey(name) || typeof(T) != typeof(LiquidData))
         {
             fluidData = new T();
             return false;
