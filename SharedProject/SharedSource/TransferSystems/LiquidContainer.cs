@@ -118,12 +118,63 @@ public class LiquidContainer : IFluidContainer
 
     public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        throw new NotImplementedException();
+        if (typeof(T) != typeof(LiquidData))
+        {
+            return new T2();
+        }
+        
+        T2 outList = new ();
+        for (int i = _fluidsByDensity.Count-1; i > -1; i--)
+        {
+            if (volume < 0.001f)
+                break;
+            var fluid = _containedFluids[_fluidsByDensity[i]];
+            var retFluid = fluid;
+            float fluidOrgVol = fluid.Volume;
+            float vol = Math.Min(volume, fluidOrgVol);
+            
+            volume -= vol;
+            fluidOrgVol -= vol;
+            fluid.UpdateForVolume(vol);
+            retFluid.UpdateForVolume(fluidOrgVol);
+            
+            outList.Add((T)(IFluidData)fluid);
+            _containedFluids[_fluidsByDensity[i]] = retFluid;
+        }
+        
+        UpdateFluidsList();
+        return outList;
     }
 
     public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
     {
-        throw new NotImplementedException();
+        if (typeof(T) != typeof(LiquidData))
+        {
+            return new T2();
+        }
+        
+        T2 outList = new ();
+        // ReSharper disable once ForCanBeConvertedToForeach
+        for (int i = 0; i < _fluidsByDensity.Count; i++)
+        {
+            if (volume < 0.001f)
+                break;
+            var fluid = _containedFluids[_fluidsByDensity[i]];
+            var retFluid = fluid;
+            float fluidOrgVol = fluid.Volume;
+            float vol = Math.Min(volume, fluidOrgVol);
+            
+            volume -= vol;
+            fluidOrgVol -= vol;
+            fluid.UpdateForVolume(vol);
+            retFluid.UpdateForVolume(fluidOrgVol);
+            
+            outList.Add((T)(IFluidData)fluid);
+            _containedFluids[_fluidsByDensity[i]] = retFluid;
+        }
+        
+        UpdateFluidsList();
+        return outList;
     }
 
     public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData
@@ -135,10 +186,15 @@ public class LiquidContainer : IFluidContainer
         }
 
         var fluid = _containedFluids[name];
-        volume = Math.Min(fluid.Volume, volume);
-        fluidData = (T)(ILiquidData)fluid;
-        // todo: fix this random ass code you were too tired to finish
-        throw new NotImplementedException();
+        var outFluid = fluid;   // struct copy
+        
+        float vol = Math.Min(volume, fluid.Volume);
+        outFluid.UpdateForVolume(vol);
+        fluid.UpdateForVolume(fluid.Volume - vol);
+        _containedFluids[name] = fluid;
+        fluidData = (T)(IFluidData)outFluid;
+        UpdateFluidsList();
+        return true;
     }
 
     public bool CanPutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
@@ -210,12 +266,9 @@ public class LiquidContainer : IFluidContainer
                 orgData.UpdateForVelocity(orgData.Velocity * orgVolProp + data.Velocity * newVolProp);
                 _containedFluids[data.Identifier] = orgData;
             }
-            // we update volume here because looping again later to do so causes 
-            // a struct copy
-            this.Volume += data.Volume; 
         }
         
-        UpdateFluidsListNoVol();
+        UpdateFluidsList();
         return true;
     }
 
@@ -246,7 +299,7 @@ public class LiquidContainer : IFluidContainer
             _apertureSizes[connName] = value;
     }
 
-    protected void UpdateFluidsListNoVol()
+    protected void UpdateFluidsList()
     {
         // remove 0 volume fluids
         var toRemove = _containedFluids
@@ -258,15 +311,18 @@ public class LiquidContainer : IFluidContainer
             _containedFluids.Remove(fluidName);
         }
 
-        float tempSum = 0f, pressSum = 0f, totalMass = 0f, velocitySum = 0f;
+        float tempSum = 0f, pressSum = 0f, totalMass = 0f, velocitySum = 0f, volumeSum = 0f;
         foreach (var fluid in _containedFluids)
         {
-            tempSum += fluid.Value.Temperature * fluid.Value.Volume;
-            pressSum += fluid.Value.Pressure * fluid.Value.Volume;
-            totalMass += fluid.Value.Mass;
-            velocitySum += fluid.Value.Velocity;
+            var fluidVal = fluid.Value;
+            tempSum += fluidVal.Temperature * fluidVal.Volume;
+            pressSum += fluidVal.Pressure * fluidVal.Volume;
+            totalMass += fluidVal.Mass;
+            velocitySum += fluidVal.Velocity;
+            volumeSum += fluidVal.Volume;
         }
 
+        this.Volume = volumeSum;
         tempSum /= _containedFluids.Count * this.Volume;
         pressSum /= _containedFluids.Count * this.Volume;
         velocitySum /= _containedFluids.Count;

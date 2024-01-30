@@ -35,32 +35,51 @@ public struct LiquidData : ILiquidData
 
     public void UpdateForDensity(float newDensity)
     {
-        throw new NotImplementedException();
+        if (Volume < 0.001f)
+            return;
+        if (newDensity < float.Epsilon)
+            return;
+        Density = newDensity;
+        Mass = Density * Volume;
     }
 
     public void UpdateForPressure(float newPressure)
     {
-        throw new NotImplementedException();
+        Pressure = Math.Max(0f, newPressure);
     }
 
     public void UpdateForTemperature(float newTemperature)
     {
-        throw new NotImplementedException();
+        Temperature = Math.Max(0f, newTemperature);
     }
 
     public void UpdateForVelocity(float newVelocity)
     {
-        throw new NotImplementedException();
+        Velocity = Math.Max(0f, newVelocity);
     }
 
     public void UpdateForVolume(float newVolume)
     {
-        throw new NotImplementedException();
+        if (newVolume < 0.001f)
+        {
+            Volume = 0f;
+            Mass = 0f;
+            Pressure = 0f;
+            Velocity = 0f;
+            Temperature = 0f;
+            return;
+        }
+
+        if (Volume < 0.001f)
+            return;
+
+        Volume = Math.Max(0f, newVolume);
+        Mass = Density * Volume;
     }
 
     public void UpdateForMass(float newMass)
     {
-        throw new NotImplementedException();
+        UpdateForVolume(newMass / Mass * Volume);
     }
 
     public T Clone<T>() where T : struct, IFluidData

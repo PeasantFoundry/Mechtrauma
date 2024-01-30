@@ -90,6 +90,10 @@ public class LiquidTransfer : ItemComponent
             if (producerTank is null)
                 return;
             
+            // exit if no vol
+            if (producerTank.Volume < 0.001f)
+                return;
+            
             // get valid consumers
             var sampleLiquid = producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(0f);
 
