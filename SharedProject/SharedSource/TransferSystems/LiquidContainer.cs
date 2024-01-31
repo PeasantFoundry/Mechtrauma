@@ -2,11 +2,11 @@
 
 namespace Mechtrauma.TransferSystems;
 
-public class LiquidContainer : IFluidContainer
+public class LiquidContainer : ILiquidContainer<LiquidData>
 {
-    public Dictionary<string, IFluidData> ContainedFluids => _containedFluids.ToDictionary(
+    public Dictionary<string, LiquidData> ContainedFluids => _containedFluids.ToDictionary(
         kvp => kvp.Key,
-        kvp => (IFluidData)kvp.Value);
+        kvp => kvp.Value);
     private readonly SortedList<string, LiquidData> _containedFluids = new();
     private List<string> _fluidsByDensity = new();
     public IReadOnlyList<string> FluidsByDensity => _fluidsByDensity;
@@ -20,8 +20,6 @@ public class LiquidContainer : IFluidContainer
     public float FluidMass { get; protected set; }
 
     private readonly Dictionary<string, float> _apertureSizes = new();
-
-    public event Func<IList<LiquidData>, bool>? OnCanPutFluids;
 
     public void UpdateForPressure(float newPressure)
     {
@@ -103,7 +101,7 @@ public class LiquidContainer : IFluidContainer
         return _containedFluids.Any() & Volume > float.Epsilon;
     }
 
-    public T2 TakeFluidProportional<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
+    public T2 TakeFluidProportional<T2>(float volume) where T2 : IList<LiquidData>, new()
     {
         if (this.Volume < float.Epsilon)
             return new T2();
@@ -112,21 +110,17 @@ public class LiquidContainer : IFluidContainer
         float volumeRatio = Math.Clamp(volume, 0f, Volume) / Volume;
         foreach (var data in _containedFluids)
         {
-            if (data.Value is not T data2) continue; // shallow copy
+            var data2 = data.Value; // struct copy
             data2.UpdateForVolume(data2.Volume * volumeRatio);
             fluidData.Add(data2);
         }
+        UpdateFluidsList();
 
         return fluidData;
     }
 
-    public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
+    public T2 TakeFluidBottom<T2>(float volume) where T2 : IList<LiquidData>, new()
     {
-        if (this.Volume < float.Epsilon || typeof(T) != typeof(LiquidData))
-        {
-            return new T2();
-        }
-
         T2 outList = new ();
         for (int i = _fluidsByDensity.Count-1; i > -1; i--)
         {
@@ -142,7 +136,7 @@ public class LiquidContainer : IFluidContainer
             fluid.UpdateForVolume(vol);
             retFluid.UpdateForVolume(fluidOrgVol);
             
-            outList.Add((T)(IFluidData)fluid);
+            outList.Add(fluid);
             _containedFluids[_fluidsByDensity[i]] = retFluid;
         }
         
@@ -150,13 +144,8 @@ public class LiquidContainer : IFluidContainer
         return outList;
     }
 
-    public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
+    public T2 TakeFluidTop<T2>(float volume) where T2 : IList<LiquidData>, new()
     {
-        if (this.Volume < float.Epsilon || typeof(T) != typeof(LiquidData))
-        {
-            return new T2();
-        }
-        
         T2 outList = new ();
         // ReSharper disable once ForCanBeConvertedToForeach
         for (int i = 0; i < _fluidsByDensity.Count; i++)
@@ -173,7 +162,7 @@ public class LiquidContainer : IFluidContainer
             fluid.UpdateForVolume(vol);
             retFluid.UpdateForVolume(fluidOrgVol);
             
-            outList.Add((T)(IFluidData)fluid);
+            outList.Add(fluid);
             _containedFluids[_fluidsByDensity[i]] = retFluid;
         }
         
@@ -181,14 +170,8 @@ public class LiquidContainer : IFluidContainer
         return outList;
     }
 
-    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData
+    public bool TryTakeFluidSpecific(string name, float volume, out LiquidData fluidData)
     {
-        if (this.Volume < float.Epsilon || !_containedFluids.ContainsKey(name) || typeof(T) != typeof(LiquidData))
-        {
-            fluidData = new T();
-            return false;
-        }
-
         var fluid = _containedFluids[name];
         var outFluid = fluid;   // struct copy
         
@@ -196,15 +179,13 @@ public class LiquidContainer : IFluidContainer
         outFluid.UpdateForVolume(vol);
         fluid.UpdateForVolume(fluid.Volume - vol);
         _containedFluids[name] = fluid;
-        fluidData = (T)(IFluidData)outFluid;
+        fluidData = outFluid;
         UpdateFluidsList();
         return true;
     }
 
-    public bool CanPutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
+    public bool CanPutFluids<T2>(in T2 fluids) where T2 : IList<LiquidData>, new()
     {
-        if (typeof(T) != typeof(LiquidData))
-            return false;
         float sumVolume=0f;
         for (int i = 0; i < fluids.Count; i++)
         {
@@ -218,37 +199,15 @@ public class LiquidContainer : IFluidContainer
         if (ContainerVolume < sumVolume + Volume)
             return false;
 
-        if (OnCanPutFluids is not null)
-        {
-            foreach (Delegate del in OnCanPutFluids.GetInvocationList())
-            {
-                try
-                {
-                    if (del.DynamicInvoke() is false)
-                        return false;
-                }
-                catch
-                {
-                    ModUtils.Logging.PrintError($"{nameof(LiquidContainer)}::{nameof(CanPutFluids)}() | Delegate error. Name: {del.Method.Name}");
-                    continue;
-                }
-            }
-        }
-
         return true;
     }
 
-    public bool PutFluids<T, T2>(in T2 fluids, bool overrideChecks = false) where T : struct, IFluidData where T2 : IList<T>, new()
+    public bool PutFluids<T2>(in T2 fluids, bool overrideChecks = false) where T2 : IList<LiquidData>, new()
     {
-        if (!overrideChecks && !CanPutFluids<T, T2>(fluids))
+        if (!overrideChecks && !CanPutFluids(fluids))
             return false;
         
-        // even if safety checks are skipped, this needs to always be the case.
-        if (typeof(T) != typeof(LiquidData))
-            return false;
-
-        List<LiquidData> fluidsData = fluids.Cast<LiquidData>().ToList();
-        foreach (LiquidData data in fluidsData)
+        foreach (LiquidData data in fluids)
         {
             if (data.Volume < float.Epsilon)
                 continue;
@@ -276,17 +235,13 @@ public class LiquidContainer : IFluidContainer
         return true;
     }
 
-    public float GetMaxFreeVolume<T>(in T fluidData) where T : struct, IFluidData
+    public float GetMaxFreeVolume(in LiquidData fluidData)
     {
-        if (typeof(T) != typeof(LiquidData))
-            return 0f;
         return ContainerVolume - Volume;
     }
 
-    public float GetMaxFreeVolume<T, T2>(in T2 fluidData) where T : struct, IFluidData where T2 : IList<T>, new()
+    public float GetMaxFreeVolume<T2>(in T2 fluidData) where T2 : IList<LiquidData>, new()
     {
-        if (typeof(T) != typeof(LiquidData))
-            return 0f;
         return ContainerVolume - Volume;
     }
 

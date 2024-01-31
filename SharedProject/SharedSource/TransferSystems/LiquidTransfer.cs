@@ -54,7 +54,7 @@ public class LiquidTransfer : ItemComponent
     {
         base.OnItemLoaded();
         // randomize the initial count to stagger updates a bit and reduce lag spikes from network updates.
-        _ticksUntilUpdate = Rand.Range(0, IFluidDevice.WaitTicksBetweenUpdates);    
+        _ticksUntilUpdate = Rand.Range(0, FluidSystemData.WaitTicksBetweenUpdates);    
     }
 
     public override void Update(float deltaTime, Camera cam)
@@ -65,7 +65,7 @@ public class LiquidTransfer : ItemComponent
             _ticksUntilUpdate--;
             if (_ticksUntilUpdate < 1)
             {
-                _ticksUntilUpdate = IFluidDevice.WaitTicksBetweenUpdates;
+                _ticksUntilUpdate = FluidSystemData.WaitTicksBetweenUpdates;
                 UpdateLiquidTransfers();
             }
         }
@@ -77,13 +77,13 @@ public class LiquidTransfer : ItemComponent
     /// </summary>
     private void UpdateLiquidTransfers()
     {
-        IFluidDevice? producer = null;
-        List<IFluidDevice> consumers = new();
+        IFluidDevice<LiquidContainer, LiquidData>? producer = null;
+        List<IFluidDevice<LiquidContainer, LiquidData>> consumers = new();
 
         if (TryGetProducerAndConsumers())
         {
             // get liquid containers
-            var producerTank = producer!.GetPrefContainerByGroup<LiquidContainer>(ILiquidData.SymbolConnOutput);
+            var producerTank = producer!.GetPrefContainerByGroup(ILiquidData.SymbolConnOutput);
             var consumerTanks = new List<LiquidContainer>();
 
             // exit if no src
@@ -95,7 +95,7 @@ public class LiquidTransfer : ItemComponent
                 return;
             
             // get valid consumers
-            var sampleLiquid = producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(0f);
+            var sampleLiquid = producerTank.TakeFluidProportional<List<LiquidData>>(0f);
 
             if (!sampleLiquid.Any())
                 return;
@@ -107,9 +107,9 @@ public class LiquidTransfer : ItemComponent
             // However, this requires withdrawing fluid pre-emptively.
             var sampleAccelRatio = sampleProperties?.AccelerationRatio ?? 0f;
 
-            foreach (IFluidDevice device in consumers)
+            foreach (IFluidDevice<LiquidContainer, LiquidData> device in consumers)
             {
-                foreach (var container in device.GetFluidContainersByGroup<LiquidContainer>(ILiquidData.SymbolConnInput))       
+                foreach (var container in device.GetFluidContainersByGroup<List<LiquidContainer>>(ILiquidData.SymbolConnInput))       
                 {
                     if (container is null)
                         continue;
@@ -117,7 +117,7 @@ public class LiquidTransfer : ItemComponent
                         continue;
                     if (container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput) < float.Epsilon) // valve closed
                         continue;
-                    if (!container.CanPutFluids<LiquidData, List<LiquidData>>(sampleLiquid))
+                    if (!container.CanPutFluids(sampleLiquid))
                         continue;
                     consumerTanks.Add(container);
                 }
@@ -144,7 +144,7 @@ public class LiquidTransfer : ItemComponent
             }
             
             var producerAperture = producerTank.GetApertureSizeForConnection(ILiquidData.SymbolConnOutput);
-            var maxOutVolume = Math.Min(producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), MaxFlowRate * IFluidDevice.FixedDeltaTime);
+            var maxOutVolume = Math.Min(producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), MaxFlowRate * FluidSystemData.FixedDeltaTime);
             var proportionRel = 0f;
             
             // calculate stats
@@ -162,15 +162,15 @@ public class LiquidTransfer : ItemComponent
                 proportionRel = proportionsAbs[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
                 // lower of volume from producer and consumer tank limits
                 toTransferVolume[i] = Math.Min(maxOutVolume * proportionRel,
-                    consumerTanks[i].GetMaxFreeVolume<LiquidData, List<LiquidData>>(sampleLiquid));
+                    consumerTanks[i].GetMaxFreeVolume(sampleLiquid));
             }
             
             // extract volume and send 
             var consumerApertureRatio = producerAperture / consumerApertureSum;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                if (consumerTanks[i].PutFluids<LiquidData, List<LiquidData>>(
-                        producerTank.TakeFluidProportional<LiquidData, List<LiquidData>>(toTransferVolume[i]), 
+                if (consumerTanks[i].PutFluids(
+                        producerTank.TakeFluidProportional<List<LiquidData>>(toTransferVolume[i]), 
                         overrideChecks: true))  // we already ran checks earlier
                 {
                     consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); //velocity different form fluids
@@ -203,7 +203,7 @@ public class LiquidTransfer : ItemComponent
                             foreach (ItemComponent component in recipient.Item.Components)  
                             {
                                 // find the first compat IFluidDevice with an liquid out.
-                                if (component is IFluidDevice { OutputPhaseType: FluidProperties.PhaseType.Liquid } device)    //outputs liquid
+                                if (component is IFluidDevice<LiquidContainer, LiquidData> { OutputPhaseType: FluidProperties.PhaseType.Liquid } device)    //outputs liquid
                                 {
                                     // we found our producer.
                                     producer = device;
@@ -222,7 +222,7 @@ public class LiquidTransfer : ItemComponent
 
                             foreach (ItemComponent component in recipient.Item.Components)
                             {
-                                if (component is IFluidDevice { InputPhaseType: FluidProperties.PhaseType.Liquid } device)
+                                if (component is IFluidDevice<LiquidContainer, LiquidData> { InputPhaseType: FluidProperties.PhaseType.Liquid } device)
                                 {
                                     consumers.Add(device);
                                 }

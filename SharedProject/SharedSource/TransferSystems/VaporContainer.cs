@@ -1,17 +1,16 @@
 ﻿namespace Mechtrauma.TransferSystems;
 
-public class VaporContainer : IFluidContainer
+public class VaporContainer : IVaporContainer<VaporData>
 {
-    public Dictionary<string, IFluidData> ContainedFluids { get; protected set; } = new();
+    public Dictionary<string, VaporData> ContainedFluids { get; }
     public HashSet<string> FluidRestrictions { get; }
-
-    public float AvgDensity { get; protected set; }
-    public float Pressure { get; protected set; }
-    public float Temperature { get; protected set; }
-    public float Velocity { get; protected set; }
-    public float Volume { get; protected set; }
-    public float ContainerVolume { get; protected set; }
-    public float FluidMass { get; protected set; }
+    public float AvgDensity { get; }
+    public float Pressure { get; }
+    public float Temperature { get; }
+    public float Velocity { get; }
+    public float Volume { get; }
+    public float ContainerVolume { get; }
+    public float FluidMass { get; }
     public void UpdateForPressure(float newPressure)
     {
         throw new NotImplementedException();
@@ -47,46 +46,45 @@ public class VaporContainer : IFluidContainer
         throw new NotImplementedException();
     }
 
-    public T2 TakeFluidProportional<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
+    public T2 TakeFluidProportional<T2>(float volume) where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
 
-    public T2 TakeFluidBottom<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
-    {
-        return TakeFluidProportional<T, T2>(volume);
-    }
-
-    public T2 TakeFluidTop<T, T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new()
-    {
-        return TakeFluidProportional<T, T2>(volume);
-    }
-
-    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData
+    public T2 TakeFluidBottom<T2>(float volume) where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
 
-    public bool CanPutFluids<T, T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new()
+    public T2 TakeFluidTop<T2>(float volume) where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
 
-    public bool PutFluids<T, T2>(in T2 fluids, bool overrideChecks = false) where T : struct, IFluidData where T2 : IList<T>, new()
+    public bool TryTakeFluidSpecific(string name, float volume, out VaporData fluidData)
     {
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T>(in T fluidData) where T : struct, IFluidData
+    public bool CanPutFluids<T2>(in T2 fluids) where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
 
-    public float GetMaxFreeVolume<T, T2>(in T2 fluidData) where T : struct, IFluidData where T2 : IList<T>, new()
+    public bool PutFluids<T2>(in T2 fluids, bool overrideChecks = false) where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
 
+    public float GetMaxFreeVolume(in VaporData fluidData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public float GetMaxFreeVolume<T2>(in T2 fluidData) where T2 : IList<VaporData>, new()
+    {
+        throw new NotImplementedException();
+    }
 
     public float GetApertureSizeForConnection(string connName)
     {

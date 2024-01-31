@@ -3,7 +3,7 @@ using Barotrauma.Items.Components;
 
 namespace Mechtrauma.TransferSystems;
 
-public partial class SteamBoiler : Powered, IFluidDevice
+public partial class SteamBoiler : Powered, IFluidDevice<LiquidContainer, LiquidData>, IFluidDevice<VaporContainer, VaporData>
 {
     #region VARS
 
@@ -17,34 +17,53 @@ public partial class SteamBoiler : Powered, IFluidDevice
     {
         this.IsActive = true;
     }
+
+    #region INTERFACE_API
+
+    #region LIQUID
+
+    T3 IFluidDevice<LiquidContainer, LiquidData>.GetFluidContainers<T3>()
+    {
+        throw new NotImplementedException();
+    }
     
-    public IReadOnlyList<T> GetFluidContainers<T>() where T : class, IFluidContainer, new()
+    T3 IFluidDevice<LiquidContainer, LiquidData>.GetFluidContainersByGroup<T3>(string groupName)
     {
         throw new NotImplementedException();
     }
 
-    public IReadOnlyList<T> GetFluidContainersByGroup<T>(string groupName) where T : class, IFluidContainer, new()
+    LiquidContainer? IFluidDevice<LiquidContainer, LiquidData>.GetPrefContainerByGroup(string groupName)
     {
         throw new NotImplementedException();
     }
 
-    public T GetPrefContainerByGroup<T>(string groupName) where T : class, IFluidContainer, new()
+    #endregion
+
+    #region VAPOR
+
+    T3 IFluidDevice<VaporContainer, VaporData>.GetFluidContainersByGroup<T3>(string groupName)
     {
         throw new NotImplementedException();
     }
+
+    VaporContainer? IFluidDevice<VaporContainer, VaporData>.GetPrefContainerByGroup(string groupName)
+    {
+        throw new NotImplementedException();
+    }
+
+    T3 IFluidDevice<VaporContainer, VaporData>.GetFluidContainers<T3>()
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+    
+    #endregion
+
+    
 
     public FluidProperties.PhaseType OutputPhaseType { get; protected set; }
     public FluidProperties.PhaseType InputPhaseType { get; protected set; }
-
-    public override float GetCurrentPowerConsumption(Connection connection = null)
-    {
-        return base.GetCurrentPowerConsumption(connection);
-    }
-
-    public override void OnMapLoaded()
-    {
-        base.OnMapLoaded();
-    }
 
     public override void Update(float deltaTime, Camera cam)
     {
@@ -52,7 +71,7 @@ public partial class SteamBoiler : Powered, IFluidDevice
         _updateWaitTickRemaining--;
         if (_updateWaitTickRemaining < 1)
         {
-            _updateWaitTickRemaining = IFluidDevice.WaitTicksBetweenUpdates;
+            _updateWaitTickRemaining = FluidSystemData.WaitTicksBetweenUpdates;
             UpdateSteamGeneration();
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace Mechtrauma.TransferSystems;
 
-public interface IFluidContainer
+public interface IFluidContainer<T> where T : struct, IFluidData
 {
-    public Dictionary<string, IFluidData> ContainedFluids { get; }
+    public Dictionary<string, T> ContainedFluids { get; }
     public HashSet<string> FluidRestrictions { get; }
     public float AvgDensity { get; }
     public float Pressure { get; }
@@ -20,14 +20,14 @@ public interface IFluidContainer
     public void UpdateForMass(float newMass);
 
     public bool CanTakeFluid();
-    public T2 TakeFluidProportional<T,T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new();
-    public T2 TakeFluidBottom<T,T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new();
-    public T2 TakeFluidTop<T,T2>(float volume) where T : struct, IFluidData where T2 : IList<T>, new();
-    public bool TryTakeFluidSpecific<T>(string name, float volume, out T fluidData) where T : struct, IFluidData;    
+    public T2 TakeFluidProportional<T2>(float volume) where T2 : IList<T>, new();
+    public T2 TakeFluidBottom<T2>(float volume) where T2 : IList<T>, new();
+    public T2 TakeFluidTop<T2>(float volume) where T2 : IList<T>, new();
+    public bool TryTakeFluidSpecific(string name, float volume, out T fluidData);    
     
-    public bool CanPutFluids<T,T2>(in T2 fluids) where T : struct, IFluidData where T2 : IList<T>, new();
-    public bool PutFluids<T,T2>(in T2 fluids, bool overrideChecks=false) where T : struct, IFluidData where T2 : IList<T>, new();
-    public float GetMaxFreeVolume<T>(in T fluidData) where T : struct, IFluidData;
+    public bool CanPutFluids<T2>(in T2 fluids) where T2 : IList<T>, new();
+    public bool PutFluids<T2>(in T2 fluids, bool overrideChecks=false) where T2 : IList<T>, new();
+    public float GetMaxFreeVolume(in T fluidData);
     /// <summary>
     /// Given a sample list (no volume), returns the available volume for storing any combination of the fluids in the list
     /// at their supplied values (pressure, temperature, etc.).
@@ -36,7 +36,7 @@ public interface IFluidContainer
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="T2"></typeparam>
     /// <returns></returns>
-    public float GetMaxFreeVolume<T,T2>(in T2 fluidData) where T : struct, IFluidData where T2 : IList<T>, new();
+    public float GetMaxFreeVolume<T2>(in T2 fluidData) where T2 : IList<T>, new();
 
     public float GetApertureSizeForConnection(string connName);
     public void SetApertureSizeForConnection(string connName, float value);
