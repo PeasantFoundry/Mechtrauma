@@ -4,9 +4,7 @@ namespace Mechtrauma.TransferSystems;
 
 public class LiquidContainer : ILiquidContainer<LiquidData>
 {
-    public Dictionary<string, LiquidData> ContainedFluids => _containedFluids.ToDictionary(
-        kvp => kvp.Key,
-        kvp => kvp.Value);
+    public IDictionary<string, LiquidData> ContainedFluids => _containedFluids;
     private readonly SortedList<string, LiquidData> _containedFluids = new();
     private List<string> _fluidsByDensity = new();
     public IReadOnlyList<string> FluidsByDensity => _fluidsByDensity;
@@ -182,6 +180,18 @@ public class LiquidContainer : ILiquidContainer<LiquidData>
         fluidData = outFluid;
         UpdateFluidsList();
         return true;
+    }
+
+    public T2 GetFluidSample<T2>() where T2 : IList<LiquidData>, new()
+    {
+        T2 list = new();
+        foreach (var fluid in _containedFluids.Values)
+        {
+            fluid.UpdateForVolume(1f);
+            list.Add(fluid);
+        }
+
+        return list;
     }
 
     public bool CanPutFluids<T2>(in T2 fluids) where T2 : IList<LiquidData>, new()

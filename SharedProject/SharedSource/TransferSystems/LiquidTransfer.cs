@@ -38,7 +38,7 @@ public class LiquidTransfer : ItemComponent
     }
     
     public static readonly string SIGNAL_VOLUMETRIC_RATE = "output_flow_rate";
-    public static readonly string SIGNAL_PRESSURE = "output_flow_rate";
+    public static readonly string SIGNAL_PRESSURE = "output_pressure";
     public static readonly string SIGNAL_VELOCITY = "output_velocity";
 
     private int _ticksUntilUpdate = 0;
@@ -95,7 +95,7 @@ public class LiquidTransfer : ItemComponent
                 return;
             
             // get valid consumers
-            var sampleLiquid = producerTank.TakeFluidProportional<List<LiquidData>>(0f);
+            var sampleLiquid = producerTank.GetFluidSample<List<LiquidData>>();
 
             if (!sampleLiquid.Any())
                 return;
@@ -127,7 +127,7 @@ public class LiquidTransfer : ItemComponent
             float sumProportions = 0;
             int tankCount = consumerTanks.Count;
             // calculate proportions
-            // stack overflow protection limit of 64
+            // stack overflow protection limit of 64 => ~1.2KB max stack mem
             
             // alloc memory
             Span<float> proportionsAbs = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];

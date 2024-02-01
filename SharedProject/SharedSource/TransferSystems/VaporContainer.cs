@@ -2,7 +2,8 @@
 
 public class VaporContainer : IVaporContainer<VaporData>
 {
-    public Dictionary<string, VaporData> ContainedFluids { get; }
+    public IDictionary<string, VaporData> ContainedFluids => _containedFluids;
+    protected SortedList<string, VaporData> _containedFluids = new();
     public HashSet<string> FluidRestrictions { get; }
     public float AvgDensity { get; }
     public float Pressure { get; }
@@ -10,7 +11,11 @@ public class VaporContainer : IVaporContainer<VaporData>
     public float Velocity { get; }
     public float Volume { get; }
     public float ContainerVolume { get; }
+    public float MaxContainerVolume { get; }
     public float FluidMass { get; }
+
+    private readonly Dictionary<string, float> _apertureSizes = new();
+
     public void UpdateForPressure(float newPressure)
     {
         throw new NotImplementedException();
@@ -62,6 +67,11 @@ public class VaporContainer : IVaporContainer<VaporData>
     }
 
     public bool TryTakeFluidSpecific(string name, float volume, out VaporData fluidData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public T2 GetFluidSample<T2>() where T2 : IList<VaporData>, new()
     {
         throw new NotImplementedException();
     }
