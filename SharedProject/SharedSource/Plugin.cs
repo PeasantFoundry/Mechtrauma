@@ -51,8 +51,6 @@ namespace Mechtrauma
 
         private void InitUserData()
         {
-            UserData.RegisterType<HullData>();
-            UserData.RegisterType<DataTrackerHelper>();
             UserData.RegisterType<Configuration>();
             UserData.RegisterType<Configuration.Settings_General>();
             UserData.RegisterType<Configuration.Settings_Advanced>();
@@ -109,7 +107,6 @@ namespace Mechtrauma
         public void Dispose()
         {
             UnloadUserData();
-            DataTrackerHelper.Instance.Dispose();
 #if SERVER
             // server-side code
 #elif CLIENT
