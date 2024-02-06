@@ -11,6 +11,91 @@ CentralComputer.online = true
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second.
 -- human breaths 700 oxygen/second and that requires to 0.3
 
+function MT.F.loadMaterialsDepot(sourceItem, targetItem)
+      local index = 0
+
+      while(index < sourceItem.OwnInventory.Capacity) do
+          if sourceItem.OwnInventory.GetItemAt(index) ~= nil then
+              local foundItem = sourceItem.OwnInventory.GetItemAt(index)
+              local response = true
+
+              -- ? centralize into a MT table and use an index lookup so that it's easier to add new materials later ?
+
+              -- ------------------------------ STEEL: slot 0 ----------------------------- --
+              if foundItem.Prefab.Identifier.Value == "steel" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 0)
+              -- ----------------------------- TITANIUM ALUMINIUM ALLOY: slot 1 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "titaniumaluminiumalloy" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 1)
+              -- ----------------------------- ALUMINIUM: slot 2 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "aluminium" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 2)
+              -- ----------------------------- CARBON: slot 3 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "carbon" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 3)
+              -- ----------------------------- SILICON: slot 4 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "silicon" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 4)
+              -- ----------------------------- TITANIUM: slot 5 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "titanium" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 5)
+              -- ----------------------------- COPPER: slot 6 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "copper" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 6)
+              -- ----------------------------- IRON: slot 7 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "iron" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 7)
+              -- ----------------------------- URANIUM: slot 8 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "uranium" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 8)
+              -- ----------------------------- LEAD: slot 9 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "lead" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 9)
+              -- ----------------------------- TIN: slot 10 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "tin" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 10)
+              -- ----------------------------- THORIUM: slot 11 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "thorium" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 11)
+              -- ----------------------------- ZINC: slot 12 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "zinc" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 12)
+              -- ----------------------------- PLASTIC: slot 13 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "plastic" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 13)
+              -- ----------------------------- ORGANIC FIBER: slot 14 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "organicfiber" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 14)
+              -- ----------------------------- BALLISTIC FIBER: slot 15 ----------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "ballisticfiber" then
+                MT.HF.MoveAll(sourceItem, targetItem, index, 15)
+
+              -- ---------------------------- LITHIUM: slot 17 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "lithium" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 17)
+              -- ---------------------------- SODIUM: slot 18 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "sodium" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 18)
+              -- ---------------------------- CHLORINE: slot 19 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "chlorine" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 19)
+              -- ---------------------------- POTASSIUM: slot 20 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "potassium" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 20)
+              -- ---------------------------- MAGNESIUM: slot 21 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "magnesium" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 21)
+              -- ---------------------------- CALCIUM: slot 22 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "calcium" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 22)
+              -- ---------------------------- PHOSPHORUS: slot 23 ---------------------------- --
+              elseif foundItem.Prefab.Identifier.Value == "phosphorus" then
+                  MT.HF.MoveAll(sourceItem, targetItem, index, 23)
+              end
+          end
+          index = index + 1
+      end
+end
 
 -- thermal part: part thermal: probably move to diesel functions?
 function MT.F.thermalPartTemp(item, thermal)

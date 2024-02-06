@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style>
-    <Font name="TestFont2" file="%ModDir%/UI/CodeProBold.otf" size="12">
+    <Font name="TestFont2" file="%ModDir%/UI/Fonts/CodeProBold.otf" size="12">
         <Size maxresolution="1024,768" size="11"/>
         <Size maxresolution="1280,800" size="13"/>
         <Size maxresolution="1920,1080" size="15"/>
@@ -8,4 +8,21 @@
         <Size maxresolution="2560,1600" size="18"/>
         <Size size="1.5vh"/>
     </Font>
+    <Font name="Monoid_RTS" file="%ModDir%/UI/Fonts/Monoid/Monoid-Regular-Tight-XtraSmall.ttf" size="12">
+        <Size maxresolution="1024,768" size="12"/>
+        <Size maxresolution="1280,800" size="14"/>
+        <Size maxresolution="1920,1080" size="14"/>
+        <Size maxresolution="2048,1440" size="16"/>
+        <Size maxresolution="2560,1600" size="16"/>
+        <Size size="1.5vh"/>
+    </Font>
+    <Font name="Alien_K" file="%ModDir%/UI/Fonts/klingon font.ttf" size="12">
+        <Size maxresolution="1024,768" size="12"/>
+        <Size maxresolution="1280,800" size="14"/>
+        <Size maxresolution="1920,1080" size="14"/>
+        <Size maxresolution="2048,1440" size="16"/>
+        <Size maxresolution="2560,1600" size="16"/>
+        <Size size="1.5vh"/>
+    </Font>
 </style>
+

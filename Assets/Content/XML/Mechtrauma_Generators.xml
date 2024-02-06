@@ -248,7 +248,7 @@
   </Item>
 
  <!-- DIESEL GENERATOR S3000DGa: Standard. -->
- <Item name="s3000DGa - Masochist V" identifier="s3000DGa" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <Item name="s3000DGa - Masochist V" identifier="s3000DGa" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -339,7 +339,7 @@
       </SubContainer>
       <!-- SLOT 7 Starter Motor -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_starter_motor,electric_motor" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_starter_motor,electricmotor" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 8 DCM -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
@@ -401,7 +401,7 @@
   </Item>
 
    <!-- DIESEL GENERATOR S3000Da: Standard. -->
- <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.5">
+ <Item name="s3000Da - Masochist V" identifier="s3000Da" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
@@ -492,7 +492,7 @@
       </SubContainer>
       <!-- SLOT 7 Starter Motor -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">
-        <Containable items="mt_starter_motor,electric_motor" excludebroken="true" excludefullcondition="false"/>
+        <Containable items="mt_starter_motor,electricmotor" excludebroken="true" excludefullcondition="false"/>
       </SubContainer>
       <!-- SLOT 8 DCM -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true">

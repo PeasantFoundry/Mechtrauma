@@ -36,6 +36,36 @@ Hook.Add("Mechtrauma.PlayerLadderDetector::OnLadderValueUpdate","MT.LadCheck", f
   end
 end)
 
+-- load materials depot from a crate (container)
+Hook.Add("mtLoadMaterialsDepotFC.OnUse", "MT.loadMaterialsDepot", function(effect, deltaTime, item, targets, worldPosition)
+  local slotIndex = 0
+
+  -- search the materials depot for items with a container
+  while(slotIndex < item.OwnInventory.Capacity) do
+    local childItem = item.OwnInventory.GetItemAt(slotIndex)
+    if childItem and childItem.OwnInventory ~= nil then
+      local index = 0
+      -- load eligable items from the child items container into the depot
+      MT.F.loadMaterialsDepot(childItem, item)
+    end
+    slotIndex = slotIndex + 1
+  end
+
+end)
+
+-- load materials depot from linked items
+Hook.Add("mtLoadMaterialsDepotFL.OnUse", "MT.loadMaterialsDepot", function(effect, deltaTime, item, targets, worldPosition)
+  local index
+
+  -- LINKED CONTAINERS
+  if item.linkedTo ~= nil then
+    for _, linkedItem in pairs(item.linkedTo) do
+      MT.F.loadMaterialsDepot(linkedItem, item)
+    end
+end
+
+
+end)
 Hook.Add("electricalRepair.OnFailure", "MT.electricalRepairFailure", function(effect, deltaTime, item, targets, worldPosition)
   local character
   -- if the human target isn't 10, loop through the targets and find the human

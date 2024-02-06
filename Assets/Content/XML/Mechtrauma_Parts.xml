@@ -3,7 +3,8 @@
 
     <!-- ELECTRIC MOTOR: This is an electric motor for use in machines. -->
     <Item name="Electric Motor"
-          identifier="electric_motor"
+          identifier="mt_electric_motor"
+          aliases="electric_motor"
           Category="Equipment"
           Tags="smallitem,electricmotor,part"
           maxstacksize="2"
@@ -39,7 +40,7 @@
         <Fabricate suitablefabricators="fabricator,cncfab" displayname="recycleitem" requiredtime="15">
             <RequiredSkill identifier="electrical" level="35" />
             <RequiredSkill identifier="electrical" level="25" />
-            <RequiredItem identifier="electric_motor" mincondition="0.0" usecondition="false" />
+            <RequiredItem identifier="mt_electric_motor" mincondition="0.0" usecondition="false" />
             <RequiredItem identifier="copper_windings" />
             <RequiredItem identifier="sealed_bearing" />
         </Fabricate>

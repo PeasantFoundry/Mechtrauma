@@ -790,7 +790,7 @@
                       ShowInputBox="false"
                       TextColor="255,150,0,255"
                       MessageFont="MonospacedFont" />
-      <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.1" pivot="Right" anchor="Right" style="ItemUI" Color="20,20,20,200" />
+      <GuiFrame relativesize="0.35,0.5" relativeoffset="0.0,0.0" anchor="CenterRight" style="ItemUI" Color="20,20,20,200" />
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5">
         <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1152,320,384,384" origin="0.5,0.5" />
       </OuterSprite>
@@ -800,7 +800,7 @@
     <MTC />
 
     <CustomInterface canbeselected="true" allowuioverlap="true" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.175,0.15" anchor="Right" pivot="Right" relativeoffset="0.09,0.5" style="ItemUI" linkuitocomponent="ItemContainer" />
+      <GuiFrame relativesize="0.15,0.1" anchor="CenterRight" pivot="CenterRight" relativeoffset="0.1,0.15" style="ItemUI" linkuitocomponent="ItemContainer" />
 
       <!-- ACTION: ATTEMPT REPAIR -->
       <Button text="Attempt Repair">

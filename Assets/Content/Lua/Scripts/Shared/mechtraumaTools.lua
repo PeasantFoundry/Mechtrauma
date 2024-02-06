@@ -152,8 +152,17 @@ Hook.Add("mtHandCuff.onUse", "MT.cuffs", function(statusEffect, delta, item)
     end
 end)
 
+-- ----------------------------- MT ITEM BREAKER SLOT ----------------------------- --
+Hook.Add("mtBreakerSlot.OnUse", "mtBreaker.tools", function(effect, deltaTime, item, targets, worldPosition, client)
+        -- Breaks the item (if any) in slot 0
+        if item.OwnInventory.GetItemAt(0) ~= nil then
+            print("found one!")
+            item.OwnInventory.GetItemAt(0) .Condition = 0 -- break the target item
+        end
+end)
+
 -- ----------------------------- MT ITEM LINKER ----------------------------- --
-Hook.Add("mtLinker.onUse", "mtLinker.mtLinker", function(effect, deltaTime, item, targets, worldPosition, client)
+Hook.Add("mtLinker.onUse", "mtLinker.tools", function(effect, deltaTime, item, targets, worldPosition, client)
     MT.T.Linker(item)
 end)
 

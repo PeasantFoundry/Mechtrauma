@@ -3,6 +3,185 @@
 
 <!-- =============< GEAR >=============  -->
 
+<!-- Crew Hat: grey plain -->
+<Item name="Crew Hat" identifier="mt_hat_crew" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.3">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Officers Hat Grey" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="256,576,128,70" depth="0.6" origin="0.5,0.5" />
+    <Body radius="40" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Officers Hat WG" texture="%ModDir%/Images/Gear/mt_wearables.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.45" hidewearablesoftype="Hair" sourcerect="256,576,128,64" origin="0.45,1.0" />
+    </Wearable>
+</Item>
+
+<!-- Crew Hat: grey -->
+<Item name="Crew Hat" identifier="mt_hat_crew_g2" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.3">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Officers Hat Grey" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="640,576,128,70" depth="0.6" origin="0.5,0.5" />
+    <Body radius="40" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Officers Hat WG" texture="%ModDir%/Images/Gear/mt_wearables.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.45" hidewearablesoftype="Hair" sourcerect="640,576,128,64" origin="0.45,1.0" />
+    </Wearable>
+</Item>
+
+<!-- Officers Hat: grey -->
+<Item name="Officers Hat" identifier="mt_hat_officer" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.325">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Officers Hat Grey" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="0,448,128,70" depth="0.6" origin="0.5,0.5" />
+    <Body radius="40" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Officers Hat WG" texture="%ModDir%/Images/Gear/mt_wearables.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.55" hidewearablesoftype="Hair" sourcerect="0,448,128,128" origin="0.575,0.575" />
+    </Wearable>
+
+
+</Item>
+
+<!-- Hard Hat: face shield -->
+<Item name="Hard Hat" identifier="mt_hard_hat_fs" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.325">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Hard Hat Shield" texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="512,0,128,128" depth="0.6" origin="0.5,0.5" />
+    <Body radius="40" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Hard Hat Wearable" texture="%ModDir%/Images/Items/mt_tools.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.55" hidewearablesoftype="Hair" sourcerect="512,0,140,160" origin="0.5,0.45" />
+    </Wearable>
+
+
+  </Item>
+
+<!-- Hard Hat -->
+<Item name="Hard Hat" identifier="mt_hard_hat" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.325">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Hard Hat" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="448,160,128,128" depth="0.6" origin="0.5,0.5" />
+    <Body radius="40" density="25" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+
+
+      <!-- light -->
+      <sprite name="Hard Hat Wearable" texture="%ModDir%/Images/Gear/mt_wearables.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.55" hidewearablesoftype="Hair" sourcerect="448,160,128,128" origin="0.53,0.5" >
+        <LightComponent range="200.0" lightcolor="250,224,165,255" powerconsumption="10" IsOn="true" allowingameediting="false">
+          <StatusEffect type="OnWearing" target="This,Character" Voltage="1.0" setvalue="true">
+            <Conditional IsDead="false" />
+              <RequiredItem items="batterycell" type="Contained" targetslot="0"/>
+          </StatusEffect>
+          <StatusEffect type="OnActive" targettype="Contained" Condition="-0.05" comparison="And" targetslot="2" />
+          <LightTexture texture="Content/Lights/divinghelmetlight.png" origin="0.05, 0.5" size="1.0,1.0" />
+        </LightComponent>
+      </sprite>
+
+    </Wearable>
+
+
+    <ItemContainer capacity="2" maxstacksize="1" hideitems="true" containedstateindicatorslot="0" containedstateindicatorstyle="tank">
+    <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="704,0,64,64" origin="0.5,0.5" />
+      <Containable items="batterycell" />
+    </ItemContainer>
+
+  </Item>
+
  <!-- Plague Doctor Mask -->
 <Item name="Plague Doctor Mask" identifier="plague_doctor_mask" scale="0.5" category="Equipment" Tags="smallitem,diving,lightdiving" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_light">
     <Price baseprice="100">
@@ -31,7 +210,7 @@
     <Sprite name="Plague Doctor Mask" texture="%ModDir%/Images/plague_doctor_mask.png" sourcerect="0,0,88,76" depth="0.55" origin="0.5,0.5" />
     <Body width="88" height="76" density="15" />
     <Wearable limbtype="Head" slots="Any,Head" msg="ItemMsgPickUpSelect" displaycontainedstatus="true">
-      <sprite name="Plague Doctor Mask" texture="%ModDir%/Images/plague_doctor_mask.png" sourcerect="0,0,88,76" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.15" hidelimb="false" hideotherwearables="false" origin="0.45,0.45" hidewearablesoftype="moustache,beard" />
+      <sprite name="Plague Doctor Mask" texture="%ModDir%/Images/plague_doctor_mask.png" sourcerect="0,0,88,76" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.15" hidelimb="true" hideotherwearables="false" origin="0.45,0.45" hidewearablesoftype="moustache,beard" />
       <StatusEffect type="OnWearing" target="Character" HideFace="true" SpeedMultiplier="0.9" setvalue="true" disabledeltatime="true" />
       <StatusEffect type="OnWearing" target="Contained,Character" OxygenAvailable="1000.0" Condition="-0.5" comparison="Or">
         <Conditional IsDead="false" />
@@ -96,12 +275,12 @@
       <RequiredItem identifier="lead" amount="4" />
       <RequiredItem identifier="titaniumaluminiumalloy" amount="1" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/gear/fatboy.png" sourcerect="512,0,128,128" origin="0.5,0.5" />
-    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/gear/fatboy.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.525" />
-    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/gear/fatboy.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
+    <InventoryIcon texture="%ModDir%/Images/Gear/fatboy.png" sourcerect="512,0,128,128" origin="0.5,0.5" />
+    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/Gear/fatboy.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.525" />
+    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/Gear/fatboy.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
     <Body radius="45" width="34" density="15" />
     <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="FatBoy Helmet Wearable" texture="%ModDir%/Images/gear/fatboy.png" limb="Head" inheritlimbdepth="false" depth="0.106" inheritscale="true" ignorelimbscale="true" scale="1.1" hidelimb="true" hideotherwearables="true" sourcerect="400,12,92,64" origin="0.5,0.5">
+      <sprite name="FatBoy Helmet Wearable" texture="%ModDir%/Images/Gear/fatboy.png" limb="Head" inheritlimbdepth="false" depth="0.106" inheritscale="true" ignorelimbscale="true" scale="1.1" hidelimb="true" hideotherwearables="true" sourcerect="400,12,92,64" origin="0.5,0.5">
         <LightComponent range="200.0" lightcolor="250,224,165,255" powerconsumption="10" IsOn="true" allowingameediting="false">
           <StatusEffect type="OnWearing" target="This,Character" Voltage="1.0" setvalue="true">
             <Conditional IsDead="false" />
@@ -112,20 +291,20 @@
         </LightComponent>
       </sprite>
 
-      <sprite name="FatBoy Torso" texture="%ModDir%/Images/gear/fatboy.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.525" inheritlimbdepth="false" depth="0.1001" inheritsourcerect="false" sourcerect="152,0,110,192" />
-      <sprite name="FatBoy Right Hand" texture="%ModDir%/Images/gear/fatboy.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.45" inheritlimbdepth="false" depth="0.100" inheritsourcerect="false" sourcerect="292,170,23,37" />
-      <sprite name="FatBoy Left Hand" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="FatBoy Right Upper Arm" texture="%ModDir%/Images/gear/fatboy.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.098" />
-      <sprite name="FatBoy Left Upper Arm" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="FatBoy Right Fore Arm" texture="%ModDir%/Images/gear/fatboy.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.45,0.45" inheritlimbdepth="false" depth="0.099" inheritsourcerect="false" sourcerect="288,95,30,73" />
-      <sprite name="FatBoy Left Fore Arm" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="FatBoy Waist" texture="%ModDir%/Images/gear/fatboy.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritlimbdepth="false" depth="0.1002" inheritsourcerect="false" sourcerect="176,194,72,54" />
-      <sprite name="FatBoy Right Thigh" texture="%ModDir%/Images/gear/fatboy.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="8,10,55,112" inheritdepth="false" depth="0.39"/>
-      <sprite name="FatBoy Left Thigh" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="84,10,52,115" inheritdepth="false" depth="0.45"/>
-      <sprite name="FatBoy Right Leg" texture="%ModDir%/Images/gear/fatboy.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.4,0.52" inheritlimbdepth="false" depth="0.1" inheritsourcerect="false" sourcerect="12,130,56,124" />
-      <sprite name="FatBoy Left Leg" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.4,0.52" inheritsourcerect="false" sourcerect="92,130,56,128" inheritdepth="false" depth="0.40" />
-      <sprite name="FatBoy Left Shoe" texture="%ModDir%/Images/gear/fatboy.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="FatBoy Right Shoe" texture="%ModDir%/Images/gear/fatboy.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="FatBoy Torso" texture="%ModDir%/Images/Gear/fatboy.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.525" inheritlimbdepth="false" depth="0.1001" inheritsourcerect="false" sourcerect="152,0,110,192" />
+      <sprite name="FatBoy Right Hand" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.45" inheritlimbdepth="false" depth="0.100" inheritsourcerect="false" sourcerect="292,170,23,37" />
+      <sprite name="FatBoy Left Hand" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="FatBoy Right Upper Arm" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.098" />
+      <sprite name="FatBoy Left Upper Arm" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="FatBoy Right Fore Arm" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.45,0.45" inheritlimbdepth="false" depth="0.099" inheritsourcerect="false" sourcerect="288,95,30,73" />
+      <sprite name="FatBoy Left Fore Arm" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="FatBoy Waist" texture="%ModDir%/Images/Gear/fatboy.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritlimbdepth="false" depth="0.1002" inheritsourcerect="false" sourcerect="176,194,72,54" />
+      <sprite name="FatBoy Right Thigh" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="8,10,55,112" inheritlimbdepth="false" depth="0.12"/>
+      <sprite name="FatBoy Left Thigh" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="84,10,52,115" />
+      <sprite name="FatBoy Right Leg" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.4,0.52" inheritsourcerect="false" sourcerect="12,130,56,124" inheritlimbdepth="false" depth="0.11"/>
+      <sprite name="FatBoy Left Leg" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.4,0.52" inheritsourcerect="false" sourcerect="92,130,56,128" inheritdepth="false" depth="0.40" />
+      <sprite name="FatBoy Left Shoe" texture="%ModDir%/Images/Gear/fatboy.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="FatBoy Right Shoe" texture="%ModDir%/Images/Gear/fatboy.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
 
       <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
       <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
@@ -250,12 +429,12 @@
       <RequiredItem identifier="organicfiber" />
       <RequiredItem identifier="carbon" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/gear/expedition_divingsuit.png" sourcerect="475,0,128,128" origin="0.5,0.5" />
-    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/gear/expedition_divingsuitb.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.5" />
-    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/gear/expedition_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
+    <InventoryIcon texture="%ModDir%/Images/Gear/expedition_divingsuit.png" sourcerect="475,0,128,128" origin="0.5,0.5" />
+    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/Gear/expedition_divingsuitb.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
     <Body radius="45" width="34" density="15" />
     <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="Expedition Diving Suit Helmet Wearable" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.1  " hidelimb="true" hideotherwearables="true" sourcerect="410,16,58,60" origin="0.5,0.5">
+      <sprite name="Expedition Diving Suit Helmet Wearable" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.1  " hidelimb="true" hideotherwearables="true" sourcerect="410,16,58,60" origin="0.5,0.5">
          <LightComponent range="200.0" lightcolor="250,224,165,255" powerconsumption="10" IsOn="true" allowingameediting="false">
           <StatusEffect type="OnWearing" target="This,Character" Voltage="1.0" setvalue="true">
             <Conditional IsDead="false" />
@@ -266,20 +445,20 @@
         </LightComponent>
       </sprite>
 
-      <sprite name="Expedition Diving Suit Torso" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.65,0.55" inheritsourcerect="false" sourcerect="150,26,100,124"  />
-      <sprite name="Expedition Diving Suit Right Hand" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Left Hand" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Right Lower Arm"  texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Left Lower Arm"  texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Right Upper Arm" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Left Upper Arm"  texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Waist" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="176,194,72,54"  />
-      <sprite name="Expedition Diving Suit Right Thigh" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="8,10,52,116" inheritdepth="false" depth="0.39"/>
-      <sprite name="Expedition Diving Suit Left Thigh" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="84,10,52,116" />
-      <sprite name="Expedition Diving Suit Right Leg" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="16,132,46,118" />
-      <sprite name="Expedition Diving Suit Left Leg" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="96,132,46,118"  />
-      <sprite name="Expedition Diving Suit Left Shoe" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Expedition Diving Suit Right Shoe" texture="%ModDir%/Images/gear/expedition_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Torso" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.65,0.55" inheritsourcerect="false" sourcerect="150,26,100,124"  />
+      <sprite name="Expedition Diving Suit Right Hand" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Left Hand" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Right Lower Arm"  texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Left Lower Arm"  texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Right Upper Arm" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Left Upper Arm"  texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Waist" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="176,194,72,54"  />
+      <sprite name="Expedition Diving Suit Right Thigh" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="8,10,52,116" inheritdepth="false" depth="0.39"/>
+      <sprite name="Expedition Diving Suit Left Thigh" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="84,10,52,116" />
+      <sprite name="Expedition Diving Suit Right Leg" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="16,132,46,118" />
+      <sprite name="Expedition Diving Suit Left Leg" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.5,0.5" inheritsourcerect="false" sourcerect="96,132,46,118"  />
+      <sprite name="Expedition Diving Suit Left Shoe" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Expedition Diving Suit Right Shoe" texture="%ModDir%/Images/Gear/expedition_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
 
       <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
       <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
@@ -391,14 +570,14 @@
       <RequiredItem identifier="steel" amount="2" />
       <RequiredItem identifier="organicfiber" amount="2" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="640,256,128,128" origin="0.5,0.5" />
-    <Sprite name="Armored Suit Item" texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="436,256,140,92" depth="0.55" origin="0.5,0.5" />
-    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
+    <InventoryIcon texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="640,256,128,128" origin="0.5,0.5" />
+    <Sprite name="Armored Suit Item" texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="436,256,140,92" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
     <Body radius="45" width="34" density="15" />
     <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="Armored Suit Helmet Wearable" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.0" hidelimb="true" hideotherwearables="true" sourcerect="0,256,60,74" origin="0.55,0.55"> <!--sourcerect="400,10,82,68" -->
+      <sprite name="Armored Suit Helmet Wearable" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.0" hidelimb="true" hideotherwearables="true" sourcerect="0,256,60,74" origin="0.55,0.55"> <!--sourcerect="400,10,82,68" -->
 
-        <DecorativeSprite texture="%ModDir%/Images/gear/knight_light.png" depth="0.3" sourcerect="0,0,64,74" origin="0.5,0.5" scale="1.0" rotationspeed="0" Comparison="And">
+        <DecorativeSprite texture="%ModDir%/Images/Gear/knight_light.png" depth="0.3" sourcerect="0,0,64,74" origin="0.5,0.5" scale="1.0" rotationspeed="0" Comparison="And">
           <RequiredItem items="batterycell" type="Contained" targetslot="1"/>
         </DecorativeSprite>
         <LightComponent range="200.0" lightcolor="250,224,165,255" powerconsumption="10" IsOn="true" allowingameediting="false">
@@ -409,25 +588,25 @@
             <Sound file="%ModDir%/Sound/knight2.ogg" range="500" selectionmode="Random"/>
             <Sound file="%ModDir%/Sound/knight3.ogg" range="500" selectionmode="Random"/>
           </StatusEffect>
-          <LightTexture texture="%ModDir%/Images/gear/knight_light.png" depth="0.3" origin="0.5,0.5" size="0.1,0.1" />
+          <LightTexture texture="%ModDir%/Images/Gear/knight_light.png" depth="0.3" origin="0.5,0.5" size="0.1,0.1" />
         </LightComponent>
 
 
       </sprite>
-      <sprite name="Armored Suit Torso" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.53,0.55" sourcerect="128,256,78,120" />
-      <sprite name="Armored Suit Right Hand" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="288,162,28,38" />
-      <sprite name="Armored Suit Left Hand" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Armored Suit Right Arm" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="342,256,64,104" />
-      <sprite name="Armored Suit Left Arm" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="344,4,44,88" />
-      <sprite name="Armored Suit Right Fore Arm" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="286,94,36,68" />
-      <sprite name="Armored Suit Left Fore Arm" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="352,94,36,68" />
-      <sprite name="Armored Suit Waist" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="254,257,70,54"  />
-      <sprite name="Armored Suit Right Thigh" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="4,8,60,116" />
-      <sprite name="Armored Suit Left Thigh" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="84,8,60,116" />
-      <sprite name="Armored Suit Right Leg" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="16,132,46,116" />
-      <sprite name="Armored Suit Left Leg" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="96,132,46,116" />
-      <sprite name="Armored Suit Left Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Armored Suit Right Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Suit Torso" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.53,0.55" sourcerect="128,256,78,120" />
+      <sprite name="Armored Suit Right Hand" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="288,162,28,38" />
+      <sprite name="Armored Suit Left Hand" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Suit Right Arm" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="342,256,64,104" />
+      <sprite name="Armored Suit Left Arm" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="344,4,44,88" />
+      <sprite name="Armored Suit Right Fore Arm" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="286,94,36,68" />
+      <sprite name="Armored Suit Left Fore Arm" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="352,94,36,68" />
+      <sprite name="Armored Suit Waist" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="254,257,70,54"  />
+      <sprite name="Armored Suit Right Thigh" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="4,8,60,116" />
+      <sprite name="Armored Suit Left Thigh" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="84,8,60,116" />
+      <sprite name="Armored Suit Right Leg" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="16,132,46,116" />
+      <sprite name="Armored Suit Left Leg" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="96,132,46,116" />
+      <sprite name="Armored Suit Left Shoe" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Suit Right Shoe" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
 
       <!-- DETERIORATION: You have a bunk, sleep in it, not the diving suit. This is  piece of specialized equipment for special occasionas. Like a tuxedo for your job. -->
       <StatusEffect type="OnWearing" target="This" Condition="-0.5" delay="5" stackable="false" disabledeltatime="true" />
@@ -492,12 +671,12 @@
       <RequiredItem identifier="organicfiber" amount="1"/>
       <RequiredItem identifier="ballisticfiber" amount="1"/>
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="496,0,128,128" origin="0.5,0.5" />
-    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.5" />
-    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/gear/armored_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
+    <InventoryIcon texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="496,0,128,128" origin="0.5,0.5" />
+    <Sprite name="Diving Suit Item" texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="428,140,146,110" depth="0.55" origin="0.5,0.5" />
+    <ContainedSprite name="Diving Suit Behind Window" allowedcontainertags="divingsuitcontainerwindow" texture="%ModDir%/Images/Gear/armored_divingsuit.png" sourcerect="640,0,77,209" depth="0.55" origin="-0.12,-0.14" />
     <Body radius="45" width="34" density="15" />
     <Wearable slots="OuterClothes" msg="ItemMsgEquipSelect" displaycontainedstatus="true" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="Armored Diving Suit Helmet Wearable" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.0" hidelimb="true" hideotherwearables="true" sourcerect="406,10,74,66" origin="0.55,0.55">
+      <sprite name="Armored Diving Suit Helmet Wearable" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="1.0" hidelimb="true" hideotherwearables="true" sourcerect="406,10,74,66" origin="0.55,0.55">
         <LightComponent range="200.0" lightcolor="250,224,165,255" powerconsumption="10" IsOn="true" allowingameediting="false">
           <StatusEffect type="OnWearing" target="This,Character" Voltage="1.0" setvalue="true">
             <Conditional IsDead="false" />
@@ -513,20 +692,20 @@
           <LightTexture texture="Content/Lights/divinghelmetlight.png" origin="0.05, 0.5" size="1.0,1.0" />
         </LightComponent>
       </sprite>
-      <sprite name="Armored Diving Suit Torso" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.65,0.55" sourcerect="152,26,96,124" />
-      <sprite name="Armored Diving Suit Right Hand" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="288,162,28,38" />
-      <sprite name="Armored Diving Suit Left Hand" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Armored Diving Suit Right Arm"  texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="282,4,44,88" />
-      <sprite name="Armored Diving Suit Left Arm"  texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="344,4,44,88" />
-      <sprite name="Armored Diving Suit Right Fore Arm" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="286,94,36,68" />
-      <sprite name="Armored Diving Suit Left Fore Arm"  texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="352,94,36,68" />
-      <sprite name="Armored Diving Suit Waist" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="252,257,72,54"  />
-      <sprite name="Armored Diving Suit Right Thigh" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="4,8,60,116" />
-      <sprite name="Armored Diving Suit Left Thigh" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="84,8,60,116" />
-      <sprite name="Armored Diving Suit Right Leg" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="16,132,46,116" />
-      <sprite name="Armored Diving Suit Left Leg" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="96,132,46,116" />
-      <sprite name="Armored Diving Suit Left Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Armored Diving Suit Right Shoe" texture="%ModDir%/Images/gear/armored_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Diving Suit Torso" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Torso" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.65,0.55" sourcerect="152,26,96,124" />
+      <sprite name="Armored Diving Suit Right Hand" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="288,162,28,38" />
+      <sprite name="Armored Diving Suit Left Hand" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Diving Suit Right Arm"  texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="282,4,44,88" />
+      <sprite name="Armored Diving Suit Left Arm"  texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="344,4,44,88" />
+      <sprite name="Armored Diving Suit Right Fore Arm" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="286,94,36,68" />
+      <sprite name="Armored Diving Suit Left Fore Arm"  texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="352,94,36,68" />
+      <sprite name="Armored Diving Suit Waist" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="Waist" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" origin="0.55,0.4" inheritsourcerect="false" sourcerect="252,257,72,54"  />
+      <sprite name="Armored Diving Suit Right Thigh" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="4,8,60,116" />
+      <sprite name="Armored Diving Suit Left Thigh" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="84,8,60,116" />
+      <sprite name="Armored Diving Suit Right Leg" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="16,132,46,116" />
+      <sprite name="Armored Diving Suit Left Leg" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="false" inheritsourcerect="false" origin="0.5,0.5" sourcerect="96,132,46,116" />
+      <sprite name="Armored Diving Suit Left Shoe" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="LeftFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Armored Diving Suit Right Shoe" texture="%ModDir%/Images/Gear/armored_divingsuit.png" limb="RightFoot" sound="footstep_armor_heavy" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="true" />
 
       <!-- INTEGRITY FAILURE: Leak oxygen when the suit is on the verge of breaking -->
       <StatusEffect type="OnWearing" target="Contained" targetslot="0" stackable="false" condition="-4" playsoundonrequireditemfailure="false">
@@ -611,6 +790,7 @@
           <!-- CHECK: Is there a powersource in the suit?  -->
           <StatusEffect type="OnContaining" targettype="This" duration="1.0" tags="powered" stackable="false" Comparison="And">
               <RequiredItem items="batterycell" type="Contained" />
+              <LuaHook name="mtConsolidate.OnContaining" />
               <Sound file="Content/Items/WarningBeep.ogg" range="500" loop="true"/>
           </StatusEffect>
       </SubContainer>
@@ -1895,9 +2075,9 @@
 
 
   <!-- ENGINEER UTILITY KIT-->
-  <Item name="Utility Kit"
-        identifier="kit_utility"
-        aliases="utilitykit"
+  <Item name="Mechanic Kit"
+        identifier="kit_mechanical"
+        aliases="mechanicalkit"
         category="Equipment"
         tags="smallitem,clothing"
         fireproof="false"
@@ -1917,24 +2097,32 @@
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
-    <InventoryIcon name="Utility Kit Icon" texture="%ModDir%/Images/gear/kit_utility.png" sourcerect="406,8,98,86" origin="0.5,0.5" />
-    <Sprite name="Utility Kit" texture="%ModDir%/Images/gear/kit_utility.png" sourcerect="406,8,98,86" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon name="Mechanical Kit Icon" texture="%ModDir%/Images/Gear/kit_mechanical.png" sourcerect="406,8,98,86" origin="0.5,0.5" />
+    <Sprite name="Mechanic Kit" texture="Content/Items/Jobgear/MiscJobGear.png" sourcerect="639,146,119,70" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
-      <sprite name="Utility Kit Torso" texture="%ModDir%/Images/gear/kit_utility.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Hand" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Hand" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Lower Arm" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Lower Arm" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Upper Arm" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Upper Arm" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Waist" texture="%ModDir%/Images/gear/kit_utility.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Thigh" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Thigh" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Leg" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Leg" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Left Shoe" texture="%ModDir%/Images/gear/kit_utility.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Utility Kit Right Shoe" texture="%ModDir%/Images/gear/kit_utility.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <!-- RIGHT ARM: -->
+      <sprite name="Mechanical Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightArm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Mechanical Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightForearm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Mechanical Kit Right Hand" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.09" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Mechanical Kit Back Thigh" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.142" />
+      <sprite name="Mechanical Kit Back Foot" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.141"/>
+      <sprite name="Mechanical Kit Back Leg" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.14"/>
+
+      <!-- TORSO: -->
+      <sprite name="Mechanical Kit Waist" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.100014" />
+      <sprite name="Mechanical Kit Torso" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <!-- LEFT LEG: -->
+      <sprite name="Mechanical Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.100013"/>
+      <sprite name="Mechanical Kit Left Foot" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.100012"/>
+      <sprite name="Mechanical Kit Left Leg" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.10001"/>
+      <!-- LEFT ARM: -->
+      <sprite name="Mechanical Kit Left Upper Arm" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftArm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.153"  />
+      <sprite name="Mechanical Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftForearm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.152" />
+      <sprite name="Mechanical Kit Left Hand" texture="%ModDir%/Images/Gear/kit_mechanical.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.15" />
+
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
       <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
     </Wearable>
@@ -1958,12 +2146,12 @@
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
-    <InventoryIcon name="Plague Doctor Kit Icon" texture="%ModDir%/Images/gear/kit_plague_doctor.png" sourcerect="404,10,102,80" origin="0.5,0.5" />
-    <Sprite name="Plague Doctor Kit" texture="%ModDir%/Images/gear/kit_plague_doctor.png" sourcerect="404,10,102,80" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon name="Plague Doctor Kit Icon" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" sourcerect="404,10,102,80" origin="0.5,0.5" />
+    <Sprite name="Plague Doctor Kit" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" sourcerect="404,10,102,80" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
       <sprite name="Plague Doctor Kit Torso"
-              texture="%ModDir%/Images/gear/kit_plague_doctor.png"
+              texture="%ModDir%/Images/Gear/kit_plague_doctor.png"
               limb="Torso"
               hidelimb="false"
               inherittexturescale="true"
@@ -1971,12 +2159,12 @@
               origin="0.5,0.4"
               inheritsourcerect="false"
               sourcerect="164,32,96,170" />
-      <sprite name="Plague Doctor Kit Right Hand" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Left Hand" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Right Lower Arm" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Left Lower Arm" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Right Hand" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Left Hand" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <sprite name="Plague Doctor Kit Right Upper Arm"
-              texture="%ModDir%/Images/gear/kit_plague_doctor.png"
+              texture="%ModDir%/Images/Gear/kit_plague_doctor.png"
               limb="RightArm"
               hidelimb="true"
               inherittexturescale="true"
@@ -1985,7 +2173,7 @@
               inheritsourcerect="false"
               sourcerect="274,8,56,78" />
       <sprite name="Plague Doctor Kit Left Upper Arm"
-              texture="%ModDir%/Images/gear/kit_plague_doctor.png"
+              texture="%ModDir%/Images/Gear/kit_plague_doctor.png"
               limb="LeftArm"
               hidelimb="true"
               inherittexturescale="true"
@@ -1995,7 +2183,7 @@
               sourcerect="338,8,52,78"
               depth="0.5" />
       <sprite name="Plague Doctor Kit Waist"
-              texture="%ModDir%/Images/gear/kit_plague_doctor.png"
+              texture="%ModDir%/Images/Gear/kit_plague_doctor.png"
               limb="Waist"
               hidelimb="true"
               inherittexturescale="true"
@@ -2003,16 +2191,219 @@
               origin="0.5,0.5"
               inheritsourcerect="false"
               sourcerect="182,204,58,52" />
-      <sprite name="Plague Doctor Kit Right Thigh" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Left Thigh" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Right Leg" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Left Leg" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Right Shoe" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Plague Doctor Kit Left Shoe" texture="%ModDir%/Images/gear/kit_plague_doctor.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Right Leg" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Left Leg" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Right Shoe" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+      <sprite name="Plague Doctor Kit Left Shoe" texture="%ModDir%/Images/Gear/kit_plague_doctor.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
       <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,gunshotwound,bitewounds" damagemultiplier="0.9" />
     </Wearable>
     <ItemContainer capacity="4">
       <Containable items="chem,medical,healthscanner,wrench" excludeditems="toolbox,toolbelt" />
+    </ItemContainer>
+  </Item>
+
+  <!-- CASUAL KIT: -->
+  <Item name="Casual Crew Kit" identifier="kit_crew_casual" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" />
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.05" />
+    <Price baseprice="150" minavailable="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="1" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" minavailable="1" />
+      <Price storeidentifier="merchantmine" minavailable="1" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon name="Casual Kit" texture="%ModDir%/Images/Gear/kit_crew_casual.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Casual Kit" texture="%ModDir%/Images/Gear/kit_crew_casual.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+      <!-- RIGHT ARM: -->
+      <sprite name="Casual Crew Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightArm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.015" />
+      <sprite name="Casual Crew Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightForearm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.016"  />
+      <sprite name="Casual Crew Kit Right Hand" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Casual Crew Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.119" />
+      <sprite name="Casual Crew Kit Right Leg" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.117"/>
+      <sprite name="Casual Crew Kit Right Foot" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.118"/>
+
+      <!-- TORSO: -->
+      <sprite name="Casual Crew Kit Waist" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.2" />
+      <sprite name="Casual Crew Kit Torso" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="Casual Crew Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.129" />
+      <sprite name="Casual Crew Kit Left Leg" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.127"/>
+      <sprite name="Casual Crew Kit Left Foot" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+
+      <!-- <sprite name="Casual Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1292" /> -->
+      <sprite name="Casual Crew Kit Left Hand" texture="%ModDir%/Images/Gear/kit_crew_casual.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1291" />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+    </Wearable>
+    <ItemContainer capacity="3">
+      <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
+    </ItemContainer>
+  </Item>
+
+
+  <!-- FORMAL KIT: -->
+  <Item name="Formal Crew Kit" identifier="kit_crew_formal" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" />
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.05" />
+    <Price baseprice="150" minavailable="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="1" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" minavailable="1" />
+      <Price storeidentifier="merchantmine" minavailable="1" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon name="Formal Crew Kit" texture="%ModDir%/Images/Gear/kit_crew_formal.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Formal Crew Kit" texture="%ModDir%/Images/Gear/kit_crew_formal.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+     <!-- RIGHT ARM: -->
+      <sprite name="Formal Crew Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" origin="0.07,0.15" inheritsourcerect="true" inheritlimbdepth="true" depth="0.015" />
+      <sprite name="Formal Crew Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.016"  />
+      <sprite name="Formal Crew Kit Right Hand" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Formal Crew Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.121" />
+      <sprite name="Formal Crew Kit Right Leg" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.119"/>
+      <sprite name="Formal Crew Kit Right Foot" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.122"/>
+
+      <!-- TORSO: -->
+      <sprite name="Formal Crew Kit Waist" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.2" />
+      <sprite name="Formal Crew Kit Torso" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="Formal Crew Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.129" />
+      <sprite name="Formal Crew Kit Left Leg" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.127"/>
+      <sprite name="Formal Crew Kit Left Foot" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+      <sprite name="Formal Crew Kit Left Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"  />
+      <sprite name="Formal Crew Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"/>
+      <sprite name="Formal Crew Kit Left Hand" texture="%ModDir%/Images/Gear/kit_crew_formal.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"  />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+    </Wearable>
+    <ItemContainer capacity="3">
+      <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
+    </ItemContainer>
+  </Item>
+
+
+  <!-- SECURITY KIT: -->
+  <Item name="Security Kit" identifier="kit_crew_security" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" />
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.05" />
+    <Price baseprice="150" minavailable="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="1" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" minavailable="1" />
+      <Price storeidentifier="merchantmine" minavailable="1" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon name="Security Crew Kit" texture="%ModDir%/Images/Gear/kit_crew_security.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Formal Crew Kit" texture="%ModDir%/Images/Gear/kit_crew_security.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+     <!-- RIGHT ARM: -->
+      <sprite name="Security Crew Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" origin="0.07,0.15" inheritsourcerect="true" inheritlimbdepth="true" depth="0.015" />
+      <sprite name="Security Crew Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.016"  />
+      <sprite name="Security Crew Kit Right Hand" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Security Crew Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.121" />
+      <sprite name="Security Crew Kit Right Leg" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.119"/>
+      <sprite name="Security Crew Kit Right Foot" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.122"/>
+
+      <!-- TORSO: -->
+      <sprite name="Security Crew Kit Waist" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.2" />
+      <sprite name="Security Crew Kit Torso" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="Security Crew Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.129" />
+      <sprite name="Security Crew Kit Left Leg" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.127"/>
+      <sprite name="Security Crew Kit Left Foot" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+      <sprite name="Security Crew Kit Left Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"  />
+      <sprite name="Security Crew Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"/>
+      <sprite name="Security Crew Kit Left Hand" texture="%ModDir%/Images/Gear/kit_crew_security.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true"  />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+    </Wearable>
+    <ItemContainer capacity="3">
+      <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
+    </ItemContainer>
+  </Item>
+
+
+  <!-- MEDICAL OFFICER KIT: -->
+  <Item name="Medical Officer Kit" identifier="kit_officer_medical" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" />
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.05" />
+    <Price baseprice="150" minavailable="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="1" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" minavailable="1" />
+      <Price storeidentifier="merchantmine" minavailable="1" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon name="Medical Officer Kit" texture="%ModDir%/Images/Gear/kit_officer_medical.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Medical Officer Kit" texture="%ModDir%/Images/Gear/kit_officer_medical.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+     <!-- RIGHT ARM: -->
+      <sprite name="Medical Officer Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" origin="0.06,0.15" inheritsourcerect="true" inheritlimbdepth="false" depth="0.015" />
+      <sprite name="Medical Officer Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.016"  />
+      <sprite name="Medical Officer Kit Right Hand" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Medical Officer Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.119" />
+      <sprite name="Medical Officer Kit Right Leg" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.117"/>
+      <sprite name="Medical Officer Kit Right Foot" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.118"/>
+
+      <!-- TORSO: -->
+      <sprite name="Medical Officer Kit Waist" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.2" />
+      <sprite name="Medical Officer Kit Torso" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="Medical Officer Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.129" />
+      <sprite name="Medical Officer Kit Left Leg" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.127"/>
+      <sprite name="Medical Officer Kit Left Foot" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+      <sprite name="Medical Officer Kit Left Upper Arm" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1293" />
+      <sprite name="Medical Officer Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1292" />
+      <sprite name="Medical Officer Kit Left Hand" texture="%ModDir%/Images/Gear/kit_officer_medical.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1291" />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+    </Wearable>
+    <ItemContainer capacity="3">
+      <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
     </ItemContainer>
   </Item>
 
@@ -2030,58 +2421,36 @@
     <Deconstruct time="10">
       <Item identifier="organicfiber" />
     </Deconstruct>
-    <InventoryIcon name="Captains Kit" texture="%ModDir%/Images/gear/kit_captain.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
-    <Sprite name="Captains Kit" texture="%ModDir%/Images/gear/kit_captain.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <InventoryIcon name="Captains Kit" texture="%ModDir%/Images/Gear/kit_captain.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Captains Kit" texture="%ModDir%/Images/Gear/kit_captain.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
     <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
     <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
-      <sprite name="Captains Kit Torso"
-              texture="%ModDir%/Images/gear/kit_captain.png"
-              limb="Torso"
-              hidelimb="false"
-              inherittexturescale="true"
-              inheritorigin="false"
-              origin="0.5,0.4"
-              inheritsourcerect="false"
-              sourcerect="176,26,78,172" />
-      <sprite name="Captains Kit Right Hand" texture="%ModDir%/Images/gear/kit_captain.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Left Hand" texture="%ModDir%/Images/gear/kit_captain.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Right Lower Arm" texture="%ModDir%/Images/gear/kit_captain.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Left Lower Arm" texture="%ModDir%/Images/gear/kit_captain.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Right Upper Arm"
-              texture="%ModDir%/Images/gear/kit_captain.png"
-              limb="RightArm"
-              hidelimb="true"
-              inherittexturescale="true"
-              inheritorigin="false"
-              origin="0.5,0.5"
-              inheritsourcerect="false"
-              sourcerect="284,8,36,82" />
-      <sprite name="Captains Kit Left Upper Arm"
-              texture="%ModDir%/Images/gear/kit_captain.png"
-              limb="LeftArm"
-              hidelimb="true"
-              inherittexturescale="true"
-              inheritorigin="false"
-              origin="0.5,0.5"
-              inheritsourcerect="false"
-              sourcerect="356,8,34,82"
-              depth="0.5" />
-      <sprite name="Captains Kit Waist"
-              texture="%ModDir%/Images/gear/kit_captain.png"
-              limb="Waist"
-              hidelimb="true"
-              inherittexturescale="true"
-              inheritorigin="false"
-              origin="0.5,0.5"
-              inheritsourcerect="false"
-              sourcerect="184,200,68,52" />
-      <sprite name="Captains Kit Right Thigh" texture="%ModDir%/Images/gear/kit_captain.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Left Thigh" texture="%ModDir%/Images/gear/kit_captain.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Right Leg" texture="%ModDir%/Images/gear/kit_captain.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Left Leg" texture="%ModDir%/Images/gear/kit_captain.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Right Shoe" texture="%ModDir%/Images/gear/kit_captain.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <sprite name="Captains Kit Left Shoe" texture="%ModDir%/Images/gear/kit_captain.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
-      <damagemodifier afflictionidentifiers="blunttrauma,lacerations,gunshotwound,bitewounds" armorsector="0.0,360.0" damagemultiplier="0.8" />
+     <!-- RIGHT ARM: -->
+      <sprite name="Captains Kit Right Upper Arm" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightArm" hidelimb="true" inherittexturescale="true" inheritorigin="false" origin="0.06,0.15" inheritsourcerect="true" inheritlimbdepth="false" depth="0.015" />
+      <sprite name="Captains Kit Right Lower Arm" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.016"  />
+      <sprite name="Captains Kit Right Hand" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="Captains Kit Right Thigh" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.119" />
+      <sprite name="Captains Kit Right Leg" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.117"/>
+      <sprite name="Captains Kit Right Foot" texture="%ModDir%/Images/Gear/kit_captain.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.118"/>
+
+      <!-- TORSO: -->
+      <sprite name="Captains Kit Waist" texture="%ModDir%/Images/Gear/kit_captain.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.2" />
+      <sprite name="Captains Kit Torso" texture="%ModDir%/Images/Gear/kit_captain.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="Captains Kit Left Thigh" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.129" />
+      <sprite name="Captains Kit Left Leg" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.127"/>
+      <sprite name="Captains Kit Left Foot" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+      <sprite name="Captains Kit Left Upper Arm" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftArm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1293" />
+      <sprite name="Captains Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1292" />
+      <sprite name="Captains Kit Left Hand" texture="%ModDir%/Images/Gear/kit_captain.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1291" />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
     </Wearable>
     <ItemContainer capacity="3">
       <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
@@ -2090,8 +2459,8 @@
 
   <!-- =============< UTILITY >=============  -->
 
-  <!-- MECHANIC TOOLKIT: NEW AND IMPROVED! -->
-  <Item name="Mechanic Toolkit" identifier="mechanic_toolkit" category="Equipment" tags="smallitem,mobilecontainer,tool" cargocontaineridentifier="metalcrate" showcontentsintooltip="true" Scale="0.5" fireproof="false" description="" impactsoundtag="impact_soft">
+  <!-- STORAGE BAG -->
+  <Item name="Storage Bag" description="" identifier="mt_storage_bag" category="Equipment" tags="smallitem,bag,mobilecontainer,tool" cargocontaineridentifier="metalcrate" showcontentsintooltip="true" Scale="0.5" fireproof="false" impactsoundtag="impact_soft">
     <PreferredContainer primary="engcab"/>
     <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.05"/>
     <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.1"/>
@@ -2109,11 +2478,74 @@
       <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="8" />
       <Price storeidentifier="merchantengineering" minavailable="4" multiplier="0.9"/>
     </Price>
-    <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="896,576,88,120" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="896,576,88,120" depth="0.6" />
+    <InventoryIcon texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="64,0,96,64" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="64,0,96,64" depth="0.6" />
+    <Body width="96" height="64" density="20" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Storage Bag" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="160,0,160,160" limb="Torso" inherittexturescale="true" origin="0.55,-0.15" Scale="0.45" depth="0.6" />
+      <StatusEffect type="OnWearing" target="Character" HideFace="false" SpeedMultiplier="0.8" setvalue="true" disabledeltatime="true" />
+    </Wearable>
+    <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-5,35" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />
+    <ItemContainer capacity="9" >
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,mobilecontainer" />
+    </ItemContainer>
+  </Item>
+
+  <!-- QUICK KIT -->
+  <Item name="Quick Bag" identifier="mt_quick_bag" category="Equipment" tags="smallitem,bag,mobilecontainer,tool" cargocontaineridentifier="metalcrate" showcontentsintooltip="true" Scale="0.3" fireproof="false" description="" impactsoundtag="impact_soft">
+    <PreferredContainer primary="engcab"/>
+    <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.05"/>
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.1"/>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Price baseprice="65">
+      <Price storeidentifier="merchantoutpost" minavailable="4" />
+      <Price storeidentifier="merchantcity" minavailable="6" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="8" />
+      <Price storeidentifier="merchantengineering" minavailable="4" multiplier="0.9"/>
+    </Price>
+    <InventoryIcon texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="480,0,72,96" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="480,0,72,96" depth="0.6" />
+    <Body width="72" height="96" density="20" />
+    <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
+      <sprite name="Quick Bag" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="608,0,64,100" limb="Torso" inherittexturescale="true" origin="1.65,1.1" scale="0.5" depth="0.6"/>
+    </Wearable>
+    <Holdable slots="RightHand,LeftHand" holdpos="0,-75" handle1="-5,35" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />
+    <ItemContainer capacity="4" >
+      <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,mobilecontainer" />
+    </ItemContainer>
+  </Item>
+
+  <!-- MECHANIC TOOLKIT: NEW AND IMPROVED! -->
+  <Item name="Mechanic Tool Vest" identifier="MT_tool_vest" aliases="mechanic_toolkit" category="Equipment" tags="smallitem,mobilecontainer,tool" cargocontaineridentifier="metalcrate" showcontentsintooltip="true" Scale="0.5" fireproof="false" description="" impactsoundtag="impact_soft">
+    <PreferredContainer primary="engcab"/>
+    <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.05"/>
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.1"/>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <Item identifier="organicfiber" amount="2" />
+    </Fabricate>
+    <Price baseprice="65">
+      <Price storeidentifier="merchantoutpost" minavailable="4" />
+      <Price storeidentifier="merchantcity" minavailable="6" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" minavailable="1" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="8" />
+      <Price storeidentifier="merchantengineering" minavailable="4" multiplier="0.9"/>
+    </Price>
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="128,0,88,120" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="128,0,88,120" depth="0.6" />
     <Body width="100" height="45" density="20" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
-      <sprite name="Mechanic Toolkit" texture="%ModDir%/Images/mechtrauma.png" sourcerect="896,576,88,120" limb="Torso" inherittexturescale="true" origin="0.6,0.6" />
+      <sprite name="Mechanic Toolkit" texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="128,0,88,120" limb="Torso" inherittexturescale="true" origin="0.6,0.5" />
       <StatusEffect type="OnWearing" target="Character" HideFace="false" SpeedMultiplier="0.8" setvalue="true" disabledeltatime="true" />
     </Wearable>
     <Holdable slots="RightHand+LeftHand" holdpos="0,-70" handle1="-5,0" handle2="10,-20" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />

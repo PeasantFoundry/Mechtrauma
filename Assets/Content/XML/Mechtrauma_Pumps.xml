@@ -182,7 +182,7 @@
        <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
 
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+       <Containable items="electricmotor" excludebroken="true" excludefullcondition="false">
        </Containable>
      </ItemContainer>
 
@@ -262,7 +262,7 @@
        <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
 
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+       <Containable items="electricmotor" excludebroken="true" excludefullcondition="false">
        </Containable>
     </ItemContainer>
 
@@ -345,7 +345,7 @@
        <SlotIcon slotindex="0" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
 
        <!-- Slot0 -->
-       <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+       <Containable items="electricmotor" excludebroken="true" excludefullcondition="false">
        </Containable>
      </ItemContainer>
 
@@ -426,7 +426,7 @@
        <SlotIcon slotindex="1" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
        <!-- Slot0 -->
        <SubContainer capacity="1" maxstacksize="1" >
-        <Containable items="electric_motor" excludebroken="true" excludefullcondition="false">
+        <Containable items="electricmotor" excludebroken="true" excludefullcondition="false">
         </Containable>
       </SubContainer>
 

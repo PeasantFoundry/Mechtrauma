@@ -7,7 +7,7 @@
               identifier="metalcrate"
               tags="mtu,cardboardbox,crate,allowcleanup"
               aliases="metalcrate_event"
-              scale="0.32"
+              scale="0.625"
               linkable="true"
               pickdistance="150"
               showcontentsintooltip="true"
@@ -16,18 +16,17 @@
                 <Item identifier="organicfiber" />
             </Deconstruct>
             <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-            <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
-            <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
-            <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="320,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.4" IgnoreTint="True" />
-            <Body width="244" height="128" density="25" />
+            <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="96,0,96,64" depth="0.539" origin="0.5,0.5" />
+            <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="96,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
+            <Body width="96" height="64" density="25" />
             <Holdable slots="RightHand+LeftHand"
-                      holdpos="75,-125"
-                      disablerotation="true"
-                      handle1="0,0"
-                      handle2="0,0"
-                      holdangle="45"
-                      aimable="false"
-                      msg="ItemMsgPickUpSelect" />
+                  holdpos="100,-50"
+                  disablerotation="true"
+                  handle1="0,-35"
+                  handle2="0,0"
+                  holdangle="15"
+                  aimable="false"
+                  msg="ItemMsgPickUpSelect" />
             <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
                 <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
             </ItemContainer>
@@ -50,7 +49,7 @@
           identifier="mt_box_explosive"
           tags="mtu,cardboardbox,crate,allowcleanup"
           aliases="metalcrate_event"
-          scale="0.32"
+          scale="0.625"
           linkable="true"
           pickdistance="150"
           showcontentsintooltip="true"
@@ -58,16 +57,15 @@
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
-        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="448,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.35" IgnoreTint="True" />
-        <Body width="244" height="128" density="25" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,0,96,64" depth="0.539" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
+        <Body width="96" height="64" density="25" />
         <Holdable slots="RightHand+LeftHand"
-                  holdpos="75,-125"
+                  holdpos="100,-50"
                   disablerotation="true"
-                  handle1="0,0"
+                  handle1="0,-35"
                   handle2="0,0"
-                  holdangle="45"
+                  holdangle="15"
                   aimable="false"
                   msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -80,7 +78,7 @@
           identifier="mt_box_chemical"
           tags="mtu,cardboardbox,crate,allowcleanup"
           aliases="metalcrate_event"
-          scale="0.32"
+          scale="0.625"
           linkable="true"
           pickdistance="150"
           showcontentsintooltip="true"
@@ -88,16 +86,15 @@
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
-        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.35" IgnoreTint="True" />
-        <Body width="244" height="128" density="25" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="192,0,96,64" depth="0.539" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="192,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
+        <Body width="96" height="64" density="25" />
         <Holdable slots="RightHand+LeftHand"
-                  holdpos="75,-125"
+                  holdpos="100,-50"
                   disablerotation="true"
-                  handle1="0,0"
+                  handle1="0,-35"
                   handle2="0,0"
-                  holdangle="45"
+                  holdangle="15"
                   aimable="false"
                   msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -110,7 +107,7 @@
           identifier="mt_box_medical"
           tags="mtu,cardboardbox,crate,allowcleanup"
           aliases="metalcrate_event"
-          scale="0.32"
+          scale="0.625"
           linkable="true"
           pickdistance="150"
           showcontentsintooltip="true"
@@ -118,22 +115,24 @@
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,256,128" depth="0.54" origin="0.5,0.5" />
-        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,128,256,128" origin="0.5,0.5" depth="0.53" maxcondition="90" fadein="true" />
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="256,0,64,64" spritecolor="255,0,0,255" depth="0.52" origin="0.5,0.4" IgnoreTint="True" />
-        <Body width="244" height="128" density="25" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,96,64" depth="0.539" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
+        <Body width="96" height="64" density="25" />
         <Holdable slots="RightHand+LeftHand"
-                  holdpos="75,-125"
+                  holdpos="100,-50"
                   disablerotation="true"
-                  handle1="0,0"
+                  handle1="0,-35"
                   handle2="0,0"
-                  holdangle="45"
+                  holdangle="15"
                   aimable="false"
                   msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
         </ItemContainer>
     </Item>
+
+
+
     <!-- *********************************************************************** -->
     <!-- MECHTRAUMA CASES -->
     <!-- *********************************************************************** -->
@@ -153,9 +152,10 @@
             <Containable items="mtcase" />
         </ItemContainer>
     </Item>
-    <!-- CASE: Mechanical Parts -->
-    <Item name="Diesel Parts Case"
-          identifier="mtcase_diesel_parts"
+
+    <!-- CASE: Fuse -->
+    <Item name="Fuse Case"
+          identifier="mtcase_fuse"
           tags="mtcase,allowcleanup"
           scale="0.325"
           linkable="true"
@@ -165,8 +165,147 @@
           canflipx="false">
         <Deconstruct time="0.5" />
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,896,236,128" depth="0.54" origin="0.5,0.5" />
-        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" sourcerect="960,832,236,64" depth="0.55" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,544,240,128" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,480,240,64" depth="0.55" />
+        <Body width="236" height="128" density="15" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="1" maxstacksize="1" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <!-- ***************************** SLOT ICONS ****************************** -->
+            <!-- breaker slot -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,192,64,64" origin="0.5,0.5" />
+            <!-- fuses 1 - 8 -->
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+
+            <!-- ***************************** CONTAINERS ****************************** -->
+            <Containable items="fuse" excludefullcondition="true" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+
+            <SubContainer capacity="8" maxstacksize="64">
+                <Containable items="fuse" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+            </SubContainer>
+        </ItemContainer>
+
+
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+      <GuiFrame relativesize="0.15,0.1" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
+
+      <!-- BUTTON: Break and Consolidate -->
+      <Button text="Break Fuse">
+        <StatusEffect type="OnUse" target="This">
+            <LuaHook name="mtBreakerSlot.OnUse" />
+        <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+        </StatusEffect>
+      </Button>
+
+    </CustomInterface>
+
+    </Item>
+
+    <!-- CASE: Generic -->
+    <Item name="Generic Case"
+          identifier="mtcase_generic"
+          tags="mtcase,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy"
+          canflipx="false">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="352,352,120,64" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="352,320,120,32" depth="0.55" />
+        <Body width="236" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="4" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <!-- ***************************** SLOT ICONS ****************************** -->
+            <!-- oil filters 0 -3 -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,0,64,64" origin="0.5,0.5" />
+            <!-- fuel filters 4-5 -->
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,128,64,64" origin="0.5,0.5" />
+            <!-- fuel pumps 6-7 -->
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,128,64,64" origin="0.5,0.5" />
+            <!-- air filter 8-9 -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,128,64,64" origin="0.5,0.5" />
+            <!-- gasket 10-11 -->
+            <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
+            <!-- dcm -->
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,128,64,64" origin="0.5,0.5" />
+            <!-- oxygen sensor -->
+            <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,128,64,64" origin="0.5,0.5" />
+            <!-- pressure sensor -->
+            <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,128,64,64" origin="0.5,0.5" />
+            <!-- battery -->
+            <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
+            <!-- starter motor -->
+            <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
+
+            <!-- ***************************** CONTAINERS ****************************** -->
+            <!-- oil filter: 0-3 -->
+            <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
+            <!-- fuel filter: 4-5 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- fuel pump: 6-7 -->
+            <SubContainer capacity="2">
+                <Containable items="fuelpump" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- air filter: 8-9 -->
+            <SubContainer capacity="2">
+                <Containable items="airfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- gasket: 10-11 -->
+            <SubContainer capacity="2">
+                <Containable items="gasket" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- dcm: 12 -->
+            <SubContainer capacity="1">
+                <Containable items="dcm" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- oxygen sensor: 13 -->
+            <SubContainer capacity="1">
+                <Containable items="oxygensensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- pressure sensor: 14 -->
+            <SubContainer capacity="1">
+                <Containable items="pressuresensor" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- battery: 15 -->
+            <SubContainer capacity="1">
+                <Containable items="battery" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+        </ItemContainer>
+    </Item>
+
+    <!-- CASE: Mechanical Parts -->
+    <Item name="Engine Parts Case"
+          identifier="mtcase_engine_parts"
+          aliases="mtcase_diesel_parts"
+          tags="mtcase,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy"
+          canflipx="false">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="256,544,236,128" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="256,480,236,64" depth="0.55" />
         <Body width="236" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="4" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -349,6 +488,56 @@
     <!-- *********************************************************************** -->
     <!-- MECHTRAUMA CRATES -->
     <!-- *********************************************************************** -->
+
+    <!-- CRATE: ToolBox -->
+    <Item name="MT Toolbox"
+          identifier="mtcrate_toolbox"
+          tags="crate,allowcleanup"
+          scale="0.325"
+          linkable="true"
+          pickdistance="150"
+          showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy">
+        <Deconstruct time="0.5" />
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="256,1280,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="18" maxstacksize="8" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,256,64,64" origin="0.5,0.5" /> <!-- wrench -->
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,256,64,64" origin="0.5,0.5" /> <!-- screwdriver -->
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,256,64,64" origin="0.5,0.5" /> <!-- flashlight -->
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" /> <!-- crowbar -->
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" /> <!-- batterycell -->
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" /> <!-- batterycell -->
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" /> <!-- tablet -->
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" /> <!-- tablet -->
+            <!-- SLOT 0: wrench -->
+            <Containable items="wrench" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            <!-- SLOT 1: screwdriver -->
+            <SubContainer capacity="1" slotsperrow="4">
+                <Containable items="screwdriver" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- SLOT 2: flashlight -->
+            <SubContainer capacity="1" slotsperrow="4">
+                <Containable items="flashlight" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- SLOT 3: crowbar -->
+            <SubContainer capacity="1" slotsperrow="4">
+                <Containable items="crowbar" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- SLOT 4-5: batterycell -->
+            <SubContainer capacity="2" slotsperrow="4">
+                <Containable items="batterycell" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+            <!-- SLOT 7: tablet -->
+            <SubContainer capacity="2" slotsperrow="4">
+                <Containable items="mtc" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+        </ItemContainer>
+    </Item>
+
+
     <!-- CRATE: Medical -->
     <Item name=""
           identifier="mtcrate_medical"
@@ -378,7 +567,7 @@
           impactsoundtag="impact_metal_heavy">
         <Deconstruct time="0.5" />
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mechtrauma_crates.png" depth="0.54" sourcerect="320,448,240,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="512,1280,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -429,7 +618,7 @@
           identifier="cargo_crane"
           tags="decorative"
           linkable="true"
-          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed"
+          allowedlinks="cargo_crane,cargocontainer"
           pickdistance="150"
           waterproof="true"
           scale="0.6">
@@ -482,7 +671,7 @@
           identifier="mt_cargo_container_closed"
           aliases="shipping_container_closed"
           tags="container,suppliescontainer,locker,cargocontainer"
-          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed"
+          allowedlinks="cargo_crane,cargocontainer"
           depth="0.84"
           linkable="true"
           pickdistance="150"
@@ -491,14 +680,15 @@
         <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,0,1024,436" origin="0.5,0.5" />
         <ItemContainer capacity="32" slotsperrow="10" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
+            <Containable category="materials" />
         </ItemContainer>
     </Item>
     <!-- STORAGE CONTAINER: Single. (allow spawning of mission cargo) -->
     <Item name="Cargo Container Small"
           identifier="mt_cargo_container_single"
           aliases="storage_container_single"
-          tags="container,suppliescontainer,locker, cargocontainer"
-          allowedlinks="cargo_crane,shipping_container_open,shipping_container_closed,fabricator,cncfab"
+          tags="container,suppliescontainer,locker,cargocontainer"
+          allowedlinks="cargo_crane,cargocontainer,fabricator,cncfab"
           depth="0.84"
           linkable="true"
           pickdistance="150"
@@ -531,6 +721,306 @@
             <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
             <Containable identifiers="smallitem" />
         </ItemContainer>
+    </Item>
+
+
+    <!-- PARTS STORAGE: -->
+    <Item name="Parts Storage"
+          identifier="mt_parts_storage"
+          Aliases=""
+          category="Misc"
+          tags="locker,container,partsStorage"
+          linkable="true"
+          allowedlinks="fabricator,container,suppliescontainer,locker"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.5">
+        <Sprite texture="%ModDir%/Images/Containers/mt_storage_containers.png" depth="0.84" sourcerect="0,0,736,608" />
+        <ItemContainer capacity="1" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
+
+                            <!-- ***************************** SLOT ICONS ****************************** -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="12" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,960,64,64" origin="0.5,0.5" />
+
+
+            <!-- SLOT 0: steel bar -->
+            <Containable identifiers="steel" />
+            <!-- SLOT 1: titaniumaluminiumalloy -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="titaniumaluminiumalloy" />
+            </SubContainer>
+            <!-- SLOT 2: aluminium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="aluminium" />
+            </SubContainer>
+            <!-- SLOT 3: carbon -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="carbon" />
+            </SubContainer>
+            <!-- SLOT 4: silicon -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="silicon" />
+            </SubContainer>
+            <!-- SLOT 5: titanium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="titanium" />
+            </SubContainer>
+            <!-- SLOT 6: copper -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="copper" />
+            </SubContainer>
+            <!-- SLOT 7: iron -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="iron" />
+            </SubContainer>
+            <!-- SLOT 8: uranium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="uranium" />
+            </SubContainer>
+            <!-- SLOT 9: lead -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="lead" />
+            </SubContainer>
+            <!-- SLOT 10: tin -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="tin" />
+            </SubContainer>
+            <!-- SLOT 11: thorium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="thorium" />
+            </SubContainer>
+            <!-- SLOT 12: zinc -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="zinc" />
+            </SubContainer>
+            <!-- SLOT 13: plastic -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="plastic" />
+            </SubContainer>
+            <!-- SLOT 14: organic fiber -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="organicfiber" />
+            </SubContainer>
+            <!-- SLOT 15: ballistic fiber -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="ballisticfiber" />
+            </SubContainer>
+            <!-- SLOT 16: unknown -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="unknown" />
+            </SubContainer>
+
+
+
+            <SubContainer capacity="6" maxstacksize="64">
+                <Containable identifiers="smallitem,mediumitem,crate" />
+            </SubContainer>
+        </ItemContainer>
+
+
+        <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+        <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
+
+        <!-- BUTTON: LOAD DEPOT -->
+        <Button text="GET MATERIALS">
+            <StatusEffect type="OnUse" target="This">
+                <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
+            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+            </StatusEffect>
+        </Button>
+        <Button text="UNPACK CRATE">
+            <StatusEffect type="OnUse" target="This">
+                <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
+            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+            </StatusEffect>
+        </Button>
+        </CustomInterface>
+    </Item>
+
+    <!-- MATERIALS DEPOT: -->
+    <Item name="Materials Locker"
+          identifier="mt_materials_locker"
+          Aliases=""
+          category="Misc"
+          tags="locker,container"
+          linkable="true"
+          allowedlinks="fabricator,container,suppliescontainer,locker"
+          pickdistance="150"
+          waterproof="true"
+          scale="0.5">
+        <Sprite texture="%ModDir%/Images/Containers/mt_storage_containers.png" depth="0.84" sourcerect="0,0,736,608" />
+        <ItemContainer capacity="1" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
+
+                            <!-- ***************************** SLOT ICONS ****************************** -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="0,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="9" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="10" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="11" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="12" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="1024,960,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="17" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="0,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="18" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="19" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="20" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="21" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="22" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="23" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,896,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="24" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="25" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="26" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="27" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="28" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="29" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+
+
+
+
+            <!-- SLOT 0: steel bar -->
+            <Containable identifiers="steel" />
+            <!-- SLOT 1: titaniumaluminiumalloy -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="titaniumaluminiumalloy" />
+            </SubContainer>
+            <!-- SLOT 2: aluminium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="aluminium" />
+            </SubContainer>
+            <!-- SLOT 3: carbon -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="carbon" />
+            </SubContainer>
+            <!-- SLOT 4: silicon -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="silicon" />
+            </SubContainer>
+            <!-- SLOT 5: titanium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="titanium" />
+            </SubContainer>
+            <!-- SLOT 6: copper -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="copper" />
+            </SubContainer>
+            <!-- SLOT 7: iron -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="iron" />
+            </SubContainer>
+            <!-- SLOT 8: uranium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="uranium" />
+            </SubContainer>
+            <!-- SLOT 9: lead -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="lead" />
+            </SubContainer>
+            <!-- SLOT 10: tin -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="tin" />
+            </SubContainer>
+            <!-- SLOT 11: thorium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="thorium" />
+            </SubContainer>
+            <!-- SLOT 12: zinc -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="zinc" />
+            </SubContainer>
+            <!-- SLOT 13: plastic -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="plastic" />
+            </SubContainer>
+            <!-- SLOT 14: organic fiber -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="organicfiber" />
+            </SubContainer>
+            <!-- SLOT 15: ballistic fiber -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="ballisticfiber" />
+            </SubContainer>
+            <!-- SLOT 16: unknown -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="unknown" />
+            </SubContainer>
+
+            <!-- SLOT 17: lithium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="lithium" />
+            </SubContainer>
+            <!-- SLOT 18: sodium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="sodium" />
+            </SubContainer>
+            <!-- SLOT 19: chlorine -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="chlorine" />
+            </SubContainer>
+            <!-- SLOT 20: potassium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="potassium" />
+            </SubContainer>
+            <!-- SLOT 21: magnesium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="magnesium" />
+            </SubContainer>
+            <!-- SLOT 22: calcium -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="calcium" />
+            </SubContainer>
+            <!-- SLOT 23: phosphorus -->
+            <SubContainer capacity="1" maxstacksize="64">
+                <Containable identifiers="phosphorus" />
+            </SubContainer>
+            <!-- SLOTS 24-31: crates -->
+            <SubContainer capacity="6" maxstacksize="64">
+                <Containable identifiers="smallitem,mediumitem,crate" />
+            </SubContainer>
+        </ItemContainer>
+
+
+        <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+        <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
+
+        <!-- BUTTON: LOAD DEPOT -->
+        <Button text="GET MATERIALS">
+            <StatusEffect type="OnUse" target="This">
+                <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
+            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+            </StatusEffect>
+        </Button>
+        <Button text="UNPACK CRATE">
+            <StatusEffect type="OnUse" target="This">
+                <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
+            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+            </StatusEffect>
+        </Button>
+        </CustomInterface>
     </Item>
 
 

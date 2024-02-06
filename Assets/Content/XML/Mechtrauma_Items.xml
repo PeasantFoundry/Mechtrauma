@@ -1056,10 +1056,10 @@
         scale="0.5">
     <Sprite texture="%ModDir%/Images/Machines/mt_oxygen.png" sourcerect="0,256,320,484" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/mt_oxygen.png" sourcerect="0,256,320,484" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" />
+    <!-- <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" /> -->
     <!-- SPRITE: Powered -->
-    <LightComponent range="10.0" lightcolor="120,250,220,1" powerconsumption="1" IsOn="true" depth="0.75" castshadows="false" allowingameediting="false">
-      <sprite texture="%ModDir%/Images/Machines/mt_oxygen.png" sourcerect="0,256,320,484" depth="0.82" origin="0.3,1.35" alpha="1.0" />
+    <LightComponent range="10.0" lightcolor="20,150,120,1" powerconsumption="1" IsOn="true" depth="0.75" castshadows="false" allowingameediting="false">
+      <sprite texture="%ModDir%/Images/Machines/mt_oxygen.png" sourcerect="320,256,320,484" depth="0.82" origin="0.5,0.5" alpha="1.0" />
       <!-- <IsActive targetitemcomponent="PowerTransfer" overload="eq False" /> -->
     </LightComponent>
 
@@ -1402,7 +1402,7 @@
         scale="0.5">
     <Sprite texture="%ModDir%/Images/coprod.png" sourcerect="0,457,385,498" depth="0.8" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/coprod.png" sourcerect="0,457,385,498" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="5" IsOn="false" castshadows="false" allowingameediting="false" />
+
     <!-- SPRITE: Powered -->
     <LightComponent range="10.0" lightcolor="120,250,220,1" powerconsumption="1" IsOn="true" depth="0.75" castshadows="false" allowingameediting="false">
       <!-- <IsActive targetitemcomponent="PowerTransfer" overload="eq False" /> -->
@@ -1606,7 +1606,7 @@
       <!-- Compress 02 (Statuseffect tags need to have a duration applied) -->
       <StatusEffect type="Always" targettype="This" target="This,Hull" setvalue="false" Oxygen="-250" checkconditionalalways="true" Comparison="And">
         <Requireditem items="oxygentank_large" type="contained" excludefullcondition="true" targetslot="0" />
-        <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+        <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
         <Conditional HullOxygenPercentage="gt 80" />
         <Conditional Voltage="gt 0.1" />
         <Conditional InWater="false" />
@@ -1637,7 +1637,7 @@
                     condition="10"
                     Comparison="And">
         <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" />
-        <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+        <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered" />
         <Conditional InWater="false" />
         <Conditional HullOxygenPercentage="gt 80" />
@@ -1737,12 +1737,12 @@
 
       <!-- Slot2 -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false">
-        <Containable items="electric_motor">
+        <Containable items="electricmotor">
 
           <!-- Deteriorate electric motor when compressing air -->
           <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.5" Comparison="And">
             <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" />
-            <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+            <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
             <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered" />
             <Conditional InWater="false" />
             <Conditional HullOxygenPercentage="gt 80" />
@@ -1851,7 +1851,7 @@
       <!-- Compress 02 (Statuseffect tags need to have a duration applied) -->
       <StatusEffect type="Always" targettype="This" target="This,Hull" setvalue="false" Oxygen="-250" checkconditionalalways="true" Comparison="And">
         <Requireditem items="oxygentank_large" type="contained" excludefullcondition="true" targetslot="0" />
-        <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+        <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
         <Conditional HullOxygenPercentage="gt 80" />
         <Conditional Voltage="gt 0.1" />
         <Conditional InWater="false" />
@@ -1882,7 +1882,7 @@
                     condition="10"
                     Comparison="And">
         <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" />
-        <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+        <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
         <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered" />
         <Conditional InWater="false" />
         <Conditional HullOxygenPercentage="gt 80" />
@@ -1982,12 +1982,12 @@
 
       <!-- Slot2 -->
       <SubContainer capacity="1" maxstacksize="1" hideitems="true" drawinventory="false">
-        <Containable items="electric_motor">
+        <Containable items="electricmotor">
 
           <!-- Deteriorate electric motor when compressing air -->
           <StatusEffect type="OnContaining" targettype="Contained" Condition="-0.5" Comparison="And">
             <Requireditem items="oxygentank_large" type="contained" excludebroken="false" excludefullcondition="true" targetslot="0" />
-            <Requireditem items="electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
+            <Requireditem items="mt_electric_motor" type="contained" excludebroken="true" excludefullcondition="false" targetslot="2" />
             <Conditional Voltage="gt 0.1" targetcontainer="true" targetitemcomponent="Powered" />
             <Conditional InWater="false" />
             <Conditional HullOxygenPercentage="gt 80" />
@@ -2068,7 +2068,7 @@
                       scale="0.5"
                       rotationspeed="0"
                       Comparison="And">
-      <Conditional HasStatusTag="electric_motor" targetcontainer="true" />
+      <Conditional HasStatusTag="mt_electric_motor" targetcontainer="true" />
     </DecorativeSprite>
     <!-- SPRITE: Oxygentank -->
     <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png"
@@ -2231,19 +2231,19 @@
 
       <!-- SLOT 2-->
       <SubContainer capacity="1" maxstacksize="1">
-        <Containable items="electric_motor" excludebroken="false" excludefullcondition="false">
+        <Containable items="electricmotor" excludebroken="false" excludefullcondition="false">
 
           <!-- PRESENT: Electric Motor in slot2  (Statuseffect tags need to have a duration applied) -->
           <StatusEffect type="OnContaining"
                         targettype="This"
                         targetitemtype="SubContainer"
                         targetitemcomponent="SubContainer"
-                        tags="electric_motor"
+                        tags="mt_electric_motor"
                         targetslot="2"
                         duration="0.1"
                         stackable="false"
                         Comparison="And">
-            <Requireditem items="electric_motor" type="contained" targetslot="2" excludebroken="false" excludefullcondition="false" />
+            <Requireditem items="mt_electric_motor" type="contained" targetslot="2" excludebroken="false" excludefullcondition="false" />
           </StatusEffect>
 
 
@@ -2257,7 +2257,7 @@
                         duration="0.1"
                         stackable="false"
                         Comparison="And">
-            <Requireditem items="electric_motor" type="contained" targetslot="2" excludebroken="true" excludefullcondition="false" />
+            <Requireditem items="mt_electric_motor" type="contained" targetslot="2" excludebroken="true" excludefullcondition="false" />
           </StatusEffect>
 
           <!-- DETERIORATE: Electric Motor -->
@@ -3020,6 +3020,7 @@
                     Comparison="And">
         <Conditional HasStatusTag="neq statusMonitorExpansion" target="this" />
       </StatusEffect>
+      <Sprite name="Hard Hat" texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="512,0,128,128" depth="0.6" origin="0.5,0.5" />
     </Holdable>
     <DataBox />
     <Thermal />
@@ -3033,7 +3034,7 @@
                       RelativeSize="0.68,0.61"
                       ShowInputBox="true"
                       TextColor="0,255,0,255"
-                      MessageFont="MonospacedFont" />
+                      MessageFont="Alien_K" />
       <GuiFrame relativesize="0.325,0.8" relativeoffset="0.0,0.0" anchor="TopRight" style="ItemUI" Color="200,200,200,0" />
       <!-- pivot="Left" -->
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.5">
@@ -6020,8 +6021,8 @@
     </Controller>
   </Item>
 
-  <!-- CNC: Mechanical Fabricator -->
-  <Item name="CNC Mechanical Fabricator v2"
+  <!-- CNC: 3D PRINTER-->
+  <Item name="3D Printer v2"
         identifier="mt_cnc_fab"
         tags="ccn,mtu,donttakeitems,dontsellitems,cncfab"
         category="Machine"
@@ -6032,8 +6033,8 @@
         damagedbyexplosions="true"
         explosiondamagemultiplier="0.2">
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="256,960,64,64" origin="0.5,0.45" />
-    <Sprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="0,0,360,512" depth="0.845" />
     <!-- base -->
+    <Sprite texture="%ModDir%/Images/Machines/mt_CNC.png" sourcerect="0,0,360,512" depth="0.845" />
     <!-- arm -->
     <DecorativeSprite texture="%ModDir%/Images/Machines/mt_CNC.png"
                       sourcerect="1152,0,128,192"
@@ -6091,11 +6092,24 @@
     </LightComponent>-->
 
     <Fabricator canbeselected="true" powerconsumption="500.0" Fabricationspeed="1" msg="ItemMsgInteractSelect">
-      <GuiFrame relativesize="0.5,0.8" style="ItemUI" anchor="Center" />
+      <GuiFrame relativesize="0.5,0.8" style="ItemUI" anchor="TopCenter" pivot="TopCenter" />
       <sound file="Content/Items/Fabricators/Fabricator.ogg" type="OnActive" range="1000.0" volumeproperty="RelativeVoltage" loop="true" />
       <poweronsound file="Content/Items/PowerOnLight1.ogg" range="600" loop="false" />
       <StatusEffect type="InWater" target="This" condition="-0.5" />
     </Fabricator>
+
+
+    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+    <GuiFrame relativesize="0.15,0.15" anchor="TopCenter" pivot="TopCenter" relativeoffset="0.35,0" style="ItemUI"/>
+
+    <!-- BUTTON: LOAD DEPOT -->
+    <Button text="STORE OUTPUT">
+        <StatusEffect type="OnUse" target="This">
+            <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
+        <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+        </StatusEffect>
+    </Button>
+    </CustomInterface>
 
     <ConnectionPanel selectkey="Action" canbeselected="true" hudpriority="10" msg="ItemMsgRewireScrewdriver">
       <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
@@ -6157,61 +6171,6 @@
     </Repairable>
 
     <ItemContainer capacity="4" canbeselected="true" hideitems="true" slotsperrow="4" uilabel="" allowuioverlap="false">
-      <SlotIcon slotindex="4" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="256,64,64,64" origin="0.5,0.5" />
-      <!-- bearing sleeve-->
-      <SlotIcon slotindex="5" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="128,64,64,64" origin="0.5,0.5" />
-      <!-- copper windings-->
-      <SlotIcon slotindex="6" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="320,64,64,64" origin="0.5,0.5" />
-      <!-- -->
-      <SlotIcon slotindex="7" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,64,64,64" origin="0.5,0.5" />
-      <SlotIcon slotindex="8" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="0,64,64,64" origin="0.5,0.5" />
-      <!-- sealing bearing -->
-      <SlotIcon slotindex="9" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="64,64,64,64" origin="0.5,0.5" />
-      <!-- grease packet -->
-      <SlotIcon slotindex="10" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="192,64,64,64" origin="0.5,0.5" />
-      <SlotIcon slotindex="11" texture="%ModDir%/Images/mechtrauma_icons.png" sourcerect="576,0,64,64" origin="0.5,0.5" />
-
-
-      <!-- ROW2 SLOT4-->
-      <SubContainer slots="1">
-        <Containable items="bearing_sleeve" />
-      </SubContainer>
-
-      <!-- ROW2 SLOT5-->
-      <SubContainer slots="1">
-        <Containable items="copper_windings" />
-      </SubContainer>
-
-      <!-- ROW2 SLOT6-->
-      <SubContainer slots="1">
-        <Containable items="copper" />
-      </SubContainer>
-
-      <!-- ROW2 SLOT7-->
-      <SubContainer slots="1">
-        <Containable items="plastic" />
-      </SubContainer>
-
-      <!-- ROW3 SLOT8-->
-      <SubContainer slots="1">
-        <Containable items="sealed_bearing" />
-      </SubContainer>
-
-      <!-- ROW3 SLOT9-->
-      <SubContainer slots="1">
-        <Containable items="grease_packet" />
-      </SubContainer>
-
-      <!-- ROW3 SLOT10-->
-      <SubContainer slots="1">
-        <Containable items="steel" />
-      </SubContainer>
-
-      <!-- ROW3 SLOT11-->
-      <SubContainer slots="1">
-        <Containable items="rubber" />
-      </SubContainer>
-
     </ItemContainer>
 
     <ItemContainer capacity="1" canbeselected="true" hideitems="true" slotsperrow="1" uilabel="" allowuioverlap="true" />
@@ -9508,128 +9467,12 @@
 
   <!-- =============< OVERRIDES >=============  -->
 
+
+  <!-- *************************** CHANGED MY MIND *************************** -->
   <!-- STEEL BAR: Adding recipie to craft steel bar from steel scrap. Also, including Neurotrauma modifications to enable cybernetics support. -->
-  <Override>
-    <Item name=""
-          identifier="steel"
-          category="Material"
-          maxstacksize="8"
-          Tags="smallitem,petfood3"
-          canbepicked="true"
-          cargocontaineridentifier="metalcrate"
-          scale="0.4"
-          impactsoundtag="impact_metal_light"
-          useinhealthinterface="True">
-      <PreferredContainer primary="storagecab" />
-      <PreferredContainer secondary="wreckstorage,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
-      <Price baseprice="28">
-        <Price storeidentifier="merchantoutpost" multiplier="1.3" minavailable="7" />
-        <Price storeidentifier="merchantcity" multiplier="1.25" minavailable="10" />
-        <Price storeidentifier="merchantresearch" minavailable="6" />
-        <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="15" />
-        <Price storeidentifier="merchantmine" multiplier="0.9" minavailable="20" />
-      </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="5">
-        <RequiredSkill identifier="mechanical" level="20" />
-        <RequiredItem identifier="carbon" />
-        <RequiredItem identifier="iron" amount="2" />
-      </Fabricate>
-      <Fabricate suitablefabricators="fabricator" requiredtime="5">
-        <RequiredSkill identifier="mechanical" level="20" />
-        <RequiredItem identifier="scrap_steel" amount="10" />
-      </Fabricate>
-      <Deconstruct time="5">
-        <Item identifier="carbon" copycondition="true" />
-        <Item identifier="iron" copycondition="true" />
-      </Deconstruct>
-      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="640,128,64,64" />
-      <Sprite texture="Content/Items/Materials/CraftingElements1.png" sourcerect="4,171,54,27" depth="0.55" origin="0.5,0.5" />
-      <Body width="50" height="25" density="50" />
-      <SuitableTreatment identifier="ntc_materialloss" suitability="50" />
-      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
-        <!-- Remove the item when fully used -->
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </Holdable>
-      <AiTarget sightrange="1000" static="true" />
-    </Item>
-  </Override>
-
   <!-- aluminium: Adding recipie to craft aluminium from aluminium scrap. -->
-  <Override>
-    <Item name=""
-          identifier="aluminium"
-          category="Material"
-          maxstacksize="8"
-          Tags="smallitem,petfood3"
-          canbepicked="true"
-          cargocontaineridentifier="metalcrate"
-          scale="0.5"
-          impactsoundtag="impact_metal_light">
-      <PreferredContainer primary="storagecab" />
-      <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
-      <Price baseprice="42" sold="false">
-        <Price storeidentifier="merchantoutpost" multiplier="1.3" />
-        <Price storeidentifier="merchantcity" multiplier="1.25" />
-        <Price storeidentifier="merchantresearch" multiplier="1.1" />
-        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
-        <Price storeidentifier="merchantmine" sold="true" multiplier="0.8" minavailable="10" />
-      </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="5">
-        <RequiredSkill identifier="mechanical" level="20" />
-        <RequiredItem identifier="scrap_aluminium" amount="10" />
-      </Fabricate>
-      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,192,64,64" />
-      <Sprite texture="Content/Items/Materials/CraftingElements1.png" sourcerect="53,53,47,39" depth="0.55" origin="0.5,0.5" />
-      <Body width="45" height="30" density="50" />
-      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
-        <!-- Remove the item when fully used -->
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </Holdable>
-      <AiTarget sightrange="1000" static="true" />
-    </Item>
-  </Override>
-
   <!-- COPPER: Adding recipie to craft copper from copper scrap. -->
-  <Override>
-    <Item name=""
-          identifier="copper"
-          category="Material"
-          maxstacksize="8"
-          Tags="smallitem,petfood3"
-          canbepicked="true"
-          description=""
-          cargocontaineridentifier="metalcrate"
-          scale="0.5"
-          impactsoundtag="impact_metal_light">
-      <PreferredContainer primary="storagecab" />
-      <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="2" spawnprobability="0.05" />
-      <Price baseprice="22" sold="false">
-        <Price storeidentifier="merchantoutpost" multiplier="1.3" />
-        <Price storeidentifier="merchantcity" multiplier="1.25" />
-        <Price storeidentifier="merchantresearch" multiplier="1.1" />
-        <Price storeidentifier="merchantmilitary" multiplier="1.1" />
-        <Price storeidentifier="merchantmine" sold="true" multiplier="0.8" minavailable="10" />
-      </Price>
-      <Fabricate suitablefabricators="fabricator" requiredtime="5">
-        <RequiredSkill identifier="mechanical" level="20" />
-        <RequiredItem identifier="scrap_copper" amount="10" />
-      </Fabricate>
-      <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="576,192,64,64" />
-      <Sprite texture="Content/Items/Materials/CraftingElements1.png" sourcerect="53,92,48,38" depth="0.55" origin="0.5,0.5" />
-      <Body width="45" height="30" density="50" />
-      <Holdable canBeCombined="true" removeOnCombined="true" slots="Any,RightHand,LeftHand" handle1="0,0" msg="ItemMsgPickUpSelect">
-        <!-- Remove the item when fully used -->
-        <StatusEffect type="OnBroken" target="This">
-          <Remove />
-        </StatusEffect>
-      </Holdable>
-      <AiTarget sightrange="1000" static="true" />
-    </Item>
-  </Override>
+
 
   <!-- =============< ORGANIC >=============  -->
 

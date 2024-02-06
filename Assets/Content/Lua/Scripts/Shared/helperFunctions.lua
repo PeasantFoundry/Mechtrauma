@@ -670,6 +670,49 @@ function MT.HF.GetResistance(character,identifier)
 end
 
 -- -------------------------------------------------------------------------- --
+--                            INVENTORY MANAGEMENT                            --
+-- -------------------------------------------------------------------------- --
+
+-- move all (possible) items from source slot to target slot
+function MT.HF.MoveAll(sourceItem, targetItem, sourceIndex, targetIndex)
+
+    local response = true
+    -- loop through the stack (if there is one) and put it in the depot
+    while response do
+        -- break if there's no more of item in the slot
+        if sourceItem.OwnInventory.GetItemAt(sourceIndex) == nil then break end
+        -- try moving the item to the depot and update the response
+        response = targetItem.OwnInventory.TryPutItem(sourceItem.OwnInventory.GetItemAt(sourceIndex), targetIndex, false, false)
+    end
+end
+
+function MT.HF.GiveItem(character,identifier)
+    if SERVER then
+        -- use server spawn method
+        Game.SpawnItem(identifier,character.WorldPosition,true,character)
+    else
+        -- use client spawn method
+        character.Inventory.TryPutItem(Item(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition), nil, {InvSlotType.Any})
+    end
+end
+
+function MT.HF.GiveItemAtCondition(character,identifier,condition)
+    if SERVER then
+        -- use server spawn method
+        local prefab = ItemPrefab.GetItemPrefab(identifier)
+        Entity.Spawner.AddItemToSpawnQueue(prefab, character.WorldPosition, nil, nil, function(item)
+            item.Condition = condition
+            character.Inventory.TryPutItem(item, nil, {InvSlotType.Any})
+        end)
+    else
+        -- use client spawn method
+        local item = Item(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition)
+        item.Condition = condition
+        character.Inventory.TryPutItem(item, nil, {InvSlotType.Any})
+    end
+end
+
+-- -------------------------------------------------------------------------- --
 --                                /// misc ///                                --
 -- -------------------------------------------------------------------------- --
 
@@ -723,31 +766,6 @@ function MT.HF.GiveSkill(character,skilltype,amount)
     end
 end
 
-function MT.HF.GiveItem(character,identifier)
-    if SERVER then
-        -- use server spawn method
-        Game.SpawnItem(identifier,character.WorldPosition,true,character)
-    else
-        -- use client spawn method
-        character.Inventory.TryPutItem(Item(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition), nil, {InvSlotType.Any})
-    end
-end
-
-function MT.HF.GiveItemAtCondition(character,identifier,condition)
-    if SERVER then
-        -- use server spawn method
-        local prefab = ItemPrefab.GetItemPrefab(identifier)
-        Entity.Spawner.AddItemToSpawnQueue(prefab, character.WorldPosition, nil, nil, function(item)
-            item.Condition = condition
-            character.Inventory.TryPutItem(item, nil, {InvSlotType.Any})
-        end)
-    else
-        -- use client spawn method
-        local item = Item(ItemPrefab.GetItemPrefab(identifier), character.WorldPosition)
-        item.Condition = condition
-        character.Inventory.TryPutItem(item, nil, {InvSlotType.Any})
-    end
-end
 
 -- for use with items
 function MT.HF.SpawnItemPlusFunction(identifier,func,params,inventory,targetslot,position)

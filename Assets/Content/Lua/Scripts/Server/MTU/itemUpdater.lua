@@ -210,8 +210,10 @@ function MT.CacheItem(item)
         end
     end
 
+    --print(item.Prefab.Category .. " - " .. item.Prefab.Subcategory)
+    if item.Prefab.Category == "Material" then print(item.Prefab.Category) item.AddTag("material") end
 
-    -- populate the parts inventory
+    -- populate the parts inventory (depricate??)
     if not MT.inventoryCache[item] then
         -- add the parts to the inventoryCache
         if item.HasTag("part") then
