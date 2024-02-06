@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using MoonSharp.Interpreter;
 using System.Text;
+using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
 using HarmonyLib;
 
@@ -13,6 +14,15 @@ namespace Mechtrauma
 {
     public partial class Plugin : IAssemblyPlugin
     {
+        public static Plugin? Instance { get; private set; }
+        private ContentPackage? _selfPackage;
+        public ContentPackage SelfPackage => _selfPackage ??= GetSelfContentPackage();
+
+        public Plugin()
+        {
+            Instance = this;
+        }
+        
         public void Initialize()
         {
             Utils.Logging.PrintMessage("Mechtrauma starting...");
@@ -35,6 +45,9 @@ namespace Mechtrauma
         {
 
         }
+
+        public ContentPackage GetSelfContentPackage() =>
+            ContentPackageManager.EnabledPackages.Regular.First(p => p.Name.ToLowerInvariant().Contains("mechtrauma"));
 
         private void InitUserData()
         {
@@ -97,7 +110,8 @@ namespace Mechtrauma
 #if SERVER
             // server-side code
 #elif CLIENT
-            // client-side code
+            Styles.Values.ForEach(s => s.UnloadFile());
+            Styles.Clear();
 #endif
         }
 

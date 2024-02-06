@@ -25,4 +25,5 @@
 	<Text file="%ModDir%/Localization/LatinamericanSpanish/LatinamericanSpanish.xml" />
 	<Text file="%ModDir%/Localization/Polish/Polish.xml" />
 	<Text file="%ModDir%/Localization/Turkish/Turkish.xml" /> 
+	<Other type="styles" name="default" file="%ModDir%/UI/DefaultStyles.xml" />
 </contentpackage>

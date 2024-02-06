@@ -174,7 +174,18 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             string fontName = msgAreaElement.GetAttributeString("MessageFont", "Font");
             try
             {
-                MessageFont = AccessTools.DeclaredField(fontName).GetValue(null) as GUIFont ?? GUIStyle.Font;
+                if (GUIStyle.Fonts.ContainsKey(fontName))
+                {
+                    MessageFont = GUIStyle.Fonts[fontName];
+                }
+                else if (Plugin.Instance?.DefaultStyles is { } styles && styles.Fonts.ContainsKey(fontName))
+                {
+                    MessageFont = Plugin.Instance.DefaultStyles.Fonts[fontName];
+                }
+                else
+                {
+                    MessageFont = GUIStyle.MonospacedFont;
+                }
             }
             catch
             {

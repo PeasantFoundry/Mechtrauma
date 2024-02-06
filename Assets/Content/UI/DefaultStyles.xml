@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style>
+    <Font name="TestFont2" file="%ModDir%/UI/CodeProBold.otf" size="12">
+        <Size maxresolution="1024,768" size="11"/>
+        <Size maxresolution="1280,800" size="13"/>
+        <Size maxresolution="1920,1080" size="15"/>
+        <Size maxresolution="2048,1440" size="17"/>
+        <Size maxresolution="2560,1600" size="18"/>
+        <Size size="1.5vh"/>
+    </Font>
+</style>
