@@ -1,16 +1,50 @@
-﻿using Barotrauma;
+﻿using System.Xml.Linq;
+using Barotrauma;
 using Barotrauma.Items.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MoonSharp.Interpreter;
 
 [assembly: IgnoresAccessChecksTo("Barotrauma")]
 namespace Mechtrauma
 {
     public partial class Plugin : IAssemblyPlugin
     {
+        public readonly Dictionary<string, UIStyleProcessor> Styles = new();
+        public UIStyleProcessor? DefaultStyles => Styles.ContainsKey("default") ? Styles["default"] : null;
+
+        void LoadStylesFiles(ContentPackage package, ContentPath filelist)
+        {
+            XDocument doc = XMLExtensions.TryLoadXml(filelist);
+            if (doc is null)
+                return;
+            var element = doc.Root?.FromPackage(package);
+            if (element is null)
+                return;
+            foreach (ContentXElement styleElement in element.GetChildElements("Other"))
+            {
+                string stylesTypeCheck = styleElement.GetAttributeString("type", string.Empty);
+                if (stylesTypeCheck != "styles")    // we cannot add custom node names to filelist.xml or it throws an error.
+                    continue;
+                string styleFilepath = styleElement.GetAttributeString("file", string.Empty);
+                string name = styleElement.GetAttributeString("name", string.Empty);
+                if (styleFilepath == string.Empty || name == string.Empty)
+                    continue;
+                if (Styles.ContainsKey(name))
+                    throw new ArgumentException(
+                        $"A style file with the name of {name} already exists in the dictionary!");
+                var xpath = ContentPath.FromRaw(package, styleFilepath);
+                var styleP = new UIStyleProcessor(package, xpath);
+                styleP.LoadFile();
+                Styles[name] = styleP;
+            }
+        }
+        
         void ClientInitialize()
         {
+            UserData.RegisterType<UIStyleProcessor>();
             changeConnectionGUI();
+            LoadStylesFiles(SelfPackage, ContentPath.FromRaw(SelfPackage, System.IO.Path.Combine(SelfPackage.Dir, "filelist.xml")));
         }
         
         // Change the connection gui to show the steam and kinetic networks

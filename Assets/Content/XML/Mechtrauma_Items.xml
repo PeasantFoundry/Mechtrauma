@@ -2461,7 +2461,7 @@
                       RelativeSize="0.8,0.61"
                       ShowInputBox="true"
                       TextColor="255,0,255,255"
-                      MessageFont="MonospacedFont"
+                      MessageFont="TestFont2"
                       UseDesignScale="true"
                       DesignScale="1.7777777777" />
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200" />
