@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>ModAssets</RootNamespace>
+        <LangVersion>11</LangVersion>
     </PropertyGroup>
 
     <Import Project="../Build.props" />

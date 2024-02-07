@@ -6,15 +6,17 @@ namespace Mechtrauma.TransferSystems;
 /// <summary>
 /// Modeled based on a positive displacement pump.
 /// </summary>
-public class LiquidPump : Powered, IFluidDevice
+public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
 {
     #region VARS
 
     public static readonly string Event_PreUpdatePumping = "Mechtrauma.TransferSystems.LiquidPump::UpdatePumping-Pre";
     public static readonly string Event_PostUpdatePumping = "Mechtrauma.TransferSystems.LiquidPump::UpdatePumping-Post";
-    
-    private readonly LiquidContainer _inletContainer = new();
-    private readonly LiquidContainer _outletContainer = new();
+
+    private readonly LiquidContainer _inletContainer;
+    private readonly LiquidContainer _outletContainer;
+    private readonly ImmutableList<LiquidContainer> _containers;
+
     private int _ticksUntilUpdate = 0;
     
     private float _maxDeltaPressure;
@@ -52,43 +54,38 @@ public class LiquidPump : Powered, IFluidDevice
     
     public LiquidPump(Item item, ContentXElement element) : base(item, element)
     {
-        
+        _inletContainer = new();
+        _outletContainer = new();
+        _containers = ImmutableList.Create(_inletContainer, _outletContainer);
     }
-    
-    
-    
-    public IReadOnlyList<T> GetFluidContainers<T>() where T : class, IFluidContainer, new()
-    {
-        var l = new List<T>();
-        try
-        {
-            l.Add(_inletContainer as T ?? throw new NullReferenceException());
-            l.Add(_outletContainer as T ?? throw new NullReferenceException());
-        }
-        catch
-        {
-            return ImmutableList<T>.Empty;
-        }
 
+
+    public T3 GetFluidContainers<T3>() where T3 : class, IList<LiquidContainer>, new()
+    {
+        var l = new T3();
+        foreach (var container in _containers)
+        {
+            l.Add(container);
+        }
         return l;
     }
 
-    public IReadOnlyList<T> GetFluidContainersByGroup<T>(string groupName) where T : class, IFluidContainer, new()
+    public T3 GetFluidContainersByGroup<T3>(string groupName) where T3 : class, IList<LiquidContainer>, new()
     {
-        if (GetPrefContainerByGroup<T>(groupName) is { } container)
-            return new List<T>()
-            {
-                container
-            };
-        return ImmutableList<T>.Empty;
+        var l = new T3();
+        if (groupName == LiquidData.SymbolConnInput)
+            l.Add(_inletContainer);
+        if (groupName == LiquidData.SymbolConnOutput)
+            l.Add(_outletContainer);
+        return l;
     }
 
-    public T? GetPrefContainerByGroup<T>(string groupName) where T : class, IFluidContainer, new()
+    public LiquidContainer? GetPrefContainerByGroup(string groupName)
     {
-        if (groupName == ILiquidData.SymbolConnInput)
-            return _inletContainer as T ?? null;
-        if (groupName == ILiquidData.SymbolConnOutput)
-            return _outletContainer as T ?? null;
+        if (groupName == LiquidData.SymbolConnInput)
+            return _inletContainer;
+        if (groupName == LiquidData.SymbolConnOutput)
+            return _outletContainer;
         return null;
     }
 
@@ -101,7 +98,7 @@ public class LiquidPump : Powered, IFluidDevice
         _ticksUntilUpdate--;
         if (_ticksUntilUpdate < 1)
         {
-            _ticksUntilUpdate = IFluidDevice.WaitTicksBetweenUpdates;
+            _ticksUntilUpdate = FluidSystemData.WaitTicksBetweenUpdates;
             UpdatePumping();
         }
     }

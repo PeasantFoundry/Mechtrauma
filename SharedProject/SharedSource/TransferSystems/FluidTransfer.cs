@@ -4,7 +4,7 @@ using FarseerPhysics.Dynamics;
 
 namespace Mechtrauma.TransferSystems;
 
-public class LiquidTransfer : ItemComponent
+public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContainer<T2>, new() where T2 : struct, IFluidData
 {
     #region VARS
 
@@ -45,7 +45,7 @@ public class LiquidTransfer : ItemComponent
 
     #endregion
     
-    public LiquidTransfer(Item item, ContentXElement element) : base(item, element)
+    public FluidTransfer(Item item, ContentXElement element) : base(item, element)
     {
         IsActive = true;
     }
@@ -72,19 +72,19 @@ public class LiquidTransfer : ItemComponent
     }
 
     /// <summary>
-    /// The LiquidTransfer system is stateless so producer and consumers must be built every update. This is because
+    /// The FluidTransfer system is stateless so producer and consumers must be built every update. This is because
     /// there isn't a graceful way to track changed/dirty item connections outside of internal vanilla code.
     /// </summary>
     private void UpdateLiquidTransfers()
     {
-        IFluidDevice<LiquidContainer, LiquidData>? producer = null;
-        List<IFluidDevice<LiquidContainer, LiquidData>> consumers = new();
+        IFluidDevice<T1, T2>? producer = null;
+        List<IFluidDevice<T1, T2>> consumers = new();
 
         if (TryGetProducerAndConsumers())
         {
             // get liquid containers
-            var producerTank = producer!.GetPrefContainerByGroup(ILiquidData.SymbolConnOutput);
-            var consumerTanks = new List<LiquidContainer>();
+            var producerTank = producer!.GetPrefContainerByGroup(T2.SymbolConnOutput);
+            var consumerTanks = new List<T1>();
 
             // exit if no src
             if (producerTank is null)
@@ -95,7 +95,7 @@ public class LiquidTransfer : ItemComponent
                 return;
             
             // get valid consumers
-            var sampleLiquid = producerTank.GetFluidSample<List<LiquidData>>();
+            var sampleLiquid = producerTank.GetFluidSample<List<T2>>();
 
             if (!sampleLiquid.Any())
                 return;
@@ -107,15 +107,15 @@ public class LiquidTransfer : ItemComponent
             // However, this requires withdrawing fluid pre-emptively.
             var sampleAccelRatio = sampleProperties?.AccelerationRatio ?? 0f;
 
-            foreach (IFluidDevice<LiquidContainer, LiquidData> device in consumers)
+            foreach (IFluidDevice<T1, T2> device in consumers)
             {
-                foreach (var container in device.GetFluidContainersByGroup<List<LiquidContainer>>(ILiquidData.SymbolConnInput))       
+                foreach (var container in device.GetFluidContainersByGroup<List<T1>>(T2.SymbolConnInput))       
                 {
                     if (container is null)
                         continue;
                     if (container.Pressure - producerTank.Pressure > float.Epsilon) // back pressure excess
                         continue;
-                    if (container.GetApertureSizeForConnection(ILiquidData.SymbolConnInput) < float.Epsilon) // valve closed
+                    if (container.GetApertureSizeForConnection(T2.SymbolConnInput) < float.Epsilon) // valve closed
                         continue;
                     if (!container.CanPutFluids(sampleLiquid))
                         continue;
@@ -139,11 +139,11 @@ public class LiquidTransfer : ItemComponent
             var consumerApertureSum = 0f;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                apertures[i] = consumerTanks[i].GetApertureSizeForConnection(ILiquidData.SymbolConnInput);
+                apertures[i] = consumerTanks[i].GetApertureSizeForConnection(T2.SymbolConnInput);
                 consumerApertureSum += apertures[i];
             }
             
-            var producerAperture = producerTank.GetApertureSizeForConnection(ILiquidData.SymbolConnOutput);
+            var producerAperture = producerTank.GetApertureSizeForConnection(T2.SymbolConnOutput);
             var maxOutVolume = Math.Min(producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), MaxFlowRate * FluidSystemData.FixedDeltaTime);
             var proportionRel = 0f;
             
@@ -170,7 +170,7 @@ public class LiquidTransfer : ItemComponent
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 if (consumerTanks[i].PutFluids(
-                        producerTank.TakeFluidProportional<List<LiquidData>>(toTransferVolume[i]), 
+                        producerTank.TakeFluidProportional<List<T2>>(toTransferVolume[i]), 
                         overrideChecks: true))  // we already ran checks earlier
                 {
                     consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); //velocity different form fluids
@@ -188,7 +188,7 @@ public class LiquidTransfer : ItemComponent
                 bool foundInput = false;
                 foreach (Connection connection in Item.Connections)
                 {
-                    if (connection.Name == ILiquidData.SymbolConnInput) // found input on self conn panel.
+                    if (connection.Name == T2.SymbolConnInput) // found input on self conn panel.
                     {
                         if (foundInput)
                             continue;
@@ -197,13 +197,13 @@ public class LiquidTransfer : ItemComponent
                         {
                             if (foundInput)
                                 break;
-                            if (recipient.Name != ILiquidData.SymbolConnOutput) // we're skipping anything that isn't an liquid out connection.
+                            if (recipient.Name != T2.SymbolConnOutput) // we're skipping anything that isn't an liquid out connection.
                                 continue;
 
                             foreach (ItemComponent component in recipient.Item.Components)  
                             {
                                 // find the first compat IFluidDevice with an liquid out.
-                                if (component is IFluidDevice<LiquidContainer, LiquidData> { OutputPhaseType: FluidProperties.PhaseType.Liquid } device)    //outputs liquid
+                                if (component is IFluidDevice<T1, T2> device)    //outputs liquid
                                 {
                                     // we found our producer.
                                     producer = device;
@@ -213,16 +213,16 @@ public class LiquidTransfer : ItemComponent
                             }
                         }
                     }
-                    else if (connection.Name == ILiquidData.SymbolConnOutput) // found output on self conn panel.
+                    else if (connection.Name == T2.SymbolConnOutput) // found output on self conn panel.
                     {
                         foreach (Connection recipient in connection.Recipients)
                         {
-                            if (recipient.Name != ILiquidData.SymbolConnInput) // we're skipping anything that's not an input.
+                            if (recipient.Name != T2.SymbolConnInput) // we're skipping anything that's not an input.
                                 continue;
 
                             foreach (ItemComponent component in recipient.Item.Components)
                             {
-                                if (component is IFluidDevice<LiquidContainer, LiquidData> { InputPhaseType: FluidProperties.PhaseType.Liquid } device)
+                                if (component is IFluidDevice<T1, T2> device)
                                 {
                                     consumers.Add(device);
                                 }

@@ -15,19 +15,19 @@ public class FluidProperties
     /// </summary>
     public PhaseType Phase { get; init; }
     /// <summary>
-    /// Heat needed to raise the temperature of 1kg by 1°K.
+    /// Heat needed to raise the temperature of 1kg by 1°K (Joules).
     /// </summary>
     public float SensibleHeat { get; init; }
     /// <summary>
-    /// Specific heat, amount of heat needed to increase temperature by 1°C/K at constant pressure. 
+    /// Specific heat, amount of heat needed to increase temperature by 1°C/K at constant pressure (Joules). 
     /// </summary>
     public float SpecificHeatPress { get; init; }
     /// <summary>
-    /// Specific heat, amount of heat needed to increase temperature by 1°C/K at constant volume.
+    /// Specific heat, amount of heat needed to increase temperature by 1°C/K at constant volume (Joules).
     /// </summary>
     public float SpecificHeatVol { get; init; }
     /// <summary>
-    /// Heat energy required to change 1kg of fluid from liquid to vapor at Standard SI. 
+    /// Heat energy required to change 1kg of fluid from liquid to vapor at Standard SI (Joules). 
     /// </summary>
     public float LatentHeat { get; init; }
     /// <summary>
@@ -42,10 +42,10 @@ public class FluidProperties
     /// Density at IUPAC STP.
     /// </summary>
     public float DensitySTP { get; init; }
-    
+
     public enum PhaseType
     {
-        Liquid, Vapor
+        Liquid, Gas
     }
 
     // todo: add vapor and liquid tables support in subtypes

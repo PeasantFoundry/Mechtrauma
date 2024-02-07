@@ -46,7 +46,7 @@ public class FluidDatabase
     public void DeregisterFluid(string identifier)
     {
         DeregisterFluid(identifier, FluidProperties.PhaseType.Liquid);
-        DeregisterFluid(identifier, FluidProperties.PhaseType.Vapor);
+        DeregisterFluid(identifier, FluidProperties.PhaseType.Gas);
     }
 
     public void DeregisterFluid(string identifier, FluidProperties.PhaseType phase)

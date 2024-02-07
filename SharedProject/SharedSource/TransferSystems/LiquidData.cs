@@ -88,4 +88,7 @@ public struct LiquidData : ILiquidData
             return new T();
         return (T)(ILiquidData)this;
     }
+
+    public static string SymbolConnInput => "liquid_input";
+    public static string SymbolConnOutput => "liquid_output";
 }

@@ -2,8 +2,8 @@
 
 public interface IFluidDevice<T, T2> where T : class, IFluidContainer<T2>, new() where T2 : struct, IFluidData
 {
-    public T3 GetFluidContainers<T3>() where T3 : class, IReadOnlyList<T>, new();
-    public T3 GetFluidContainersByGroup<T3>(string groupName) where T3 : class, IReadOnlyList<T>, new();
+    public T3 GetFluidContainers<T3>() where T3 : class, IList<T>, new();
+    public T3 GetFluidContainersByGroup<T3>(string groupName) where T3 : class, IList<T>, new();
     public T? GetPrefContainerByGroup(string groupName);
     
     public FluidProperties.PhaseType OutputPhaseType { get; }

@@ -19,4 +19,6 @@ public interface IFluidData
     public void UpdateForVolume(float newVolume);
     public void UpdateForMass(float newMass);
     public T Clone<T>() where T : struct, IFluidData;
+    public static abstract string SymbolConnInput { get; }
+    public static abstract string SymbolConnOutput { get; }
 }

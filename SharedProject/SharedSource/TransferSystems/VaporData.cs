@@ -7,7 +7,7 @@ public struct VaporData : IVaporData
         Identifier = identifier;
         FriendlyName = friendlyName;
 
-        if (FluidDatabase.Instance.GetFluidProperties(identifier, FluidProperties.PhaseType.Vapor) is { } properties)
+        if (FluidDatabase.Instance.GetFluidProperties(identifier, FluidProperties.PhaseType.Gas) is { } properties)
         {
             Density = properties.DensitySTP;
         }
@@ -33,7 +33,8 @@ public struct VaporData : IVaporData
     public float Velocity { get; }
     public float Volume { get; }
     public float Mass { get; }
-    public FluidProperties.PhaseType Phase { get; } = FluidProperties.PhaseType.Vapor;
+    
+    public FluidProperties.PhaseType Phase { get; } = FluidProperties.PhaseType.Gas;
 
     public void UpdateForDensity(float newDensity)
     {
@@ -69,4 +70,7 @@ public struct VaporData : IVaporData
     {
         throw new NotImplementedException();
     }
+    
+    public static string SymbolConnInput => "vapor_input";
+    public static string SymbolConnOutput => "vapor_output";
 }
