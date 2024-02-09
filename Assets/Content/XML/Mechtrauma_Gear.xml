@@ -3,6 +3,38 @@
 
 <!-- =============< GEAR >=============  -->
 
+<!-- Crew Hat: sailor blue  -->
+<Item name="Sailor Hat" identifier="mt_hat_sailor" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.3">
+    <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
+    <PreferredContainer secondary="wreckarmcab,abandonedarmcab,outpostarmcab" amount="1" spawnprobability="0.05" />
+    <PreferredContainer secondary="armcab" />
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" sold="false" multiplier="1.3" />
+      <Price storeidentifier="merchantcity" multiplier="1.2" minavailable="1" sold="false" />
+      <Price storeidentifier="merchantresearch" sold="false" />
+      <Price storeidentifier="merchantmilitary" multiplier="0.9" minavailable="3" />
+      <Price storeidentifier="merchantmine" sold="false" />
+      <Price storeidentifier="merchantarmory" multiplier="0.9" minavailable="3" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="ballisticfiber" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="20">
+      <RequiredSkill identifier="weapons" level="30" />
+      <RequiredItem identifier="ballisticfiber" amount="2" />
+    </Fabricate>
+    <Sprite name="Officers Hat Grey" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="0,640,96,50" depth="0.6" origin="0.5,0.5" />
+    <Body width="96" height="50" density="15" />
+    <Wearable slots="Any,Head" armorvalue="20.0" msg="ItemMsgPickUpSelect">
+      <damagemodifier afflictionidentifiers="lacerations,gunshotwound" armorsector="0.0,360.0" damagemultiplier="0.2" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="bitewounds, blunttrauma" armorsector="0.0,360.0" damagemultiplier="0.3" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictiontypes="bleeding" armorsector="0.0,360.0" damagemultiplier="0.1" damagesound="LimbArmor" deflectprojectiles="true" />
+      <damagemodifier afflictionidentifiers="concussion" armorsector="0.0,360.0" damagemultiplier="0.0" damagesound="" deflectprojectiles="true" />
+      <sprite name="Officers Hat WG" texture="%ModDir%/Images/Gear/mt_wearables.png" limb="Head" inheritlimbdepth="true" inheritscale="true" ignorelimbscale="true" scale="0.55" hidewearablesoftype="Hair" sourcerect="96,640,96,84" origin="0.7,0.8" />
+    </Wearable>
+</Item>
+
+
 <!-- Crew Hat: grey plain -->
 <Item name="Crew Hat" identifier="mt_hat_crew" category="Equipment" tags="smallitem" cargocontaineridentifier="metalcrate" description="" impactsoundtag="impact_metal_heavy" scale="0.3">
     <PreferredContainer primary="secarmcab" amount="1" notcampaign="true" />
@@ -2255,6 +2287,58 @@
   </Item>
 
 
+  <!-- CASUAL KIT: -->
+  <Item name="Casual Crew Kit - Striped" identifier="kit_crew_casual_striped" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
+    <PreferredContainer primary="crewcab" />
+    <PreferredContainer primary="outpostcrewcabinet" amount="1" spawnprobability="0.05" />
+    <Price baseprice="150" minavailable="1">
+      <Price storeidentifier="merchantoutpost" minavailable="1" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="1" />
+      <Price storeidentifier="merchantresearch" minavailable="1" />
+      <Price storeidentifier="merchantmilitary" minavailable="1" />
+      <Price storeidentifier="merchantmine" minavailable="1" />
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="organicfiber" />
+    </Deconstruct>
+    <InventoryIcon name="Casual Kit Striped" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" sourcerect="406,24,88,66" origin="0.5,0.5" />
+    <Sprite name="Casual Kit Striped" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" sourcerect="406,24,88,66" depth="0.6" origin="0.5,0.5" />
+    <Body width="100" height="50" density="30" friction="0.8" restitution="0.01" />
+    <Wearable slots="Any,InnerClothes" msg="ItemMsgPickUpSelect">
+      <!-- RIGHT ARM: -->
+      <sprite name="CCKS Right Upper Arm" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightArm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.015" />
+      <sprite name="CCKS Right Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightForearm" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.016"  />
+      <sprite name="CCKS Right Hand" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.014" />
+
+      <!-- RIGHT LEG: -->
+      <sprite name="CCKS Right Thigh" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.119" />
+      <sprite name="CCKS Right Leg" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.117"/>
+      <sprite name="CCKS Right Foot" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="RightFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="true" depth="0.118"/>
+
+      <!-- TORSO: -->
+      <sprite name="CCKS Waist" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="Waist" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.2" />
+      <sprite name="CCKS Torso" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="Torso" hidelimb="false" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" />
+
+      <!-- LEFT LEG: -->
+      <sprite name="CCKS Left Thigh" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="LeftThigh" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.129" />
+      <sprite name="CCKS Left Leg" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="LeftLeg" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.127"/>
+      <sprite name="CCKS Left Foot" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="LeftFoot" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.128"/>
+
+      <!-- LEFT ARM: -->
+
+      <!-- <sprite name="Casual Kit Left Lower Arm" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="LeftForearm" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1292" /> -->
+      <sprite name="CCKS Left Hand" texture="%ModDir%/Images/Gear/kit_crew_casual_2.png" limb="LeftHand" hidelimb="true" inherittexturescale="true" inheritorigin="true" inheritsourcerect="true" inheritlimbdepth="false" depth="0.1291" />
+
+      <damagemodifier armorsector="0.0,360.0" afflictionidentifiers="blunttrauma,lacerations,bitewounds" damagemultiplier="0.9" />
+      <damagemodifier armorsector="0.0,360.0" afflictiontypes="burn" damagemultiplier="0.5" />
+    </Wearable>
+    <ItemContainer capacity="3">
+      <Containable items="pipe,revolver,smallitem" excludeditems="toolbox,toolbelt" />
+    </ItemContainer>
+  </Item>
+
+
+
   <!-- FORMAL KIT: -->
   <Item name="Formal Crew Kit" identifier="kit_crew_formal" category="Equipment" cargocontaineridentifier="metalcrate" tags="smallitem,clothing" scale="0.5" impactsoundtag="impact_soft">
     <PreferredContainer primary="crewcab" />
@@ -2491,7 +2575,7 @@
     </ItemContainer>
   </Item>
 
-  <!-- QUICK KIT -->
+  <!-- QUICK BAG -->
   <Item name="Quick Bag" identifier="mt_quick_bag" category="Equipment" tags="smallitem,bag,mobilecontainer,tool" cargocontaineridentifier="metalcrate" showcontentsintooltip="true" Scale="0.3" fireproof="false" description="" impactsoundtag="impact_soft">
     <PreferredContainer primary="engcab"/>
     <PreferredContainer primary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.05"/>
@@ -2515,7 +2599,26 @@
     <Body width="72" height="96" density="20" />
     <Wearable slots="Bag" msg="ItemMsgEquipSelect" canbeselected="false" canbepicked="true" pickkey="Select">
       <sprite name="Quick Bag" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="608,0,64,100" limb="Torso" inherittexturescale="true" origin="1.65,1.1" scale="0.5" depth="0.6"/>
+      <sprite name="Clown Exosuit Right Hand" texture="Content/Items/JobGear/Clown/ClownExosuit.png" limb="RightHand" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="false" inheritlimbdepth="false" depth="0.02" SourceRect="383,160,64,48" />
+      <sprite name="Clown Exosuit Right Upper Arm" texture="Content/Items/JobGear/Clown/ClownExosuit.png" limb="RightArm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="false" inheritlimbdepth="false" depth="0.05" SourceRect="383,0,64,96" />
+      <sprite name="Clown Exosuit Right Forearm" texture="Content/Items/JobGear/Clown/ClownExosuit.png" limb="RightForearm" hidelimb="true" inherittexturescale="true" hideotherwearables="true" inheritorigin="true" inheritsourcerect="false" inheritlimbdepth="false" depth="0.049" SourceRect="383,96,64,64" />
     </Wearable>
+    <Holdable slots="OuterClothes+RightHand" controlpose="true" aimpos="70,5" handle1="-25,-7" />
+    <RangedWeapon barrelpos="29,11" spread="5" unskilledspread="5" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.2" reload="0.1" suitableprojectiles="bananapeelprojectile">
+      <Crosshair texture="Content/Items/Weapons/Crosshairs.png" sourcerect="0,256,256,256" />
+      <CrosshairPointer texture="Content/Items/Weapons/Crosshairs.png" sourcerect="256,256,256,256" />
+      <Sound file="Content/Items/Weapons/GrenadeLauncherShot1.ogg" type="OnUse" selectionmode="All"/>
+      <Sound file="Content/Items/Weapons/honk.ogg" type="OnUse" selectionmode="All"/>
+      <ParticleEmitter particle="explosionsmoke" particleamount="5" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse" target="This">
+        <SpawnItem identifier="bananapeelprojectile" spawnposition="ThisInventory" count="1" />
+        <Explosion range="500.0" force="2" shockwave="false" smoke="false" flames="false" flash="true" sparks="false" underwaterbubble="false" applyfireeffects="false" camerashake="6.0" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="This" reload="5.0" setvalue="true" delay="0.5" />
+      <StatusEffect type="OnUse" target="This" reload="0.1" setvalue="true" delay="5.0" />
+      <RequiredItems items="bananapeelprojectile" type="Contained" />
+    </RangedWeapon>
+
     <Holdable slots="RightHand,LeftHand" holdpos="0,-75" handle1="-5,35" holdangle="0" msg="ItemMsgPickUpUse" canbeselected="false" canbepicked="true" pickkey="Use" allowswappingwhenpicked="false" />
     <ItemContainer capacity="4" >
       <Containable items="smallitem" excludeditems="toolbelt,toolbox,bandolier,mobilecontainer" />

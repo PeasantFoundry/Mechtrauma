@@ -753,7 +753,7 @@ end
 
 function MT.DF.getMaxHP(item, DieselEngine, parts)
     local maxHP
-    if DieselEngine.Generation == "3rd" then
+    if DieselEngine.Generation == "3rd" then -- sadness
         if parts.engineBlock then maxHP = parts.engineBlockSpecs.RatedHP else maxHP = 0 end
     else
         maxHP = DieselEngine.RatedHP -- if there is no engine block, just stick with whatever the default HP is.
@@ -889,12 +889,13 @@ function MT.DF.combustion(item, dieselSeries, targetPower)
     -- adjust the targetPower based on the generator accuracy (over or under produce power)
     targetPower = targetPower * MT.HF.Tolerance(simpleGenerator.Accuracy)
 
-    -- calculate efficiency
-    simpleGenerator.Efficiency = dieselSeries.maxEfficiency
-    if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate
-    oxygenNeeded = oxygenNeeded * (1 - simpleGenerator.Efficiency + 1)
-    dieselFuelNeededCL = dieselFuelNeededCL * (1 - simpleGenerator.Efficiency + 1)
-
+    -- calculate efficiency (only calc for 3rd gen diesel...)
+    if DieselEngine.Generation == "3rd" then
+        simpleGenerator.Efficiency = dieselSeries.maxEfficiency
+        if not dieselEngine.dcmCheck.oxygenSensor then simpleGenerator.Efficiency = simpleGenerator.Efficiency - 0.5 end -- need to make this fluctuate
+        oxygenNeeded = oxygenNeeded * (1 - simpleGenerator.Efficiency + 1)
+        dieselFuelNeededCL = dieselFuelNeededCL * (1 - simpleGenerator.Efficiency + 1) -- me thinks this is funny
+    end
     -- calculate reliability
     simpleGenerator.Reliability = item.ConditionPercentage / 100
 

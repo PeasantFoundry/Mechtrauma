@@ -563,7 +563,7 @@
             <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Head" />
             <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
             <!-- gasket -->
-            <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
+            <Containable items="htgasket" excludebroken="false" excludefullcondition="false" />
         </ItemContainer>
     </Item>
 
@@ -692,7 +692,7 @@
             <GuiFrame relativesize="0.25,0.8" anchor="Center" style="ItemUI" uilabel="Engine" />
             <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,128,64,64" origin="0.5,0.5" />
             <!-- gasket -->
-            <Containable items="gasket" excludebroken="false" excludefullcondition="false" />
+            <Containable items="htgasket" excludebroken="false" excludefullcondition="false" />
         </ItemContainer>
     </Item>
 
@@ -761,11 +761,12 @@
         </Quality>
     </Item>
 
-    <!-- GASKET: generic -->
-    <Item name="Gasket"
-          identifier="mt_GUIasket"
+    <!-- GASKET: high temperature -->
+    <Item name="High Temperature Gasket"
+          identifier="mt_gasket_ht"
+          aliases="mt_GUIasket"
           Category="Fuel"
-          Tags="mtu,smallitem,gasket,part"
+          Tags="mtu,smallitem,htgasket,part"
           maxstacksize="4"
           cargocontaineridentifier="metalcrate"
           health="100"
@@ -798,6 +799,45 @@
             <QualityStat stattype="Condition" value="0.1" />
         </Quality>
     </Item>
+
+      <!-- GASKET: rubber -->
+    <Item name="Rubber Gasket"
+          identifier="mt_gasket_r"
+          Category="Fuel"
+          Tags="mtu,smallitem,rgasket,part"
+          maxstacksize="4"
+          cargocontaineridentifier="metalcrate"
+          health="100"
+          scale="0.25">
+        <PreferredContainer primary="reactorcab" />
+        <Price baseprice="50" displaynonempty="true" minavailable="5">
+            <Price storeidentifier="merchantoutpost" />
+            <Price storeidentifier="merchantcity" minavailable="3" />
+            <Price storeidentifier="merchantresearch" />
+            <Price storeidentifier="merchantmilitary" />
+            <Price storeidentifier="merchantmine" />
+            <Price storeidentifier="merchantengineering" multiplier="5.0" minavailable="5" />
+        </Price>
+        <Deconstruct time="5">
+            <Item identifier="carbon" />
+        </Deconstruct>
+        <!-- GASKET: Make a new gasket.  -->
+        <Fabricate suitablefabricators="fabricator,cncfab" amount="4" requiredtime="5">
+            <RequiredSkill identifier="mechanical" level="20" />
+            <RequiredItem identifier="aluminium" />
+            <RequiredItem identifier="organicfiber" />
+        </Fabricate>
+        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,288,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,288,128,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1152,288,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="260" />
+        <Body width="64" height="128" density="20" />
+        <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
+        <Quality>
+            <QualityStat stattype="Condition" value="0.1" />
+        </Quality>
+    </Item>
+
 
     <!-- BEARING: This is a copper sleeved steel bearing for use in a steam turbine and other machines -->
     <Item name=""

@@ -248,8 +248,17 @@
   </Item>
 
  <!-- DIESEL GENERATOR S3000DGa: Standard. -->
- <Item name="s3000DGa - Masochist V" identifier="s3000DGa" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
-    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.8" origin="0.5,0.5" />
+ <Item name="s3000DGa - Masochist V" identifier="s3000DGa" tags="Power,Generator,mtu,mtpriority,narrowDisplay,diagnostics,dieselEngine,dieselGenerator,open" category="Machine" linkable="true" allowedlinks="dieseltank,heatexchanger" showcontentsintooltip="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2" scale="0.75">
+
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.802" origin="0.5,0.5" />
+    <DecorativeSprite name="Diesel Generator Vibe" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,224,384,224" depth="0.8" origin="0.5,0.5">
+      <IsActiveConditional hastag="eq closed" />
+      <IsActiveConditional hastag="ne open" />
+    </DecorativeSprite>
+    <!-- Vibration Animation -->
+    <DecorativeSprite name="Diesel Generator Vibe" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="384,0,384,224" depth="0.801" origin="0.5,0.5" offset="2,2"
+                      offsetanim="Noise"
+                      offsetanimspeed="50.0"/>
     <UpgradePreviewSprite scale="2.5" texture="Content/UI/WeaponUI.png" sourcerect="736,807,84,68" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,0,384,224" origin="0.5,0.5" depth="0.8" maxcondition="80" fadein="true" />
     <SwappableItem canbebought="true" price="3000" replacementonuninstall="generator_mount" origin="128,215" swapidentifier="engine_diesel">

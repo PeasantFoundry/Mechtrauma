@@ -18,6 +18,15 @@ function MT.UF.fuseBox(item)
     --print("FUSE COUNTER: ", MT.itemCache[item].counter)
     --MT.itemCache[item].counter = MT.itemCache[item].counter - 1
 
+    -- CHECK: is there a gasket?
+    if item.OwnInventory.GetItemAt(1) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
+        --gasket present logic
+        -- print("Gasket present")
+    else
+        --gasket not present logic
+        --print("Gasket not present")
+    end
+
     --CHECK: is there a fuse?
     if item.OwnInventory.GetItemAt(0) ~= nil and item.OwnInventory.GetItemAt(0).ConditionPercentage > 1 then
 
@@ -431,6 +440,7 @@ end
 
 -- called by item update cycle
 function MT.UF.dieselEngine(item)
+    print(tostring(item))
     local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
     local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
     -- if not running, adjust temperature towards ambientTemperature

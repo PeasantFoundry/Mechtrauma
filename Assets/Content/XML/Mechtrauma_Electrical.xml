@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+  <!-- FUSE PANEL: RELAY -->
+  <Item name="Fuse Panel"
+        identifier="fuse_panel"
+        category="Electrical"
+        Tags=" signal,logic,mtupdate,fusebox"
+        maxstacksize="1"
+        cargocontaineridentifier="metalcrate"
+        description="Don't put your fingers in it."
+        scale="0.5"
+        impactsoundtag="impact_metal_light"
+        isshootable="true">
+    <PreferredContainer primary="engcab" />
+    <PreferredContainer secondary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="1" spawnprobability="0.05" />
+    <Deconstruct time="10">
+      <Item identifier="plastic" />
+      <Item identifier="copper" />
+      <Item identifier="tin" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="electrical" level="20" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="tin" />
+    </Fabricate>
+
+    <!-- LABEL-->
+    <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
+
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,384,112,174" depth="0.815" origin="0.5,0.5" canflipx="false" />
+    <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="128,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60" />
+    <RelayComponent canbeselected="true" vulnerabletoemp="true" maxoutput="10000" canbeoverloaded="false" IsOn="True" AllowInGameEditing="false">
+      <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />
+
+
+      <!-- ON: Fuse
+      <StatusEffect type="Always" targettype="This" duration="0.1" delay="1" stackable="false" tags="goodfuse" checkconditionalways="true" IsOn="True" Comparison="And">
+         <RequiredItem items="fuse" type="Contained" mincondition="1.0" />
+      </StatusEffect>-->
+
+      <!-- OFF: No fuse
+      <StatusEffect type="Always" targettype="This" delay="1" stackable="false" IsOn="False">
+        <Conditional HasStatusTag="neq goodfuse" />
+      </StatusEffect>  -->
+
+    </RelayComponent>
+
+    <!-- POWER LIGHT -->
+    <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="RelayComponent" overload="eq False" />
+    </LightComponent>
+    <!-- OVERVOLTAGE LIGHT -->
+    <LightComponent range="10.0"
+                    lightcolor="255,255,255,0"
+                    alphablend="true"
+                    powerconsumption="1"
+                    IsOn="false"
+                    castshadows="false"
+                    allowingameediting="false"
+                    blinkfrequency="1.5">
+      <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+      <IsActive targetitemcomponent="RelayComponent" overload="eq True" />
+    </LightComponent>
+
+    <!-- FUSE LIGHT -->
+    <LightComponent range="10.0"
+                    lightcolor="255,255,255,0"
+                    alphablend="true"
+                    powerconsumption="1"
+                    IsOn="false"
+                    Flicker="0.7"
+                    FlickerSpeed="2.0"
+                    castshadows="false"
+                    allowingameediting="false">
+      <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />
+      <IsActive targetitemcomponent="RelayComponent" IsOn="eq True" />
+    </LightComponent>
+
+
+    <Body width="112" height="174" density="30" />
+    <Holdable selectkey="Select"
+              pickkey="Use"
+              slots="Any,RightHand,LeftHand"
+              msg="ItemMsgDetachWrench"
+              PickingTime="5.0"
+              aimpos="65,-10"
+              handle1="0,0"
+              attachable="true"
+              aimable="true"
+              canbepicked="false">
+      <RequiredItem items="wrench" type="Equipped" />
+    </Holdable>
+    <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="power_in" displayname="connection.powerin" />
+      <input name="signal_in1" displayname="connection.signalinx~[num]=1" />
+      <input name="signal_in2" displayname="connection.signalinx~[num]=2" />
+      <input name="toggle" displayname="connection.togglestate" />
+      <input name="set_state" displayname="connection.setstate" />
+      <output name="power_out" displayname="connection.powerout" />
+      <output name="signal_out1" displayname="connection.signaloutx~[num]=1" />
+      <output name="signal_out2" displayname="connection.signaloutx~[num]=2" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+      <output name="load_value_out" displayname="connection.loadvalueout" />
+      <output name="power_value_out" displayname="connection.powervalueout" />
+    </ConnectionPanel>
+
+    <!-- FUSE! -->
+    <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.81">
+      <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" />
+      <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
+      <Containable items="fuse" excludebroken="false" excludefullcondition="false">
+
+        <!-- OVERVOLATGE: Damage fuse when voltage is too high
+      <StatusEffect type="OnContaining" targettype="Contained" condition="-1" Comparison='And'>
+        <Conditional voltage="gt 1.25" targetcontainer="true" targetitemcomponent="RelayComponent" />
+        <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
+
+      </StatusEffect> -->
+
+      </Containable>
+    </ItemContainer>
+
+    <Repairable selectkey="Action"
+                header="electricalrepairsheader"
+                deteriorationspeed="0.1"
+                mindeteriorationdelay="120"
+                maxdeteriorationdelay="720"
+                mindeteriorationcondition="0"
+                RepairThreshold="80"
+                fixDurationHighSkill="5"
+                fixDurationLowSkill="25"
+                msg="ItemMsgRepairScrewdriver"
+                hudpriority="10">
+      <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+      <RequiredSkill identifier="electrical" level="55" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+        <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+        <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" />
+      </StatusEffect>
+      <ParticleEmitter particle="damagebubbles"
+                       particleburstamount="2"
+                       particleburstinterval="2.0"
+                       particlespersecond="2"
+                       scalemin="0.5"
+                       scalemax="1.5"
+                       anglemin="0"
+                       anglemax="359"
+                       velocitymin="-10"
+                       velocitymax="10"
+                       mincondition="0.0"
+                       maxcondition="50.0" />
+      <ParticleEmitter particle="MistSmoke"
+                       particlespersecond="60"
+                       anglemin="0"
+                       anglemax="360"
+                       distancemin="0"
+                       distancemax="30"
+                       velocitymin="0"
+                       velocitymax="20"
+                       mincondition="0.0"
+                       maxcondition="50.0" />
+      <ParticleEmitter particle="spark"
+                       particleburstamount="5"
+                       particlespersecond="5"
+                       anglemin="0"
+                       anglemax="359"
+                       velocitymin="100"
+                       velocitymax="500"
+                       particleburstinterval="2"
+                       scalemin="0.5"
+                       scalemax="1"
+                       mincondition="0.0"
+                       maxcondition="15.0" />
+      <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
+    </Repairable>
+
+  </Item>
+
+
+
+    <!-- ELECTRICAL PANEL V2:  -->
+    <Item name="Electrical Panel" identifier="mt_epanel" aliases="electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.35" allowedlinks="gap,door" linkable="true"
+          damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" origin="0.5,0.5" canflipx="false" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,175,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-64" />
+        <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+        <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
+        <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
+        <!-- POWER LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+        </LightComponent>
+        <!-- OVERVOLTAGE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
+        </LightComponent>
+        <!-- FUSE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+            <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />
+            <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
+                <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />
+            </StatusEffect>
+        </LightComponent>
+        <!-- LABEL-->
+        <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
+        <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
+            <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />
+            <!--minsize="350,160" maxsize="420,190"-->
+            <StatusEffect type="InWater" target="This" condition="-0.25">
+                <Conditional Voltage="gt 0" />
+            </StatusEffect>
+        </PowerTransfer>
+        <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+            <Upgrade gameversion="0.9.600.0" lightcolor="255,255,255,0" />
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+        </LightComponent>
+        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+                <Affliction identifier="stun" strength="4" />
+                <Affliction identifier="burn" strength="5" />
+            </StatusEffect>
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <output name="power" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10" />
+            <output name="condition_out" displayname="connection.conditionout" />
+            <output name="power_value_out" displayname="connection.powervalueout" />
+            <output name="load_value_out" displayname="connection.loadvalueout" />
+        </ConnectionPanel>
+        <!-- FUSE! -->
+        <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.81">
+            <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" />
+            <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
+            <Containable items="fuse" excludebroken="false" excludefullcondition="false" />
+        </ItemContainer>
+        <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80"
+                    fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <LuaHook name="electricalRepair.OnFailure" />
+                <!-- <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" /> -->
+            </StatusEffect>
+            <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10"
+                             mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="MistSmoke" particlespersecond="60" anglemin="0" anglemax="360" distancemin="0" distancemax="30" velocitymin="0" velocitymax="20" mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0"
+                             maxcondition="15.0" />
+            <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
+        </Repairable>
+    </Item>
+    <!-- SAFETY ELECTRICAL PANEL: -->
+    <Item name="Safety Electrical Panel" identifier="s_electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="Disables with no fuse." scale="0.35"
+          allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" origin="0.5,0.5" canflipx="false" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,175,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-64" />
+        <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+        <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
+        <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
+        <!-- POWER LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+            <sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,224,112,172" depth="0.1" origin="0.5,0.5" alpha="0.25" />
+            <IsActive targetitemcomponent="FusedJB" overload="eq False" />
+        </LightComponent>
+        <!-- OVERVOLTAGE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="FusedJB" overload="eq True" />
+        </LightComponent>
+        <!-- FUSE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+            <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />
+            <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
+                <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />
+            </StatusEffect>
+        </LightComponent>
+        <!-- LABEL-->
+        <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
+        <FusedJB canbeselected="true" msg="ItemMsgInteractSelect" canbeoverloaded="true">
+            <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />
+            <!--minsize="350,160" maxsize="420,190"-->
+            <StatusEffect type="InWater" target="This" condition="-0.25">
+                <Conditional Voltage="gt 0" />
+            </StatusEffect>
+            <!-- Check for a fuse -->
+            <!-- ON: yesfuse
+      <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="yesfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
+         <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
+      </StatusEffect> -->
+            <!-- NO FUSE: allow overvoltage
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" canbeoverloaded="true" Comparison="And">
+        <Conditional HasStatusTag="neq yesfuse" />
+      </StatusEffect>  -->
+            <!-- NO FUSE: burn it down, burn it all down
+      <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="1.0" canbeoverloaded="true" Comparison="And">
+        <Conditional HasStatusTag="neq yesfuse" />
+      </StatusEffect> -->
+        </FusedJB>
+        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+                <Affliction identifier="stun" strength="4" />
+                <Affliction identifier="burn" strength="5" />
+            </StatusEffect>
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <output name="power" displayname="connection.power" maxwires="10" maxplayerconnectablewires="10" />
+            <output name="condition_out" displayname="connection.conditionout" />
+            <output name="power_value_out" displayname="connection.powervalueout" />
+            <output name="load_value_out" displayname="connection.loadvalueout" />
+        </ConnectionPanel>
+        <!-- FUSE! -->
+        <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.81">
+            <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" />
+            <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
+
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="768,256,64,64" origin="0.5,0.5" />
+
+            <Containable items="fuse" excludebroken="false" excludefullcondition="false"/>
+            <SubContainer capacity="1">
+                <Containable items="rgasket" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+            </SubContainer>
+
+        </ItemContainer>
+        <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80"
+                    fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <LuaHook name="electricalRepair.OnFailure" />
+                <!-- <Affliction identifier="stun" strength="4" />
+        <Affliction identifier="burn" strength="5" /> -->
+            </StatusEffect>
+            <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10"
+                             mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="MistSmoke" particlespersecond="60" anglemin="0" anglemax="360" distancemin="0" distancemax="30" velocitymin="0" velocitymax="20" mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0"
+                             maxcondition="15.0" />
+            <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
+        </Repairable>
+    </Item>
+
+
+    <!-- ELECTRICAL PANEL: DEPRICATED DO NOT USE -->
+    <Item name="Electrical Panel" identifier="electrical_panel" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.5" allowedlinks="gap,door" linkable="true"
+          damagedbyexplosions="true" explosiondamagemultiplier="0.2" hideinmenus="true">
+        <InventoryIcon texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,384,112,174" depth="0.82" origin="0.5,0.5" canflipx="false" />
+        <DecorativeSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="0,556,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-60" />
+        <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
+        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+        <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
+        <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
+        <!-- LABEL-->
+        <ItemLabel scrollable="true" padding="15,0,10,110" textcolor="1,1,1,1" />
+        <PowerTransfer canbeselected="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.2,0.14" minsize="450,160" anchor="Center" style="ItemUI" />
+            <!--minsize="350,160" maxsize="420,190"-->
+            <StatusEffect type="InWater" target="This" condition="-0.25">
+                <Conditional currPowerConsumption="lt -10" />
+            </StatusEffect>
+            <!-- Check for a fuse -->
+            <!-- ON: yesfuse -->
+
+            <StatusEffect type="Always" target="This" duration="0.1" delay="1" condition="0.5" stackable="false" tags="yesfuse" checkconditionalways="true" FireProbability=".5" canbeoverloaded="false" Comparison="And">
+                <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="1.0" />
+            </StatusEffect>
+            <!-- NO FUSE: allow overvoltage  -->
+            <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="0.0" canbeoverloaded="true" Comparison="And">
+                <Conditional HasStatusTag="neq yesfuse" />
+            </StatusEffect>
+            <!-- NO FUSE: burn it down, burn it all down  -->
+            <StatusEffect type="Always" target="This" duration="0.1" stackable="false" tags="nofuse" checkconditionalways="true" FireProbability="1.0" canbeoverloaded="true" Comparison="And">
+                <Conditional HasStatusTag="neq yesfuse" />
+            </StatusEffect>
+        </PowerTransfer>
+        <!-- POWER LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" alphablend="true" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="264,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="PowerTransfer" overload="eq False" />
+        </LightComponent>
+        <!-- OVERVOLTAGE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">
+            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <IsActive targetitemcomponent="PowerTransfer" overload="eq True" />
+        </LightComponent>
+        <!-- FUSE LIGHT -->
+        <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" Flicker="0.7" FlickerSpeed="2.0" castshadows="false" allowingameediting="false">
+            <sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="256,220,52,12" origin="0.5,-4.5" depth="0.81" alpha="2.0" />
+            <StatusEffect type="Always" targettype="This" IsOn="true" Comparison="Or">
+                <RequiredItem items="fuse" type="Contained" targetslot="0" mincondition="0.0" />
+            </StatusEffect>
+        </LightComponent>
+        <ConnectionPanel selectkey="Action" canbeselected="true" msg="ItemMsgRewireScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <Explosion range="100.0" stun="0" force="5.0" flames="false" shockwave="false" sparks="true" underwaterbubble="false" />
+                <Affliction identifier="stun" strength="4" />
+                <Affliction identifier="burn" strength="5" />
+            </StatusEffect>
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <output name="power" displayname="connection.power" maxplayerconnectablewires="10" />
+            <output name="power" displayname="connection.power" />
+            <output name="condition_out" displayname="connection.conditionout" />
+            <output name="power_value_out" displayname="connection.powervalueout" />
+            <output name="load_value_out" displayname="connection.loadvalueout" />
+        </ConnectionPanel>
+        <!-- FUSE! -->
+        <ItemContainer capacity="1" maxstacksize="1" itemsperrow="1" canbeselected="true" hideitems="false" itempos="56,-147" containedspritedepth="0.81">
+            <GuiFrame relativesize="0.1,0.2" anchor="Center" style="ItemUI" relativeoffset="-0.01,0.0" uilabel="Key" />
+            <!-- relativeoffset DOWN:0.0,0.5 UP:0.0,-0.5 LEFT:0.5,0.0 RIGHT:-0.5,0.0-->
+            <Containable items="fuse" excludebroken="false" excludefullcondition="false">
+                <!-- OVERVOLATGE: Damage fuse when voltage is too high
+      <StatusEffect type="OnContaining" targettype="Contained" condition="-1" Comparison='And'>
+        <Conditional voltage="gt 1.25" targetcontainer="true" targetitemcomponent="PowerTransfer" />
+        <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0" maxcondition="15.0" />
+      </StatusEffect>    -->
+                <!-- <StatusEffect type="OnContaining" targettype="This" Voltage="1.0" setvalue="true" /> -->
+            </Containable>
+        </ItemContainer>
+        <Repairable selectkey="Action" header="electricalrepairsheader" deteriorationspeed="0.1" mindeteriorationdelay="120" maxdeteriorationdelay="720" mindeteriorationcondition="0" RepairThreshold="80"
+                    fixDurationHighSkill="5" fixDurationLowSkill="25" msg="ItemMsgRepairScrewdriver" hudpriority="10">
+            <GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.0,0.27" style="ItemUI" />
+            <RequiredSkill identifier="electrical" level="55" />
+            <RequiredItem items="screwdriver" type="Equipped" />
+            <StatusEffect type="OnFailure" target="This,Character" targetlimbs="LeftHand,RightHand">
+                <Sound file="Content/Sounds/Damage/Electrocution1.ogg" range="1000" />
+                <LuaHook name="electricalRepair.OnFailure" />
+                <!-- <Affliction identifier="stun" strength="4" />
+                <Affliction identifier="burn" strength="5" /> -->
+            </StatusEffect>
+            <ParticleEmitter particle="damagebubbles" particleburstamount="2" particleburstinterval="2.0" particlespersecond="2" scalemin="0.5" scalemax="1.5" anglemin="0" anglemax="359" velocitymin="-10" velocitymax="10"
+                             mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="MistSmoke" particlespersecond="60" anglemin="0" anglemax="360" distancemin="0" distancemax="30" velocitymin="0" velocitymax="20" mincondition="0.0" maxcondition="50.0" />
+            <ParticleEmitter particle="spark" particleburstamount="5" particlespersecond="5" anglemin="0" anglemax="359" velocitymin="100" velocitymax="500" particleburstinterval="2" scalemin="0.5" scalemax="1" mincondition="0.0"
+                             maxcondition="15.0" />
+            <ParticleEmitter particle="fleshsmoke" particlespersecond="2" scalemin="1" scalemax="2" mincondition="0.0" maxcondition="50.0" />
+        </Repairable>
+    </Item>
+
+</Items>

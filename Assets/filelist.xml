@@ -3,6 +3,7 @@
 	
 	<Item file="%ModDir%/XML/Mechtrauma_Items.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Containers.xml" />
+	<Item file="%ModDir%/XML/Mechtrauma_Electrical.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Tools.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Parts.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Components.xml" />
@@ -27,4 +28,4 @@
 	<Text file="%ModDir%/Localization/Polish/Polish.xml" />
 	<Text file="%ModDir%/Localization/Turkish/Turkish.xml" /> 
 	<Other type="styles" name="default" file="%ModDir%/UI/DefaultStyles.xml" />
-</contentpackage>
+</contentpackage> 

@@ -453,7 +453,7 @@
           cargocontaineridentifier="metalcrate"
           description="S5-Extinguisher"
           health="10"
-          Scale="0.3"
+          Scale="0.25"
           impactsoundtag="impact_metal_light"
           donttransferbetweensubs="true">
         <PreferredContainer primary="extinguisherholder" spawnprobability="1.0" />
@@ -472,11 +472,14 @@
             <RequiredSkill identifier="mechanical" level="20" />
             <RequiredItem identifier="aluminium" />
         </Fabricate>
-        <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,64,64" origin="0.5,0.5" />
-        <Sprite texture="Content/Items/Tools/tools.png" depth="0.55" sourcerect="161,105,64,128" origin="0.5,0.5" />
-        <Body width="15" height="50" density="5" />
-        <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
-        <RepairTool extinguishamount="60.0" range="500" barrelpos="21,25" repairthroughholes="true" hititems="false">
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="224,256,168,96"  origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_tools.png" depth="0.55" sourcerect="224,256,168,96" origin="0.5,0.5" />
+        <DecorativeSprite name="Quick Bag" texture="%ModDir%/Images/Gear/mt_wearables.png" sourcerect="608,0,64,100" limb="Torso" inherittexturescale="true" origin="1.65,1.1" scale="0.5" depth="0.6"/>
+        <Body width="168" height="96" density="50" />
+        <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="80,0" handle1="-80,-10" handle2="-10,40" msg="ItemMsgPickUpSelect" >
+
+        </Holdable>
+        <RepairTool extinguishamount="60.0" range="500" barrelpos="10,15" repairthroughholes="true" hititems="false">
             <ParticleEmitter particle="extinguisher" velocitymin="1000.0" velocitymax="1650.0" particlespersecond="100" />
             <StatusEffect type="OnUse" targettype="This" Condition="-2.0" />
             <sound file="Content/Items/Tools/Extinguisher.ogg" type="OnUse" range="500.0" loop="true" />
@@ -698,6 +701,58 @@
         </Quality>
     </Item>
 
+  <!-- IMPACT DRIVER: -->
+  <Item name="Impact Driver" identifier="mt_impact_driver" category="Equipment" Tags="smallitem,tool,simpletool,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.25" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true"/>
+    <PreferredContainer primary="engcab"/>
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.2"/>
+    <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="1" spawnprobability="0.5"/>
+    <PreferredContainer secondary="outpostcrewcabinet" amount="1" spawnprobability="0.3"/>
+    <PreferredContainer secondary="outposttrashcan" amount="1" spawnprobability="0.1" />
+    <Price baseprice="20" minavailable="10">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="5" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" minavailable="10" multiplier="0.9"/>
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="iron" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="224,128,96,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="224,128,96,128" depth="0.55" origin="0.5,0.5" />
+    <Body width="96" height="128" density="80" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="70,10" handle1="-35,-15" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" CrossHairScale="0.1">
+      <!-- <Crosshair texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,64,0,0" /> -->
+      <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="0,0,64,64" />
+      <Sound file="%ModDir%/Sound/air_wrench.ogg" type="OnUse" range="1000.0" onlyinsamesub="true" />
+      <!--
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect> -->
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="mtImpactDriver.onUse" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+    </RangedWeapon>
+
+    <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="RepairSpeed" value="0.1"/>
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
 
   <!-- LASER THERMOMETER -->
   <Item name="Infared Thermometer" identifier="mt_infared_thermometer" category="Tool" cargocontaineridentifier="metalcrate" tags="smallitem,weapon,gun,stunner,gunsmith,mountableweapon" Scale="0.2" impactsoundtag="impact_metal_light">

@@ -50,8 +50,38 @@ end
 --                                    HOOKS                                   --
 -- -------------------------------------------------------------------------- --
 
--- infared themometer
-Hook.Add("mtThermometer.onUse", "mtLinker.mtLinker", function(statusEffect, delta, item)
+-- ------------------------------ IMPACT DRIVER ----------------------------- --
+Hook.Add("mtImpactDriver.onUse", "mtTools.impactDriver", function(statusEffect, delta, item)
+    local target =  item.ParentInventory.Owner.FocusedItem
+    print("IMPACT DRIVER HOOK: ", tostring(target))
+    if CLIENT and Game.IsMultiplayer then
+        return
+    end
+
+
+    if target == nil then
+        --terminal.SendMessage("TOO FAST", Color(255,100,50,255))
+        return
+    else
+        if target.HasTag("open") then
+            print("ENCLOSURE ON TAG FOUND!")
+            print(target.Tags)
+            target.ReplaceTag("open", "closed")
+            print(target.Tags)
+
+        elseif target.HasTag("closed") then
+            print("ENCLOSURE OFF TAG FOUND!")
+            print(target.Tags)
+            target.ReplaceTag("closed", "open")
+            print(target.Tags)
+        else
+            print("NOTHING")
+        end
+    end
+end)
+
+-- --------------------------- INFARED THERMOMETER -------------------------- --
+Hook.Add("mtThermometer.onUse", "mtTools.thermometer", function(statusEffect, delta, item)
     local terminal = MTUtils.GetComponentByName(item, "Mechtrauma.AdvancedTerminal")
     local target =  item.ParentInventory.Owner.FocusedItem
 

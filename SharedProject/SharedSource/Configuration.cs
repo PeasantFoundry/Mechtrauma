@@ -35,10 +35,10 @@ public sealed class Configuration
     
     // ---- PUBLIC READONLY CONFIG ---- //
     public bool DisableElectrocution => !_experimental.Setting_EnableElectrocution.Value;
-    public float BearingDPS => GetDPS(_general.Setting_ThrustbearingServiceLife.Value); 
-    public float BearingServiceLife => _general.Setting_ThrustbearingServiceLife.Value;
-    public float CirculatorDPS => GetDPS(_general.Setting_CirculatorServiceLife.Value);
-    public float CirculatorServiceLife => _general.Setting_CirculatorServiceLife.Value;
+    public float BearingDPS => GetDPS(_deterioration.Setting_ThrustbearingServiceLife.Value); 
+    public float BearingServiceLife => _deterioration.Setting_ThrustbearingServiceLife.Value;
+    public float CirculatorDPS => GetDPS(_deterioration.Setting_CirculatorServiceLife.Value);
+    public float CirculatorServiceLife => _deterioration.Setting_CirculatorServiceLife.Value;
     public float DieselDrainRate => 1f;
 
     //Deteriorate the electric motor. NOTE: Reduced condition from -0.5 to -0.1 on 9-24-22 and from: 0.1 to 0.25 on 9/25/22
@@ -52,27 +52,27 @@ public sealed class Configuration
     public float DieselOxygenRatioCL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value * 0.01f;
     public float DieselOxygenRatioL => _advanced.Setting_ConversionRatioOxygenToDiesel.Value;
     public float DivingSuitEPP => _general.Setting_DivingSuitExtPressProtection.Value;
-    public int DivingSuitServiceLife => _general.Setting_DivingSuitServiceLife.Value;
+    public int DivingSuitServiceLife => _deterioration.Setting_DivingSuitServiceLife.Value;
     public float FrictionBaseDPS => 1f;
     public float FuseboxDeterioration => _advanced.Setting_FuseboxDeteriorationRate.Value;
     public float FuseboxOvervoltDamage => _advanced.Setting_FuseboxOvervoltDamage.Value;
     public float OilBaseDPS => _test.Setting_OilBaseDPS.Value;
-    public float OilFilterDPS => GetDPS(_general.Setting_OilFilterServiceLife.Value);
-    public float OilFilterServiceLife => _general.Setting_OilFilterServiceLife.Value;
-    public float FuelFilterSLD => GetSLD(_general.Setting_FuelFilterServiceLife.Value);
-    public float FuelFilterDPS => GetDPS(_general.Setting_FuelFilterServiceLife.Value);
-    public float FuelFilterServiceLife => _general.Setting_FuelFilterServiceLife.Value;
-    public float FuelPumpSLD => GetSLD(_general.Setting_FuelPumpServiceLife.Value);
-    public float FuelPumpDPS => GetDPS(_general.Setting_FuelPumpServiceLife.Value);
-    public float FuelPumpServiceLife => _general.Setting_FuelPumpServiceLife.Value;
-    public float OilFiltrationEP => _general.Setting_OilFiltrationEfficiencyRating.Value;
-    public float OilFiltrationM => _general.Setting_OilFiltrationEfficiencyRating.Value / 100f;
-    public float EngineBlockDPS => GetDPS(_general.Setting_EngineBlockServiceLife.Value);
-    public float EngineBlockServiceLife => _general.Setting_EngineBlockServiceLife.Value;
-    public float ExhaustManifoldDPS => GetDPS(_general.Setting_ExhaustManifoldServiceLife.Value);
-    public int ExhaustManifoldServiceLife => _general.Setting_ExhaustManifoldServiceLife.Value;
-    public float ExhaustManifoldGasketDPS => GetDPS(_general.Setting_ExhaustManifoldGasketServiceLife.Value);
-    public float ExhaustManifoldGasketServiceLife => _general.Setting_ExhaustManifoldGasketServiceLife.Value;
+    public float OilFilterDPS => GetDPS(_deterioration.Setting_OilFilterServiceLife.Value);
+    public float OilFilterServiceLife => _deterioration.Setting_OilFilterServiceLife.Value;
+    public float FuelFilterSLD => GetSLD(_deterioration.Setting_FuelFilterServiceLife.Value);
+    public float FuelFilterDPS => GetDPS(_deterioration.Setting_FuelFilterServiceLife.Value);
+    public float FuelFilterServiceLife => _deterioration.Setting_FuelFilterServiceLife.Value;
+    public float FuelPumpSLD => GetSLD(_deterioration.Setting_FuelPumpServiceLife.Value);
+    public float FuelPumpDPS => GetDPS(_deterioration.Setting_FuelPumpServiceLife.Value);
+    public float FuelPumpServiceLife => _deterioration.Setting_FuelPumpServiceLife.Value;
+    public float OilFiltrationEP => _deterioration.Setting_OilFiltrationEfficiencyRating.Value;
+    public float OilFiltrationM => _deterioration.Setting_OilFiltrationEfficiencyRating.Value / 100f;
+    public float EngineBlockDPS => GetDPS(_deterioration.Setting_EngineBlockServiceLife.Value);
+    public float EngineBlockServiceLife => _deterioration.Setting_EngineBlockServiceLife.Value;
+    public float ExhaustManifoldDPS => GetDPS(_deterioration.Setting_ExhaustManifoldServiceLife.Value);
+    public int ExhaustManifoldServiceLife => _deterioration.Setting_ExhaustManifoldServiceLife.Value;
+    public float ExhaustManifoldGasketDPS => GetDPS(_deterioration.Setting_ExhaustManifoldGasketServiceLife.Value);
+    public float ExhaustManifoldGasketServiceLife => _deterioration.Setting_ExhaustManifoldGasketServiceLife.Value;
 
     public float PumpGateDeteriorationRate => _experimental.Setting_PumpGateDeteriorationRate.Value;
     public float VentSpawnRate => _biotrauma.Setting_FungusSpawnRate.Value;
@@ -96,43 +96,124 @@ public sealed class Configuration
         _test = new(this);
     }
 
-    public sealed class Settings_General
+    //DETERIORATION SECTION: 
+    public sealed class Settings_Deterioration
     {
         public readonly IConfigRangeFloat
             Setting_CirculatorServiceLife,
-            Setting_DivingSuitExtPressProtection,
             Setting_OilFilterServiceLife,
             Setting_OilFiltrationEfficiencyRating,
             Setting_FuelFilterServiceLife,
             Setting_FuelPumpServiceLife,
             Setting_ThrustbearingServiceLife,
             Setting_EngineBlockServiceLife,
-            
             Setting_ExhaustManifoldGasketServiceLife;
-
+        
         public readonly IConfigRangeInt
-            Setting_ExhaustManifoldServiceLife,
-            Setting_DivingSuitServiceLife;
+           Setting_ExhaustManifoldServiceLife,
+           Setting_DivingSuitServiceLife;
 
-        public Settings_General(Configuration instance)
+
+        //public readonly IConfigRangeInt;
+
+        public Settings_Deterioration(Configuration instance)
         {
+            Setting_FuelPumpServiceLife = ConfigManager.AddConfigRangeFloat(
+            "FuelPumpServiceLife", ModName,
+            30f, 1f, 120f, GetStepCount(1f, 120f, 1f),
+            NetworkSync.ServerAuthority,
+            displayData: new DisplayData(
+                DisplayName: "Standard Fuel Pump Service Life (min)",
+                DisplayCategory: "Deterioration"
+                ));
             Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
-                "CirculatorServiceLife", ModName,
+            "CirculatorServiceLife", ModName,
+            13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
+            NetworkSync.ServerAuthority,
+            displayData: new DisplayData(
+                DisplayName: "Standard Circulator Service Life (min)",
+                DisplayCategory: "Deterioration"
+            ));
+            Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
+            "DivingSuitServiceLife", ModName,
+            60, 0, 120, GetStepCount(0, 120, 10),
+            NetworkSync.ServerAuthority,
+            displayData: new DisplayData(
+                DisplayName: "Diving Suit Service Life (min)",
+                DisplayCategory: "Deterioration"
+                ));
+            Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
+               "OilFilterServiceLife", ModName,
+               6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
+               NetworkSync.ServerAuthority,
+               displayData: new DisplayData(
+                   DisplayName: "Standard Oil Filter Service Life (min)",
+                   DisplayCategory: "Deterioration"
+                   ));
+            Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
+                "OilFilterEfficiencyRating", ModName,
+                25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Oil Filter Efficiency Rating (%)",
+                    DisplayCategory: "Deterioration"
+                    ));
+            Setting_FuelFilterServiceLife = ConfigManager.AddConfigRangeFloat(
+                "FuelFilterServiceLife", ModName,
+                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Fuel Filter Service Life (min)",
+                    DisplayCategory: "Deterioration"
+                    ));
+            Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
+                "ThrustBearingServiceLife", ModName,
                 13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
-                    DisplayName: "Standard Circulator Service Life (min)",
-                    DisplayCategory: "General"
+                    DisplayName: "Standard Thrust Bearing Service Life (min)",
+                    DisplayCategory: "Deterioration"
                     ));
-
-            Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
-                "DivingSuitServiceLife", ModName,
-                60, 0, 120, GetStepCount(0, 120, 10),
+            Setting_EngineBlockServiceLife = ConfigManager.AddConfigRangeFloat(
+                "EngineBlockServiceLife", ModName,
+                300f, 5f, 500f, GetStepCount(100f, 100f, 4.0f),
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
-                    DisplayName: "Diving Suit Service Life (min)",
-                    DisplayCategory: "General"
+                    DisplayName: "Standard Engine Block Service Life (min)",
+                    DisplayCategory: "Deterioration"
                     ));
+            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeInt(
+                "ExhaustManifoldServiceLife", ModName,
+                 60, 0, 120, GetStepCount(0, 120, 10),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
+                    DisplayCategory: "Deterioration"
+                    ));
+            Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
+                "ExhaustManifoldGasketServiceLife", ModName,
+                30f, 1.0f, 150f, GetStepCount(15f, 150f, 1.0f),
+                NetworkSync.ServerAuthority,
+                displayData: new DisplayData(
+                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
+                    DisplayCategory: "Deterioration"
+                    ));
+        }
+    }
+
+    public sealed class Settings_General
+    {
+        public readonly IConfigRangeFloat
+
+            Setting_DivingSuitExtPressProtection;
+
+        //public readonly IConfigRangeInt;
+         
+
+
+        public Settings_General(Configuration instance)
+        {       
+
             Setting_DivingSuitExtPressProtection = ConfigManager.AddConfigRangeFloat(
                 "DivingSuitExtendedPressureProtection", ModName,
                 2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
@@ -144,84 +225,9 @@ public sealed class Configuration
 #else
                     MenuCategory: Category.Ignore
 #endif
-                    ));
-            Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
-                "OilFilterServiceLife", ModName,
-                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Oil Filter Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
-                "OilFilterEfficiencyRating", ModName,
-                25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Oil Filter Efficiency Rating (%)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_FuelFilterServiceLife = ConfigManager.AddConfigRangeFloat(
-                "FuelFilterServiceLife", ModName,
-                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Fuel Filter Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_FuelPumpServiceLife = ConfigManager.AddConfigRangeFloat(
-                "FuelPumpServiceLife", ModName,
-                30f, 1f, 120f, GetStepCount(1f, 120f, 1f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Fuel Pump Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
-                "ThrustBearingServiceLife", ModName,
-                13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Thrust Bearing Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_EngineBlockServiceLife = ConfigManager.AddConfigRangeFloat(
-                "EngineBlockServiceLife", ModName,
-                300f, 5f, 500f, GetStepCount(100f, 100f, 4.0f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Engine Block Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
-            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeInt(
-                "ExhaustManifoldServiceLife", ModName,
-                 60, 0, 120, GetStepCount(0, 120, 10),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "General"
-                    ));     
-            Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
-                "ExhaustManifoldGasketServiceLife", ModName,
-                30f, 1.0f, 150f, GetStepCount(15f, 150f, 1.0f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "General"
-                    ));
+                    ));           
         }
     }
-
-    public sealed class Settings_Deterioration
-    {
-        public readonly IConfigEntry<bool> Setting_EnableElectrocution;
-        public readonly IConfigRangeFloat Setting_PumpGateDeteriorationRate;
-
-        public Settings_Deterioration(Configuration instance)
-        {
-           
-        }
-    }   
 
 
     public sealed class Settings_Advanced
