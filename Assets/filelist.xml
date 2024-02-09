@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contentpackage name="Mechtrauma DEV" modversion="1.1.2.2" corepackage="False" gameversion="0.19.14.0" altnames="Mechtrauma">
-	
 	<Item file="%ModDir%/XML/Mechtrauma_Items.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Containers.xml" />
 	<Item file="%ModDir%/XML/Mechtrauma_Electrical.xml" />

@@ -172,15 +172,17 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
 
             // parse font name
             string fontName = msgAreaElement.GetAttributeString("MessageFont", "Font");
+            string styleFile = msgAreaElement.GetAttributeString("StyleFile", "default");
             try
             {
                 if (GUIStyle.Fonts.ContainsKey(fontName))
                 {
                     MessageFont = GUIStyle.Fonts[fontName];
                 }
-                else if (Plugin.Instance?.DefaultStyles is { } styles && styles.Fonts.ContainsKey(fontName))
+                else if (Plugin.Instance is { } inst && inst.Styles.ContainsKey(styleFile) &&
+                         inst.Styles[styleFile].Fonts.ContainsKey(fontName))
                 {
-                    MessageFont = Plugin.Instance.DefaultStyles.Fonts[fontName];
+                    MessageFont = Plugin.Instance.Styles[styleFile].Fonts[fontName];
                 }
                 else
                 {
