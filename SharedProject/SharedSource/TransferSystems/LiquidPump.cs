@@ -15,6 +15,7 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
 
     private readonly LiquidContainer _inletContainer;
     private readonly LiquidContainer _outletContainer;
+    private float _previousOutletContainerVolume = 0f;
     private readonly ImmutableList<LiquidContainer> _containers;
 
     private int _ticksUntilUpdate = 0;
@@ -24,12 +25,7 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
     public float MaxDeltaPressure
     {
         get => _maxDeltaPressure;
-        set
-        {
-            if (value < 1f)
-                value = 1f;
-            _maxDeltaPressure = value;
-        }
+        set => _maxDeltaPressure = Math.Max(1f, value);
     }
 
     private float _targetFlowRate;
@@ -37,16 +33,33 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
     public float TargetFlowRate
     {
         get => _targetFlowRate;
-        set
-        {
-            if (value < 0f)
-                value = 0f;
-            _targetFlowRate = value;
-        }
+        set => _targetFlowRate = Math.Max(0.01f, value);
     }
-    
-    [Editable(0,float.MaxValue), Serialize(20, IsPropertySaveable.Yes, "Max power consumption allowed by the pump in kW.")]
-    public float MaxPowerConsumption { get; set; }
+
+    private float _maxApertureSize;
+
+    [Editable, Serialize(100f, IsPropertySaveable.Yes, "Max Aperture Size of the pump.")]
+    public float MaxApertureSize
+    {
+        get => _maxApertureSize;
+        set => _maxApertureSize = Math.Max(1f, value);
+    }
+
+    private float _maxPowerConsumption;
+    [Editable, Serialize(20, IsPropertySaveable.Yes, "Max power consumption allowed by the pump in kW.")]
+    public float MaxPowerConsumption
+    {
+        get => _maxPowerConsumption;
+        set => _maxPowerConsumption = Math.Max(0f, value);
+    }
+
+    private float _minVelocityOut;
+    [Editable, Serialize(1f, IsPropertySaveable.Yes, "Minimum output velocity.")]
+    public float MinVelocityOut
+    {
+        get => _minVelocityOut;
+        set => _minVelocityOut = Math.Max(0f, value);
+    }
 
     
     #endregion
@@ -110,11 +123,13 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
         // todo: logic
         throw new NotImplementedException();
         
-        // check how much volume can be moved over to the outlet.
-
-        // calculate outlet pressure adjustment based on fluid level, use 50% as the marker.
-        // 0% = inlet pressure.
-        // 100% = max pressure. 
+        // Compute difference in volume from last update, vDiff
+        // if vDiff > 0 then
+            // Calculate new Velocity based on movement
+        // else
+            // Assume minimum velocity
+        // Calculate required pressure and aperture to hit target
+        
 
         GameMain.LuaCs.Hook.Call(Event_PostUpdatePumping, this);
     }

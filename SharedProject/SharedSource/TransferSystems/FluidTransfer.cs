@@ -42,6 +42,7 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
     public static readonly string SIGNAL_VELOCITY = "output_velocity";
 
     private int _ticksUntilUpdate = 0;
+    private ConnectionPanel? _panel;
 
     #endregion
     
@@ -54,7 +55,8 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
     {
         base.OnItemLoaded();
         // randomize the initial count to stagger updates a bit and reduce lag spikes from network updates.
-        _ticksUntilUpdate = Rand.Range(0, FluidSystemData.WaitTicksBetweenUpdates);    
+        _ticksUntilUpdate = Rand.Range(0, FluidSystemData.WaitTicksBetweenUpdates);
+        _panel = Item.GetComponent<ConnectionPanel>() ?? null;
     }
 
     public override void Update(float deltaTime, Camera cam)
@@ -84,7 +86,7 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
         {
             // get liquid containers
             var producerTank = producer!.GetPrefContainerByGroup(T2.SymbolConnOutput);
-            var consumerTanks = new List<T1>();
+            var consumerTanks = new List<T1>(16);
 
             // exit if no src
             if (producerTank is null)
@@ -131,10 +133,8 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
             
             // alloc memory
             Span<float> proportionsAbs = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> deltaPressures = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> apertures = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> velocities = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
-            Span<float> toTransferVolume = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
 
             var consumerApertureSum = 0f;
             for (int i = 0; i < consumerTanks.Count; i++)
@@ -144,37 +144,36 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
             }
             
             var producerAperture = producerTank.GetApertureSizeForConnection(T2.SymbolConnOutput);
-            var maxOutVolume = Math.Min(producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), MaxFlowRate * FluidSystemData.FixedDeltaTime);
-            var proportionRel = 0f;
+            var maxOutVolume = Math.Min(
+                producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), 
+                MaxFlowRate * FluidSystemData.FixedDeltaTime);
+            var consumerApertureRatio = producerAperture / consumerApertureSum;
             
             // calculate stats
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 var tank = consumerTanks[i];
-                deltaPressures[i] = (producerTank.Pressure - tank.Pressure) * DeltaPressureRatio;
-                proportionsAbs[i] = deltaPressures[i] * apertures[i];
+                float deltaPressure = (producerTank.Pressure - tank.Pressure) * DeltaPressureRatio;
+                proportionsAbs[i] = deltaPressure * apertures[i];
                 sumProportions += proportionsAbs[i]; 
-                velocities[i] = (producerTank.Velocity + deltaPressures[i] * sampleAccelRatio) * VelocityOutputRatio;
+                velocities[i] = (producerTank.Velocity + deltaPressure * sampleAccelRatio) * VelocityOutputRatio * consumerApertureRatio;
             }
 
-            for (int i = 0; i < consumerTanks.Count; i++)
-            {
-                proportionRel = proportionsAbs[i] / sumProportions; // get proportionate fluid transfer. range 0 > 1
-                // lower of volume from producer and consumer tank limits
-                toTransferVolume[i] = Math.Min(maxOutVolume * proportionRel,
-                    consumerTanks[i].GetMaxFreeVolume(sampleLiquid));
-            }
-            
             // extract volume and send 
-            var consumerApertureRatio = producerAperture / consumerApertureSum;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
+                float toTransferVolume = Math.Min(maxOutVolume * proportionsAbs[i] / sumProportions,
+                    consumerTanks[i].GetMaxFreeVolume(sampleLiquid));
+                
+                if (toTransferVolume < 0.01f)
+                    continue;
+                
                 if (consumerTanks[i].PutFluids(
-                        producerTank.TakeFluidProportional<List<T2>>(toTransferVolume[i]), 
+                        producerTank.TakeFluidProportional<List<T2>>(toTransferVolume), 
                         overrideChecks: true))  // we already ran checks earlier
                 {
-                    consumerTanks[i].UpdateForVelocity(velocities[i] * consumerApertureRatio); //velocity different form fluids
-                    consumerTanks[i].UpdateForPressure(producerTank.Pressure + deltaPressures[i]);
+                    consumerTanks[i].UpdateForVelocity(velocities[i]); 
+                    consumerTanks[i].UpdateForPressure(producerTank.Pressure * DeltaPressureRatio); 
                 }
             }
         } 
@@ -220,12 +219,11 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
                             if (recipient.Name != T2.SymbolConnInput) // we're skipping anything that's not an input.
                                 continue;
 
-                            foreach (ItemComponent component in recipient.Item.Components)
+                            foreach (var component in recipient.Item.Components
+                                         .Where(c => c is IFluidDevice<T1, T2>)
+                                         .Cast<IFluidDevice<T1, T2>>())
                             {
-                                if (component is IFluidDevice<T1, T2> device)
-                                {
-                                    consumers.Add(device);
-                                }
+                                consumers.Add(component);
                             }
                         }
                     }
