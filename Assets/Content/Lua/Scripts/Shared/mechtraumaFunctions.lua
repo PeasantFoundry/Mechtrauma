@@ -11,6 +11,20 @@ CentralComputer.online = true
 -- Hull:Condition ratio for oxygen is 2333:1 and a player breaths 700 oxygen per second.
 -- human breaths 700 oxygen/second and that requires to 0.3
 
+function MT.F.unpackCrate(sourceItem, targetItem)
+  local index = 0
+
+  while(index < sourceItem.OwnInventory.Capacity) do
+      if sourceItem.OwnInventory.GetItemAt(index) ~= nil then
+          local foundItem = sourceItem.OwnInventory.GetItemAt(index)
+          local response = true
+            MT.HF.MoveAll(sourceItem, targetItem, index, index)
+      end
+      index = index + 1
+  end
+end
+
+-- load materials depot
 function MT.F.loadMaterialsDepot(sourceItem, targetItem)
       local index = 0
 

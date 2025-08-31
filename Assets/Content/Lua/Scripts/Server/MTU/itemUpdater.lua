@@ -10,114 +10,114 @@
 MT.itemUpdates = {
     airFilter={
         tags={"airFilter"},
-        update=MT.UF.airFilter
+        updateFunction=MT.UF.airFilter
     },
     cardboardbox={
         tags={"cardboardbox"},
-        update=MT.UF.cardBoardBox
+        updateFunction=MT.UF.cardBoardBox
     },
     centralComputer={
         tags={"centralcomputer"},
-        update=MT.UF.centralComputer
+        updateFunction=MT.UF.centralComputer
     },
     centralComputerNeeded={
         tags={"ccn"},
-        update=MT.UF.centralComputerNeeded
+        updateFunction=MT.UF.centralComputerNeeded
     },
     crankAssembly={
         tags={"crankAssembly"},
-        update=MT.UF.crankAssembly
+        updateFunction=MT.UF.crankAssembly
     },
     coolant={
         tags={"coolant"},
-        update=MT.UF.coolant
+        updateFunction=MT.UF.coolant
     },
     cylinderHead={
         tags={"cylinderHead"},
-        update=MT.UF.cylinderHead
+        updateFunction=MT.UF.cylinderHead
     },
     dieselCalibration={
         tags={"dieselCalibration"},
-        update=MT.UF.dieselCalibration
+        updateFunction=MT.UF.dieselCalibration
     },
     dieselEngine={
         tags={"dieselEngine"},
-        update=MT.UF.dieselEngine
+        updateFunction=MT.UF.dieselEngine
     },
     dieselGenerator={
         tags={"dieselGenerator"},
-        update=MT.UF.dieselGenerator
+        updateFunction=MT.UF.dieselGenerator
     },
     divingSuit={
         tags={"deepdiving","diving"},
-        update=MT.UF.divingSuit
+        updateFunction=MT.UF.divingSuit
     },
     electricalDisconnect={
         tags={"electricalDisconnect"},
-        update=MT.UF.electricalDisconnect
+        updateFunction=MT.UF.electricalDisconnect
     },
     engineBlock={
         tags={"engineBlock"},
-        update=MT.UF.engineBlock
+        updateFunction=MT.UF.engineBlock
     },
     exhaustManifold={
         tags={"exhaustManifold"},
-        update=MT.UF.exhaustManifold
+        updateFunction=MT.UF.exhaustManifold
     },
     fuseBox={
         tags={"fusebox"},
-        update=MT.UF.fuseBox
+        updateFunction=MT.UF.fuseBox
     },
     gasket={
         tags={"gasket"},
-        update=MT.UF.gasket
+        updateFunction=MT.UF.gasket
     },
     heatExchanger={
         tags={"heatExchanger"},
-        update=MT.UF.heatExchanger
+        updateFunction=MT.UF.heatExchanger
     },
     heatExchangercore={
         tags={"heatExchangerCore"},
-        update=MT.UF.heatExchangerCore
+        updateFunction=MT.UF.heatExchangerCore
     },
     keyIgnition={
         tags={"keyignition"},
-        update=MT.F.keyIgnition
+        updateFunction=MT.UF.keyIgnition
     },
     mechanicalClutch={
         tags={"mechanicalClutch"},
-        update=MT.UF.mechanicalClutch
+        updateFunction=MT.UF.mechanicalClutch
     },
     oxygenVentSpawn={ --move to BT function table some day
         tags={"oxygenventspawn"},
-        update=BT.F.oxygenVentSpawn
+        updateFunction=BT.F.oxygenVentSpawn
     },
     reductionGear={
         tags={"reductionGear"},
-        update=MT.UF.reductionGear
+        updateFunction=MT.UF.reductionGear
     },
     steamBoiler={
         tags={"steamBoiler"},
-        update=MT.UF.steamBoiler
+        updateFunction=MT.UF.steamBoiler
     },
     steamHeatsink={
         tags={"steamHeatsink"},
-        update=MT.UF.steamHeatsink
+        updateFunction=MT.UF.steamHeatsink
     },
     steamTurbine={
         tags={"steamturbine"},
-        update=MT.UF.steamTurbine
+        updateFunction=MT.UF.steamTurbine
     },
     steamValve={
         tags={"steamValve"},
-        update=MT.UF.steamValve
+        updateFunction=MT.UF.steamValve
     },
 }
 
 MT.itemSpawnEvents = {
     cheapDieselFuel={
         tags={"cheapdieselfuel"},
-        update=MT.F.purchasedItemFaults
+        updateFunction=MT.F.purchasedItemFaults
     }
 }
 -- run once per MT.PriorityDeltatime (.25 seconds) by updateCounter.lua
@@ -168,7 +168,7 @@ function MT.UpdateItem(item)
         end
         -- call the function if all required tags are present
         if hasalltags then
-            itemUpdate.update(item)
+            itemUpdate.updateFunction(item)
         end
     end
 end
@@ -242,7 +242,7 @@ function MT.itemSpawnEvent(item)
             end
             -- call the function if all required tags are present
             if hasalltags then
-                itemSpawnEvent.update(item)
+                itemSpawnEvent.updateFunction(item)
             end
         end
     end

@@ -124,7 +124,8 @@ public sealed class Configuration
             NetworkSync.ServerAuthority,
             displayData: new DisplayData(
                 DisplayName: "Standard Fuel Pump Service Life (min)",
-                DisplayCategory: "Deterioration"
+                DisplayCategory: "Deterioration",
+                Tooltip: "How many minutes a Fuel Pump will take to deteriorate under 'normal' operating conditions. "
                 ));
             Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
             "CirculatorServiceLife", ModName,
@@ -132,7 +133,8 @@ public sealed class Configuration
             NetworkSync.ServerAuthority,
             displayData: new DisplayData(
                 DisplayName: "Standard Circulator Service Life (min)",
-                DisplayCategory: "Deterioration"
+                DisplayCategory: "Deterioration",
+                Tooltip: "How many minutes a Circulator Pump will take to deteriorate under 'normal' operating conditions. "
             ));
             Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
             "DivingSuitServiceLife", ModName,
@@ -140,23 +142,26 @@ public sealed class Configuration
             NetworkSync.ServerAuthority,
             displayData: new DisplayData(
                 DisplayName: "Diving Suit Service Life (min)",
-                DisplayCategory: "Deterioration"
+                DisplayCategory: "Deterioration",
+                Tooltip: "How many minutes a Diving Suit will take to deteriorate under 'normal' operating conditions. "
                 ));
             Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
                "OilFilterServiceLife", ModName,
                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
                NetworkSync.ServerAuthority,
                displayData: new DisplayData(
-                   DisplayName: "Standard Oil Filter Service Life (min)",
-                   DisplayCategory: "Deterioration"
-                   ));
+                    DisplayName: "Standard Oil Filter Service Life (min)",
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes an Oil Filter will take to deteriorate under 'normal' operating conditions. "
+                    ));
             Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
                 "OilFilterEfficiencyRating", ModName,
                 25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Oil Filter Efficiency Rating (%)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "Determines the deterioration speed of oil. 100% filtration efficiency means that oil will not deteriorate. "
                     ));
             Setting_FuelFilterServiceLife = ConfigManager.AddConfigRangeFloat(
                 "FuelFilterServiceLife", ModName,
@@ -164,7 +169,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Fuel Filter Service Life (min)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes a Fuel Filter will take to deteriorate under 'normal' operating conditions. "
                     ));
             Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ThrustBearingServiceLife", ModName,
@@ -172,7 +178,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Thrust Bearing Service Life (min)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes a Thrust Bearing will take to deteriorate under 'normal' operating conditions. "
                     ));
             Setting_EngineBlockServiceLife = ConfigManager.AddConfigRangeFloat(
                 "EngineBlockServiceLife", ModName,
@@ -180,7 +187,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Engine Block Service Life (min)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes an Engine Block will take to deteriorate under 'normal' operating conditions. "
                     ));
             Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeInt(
                 "ExhaustManifoldServiceLife", ModName,
@@ -188,7 +196,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes an Exhaust Manifold will take to deteriorate under 'normal' operating conditions. "
                     ));
             Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
                 "ExhaustManifoldGasketServiceLife", ModName,
@@ -196,7 +205,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "Deterioration"
+                    DisplayCategory: "Deterioration",
+                    Tooltip: "How many minutes an Exhaust Manifold Gasket will take to deteriorate under 'normal' operating conditions. "
                     ));
         }
     }
@@ -220,6 +230,7 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, displayData: new DisplayData(
                     DisplayName: "Diving Suit Extended Pressure Protection (multiplier)",
                     DisplayCategory: "General",
+                    Tooltip: "The EPP multiplier determines how far past the max depth EPP will work. If the multiplier is 2.0, a diving suit will receive EPP up to twice its max depth.",
 #if DEBUG
                     MenuCategory: Category.Gameplay
 #else
@@ -252,6 +263,7 @@ public sealed class Configuration
                 displayData: new DisplayData(
                     DisplayName: "Part Fault Range Modifier",
                     DisplayCategory: "Advanced",
+                    Tooltip: "I don't remember what the does. I'm pretty sure it has to do with how often part faults occur.",
                     #if DEBUG
                     MenuCategory: Category.Gameplay
                     #else
@@ -326,7 +338,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Lua Update Interval",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    Tooltip: "How often (in seconds) the Mechtrauma item updates take place."
                     ));
             
             Setting_PriorityUpdateInterval = ConfigManager.AddConfigRangeFloat(
@@ -335,7 +348,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority,
                 displayData: new DisplayData(
                     DisplayName: "Priority Lua Update Interval",
-                    DisplayCategory: "Advanced"
+                    DisplayCategory: "Advanced",
+                    Tooltip: "How often (in seconds) the Mechtrauma priority item updates take place."
                 ));
         }
     }
@@ -352,7 +366,8 @@ public sealed class Configuration
                 false, networkSync: NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Enable Electrocution Mechanic",
-                    DisplayCategory: "Experimental"
+                    DisplayCategory: "Experimental",
+                    Tooltip: "The electrocution mechanic punishes players from failing skill checks on high voltage devices."
                 ));
             Setting_PumpGateDeteriorationRate = ConfigManager.AddConfigRangeFloat(
                 "PumpGateDeteriorationRateMulti", ModName,
@@ -381,7 +396,8 @@ public sealed class Configuration
                 NetworkSync.ServerAuthority, 
                 displayData: new DisplayData(
                     DisplayName: "Fungus Spawn Rate",
-                    DisplayCategory: "Biotrauma"
+                    DisplayCategory: "Biotrauma",                    
+                    Tooltip: "How many minutes (on average) between fungus events."
                 ));
         }
     }

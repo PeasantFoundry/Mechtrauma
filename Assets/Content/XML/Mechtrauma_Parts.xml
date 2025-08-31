@@ -45,9 +45,9 @@
             <RequiredItem identifier="sealed_bearing" />
         </Fabricate>
 
-        <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="1216,512,128,89" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="384,256,128,112" origin="0.5,0.5" depth="0.55" maxcondition="20" fadein="false" />
-        <Body width="128" height="105" density="60" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="768,128,128,92" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="896,128,128,92" origin="0.5,0.5" depth="0.55" maxcondition="20" fadein="false" />
+        <Body width="128" height="92" density="60" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
         <Quality>
             <QualityStat stattype="Condition" value="0.1" />
@@ -148,9 +148,9 @@
             <RequiredSkill identifier="mechanical" level="20" />
             <RequiredItem identifier="rubber" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,480,160,64" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,480,160,64" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,544,160,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,480,160,64" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,480,160,64" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,544,160,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Body width="160" height="64" density="5" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
         <Quality>
@@ -186,9 +186,9 @@
             <RequiredItem identifier="aluminium" />
             <RequiredItem identifier="organicfiber" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,0,64,128" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,0,64,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="320,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="256,0,64,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="256,0,64,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="320,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Body width="64" height="128" density="20" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
         <Quality>
@@ -225,9 +225,9 @@
             <RequiredItem identifier="copper" />
             <RequiredItem identifier="plastic" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,0,64,128" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,0,64,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="448,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,0,64,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,0,64,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="448,0,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Body width="64" height="128" density="20" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
         <Quality>
@@ -265,9 +265,9 @@
             <RequiredItem identifier="copper" />
             <RequiredItem identifier="plastic" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1088,224,96,64" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1088,224,96,64" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1184,224,96,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1088,224,96,64" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1088,224,96,64" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1184,224,96,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
 
         <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="300" />
         <Body width="64" height="128" density="20" />
@@ -305,9 +305,9 @@
             <RequiredItem identifier="aluminium" />
             <RequiredItem identifier="organicfiber" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="640,0,128,128" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="640,0,128,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="768,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="640,0,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="640,0,128,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="768,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Body width="64" height="128" density="20" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
         <Quality>
@@ -442,8 +442,8 @@
             <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false" />
             <RequiredItem identifier="steel" amount="1" />
         </Fabricate>
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,0,128,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,0,128,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
         <!-- BLOCK IS HOT -->
         <LightComponent range="10.0"
                         lightcolor="200,50,25,5"
@@ -453,7 +453,7 @@
                         IsOn="false"
                         castshadows="false"
                         allowingameediting="false">
-            <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,608,128,128" depth="0.4" origin="0.5,0.5" alpha="1.0" />
+            <sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,608,128,128" depth="0.4" origin="0.5,0.5" alpha="1.0" />
             <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
             <StatusEffect type="OnActive" target="This">
                 <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
@@ -532,8 +532,8 @@
             <RequiredItem identifier="steel" amount="1" />
         </Fabricate>
 
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,0,128,64" origin="0.5,0.5" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="896,0,128,64" origin="0.5,0.5" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="896,64,128,64" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Body width="128" height="64" density="80" />
         <!-- ITEM IS HOT -->
         <LightComponent range="10.0"
@@ -544,7 +544,7 @@
                         IsOn="false"
                         castshadows="false"
                         allowingameediting="false">
-            <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="896,64,128,64" depth="0.4" origin="0.5,0.5" alpha="1.0" />
+            <sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="896,64,128,64" depth="0.4" origin="0.5,0.5" alpha="1.0" />
             <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
             <StatusEffect type="OnActive" target="This">
                 <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
@@ -596,8 +596,8 @@
         </Fabricate>
         <!-- RECYCLE: no rebuild, cannot be salvaged. -->
         <!-- REPAIR: no repair, cannot be salvaged. -->
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="160,480,160,128" origin="0.5,0.5" depth="0.55" maxcondition="1" fadein="false" />
         <!-- ITEM IS HOT -->
         <LightComponent range="10.0"
                         lightcolor="175,35,5,10"
@@ -607,7 +607,7 @@
                         IsOn="false"
                         castshadows="false"
                         allowingameediting="false">
-            <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.4" alpha="1.0" />
+            <sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,480,160,128" origin="0.5,0.5" depth="0.4" alpha="1.0" />
             <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
             <StatusEffect type="OnActive" target="This">
                 <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
@@ -734,8 +734,8 @@
             <RequiredItem identifier="mt_engine_block" mincondition="0.0" usecondition="false" />
             <RequiredItem identifier="steel" amount="1" />
         </Fabricate>
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,736,96,160" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,736,96,160" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,736,96,160" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,736,96,160" origin="0.5,0.5" depth="0.55" maxcondition="50" fadein="false" />
         <LightComponent range="10.0"
                         lightcolor="200,50,25,5"
                         pulsefrequency="0.4"
@@ -744,7 +744,7 @@
                         IsOn="false"
                         castshadows="false"
                         allowingameediting="false">
-            <sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,736,96,160" depth="0.4" origin="0.5,0.5" alpha="1.0" />
+            <sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,736,96,160" depth="0.4" origin="0.5,0.5" alpha="1.0" />
             <!-- <IsActive targetitemcomponent="DataBox" temperature="gt 210.0" /> -->
             <StatusEffect type="OnActive" target="This">
                 <!-- <ParticleEmitter particle="fleshsmoke" particlespersecond="0.5" scalemin="1" scalemax="2" angle="270" distance="15" /> -->
@@ -789,9 +789,9 @@
             <RequiredItem identifier="aluminium" />
             <RequiredItem identifier="organicfiber" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,0,128,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1152,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1024,0,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1024,0,128,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1152,0,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="260" />
         <Body width="64" height="128" density="20" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
@@ -800,7 +800,7 @@
         </Quality>
     </Item>
 
-      <!-- GASKET: rubber -->
+    <!-- GASKET: rubber -->
     <Item name="Rubber Gasket"
           identifier="mt_gasket_r"
           Category="Fuel"
@@ -827,9 +827,9 @@
             <RequiredItem identifier="aluminium" />
             <RequiredItem identifier="organicfiber" />
         </Fabricate>
-        <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,288,128,128" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1024,288,128,128" depth="0.55" />
-        <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="1152,288,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1024,288,128,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1024,288,128,128" depth="0.55" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="1152,288,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
         <Thermal TargetOpTemp="200" MaxOpTemp="220" FailTemp="260" />
         <Body width="64" height="128" density="20" />
         <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
@@ -924,9 +924,9 @@
       <RequiredItem identifier="sealed_bearing" />
       <RequiredItem identifier="circulator_pump" mincondition="0.0" usecondition="false" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,224,128,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,224,128,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body radius="6" height="55" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
 
@@ -963,9 +963,9 @@
       <RequiredItem identifier="aluminium" />
       <RequiredItem identifier="organicfiber" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,352,160,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="384,352,160,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,352,160,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,352,160,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="384,352,160,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="544,352,160,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
     <Quality>
@@ -1027,9 +1027,9 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,352,64,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="256,352,64,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="320,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="256,352,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="256,352,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="320,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
     <Quality>
@@ -1066,9 +1066,9 @@
       <RequiredItem identifier="copper" />
       <RequiredItem identifier="plastic" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,352,64,128" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="128,352,64,128" depth="0.55" />
-    <BrokenSprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="192,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,352,64,128" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="128,352,64,128" depth="0.55" />
+    <BrokenSprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="192,352,64,128" origin="0.5,0.5" depth="0.55" maxcondition="80" fadein="true" />
     <Body width="64" height="128" density="20" />
     <Holdable handle1="0,0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect"></Holdable>
     <Quality>
