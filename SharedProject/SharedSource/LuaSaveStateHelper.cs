@@ -22,7 +22,7 @@ public class LuaSaveStateHelper : ItemComponent
     {
         if (element is null)
         {
-            ModUtils.Logging.PrintError($"{nameof(Mechtrauma.LuaSaveStateHelper)}::InitializeXml() | Element is null!");
+            Plugin.Instance!.LoggerService.LogError($"{nameof(Mechtrauma.LuaSaveStateHelper)}::InitializeXml() | Element is null!");
             return;
         }
 

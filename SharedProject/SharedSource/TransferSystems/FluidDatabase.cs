@@ -25,7 +25,7 @@ public class FluidDatabase
             }
             else
             {
-                ModUtils.Logging.PrintError($"FluidDatabase::RegisterFluid() | Attempted to register fluid that already exists! {prop.Identifier}, {prop.Phase}");
+                Plugin.Instance!.LoggerService.LogError($"FluidDatabase::RegisterFluid() | Attempted to register fluid that already exists! {prop.Identifier}, {prop.Phase}");
                 return;
             }
         }
@@ -37,7 +37,7 @@ public class FluidDatabase
     {
         if (!_fluidPropertiesMap.ContainsKey((identifier, phase)))
         {
-            ModUtils.Logging.PrintWarning($"Could not find fluid with identifier {identifier} and phase {phase}");
+            Plugin.Instance!.LoggerService.LogError($"Could not find fluid with identifier {identifier} and phase {phase}");
             return null;
         }
         

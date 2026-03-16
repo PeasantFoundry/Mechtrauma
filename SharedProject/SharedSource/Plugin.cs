@@ -10,6 +10,7 @@ using Barotrauma.Items.Components;
 using Barotrauma.LuaCs;
 using Barotrauma.LuaCs.Compatibility;
 using HarmonyLib;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace Mechtrauma
@@ -20,18 +21,22 @@ namespace Mechtrauma
         public static Plugin? Instance { get; private set; }
         private ContentPackage? _selfPackage;
         public ContentPackage SelfPackage => _selfPackage ??= GetSelfContentPackage();
-
+        public IPluginManagementService PluginService { get; set; }
+        public ILoggerService LoggerService { get; set; }
         public IConfigService ConfigService { get; set; }
         public Configuration Config;
+        
+        private Harmony _harmony;
         
         public Plugin()
         {
             Instance = this;
+            _harmony = new Harmony(nameof(Mechtrauma));
         }
         
         public void Initialize()
         {
-            ModUtils.Logging.PrintMessage("Mechtrauma starting...");
+            LoggerService.LogMessage("Mechtrauma starting...");
             ChangePowerRules();
             Config = new Configuration(ConfigService, SelfPackage);
             InitUserData();
@@ -139,13 +144,13 @@ namespace Mechtrauma
             "water",
             "oxygen"
         };
-
+        
         // Change the power connection rules to isolate the steam, power and kinetic networks.
         private void ChangePowerRules()
         {
             // Changes the power connections limits to create steam and kinetic grids as well as the power grid.
             LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Powered",
-            typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
+            method: typeof(Barotrauma.Items.Components.Powered).GetMethod(nameof(Powered.ValidPowerConnection), BindingFlags.Static | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
 
                 Connection conn1 = (Connection)args["conn1"];
@@ -192,7 +197,7 @@ namespace Mechtrauma
             // Change the item connection loading to allow for steam and kinetic networks
             // After the constructor correctly set the isPower property, for the steam and kinetic networks
             LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Connection",
-            typeof(Barotrauma.Items.Components.Connection).GetConstructor(new[] { typeof(ContentXElement), typeof(ConnectionPanel), typeof(IdRemap) }),
+            typeof(Barotrauma.Items.Components.Connection).GetConstructor(new[] { typeof(ContentXElement), typeof(int), typeof(ConnectionPanel), typeof(IdRemap), typeof(bool) }),
             (object self, Dictionary<string, object> args) => {
 
                 // Check if its an extra power type connection, if so, set the isPower property to true
@@ -209,7 +214,7 @@ namespace Mechtrauma
 
             // Correctly assign the powerIn and powerOut for the steam and kinetic networks
             LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Powered",
-            typeof(Barotrauma.Items.Components.Powered).GetMethod("OnItemLoaded", BindingFlags.Instance | BindingFlags.Public),
+            typeof(Barotrauma.Items.Components.Powered).GetMethod(nameof(Powered.OnItemLoaded), BindingFlags.Instance | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
                 Powered myself = (Powered)self;
                 Item item = myself.Item;

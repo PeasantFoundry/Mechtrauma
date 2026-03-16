@@ -23,7 +23,7 @@ namespace Mechtrauma
         {
             if (element is null)
             {
-                ModUtils.Logging.PrintError($"DieselEngine::InitializeXml() | Content xml is null!");
+                Plugin.Instance!.LoggerService.LogError($"DieselEngine::InitializeXml() | Content xml is null!");
                 return;
             }
 

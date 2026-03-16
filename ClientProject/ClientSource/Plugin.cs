@@ -31,14 +31,16 @@ namespace Mechtrauma
                 string stylesTypeCheck = styleElement.GetAttributeString("type", string.Empty);
                 if (stylesTypeCheck != "styles")    // we cannot add custom node names to filelist.xml or it throws an error.
                     continue;
-                string styleFilepath = styleElement.GetAttributeString("file", string.Empty);
+                var styleFilepath = styleElement.GetAttributeContentPath("file");
                 string name = styleElement.GetAttributeString("name", string.Empty);
-                if (styleFilepath == string.Empty || name == string.Empty)
+                if (styleFilepath.IsNullOrWhiteSpace() || name.IsNullOrWhiteSpace())
+                {
                     continue;
+                }
                 if (Styles.ContainsKey(name))
                     throw new ArgumentException(
                         $"A style file with the name of {name} already exists in the dictionary!");
-                var xpath = ContentPath.FromRaw(package, styleFilepath);
+                var xpath = styleFilepath;
                 var styleP = new UIStyleProcessor(package, xpath);
                 styleP.LoadFile();
                 Styles[name] = styleP;
@@ -58,7 +60,7 @@ namespace Mechtrauma
             // Override the DrawConnection function for connections
             // Most of the code is the same as the original just an extra if statements for colour picking
             LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Connection",
-                typeof(Connection).GetMethod("DrawConnection", BindingFlags.Instance | BindingFlags.NonPublic),
+                typeof(Connection).GetMethod(nameof(Connection.DrawConnection), BindingFlags.Instance | BindingFlags.NonPublic),
                 (Object self, Dictionary<string, object> args) => {
                     // Assign parameters and helper variables for ease of use
                     Connection myself = (Connection)self;

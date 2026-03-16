@@ -7,7 +7,7 @@ public partial class LuaNetEventDispatcher : IClientSerializable, IServerSeriali
 {
     public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
     {
-        //ModUtils.Logging.PrintMessage("CLIENT EVENT WRITE");
+        //Plugin.Instance!.LoggerService.LogMessage("CLIENT EVENT WRITE");
         LuaCsSetup.Instance.Hook.Call(Event_ClientWrite, this, msg, extraData);
     }
 

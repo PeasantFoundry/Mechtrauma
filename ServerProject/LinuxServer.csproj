@@ -39,9 +39,6 @@
   <ItemGroup>
     <None Include="../Build.props" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Assets\Assets.csproj" />
-  </ItemGroup>
 
     <PropertyGroup>
         <RootNamespace>$(SolutionName.Replace(" ", "_"))</RootNamespace>

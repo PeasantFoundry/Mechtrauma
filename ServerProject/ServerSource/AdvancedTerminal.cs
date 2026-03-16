@@ -14,7 +14,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         if (element is null)
         {
-            ModUtils.Logging.PrintError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
+            Plugin.Instance!.LoggerService.LogError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
             return;
         }
 
