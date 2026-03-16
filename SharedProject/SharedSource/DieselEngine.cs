@@ -1,5 +1,4 @@
-﻿using ModdingToolkit;
-
+﻿
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -9,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 using System.Xml;
+using Barotrauma.LuaCs;
 
 namespace Mechtrauma
 {

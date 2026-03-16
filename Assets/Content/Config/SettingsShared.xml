@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <Settings>
+        <!-- General Settings -->
+        <Setting Name="DivingSuitExtPressProtection" Type="rangeFloat" Value="2" Min="1" Max="2.5" Steps="16" />
+        
+        <!-- Deterioration Settings-->
+        <Setting Name="FuelPumpServiceLife" Type="rangeFloat" Value="30" Min="1" Max="120" Steps="121" />
+        <Setting Name="CirculatorServiceLife" Type="rangeFloat" Value="13" Min="0.5" Max="60" Steps="121" />
+        <Setting Name="DivingSuitServiceLife" Type="rangeInt" Value="60" Min="0" Max="120" Steps="13" />
+        <Setting Name="OilFilterServiceLife" Type="rangeFloat" Value="6.5" Min="0.5" Max="60" Steps="121" />
+        <Setting Name="OilFiltrationEfficiencyRating" Type="rangeFloat" Value="25" Min="1" Max="100" Steps="101" />
+        <Setting Name="FuelFilterServiceLife" Type="rangeFloat" Value="6.5" Min="0.5" Max="60" Steps="121" />
+        <Setting Name="ThrustbearingServiceLife" Type="rangeFloat" Value="13" Min="0.5" Max="60" Steps="121" />
+        <Setting Name="EngineBlockServiceLife" Type="rangeFloat" Value="300" Min="5" Max="500" Steps="125" />
+        <Setting Name="ExhaustManifoldServiceLife" Type="rangeInt" Value="60" Min="0" Max="500" Steps="13" />
+        <Setting Name="ExhaustManifoldGasketServiceLife" Type="rangeFloat" Value="30" Min="1" Max="150" Steps="151" />
+        
+        <!-- Advanced Settings -->
+        <Setting Name="PartFaultRangeModifier" Type="rangeFloat" Value="1" Min="1" Max="10" Steps="19" />
+        <Setting Name="DieselGeneratorEfficiency" Type="rangeFloat" Value="1" Min="1" Max="20" Steps="20" />
+        <Setting Name="ConversionRatioHPtoDiesel" Type="rangeFloat" Value="0.25" Min="0.2" Max="1" Steps="21" />
+        <Setting Name="ConversionRatioOxygenToDiesel" Type="rangeFloat" Value="7" Min="1" Max="14" Steps="15" />
+        <Setting Name="FuseboxDeteriorationRate" Type="rangeFloat" Value="0.12" Min="0" Max="1" Steps="21" />
+        <Setting Name="FuseboxOvervoltDamage" Type="rangeFloat" Value="5" Min="0" Max="10" Steps="11" />
+        <Setting Name="LuaUpdateInterval" Type="rangeFloat" Value="2" Min="0.25" Max="4" Steps="16" />
+        <Setting Name="PriorityUpdateInterval" Type="rangeFloat" Value="0.25" Min="0.016666666667" Max="1" Steps="61" />
+        
+        <!-- Experimental Settings -->
+        <Setting Name="EnableElectrocution" Type="bool" Value="false" />
+        <Setting Name="PumpGateDeteriorationRate" Type="rangeFloat" Value="1" Min="0" Max="100" Steps="101" />
+        
+        <!-- Biotrauma Settings -->
+        <Setting Name="FungusSpawnRate" Type="rangeFloat" Value="0" Min="0" Max="10" Steps="101" />
+        
+        <!-- Testing Settings -->
+        <Setting Name="OilBaseDPS" Type="rangeFloat" Value="1" Min="1" Max="20" Steps="20" />
+        
+    </Settings>
+</Configuration>

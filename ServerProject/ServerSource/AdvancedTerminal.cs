@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using Barotrauma;
+using Barotrauma.LuaCs;
 using Barotrauma.Networking;
 using Microsoft.Xna.Framework;
 
@@ -59,7 +60,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
         MessagesHistory.Add(new AdvTerminalMsg(text, color, 0, 0));
         TrimHistory(0);
         item.SendSignal(text, "signal_out");
-        GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
+        LuaCsSetup.Instance.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
     }
 
     public override partial void OnItemLoaded()

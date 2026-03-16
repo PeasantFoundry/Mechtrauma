@@ -135,20 +135,28 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
             Span<float> proportionsAbs = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> apertures = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
             Span<float> velocities = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
+            Span<float> freeVolumes = tankCount < 64 ? stackalloc float[tankCount] : new float[tankCount];
 
             var consumerApertureSum = 0f;
+            var maxfreevolume = 0f;
             for (int i = 0; i < consumerTanks.Count; i++)
             {
                 apertures[i] = consumerTanks[i].GetApertureSizeForConnection(T2.SymbolConnInput);
                 consumerApertureSum += apertures[i];
+                freeVolumes[i] = consumerTanks[i].GetMaxFreeVolume(sampleLiquid);
+                maxfreevolume += freeVolumes[i];
             }
             
             var producerAperture = producerTank.GetApertureSizeForConnection(T2.SymbolConnOutput);
             var maxOutVolume = Math.Min(
-                producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), 
-                MaxFlowRate * FluidSystemData.FixedDeltaTime);
+                Math.Min(
+                    Math.Min(
+                        producerTank.Velocity * Math.Min(producerAperture, consumerApertureSum), 
+                        MaxFlowRate * FluidSystemData.FixedDeltaTime), 
+                    producerTank.Volume), 
+                maxfreevolume);
             var consumerApertureRatio = producerAperture / consumerApertureSum;
-            
+
             // calculate stats
             for (int i = 0; i < consumerTanks.Count; i++)
             {
@@ -162,8 +170,7 @@ public class FluidTransfer<T1,T2> : ItemComponent where T1 : class, IFluidContai
             // extract volume and send 
             for (int i = 0; i < consumerTanks.Count; i++)
             {
-                float toTransferVolume = Math.Min(maxOutVolume * proportionsAbs[i] / sumProportions,
-                    consumerTanks[i].GetMaxFreeVolume(sampleLiquid));
+                float toTransferVolume = Math.Min(maxOutVolume * proportionsAbs[i] / sumProportions, freeVolumes[i]);
                 
                 if (toTransferVolume < 0.01f)
                     continue;

@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using Barotrauma;
 using Barotrauma.Items.Components;
+using Barotrauma.LuaCs;
 
 namespace Mechtrauma;
 
@@ -27,19 +28,19 @@ public class LuaSaveStateHelper : ItemComponent
 
         Name = element.GetAttributeString("Name", string.Empty);
     }
-    
-    public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap)
+
+    public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap, bool isItemSwap)
     {
-        base.Load(componentElement, usePrefabValues, idRemap);
+        base.Load(componentElement, usePrefabValues, idRemap, isItemSwap);
         ContentXElement? element = componentElement.GetChildElement("LuaSaveStateHelper");
-        GameMain.LuaCs.Hook.Call(Event_OnLoad, this, element); // componentElement can be null.
+        LuaCsSetup.Instance.Hook.Call(Event_OnLoad, this, element); // componentElement can be null.
     }
 
     public override XElement Save(XElement parentElement)
     {
         base.Save(parentElement);
         XElement element = new XElement("LuaSaveStateHelper");
-        GameMain.LuaCs.Hook.Call(Event_OnSave, this, element);  
+        LuaCsSetup.Instance.Hook.Call(Event_OnSave, this, element);  
         parentElement.Add(element);
         return element;
     }

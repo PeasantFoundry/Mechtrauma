@@ -1,7 +1,6 @@
 ﻿/***
 Water drain component
 ***/
-using ModdingToolkit;
 
 using System;
 using Barotrauma;

@@ -1,11 +1,16 @@
-﻿using System.Xml.Linq;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using Barotrauma;
 using Barotrauma.Items.Components;
+using Barotrauma.LuaCs;
+using Barotrauma.LuaCs.Compatibility;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MoonSharp.Interpreter;
 
 [assembly: IgnoresAccessChecksTo("Barotrauma")]
+[assembly: IgnoresAccessChecksTo("BarotraumaCore")]
 namespace Mechtrauma
 {
     public partial class Plugin : IAssemblyPlugin
@@ -52,7 +57,7 @@ namespace Mechtrauma
         {
             // Override the DrawConnection function for connections
             // Most of the code is the same as the original just an extra if statements for colour picking
-            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection",
+            LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Connection",
                 typeof(Connection).GetMethod("DrawConnection", BindingFlags.Instance | BindingFlags.NonPublic),
                 (Object self, Dictionary<string, object> args) => {
                     // Assign parameters and helper variables for ease of use
@@ -111,7 +116,7 @@ namespace Mechtrauma
 
                     // Prevent the original method from running
                     return true;
-                }, LuaCsHook.HookMethodType.Before);
+                }, ILuaCsHook.HookMethodType.Before);
         }
     }
 }

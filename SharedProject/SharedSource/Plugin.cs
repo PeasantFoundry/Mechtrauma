@@ -1,5 +1,4 @@
 ﻿using Barotrauma;
-using ModdingToolkit;
 
 using System;
 using System.Collections.Generic;
@@ -8,16 +7,23 @@ using MoonSharp.Interpreter;
 using System.Text;
 using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
+using Barotrauma.LuaCs;
+using Barotrauma.LuaCs.Compatibility;
 using HarmonyLib;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Mechtrauma
 {
     public partial class Plugin : IAssemblyPlugin
     {
+        
         public static Plugin? Instance { get; private set; }
         private ContentPackage? _selfPackage;
         public ContentPackage SelfPackage => _selfPackage ??= GetSelfContentPackage();
 
+        public IConfigService ConfigService { get; set; }
+        public Configuration Config;
+        
         public Plugin()
         {
             Instance = this;
@@ -25,8 +31,9 @@ namespace Mechtrauma
         
         public void Initialize()
         {
-            Utils.Logging.PrintMessage("Mechtrauma starting...");
+            ModUtils.Logging.PrintMessage("Mechtrauma starting...");
             ChangePowerRules();
+            Config = new Configuration(ConfigService, SelfPackage);
             InitUserData();
 #if SERVER
             //GameMain.Server?.SendChatMessage("Started Mechtrauma");
@@ -38,7 +45,7 @@ namespace Mechtrauma
 
         public void OnLoadCompleted()
         {
-            // After all plugins have loaded
+            
         }
 
         public void PreInitPatching()
@@ -47,7 +54,7 @@ namespace Mechtrauma
         }
 
         public ContentPackage GetSelfContentPackage() =>
-            ContentPackageManager.EnabledPackages.Regular.First(p => p.Name.ToLowerInvariant().Contains("mechtrauma"));
+            ContentPackageManager.EnabledPackages.Regular.First(p => p.Name.Trim().ToLowerInvariant().StartsWith("mechtrauma"));
 
         private void InitUserData()
         {
@@ -75,14 +82,18 @@ namespace Mechtrauma
 
             UserData.RegisterType(typeof(MTUtils));
 
-            GameMain.LuaCs.Lua.Globals["MTUtils"] = UserData.CreateStatic(typeof(MTUtils));
-            GameMain.LuaCs.Lua.Globals["MTConfig"] = Configuration.Instance;
+            // delay for lua scripts startup
+            CoroutineManager.Invoke(() =>
+            {
+                LuaCsSetup.Instance.LuaScriptManagementService.InternalScript!.Globals["MTUtils"] = UserData.CreateStatic(typeof(MTUtils));
+                LuaCsSetup.Instance.LuaScriptManagementService.InternalScript!.Globals["MTConfig"] = Config;
+            });
         }
 
         private void UnloadUserData()
         {
-            GameMain.LuaCs.Lua.Globals["MTConfig"] = null;
-            GameMain.LuaCs.Lua.Globals["MTUtils"] = null;
+            LuaCsSetup.Instance.LuaScriptManagementService.InternalScript?.Globals["MTConfig"] = null;
+            LuaCsSetup.Instance.LuaScriptManagementService.InternalScript?.Globals["MTUtils"] = null;
 
             UserData.RegisterType(typeof(MTUtils));
 
@@ -97,10 +108,15 @@ namespace Mechtrauma
             UserData.UnregisterType<GridAbsorber>();
             UserData.UnregisterType<MTBoiler>();
             UserData.UnregisterType<SimpleGenerator>();
+            UserData.UnregisterType<DieselEngine>();
+            UserData.UnregisterType<EngineBlock>();
             UserData.UnregisterType<Thermal>();
+            UserData.UnregisterType<MTLight>();
+            UserData.UnregisterType<MTC>();
             UserData.UnregisterType<DataBox>();
             UserData.UnregisterType<WaterDrain>();
             UserData.UnregisterType<AdvancedTerminal>();
+            UserData.UnregisterType<AdvTerminalMsg>();
             UserData.UnregisterType<LuaNetEventDispatcher>();
         }
 
@@ -128,7 +144,7 @@ namespace Mechtrauma
         private void ChangePowerRules()
         {
             // Changes the power connections limits to create steam and kinetic grids as well as the power grid.
-            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered",
+            LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Powered",
             typeof(Barotrauma.Items.Components.Powered).GetMethod("ValidPowerConnection", BindingFlags.Static | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
 
@@ -171,11 +187,11 @@ namespace Mechtrauma
 
                 // let the original function handle the rest
                 return null;
-            }, LuaCsHook.HookMethodType.Before);
+            }, ILuaCsHook.HookMethodType.Before);
 
             // Change the item connection loading to allow for steam and kinetic networks
             // After the constructor correctly set the isPower property, for the steam and kinetic networks
-            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Connection",
+            LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Connection",
             typeof(Barotrauma.Items.Components.Connection).GetConstructor(new[] { typeof(ContentXElement), typeof(ConnectionPanel), typeof(IdRemap) }),
             (object self, Dictionary<string, object> args) => {
 
@@ -189,10 +205,10 @@ namespace Mechtrauma
                 }
 
                 return args;
-            }, LuaCsHook.HookMethodType.After);
+            }, ILuaCsHook.HookMethodType.After);
 
             // Correctly assign the powerIn and powerOut for the steam and kinetic networks
-            GameMain.LuaCs.Hook.HookMethod("Barotrauma.Items.Components.Powered",
+            LuaCsSetup.Instance.Hook.HookMethod("Barotrauma.Items.Components.Powered",
             typeof(Barotrauma.Items.Components.Powered).GetMethod("OnItemLoaded", BindingFlags.Instance | BindingFlags.Public),
             (object self, Dictionary<string, object> args) => {
                 Powered myself = (Powered)self;
@@ -202,7 +218,7 @@ namespace Mechtrauma
 
                 if (item.HasTag("mtpriority"))
                 {
-                    GameMain.LuaCs.Game.AddPriorityItem(item);
+                    LuaCsSetup.Instance.Game.AddPriorityItem(item);
                 }
 
                 // Get the highest priority device for this item
@@ -246,7 +262,14 @@ namespace Mechtrauma
                         {
                             if (c.IsOutput || c.Name.StartsWith(powerType + "_out"))
                             {
-                                myself.powerOut = c;
+                                if (myself.powerOuts.Count > 0)
+                                {
+                                    myself.powerOuts[0] = c;
+                                }
+                                else
+                                {
+                                    myself.powerOuts.Add(c);
+                                }
                             }
                             else
                             {
@@ -257,7 +280,7 @@ namespace Mechtrauma
                 }
 
                 return args;
-            }, LuaCsHook.HookMethodType.After);
+            }, ILuaCsHook.HookMethodType.After);
 
             // Remove the power_in pin from the relay check as it causes an uncessary warning that doesn't affect it's functionality
             RelayComponent.connectionPairs.Remove("power_in");

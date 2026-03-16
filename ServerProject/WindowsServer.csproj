@@ -1,16 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <Authors />
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <EnablePreviewFeatures>True</EnablePreviewFeatures>
-    <GenerateRequiresPreviewFeaturesAttribute>True</GenerateRequiresPreviewFeaturesAttribute>
-    <LangVersion>11</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project="..\SharedProject\SharedProject.projitems" Label="Shared" />
@@ -25,8 +23,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>..\Refs\0Harmony.dll</HintPath>
+    <Reference Include="BarotraumaCore">
+      <HintPath>..\Refs\Windows\BarotraumaCore.dll</HintPath>
     </Reference>
     <Reference Include="DedicatedServer">
       <HintPath>..\Refs\Windows\DedicatedServer.dll</HintPath>
@@ -37,17 +35,11 @@
     <Reference Include="Lidgren.NetStandard">
       <HintPath>..\Refs\Lidgren.NetStandard.dll</HintPath>
     </Reference>
-    <Reference Include="ModdingToolkit">
-      <HintPath>..\Refs\ModdingToolkit\Server\Windows\ModdingToolkit.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\Refs\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Windows.NetStandard">
       <HintPath>..\Refs\MonoGame.Framework.Windows.NetStandard.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMod.Common">
-      <HintPath>..\Refs\MonoMod.Common.dll</HintPath>
     </Reference>
     <Reference Include="MoonSharp.Interpreter">
       <HintPath>..\Refs\MoonSharp.Interpreter.dll</HintPath>
@@ -55,6 +47,10 @@
     <Reference Include="XNATypes">
       <HintPath>..\Refs\XNATypes.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Assets\Assets.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

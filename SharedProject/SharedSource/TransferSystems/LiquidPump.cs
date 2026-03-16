@@ -21,11 +21,20 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
     private int _ticksUntilUpdate = 0;
     
     private float _maxDeltaPressure;
-    [Editable, Serialize(250, IsPropertySaveable.Yes, "Max output pressure of the pump, compared to it's input, in KiloPascals.")]
+    [Editable, Serialize(250f, IsPropertySaveable.Yes, "Max output pressure of the pump, compared to it's input, in KiloPascals.")]
     public float MaxDeltaPressure
     {
         get => _maxDeltaPressure;
         set => _maxDeltaPressure = Math.Max(1f, value);
+    }
+
+    private float _minDeltaPressure;
+    [Editable,
+     Serialize(10f, IsPropertySaveable.Yes, "Max output pressure of the pump, compared to it's input, in KiloPascals.")]
+    public float MinDeltaPressure
+    {
+        get => _minDeltaPressure;
+        set => _minDeltaPressure = Math.Clamp(value, 0.1f, _maxDeltaPressure*0.99f);
     }
 
     private float _targetFlowRate;
@@ -118,19 +127,22 @@ public class LiquidPump : Powered, IFluidDevice<LiquidContainer, LiquidData>
 
     protected virtual void UpdatePumping()
     {
-        GameMain.LuaCs.Hook.Call(Event_PreUpdatePumping, this);
+        LuaCsSetup.Instance.Hook.Call(Event_PreUpdatePumping, this);
         
         // todo: logic
         throw new NotImplementedException();
         
         // Compute difference in volume from last update, vDiff
-        // if vDiff > 0 then
-            // Calculate new Velocity based on movement
-        // else
-            // Assume minimum velocity
-        // Calculate required pressure and aperture to hit target
+        // if vDiff == 0, then assume no transfer has happened, skip calcs.
+            // calc diff in volume vs target flow rate
+            // adjust aperture first, if aperture = max, increase velocity, else velocity = min.
+            // adjust pressure to match velocity.
+        // refill outlet container
+        // update volume tracker value
+        // update outlet tank stats if applicable 
+        
         
 
-        GameMain.LuaCs.Hook.Call(Event_PostUpdatePumping, this);
+        LuaCsSetup.Instance.Hook.Call(Event_PostUpdatePumping, this);
     }
 }

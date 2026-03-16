@@ -1,7 +1,6 @@
 /***
 Modified power container that can be turned on and off
 ***/
-using ModdingToolkit;
 
 using System;
 using Barotrauma;

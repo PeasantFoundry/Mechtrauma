@@ -2,8 +2,14 @@
     <PropertyGroup>
         <!-- IMPORTANT: Should point to <Barotrauma_Install>\LocalMods\<MyModName>\ -->
         <!-- IMPORTANT: ModDeplyDir Path must end with '\' -->
-        <ModDeployDir>C:\Program Files (x86)\Steam\steamapps\common\Barotrauma\LocalMods\Mechtrauma DEV\</ModDeployDir>
+        <ModDeployDir>.\..\..\LuaCsForBarotrauma\Barotrauma\bin\ReleaseWindows\net8.0\LocalMods\Mechtrauma\</ModDeployDir>
         <!-- IMPORTANT: Avoid the use of special (IE: / : ; , \ < > ?) (periods "." are good) and non-english characters in the AssemblyName.-->
         <AssemblyName>Mechtrauma</AssemblyName>
     </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="HarmonyX" Version="2.16.0" />
+        <PackageReference Include="LightInject" Version="6.6.4" />
+        <PackageReference Include="OneOf" Version="3.0.271" />
+        <PackageReference Include="FluentResults" Version="3.16.0" />
+    </ItemGroup>
 </Project>

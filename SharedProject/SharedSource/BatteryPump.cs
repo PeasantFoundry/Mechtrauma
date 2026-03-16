@@ -1,6 +1,4 @@
-﻿using ModdingToolkit;
-
-using System;
+﻿using System;
 using Barotrauma;
 using Barotrauma.Networking;
 using System.Reflection;
@@ -57,6 +55,8 @@ namespace Mechtrauma
 
         public override void Update(float deltaTime, Camera cam)
         {
+            base.Update(deltaTime, cam);
+            
             pumpSpeedLockTimer -= deltaTime;
             isActiveLockTimer -= deltaTime;
 
@@ -104,9 +104,8 @@ namespace Mechtrauma
                 usingBattery = false;
             }
 
-            UpdateProjSpecific(deltaTime);
-
-            ApplyStatusEffects(ActionType.OnActive, deltaTime, null);
+            /*UpdateProjSpecific(deltaTime);
+            ApplyStatusEffects(ActionType.OnActive, deltaTime, null);*/
 
             if (item.CurrentHull == null) { return; }
 
@@ -129,7 +128,7 @@ namespace Mechtrauma
                 Item? invItem = inv.GetItemAt(0);
                 if (invItem?.HasTag("electricmotor") == true)
                 {
-                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Configuration.Instance.ElectricMotorDegradeRate;
+                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Plugin.Instance.Config.ElectricMotorDegradeRate;
                 }
             }
 

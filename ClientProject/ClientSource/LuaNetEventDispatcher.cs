@@ -8,12 +8,12 @@ public partial class LuaNetEventDispatcher : IClientSerializable, IServerSeriali
     public void ClientEventWrite(IWriteMessage msg, NetEntityEvent.IData extraData = null)
     {
         //ModUtils.Logging.PrintMessage("CLIENT EVENT WRITE");
-        GameMain.LuaCs.Hook.Call(Event_ClientWrite, this, msg, extraData);
+        LuaCsSetup.Instance.Hook.Call(Event_ClientWrite, this, msg, extraData);
     }
 
     public void ClientEventRead(IReadMessage msg, float sendingTime)
     {        
-        GameMain.LuaCs.Hook.Call(Event_ClientRead, this, msg, sendingTime);
+        LuaCsSetup.Instance.Hook.Call(Event_ClientRead, this, msg, sendingTime);
     }
 
     public virtual partial void SendEvent()
