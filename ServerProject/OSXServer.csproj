@@ -5,6 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <PackageId />
+        <Authors>Hadrada,Maplewheels</Authors>
     </PropertyGroup>
 
     <ItemGroup>

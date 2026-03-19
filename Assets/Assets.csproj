@@ -6,6 +6,8 @@
         <RootNamespace>ModAssets</RootNamespace>
         <LangVersion>latest</LangVersion>
         <TargetFramework>net8.0</TargetFramework>
+        <PackageId />
+        <Authors>Hadrada,Maplewheels</Authors>
     </PropertyGroup>
 
     <Import Project="../Build.props" />
