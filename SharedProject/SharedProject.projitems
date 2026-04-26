@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '18.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
     <SharedGUID>3c1540c8-8235-4e85-8bff-9af5fe32fe99</SharedGUID>
   </PropertyGroup>
@@ -32,7 +32,23 @@
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Plugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\SimpleGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\Thermal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\*.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\FluidDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\FluidProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\FluidTransfer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\IFluidContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\IFluidData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\IFluidDevice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\ILiquidContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\ILiquidData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\IVaporContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\IVaporData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\LiquidContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\LiquidData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\LiquidPump.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\SteamBoiler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\VaporContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\VaporData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedSource\TransferSystems\VaporTransfer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterDrain.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedSource\WaterGate.cs" />
   </ItemGroup>

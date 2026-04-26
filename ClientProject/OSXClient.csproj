@@ -1,52 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
-        <PackageId />
-        <Authors>Hadrada,Maplewheels</Authors>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <Reference Include="Barotrauma">
-        <HintPath>..\Refs\OSX\Barotrauma.dll</HintPath>
-      </Reference>
-      <Reference Include="BarotraumaCore">
-        <HintPath>..\Refs\OSX\BarotraumaCore.dll</HintPath>
-      </Reference>
-      <Reference Include="Farseer.NetStandard">
-        <HintPath>..\Refs\Farseer.NetStandard.dll</HintPath>
-      </Reference>
-      <Reference Include="Lidgren.NetStandard">
-        <HintPath>..\Refs\Lidgren.NetStandard.dll</HintPath>
-      </Reference>
-      <Reference Include="Mono.Cecil">
-        <HintPath>..\Refs\Mono.Cecil.dll</HintPath>
-      </Reference>
-      <Reference Include="MonoGame.Framework.MacOS.NetStandard">
-        <HintPath>..\Refs\MonoGame.Framework.MacOS.NetStandard.dll</HintPath>
-      </Reference>
-      <Reference Include="MoonSharp.Interpreter">
-        <HintPath>..\Refs\MoonSharp.Interpreter.dll</HintPath>
-      </Reference>
-      <Reference Include="XNATypes">
-        <HintPath>..\Refs\XNATypes.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-  <Import Project="..\SharedProject\SharedProject.projitems" Label="Shared" />
-  <Import Project="../Build.props" />
   <ItemGroup>
-    <None Include="../Build.props" />
+    <Reference Include="Barotrauma">
+      <HintPath>..\Refs\OSX\Barotrauma.dll</HintPath>
+    </Reference>
+    <Reference Include="BarotraumaCore">
+      <HintPath>..\Refs\OSX\BarotraumaCore.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.MacOS.NetStandard">
+      <HintPath>..\Refs\MonoGame.Framework.MacOS.NetStandard.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
-  <PropertyGroup>
-    <RootNamespace>$(SolutionName.Replace(" ", "_"))</RootNamespace>
-    <PlatformTarget>x64</PlatformTarget>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
-  </PropertyGroup>
+  <Import Project="..\SharedProject\SharedProject.projitems" Label="Shared" />
+  <Import Project="../Build.props"/>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DefineConstants>TRACE;OSX;CLIENT</DefineConstants>

@@ -1,15 +1,52 @@
 <Project>
-    <PropertyGroup>
-        <!-- IMPORTANT: Should point to <Barotrauma_Install>\LocalMods\<MyModName>\ -->
-        <!-- IMPORTANT: ModDeplyDir Path must end with '\' -->
-        <ModDeployDir>.\..\..\LuaCsForBarotrauma\Barotrauma\bin\DebugWindows\net8.0\LocalMods\Mechtrauma\</ModDeployDir>
-        <!-- IMPORTANT: Avoid the use of special (IE: / : ; , \ < > ?) (periods "." are good) and non-english characters in the AssemblyName.-->
-        <AssemblyName>Mechtrauma</AssemblyName>
-    </PropertyGroup>
     <ItemGroup>
+        <!-- /Refs Path References-->
+        <Reference Include="Farseer.NetStandard">
+            <HintPath>..\Refs\Farseer.NetStandard.dll</HintPath>
+        </Reference>
+        <Reference Include="Lidgren.NetStandard">
+            <HintPath>..\Refs\Lidgren.NetStandard.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Cecil">
+            <HintPath>..\Refs\Mono.Cecil.dll</HintPath>
+        </Reference>
+        <Reference Include="MoonSharp.Interpreter">
+            <HintPath>..\Refs\MoonSharp.Interpreter.dll</HintPath>
+        </Reference>
+        <Reference Include="XNATypes">
+            <HintPath>..\Refs\XNATypes.dll</HintPath>
+        </Reference>
+
+        <!-- Luatrauuma NuGet Package References -->
         <PackageReference Include="HarmonyX" Version="2.16.0" />
         <PackageReference Include="LightInject" Version="6.6.4" />
         <PackageReference Include="OneOf" Version="3.0.271" />
         <PackageReference Include="FluentResults" Version="3.16.0" />
     </ItemGroup>
+    
+    <!-- User/Mod Settings -->
+    <PropertyGroup>
+        <!-- IMPORTANT: Should point to <Barotrauma_Install>\LocalMods\<MyModName>\ -->
+        <!-- IMPORTANT: ModDeplyDir Path must end with '\' -->
+        <ModDeployDir>.\..\..\LuaCsForBarotrauma\Barotrauma\bin\ReleaseWindows\net8.0\LocalMods\Mechtrauma\</ModDeployDir>
+        <!-- IMPORTANT: Avoid the use of special (IE: / : ; , \ < > ?) (periods "." are good) and non-english characters in the AssemblyName and RootNamespace.-->
+        <!-- You must also change the assembly.dll name in ModConfig.xml to match the AssemblyName. -->
+        <AssemblyName>Mechtrauma</AssemblyName>
+        <RootNamespace>Mechtrauma</RootNamespace>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <!-- These two numbers should match under almost all circumstances. -->
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <Authors>Hadrada,Maplewheels</Authors>
+    </PropertyGroup>
+
+    <!-- You shouldn't change these unless you are having issues. -->
+    <PropertyGroup>
+        <PlatformTarget>x64</PlatformTarget>
+        <Platforms>x64</Platforms>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
 </Project>

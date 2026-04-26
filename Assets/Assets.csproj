@@ -1,22 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>ModAssets</RootNamespace>
         <LangVersion>latest</LangVersion>
-        <TargetFramework>net8.0</TargetFramework>
-        <PackageId />
-        <Authors>Hadrada,Maplewheels</Authors>
     </PropertyGroup>
 
-    <Import Project="../Build.props" />
-
-    <ItemGroup>
-      <Content Include="..\Build.props">
-        <Link>Build.props</Link>
-      </Content>
-    </ItemGroup>
+    <Import Project="../Build.props"/>
 
     <Target Name="CopyFiles" AfterTargets="Build">
         <ItemGroup>
