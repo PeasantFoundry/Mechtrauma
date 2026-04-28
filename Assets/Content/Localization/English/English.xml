@@ -1,7 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
-
-   
+  
+  <!-- ===// Config //=== -->
+  <!-- >>> General -->
+  <!-- "DivingSuitExtPressProtection" -->
+  <Mechtrauma.DivingSuitExtPressProtection.DisplayName>Diving Suit Extended Pressure Protection</Mechtrauma.DivingSuitExtPressProtection.DisplayName>
+  <Mechtrauma.DivingSuitExtPressProtection.Tooltip>#UNDEFINED</Mechtrauma.DivingSuitExtPressProtection.Tooltip>
+  <Mechtrauma.DivingSuitExtPressProtection.DisplayCategory>General</Mechtrauma.DivingSuitExtPressProtection.DisplayCategory>
+  
+  <!-- >>> Deterioration -->
+  <!-- "FuelPumpServiceLife" -->
+  <Mechtrauma.FuelPumpServiceLife.DisplayName>Fuel Pump Service Life</Mechtrauma.FuelPumpServiceLife.DisplayName>
+  <Mechtrauma.FuelPumpServiceLife.Tooltip>#UNDEFINED</Mechtrauma.FuelPumpServiceLife.Tooltip>
+  <Mechtrauma.FuelPumpServiceLife.DisplayCategory>Deterioration</Mechtrauma.FuelPumpServiceLife.DisplayCategory>
+  <!-- "CirculatorServiceLife" -->
+  <Mechtrauma.CirculatorServiceLife.DisplayName>Circulator Pump Service Life</Mechtrauma.CirculatorServiceLife.DisplayName>
+  <Mechtrauma.CirculatorServiceLife.Tooltip>#UNDEFINED</Mechtrauma.CirculatorServiceLife.Tooltip>
+  <Mechtrauma.CirculatorServiceLife.DisplayCategory>Deterioration</Mechtrauma.CirculatorServiceLife.DisplayCategory>
+  <!-- "DivingSuitServiceLife" -->
+  <Mechtrauma.FuelPumpServiceLife.DisplayName>Diving Suit Service Life</Mechtrauma.FuelPumpServiceLife.DisplayName>
+  <Mechtrauma.FuelPumpServiceLife.Tooltip>#UNDEFINED</Mechtrauma.FuelPumpServiceLife.Tooltip>
+  <Mechtrauma.FuelPumpServiceLife.DisplayCategory>Deterioration</Mechtrauma.FuelPumpServiceLife.DisplayCategory>
+  <!-- "OilFilterServiceLife" -->
+  <Mechtrauma.OilFilterServiceLife.DisplayName>Oil Filter Service Life</Mechtrauma.OilFilterServiceLife.DisplayName>
+  <Mechtrauma.OilFilterServiceLife.Tooltip>#UNDEFINED</Mechtrauma.OilFilterServiceLife.Tooltip>
+  <Mechtrauma.OilFilterServiceLife.DisplayCategory>Deterioration</Mechtrauma.OilFilterServiceLife.DisplayCategory>
+  <!-- "OilFiltrationEfficiencyRating" -->
+  <Mechtrauma.OilFiltrationEfficiencyRating.DisplayName>Oil Filtration Efficiency Degradation</Mechtrauma.OilFiltrationEfficiencyRating.DisplayName>
+  <Mechtrauma.OilFiltrationEfficiencyRating.Tooltip>#UNDEFINED</Mechtrauma.OilFiltrationEfficiencyRating.Tooltip>
+  <Mechtrauma.OilFiltrationEfficiencyRating.DisplayCategory>Deterioration</Mechtrauma.OilFiltrationEfficiencyRating.DisplayCategory>
+  <!-- "FuelFilterServiceLife" -->
+  <Mechtrauma.FuelFilterServiceLife.DisplayName>Fuel Filter Service Life</Mechtrauma.FuelFilterServiceLife.DisplayName>
+  <Mechtrauma.FuelFilterServiceLife.Tooltip>#UNDEFINED</Mechtrauma.FuelFilterServiceLife.Tooltip>
+  <Mechtrauma.FuelFilterServiceLife.DisplayCategory>Deterioration</Mechtrauma.FuelFilterServiceLife.DisplayCategory>
+  <!-- "ThrustbearingServiceLife" -->
+  <Mechtrauma.ThrustbearingServiceLife.DisplayName>Thrust Bearing Service Life</Mechtrauma.ThrustbearingServiceLife.DisplayName>
+  <Mechtrauma.ThrustbearingServiceLife.Tooltip>#UNDEFINED</Mechtrauma.ThrustbearingServiceLife.Tooltip>
+  <Mechtrauma.ThrustbearingServiceLife.DisplayCategory>Deterioration</Mechtrauma.ThrustbearingServiceLife.DisplayCategory>
+  <!-- "EngineBlockServiceLife" -->
+  <Mechtrauma.EngineBlockServiceLife.DisplayName>Engine Block Service Life</Mechtrauma.EngineBlockServiceLife.DisplayName>
+  <Mechtrauma.EngineBlockServiceLife.Tooltip>#UNDEFINED</Mechtrauma.EngineBlockServiceLife.Tooltip>
+  <Mechtrauma.EngineBlockServiceLife.DisplayCategory>Deterioration</Mechtrauma.EngineBlockServiceLife.DisplayCategory>
+  <!-- "ExhaustManifoldServiceLife" -->
+  <Mechtrauma.ExhaustManifoldServiceLife.DisplayName>Exhaust Manifold Service Life</Mechtrauma.ExhaustManifoldServiceLife.DisplayName>
+  <Mechtrauma.ExhaustManifoldServiceLife.Tooltip>#UNDEFINED</Mechtrauma.ExhaustManifoldServiceLife.Tooltip>
+  <Mechtrauma.ExhaustManifoldServiceLife.DisplayCategory>Deterioration</Mechtrauma.ExhaustManifoldServiceLife.DisplayCategory>
+  <!-- "ExhaustManifoldGasketServiceLife" -->
+  <Mechtrauma.ExhaustManifoldGasketServiceLife.DisplayName>Fuel Pump Service Life</Mechtrauma.ExhaustManifoldGasketServiceLife.DisplayName>
+  <Mechtrauma.ExhaustManifoldGasketServiceLife.Tooltip>#UNDEFINED</Mechtrauma.ExhaustManifoldGasketServiceLife.Tooltip>
+  <Mechtrauma.ExhaustManifoldGasketServiceLife.DisplayCategory>Deterioration</Mechtrauma.ExhaustManifoldGasketServiceLife.DisplayCategory>
+  <!-- "FuseboxDeteriorationRate" -->
+  <Mechtrauma.FuseboxDeteriorationRate.DisplayName>Fusebox Deterioration Rate</Mechtrauma.FuseboxDeteriorationRate.DisplayName>
+  <Mechtrauma.FuseboxDeteriorationRate.Tooltip>#UNDEFINED</Mechtrauma.FuseboxDeteriorationRate.Tooltip>
+  <Mechtrauma.FuseboxDeteriorationRate.DisplayCategory>Deterioration</Mechtrauma.FuseboxDeteriorationRate.DisplayCategory>
+  
+  <!-- >>> Advanced -->
+  <!-- "PartFaultRangeModifier" -->
+  <Mechtrauma.PartFaultRangeModifier.DisplayName>Part Fault Range Modifier</Mechtrauma.PartFaultRangeModifier.DisplayName>
+  <Mechtrauma.PartFaultRangeModifier.Tooltip>#UNDEFINED</Mechtrauma.PartFaultRangeModifier.Tooltip>
+  <Mechtrauma.PartFaultRangeModifier.DisplayCategory>Advanced</Mechtrauma.PartFaultRangeModifier.DisplayCategory>
+  <!-- "DieselGeneratorEfficiency" -->
+  <Mechtrauma.DieselGeneratorEfficiency.DisplayName>Diesel Generator Efficiency</Mechtrauma.DieselGeneratorEfficiency.DisplayName>
+  <Mechtrauma.DieselGeneratorEfficiency.Tooltip>#UNDEFINED</Mechtrauma.DieselGeneratorEfficiency.Tooltip>
+  <Mechtrauma.DieselGeneratorEfficiency.DisplayCategory>Advanced</Mechtrauma.DieselGeneratorEfficiency.DisplayCategory>
+  <!-- "ConversionRatioHPtoDiesel" -->
+  <Mechtrauma.ConversionRatioHPtoDiesel.DisplayName>Conversion Ratio: HP to Diesel Usage</Mechtrauma.ConversionRatioHPtoDiesel.DisplayName>
+  <Mechtrauma.ConversionRatioHPtoDiesel.Tooltip>#UNDEFINED</Mechtrauma.ConversionRatioHPtoDiesel.Tooltip>
+  <Mechtrauma.ConversionRatioHPtoDiesel.DisplayCategory>Advanced</Mechtrauma.ConversionRatioHPtoDiesel.DisplayCategory>
+  <!-- "ConversionRatioOxygenToDiesel" -->
+  <Mechtrauma.ConversionRatioOxygenToDiesel.DisplayName>Conversion Ratio: Oxygen to Diesel Usage</Mechtrauma.ConversionRatioOxygenToDiesel.DisplayName>
+  <Mechtrauma.ConversionRatioOxygenToDiesel.Tooltip>#UNDEFINED</Mechtrauma.ConversionRatioOxygenToDiesel.Tooltip>
+  <Mechtrauma.ConversionRatioOxygenToDiesel.DisplayCategory>Advanced</Mechtrauma.ConversionRatioOxygenToDiesel.DisplayCategory>
+  <!-- "FuseboxOvervoltDamage" -->
+  <Mechtrauma.FuseboxOvervoltDamage.DisplayName>Fusebox Overvolt Damage</Mechtrauma.FuseboxOvervoltDamage.DisplayName>
+  <Mechtrauma.FuseboxOvervoltDamage.Tooltip>#UNDEFINED</Mechtrauma.FuseboxOvervoltDamage.Tooltip>
+  <Mechtrauma.FuseboxOvervoltDamage.DisplayCategory>Advanced</Mechtrauma.FuseboxOvervoltDamage.DisplayCategory>
+  <!-- "LuaUpdateInterval" -->
+  <Mechtrauma.LuaUpdateInterval.DisplayName>Lua Update Interval</Mechtrauma.LuaUpdateInterval.DisplayName>
+  <Mechtrauma.LuaUpdateInterval.Tooltip>#UNDEFINED</Mechtrauma.LuaUpdateInterval.Tooltip>
+  <Mechtrauma.LuaUpdateInterval.DisplayCategory>Advanced</Mechtrauma.LuaUpdateInterval.DisplayCategory>
+  <!-- "PriorityUpdateInterval" -->
+  <Mechtrauma.PriorityUpdateInterval.DisplayName>Priority Update Interval</Mechtrauma.PriorityUpdateInterval.DisplayName>
+  <Mechtrauma.PriorityUpdateInterval.Tooltip>#UNDEFINED</Mechtrauma.PriorityUpdateInterval.Tooltip>
+  <Mechtrauma.PriorityUpdateInterval.DisplayCategory>Advanced</Mechtrauma.PriorityUpdateInterval.DisplayCategory>
+  
   <!-- =============< BIOTRAUMA >=============  -->
   <entityname.bacteria_analyzer>Microscopic Analyzer</entityname.bacteria_analyzer>
   <entitydescription.bacteria_analyzer>Biotrauma: Microscopic Analyzer for bacteria, mold, fungus, etc.</entitydescription.bacteria_analyzer>
