@@ -69,7 +69,7 @@ namespace Mechtrauma
                     ConnectionPanel panel = (ConnectionPanel)args["panel"];
                     Vector2 position = (Vector2)args["position"];
                     Vector2 labelPos = (Vector2)args["labelPos"];
-                    Vector2 scale = (Vector2)args["scale"];
+                    Vector2 scale = new Vector2(GUI.Scale, GUI.Scale);
 
                     // get connection text
                     string text = myself.DisplayName.Value.ToUpperInvariant();

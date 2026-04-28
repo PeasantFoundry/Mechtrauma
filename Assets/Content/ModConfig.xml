@@ -7,4 +7,8 @@
     <Assembly File="%ModDir%/bin/Client/Linux/Mechtrauma.dll" Platform="Linux" Target="Client"/>
     <Assembly File="%ModDir%/bin/Client/OSX/Mechtrauma.dll" Platform="OSX" Target="Client"/>
     <Assembly File="%ModDir%/bin/Client/Windows/Mechtrauma.dll" Platform="Windows" Target="Client"/>
+    <Lua Folder="%ModDir%/Lua/Scripts/Client" Target="Client" />
+    <Lua Folder="%ModDir%/Lua/Scripts/Server" Target="Server" />
+    <Lua Folder="%ModDir%/Lua/Scripts/Shared" />
+    <Lua Folder="%ModDir%/Lua/Autorun" IsAutorun="true" />
 </ModConfig>
