@@ -116,9 +116,9 @@ public partial class AdvancedTerminal : ItemComponent
         return componentElement;
     }
 
-    public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap)
+    public override void Load(ContentXElement componentElement, bool usePrefabValues, IdRemap idRemap, bool isItemSwap)
     {
-        base.Load(componentElement, usePrefabValues, idRemap);
+        base.Load(componentElement, usePrefabValues, idRemap, isItemSwap);
         // load messages, do not sync with the server or it becomes a network race condition, save file should be identical.
         for (int i = 0; i < MaxLines; i++)
         {

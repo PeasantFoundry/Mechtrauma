@@ -38,7 +38,7 @@ public partial class PlayerLadderDetector : ItemComponent
 
     protected virtual void TriggerHooks()
     {
-        GameMain.LuaCs.Hook.Call(EVENT_ONVALUEUPDATE, this, _foundCharacter);
+        LuaCsSetup.Instance.Hook.Call(EVENT_ONVALUEUPDATE, this, _foundCharacter);
     }
 
     protected virtual void UpdateChecks()

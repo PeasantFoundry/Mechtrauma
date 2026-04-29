@@ -1,5 +1,4 @@
-﻿using ModdingToolkit;
-
+﻿
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -9,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Barotrauma.Items.Components;
 using System.Linq;
 using System.Xml;
+using Barotrauma.LuaCs;
 
 namespace Mechtrauma
 {
@@ -23,7 +23,7 @@ namespace Mechtrauma
         {
             if (element is null)
             {
-                ModUtils.Logging.PrintError($"DieselEngine::InitializeXml() | Content xml is null!");
+                Plugin.Instance!.LoggerService.LogError($"DieselEngine::InitializeXml() | Content xml is null!");
                 return;
             }
 

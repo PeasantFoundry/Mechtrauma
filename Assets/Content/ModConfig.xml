@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModConfig>
+    <Config File="%ModDir%/Config/SettingsShared.xml" />
+    <Assembly File="%ModDir%/bin/Server/Linux/Mechtrauma.dll" Platform="Linux" Target="Server"/>
+    <Assembly File="%ModDir%/bin/Server/OSX/Mechtrauma.dll" Platform="OSX" Target="Server"/>
+    <Assembly File="%ModDir%/bin/Server/Windows/Mechtrauma.dll" Platform="Windows" Target="Server"/>
+    <Assembly File="%ModDir%/bin/Client/Linux/Mechtrauma.dll" Platform="Linux" Target="Client"/>
+    <Assembly File="%ModDir%/bin/Client/OSX/Mechtrauma.dll" Platform="OSX" Target="Client"/>
+    <Assembly File="%ModDir%/bin/Client/Windows/Mechtrauma.dll" Platform="Windows" Target="Client"/>
+    <Lua Folder="%ModDir%/Lua/Scripts/Client" Target="Client" />
+    <Lua Folder="%ModDir%/Lua/Scripts/Server" Target="Server" />
+    <Lua Folder="%ModDir%/Lua/Scripts/Shared" />
+    <Lua Folder="%ModDir%/Lua/Autorun" IsAutorun="true" />
+</ModConfig>

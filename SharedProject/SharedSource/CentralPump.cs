@@ -1,5 +1,3 @@
-using ModdingToolkit;
-
 using System;
 using Barotrauma;
 using Barotrauma.Networking;
@@ -80,7 +78,7 @@ namespace Mechtrauma
                 Item? invItem = inv.GetItemAt(0);
                 if (invItem?.HasTag("electricmotor") == true)
                 {
-                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Configuration.Instance.ElectricMotorDegradeRate;
+                    invItem.Condition -= deltaTime * Math.Abs(flowPercentage / 100.0f) * powerFactor * Plugin.Instance.Config.ElectricMotorDegradeRate;
                 }
             }
 

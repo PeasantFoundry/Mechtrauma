@@ -8,7 +8,7 @@ public static class MTUtils
 {
     public static object GetComponentByName(Item item, string name)
     {
-        Type t = LuaCsSetup.AssemblyManager.GetTypesByName(name).FirstOrDefault(defaultValue: null)!;
+        Type t = LuaCsSetup.Instance.PluginManagementService.GetType(name)!;
 
         if (t is null)
             return null!;
@@ -23,24 +23,20 @@ public static class MTUtils
     public static object GetComponentByToken(Item item, string name, string token)
     {
         // get all them types by name
-        var types = LuaCsSetup.AssemblyManager.GetTypesByName(name);
+        var type = LuaCsSetup.Instance.PluginManagementService.GetType(name);
         
-        if (types is null)
+        if (type is null)
             return null!;
 
-        foreach (var type in types)
+        if (type.Name == name)
         {
-           
-            if (type.Name == name)
-            {
                 
-                if (item.componentsByType.ContainsKey(type))
-                {
-                    return item.componentsByType[type];
-                }
-
-                return item.Components.FirstOrDefault(c => c?.GetType().IsAssignableFrom(type) ?? false);
+            if (item.componentsByType.ContainsKey(type))
+            {
+                return item.componentsByType[type];
             }
+
+            return item.Components.FirstOrDefault(c => c?.GetType().IsAssignableFrom(type) ?? false);
         }
 
         // If no matching type is found

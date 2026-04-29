@@ -1,6 +1,7 @@
 ﻿using Barotrauma;
 using Barotrauma.Extensions;
 using Barotrauma.Items.Components;
+using Barotrauma.LuaCs;
 using Barotrauma.Networking;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
@@ -140,7 +141,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
     {
         if (element is null)
         {
-            ModUtils.Logging.PrintError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
+            Plugin.Instance!.LoggerService.LogError($"AdvancedTerminal::InitializeXml() | Content xml is null!");
             return;
         }
 
@@ -290,7 +291,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
                 OnEnterPressed = ((box, text) =>
                 {
                     SendMessage(box.Text, TextColor);
-                    GameMain.LuaCs.Hook.Call(EVENT_ONNEWPLAYERMESSAGE, this, box.Text, TextColor, MessageHistoryBox.Rect.Width, MessageHistoryBox.Rect.Height);
+                    LuaCsSetup.Instance.Hook.Call(EVENT_ONNEWPLAYERMESSAGE, this, box.Text, TextColor, MessageHistoryBox.Rect.Width, MessageHistoryBox.Rect.Height);
                     box.Text = string.Empty;
                     return true;
                 })
@@ -339,7 +340,7 @@ public partial class AdvancedTerminal : IClientSerializable, IServerSerializable
             MessageHistoryBox.ScrollBar.BarScrollValue = 1f;
         }
 
-        GameMain.LuaCs.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
+        LuaCsSetup.Instance.Hook.Call(EVENT_ONNEWMESSAGE, this, text, color);
     }
 
     public override bool Select(Character character)

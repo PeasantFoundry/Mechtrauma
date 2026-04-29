@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework;
 
 using Barotrauma;
 using Barotrauma.Extensions;
-using ModdingToolkit;
-using ModdingToolkit.Config;
-using ModdingToolkit.Networking;
+using Barotrauma.LuaCs;
+using Barotrauma.LuaCs.Data;
+
 // ReSharper disable CommentTypo
 
 namespace Mechtrauma;
@@ -22,16 +22,6 @@ public sealed class Configuration
 {
     #region PUBLIC_API
 #pragma warning disable CA1822
-    private static Configuration? _instance = null;
-    public static Configuration Instance
-    {
-        get
-        {
-            if (_instance is null)
-                _instance = new();
-            return _instance;
-        }
-    }
     
     // ---- PUBLIC READONLY CONFIG ---- //
     public bool DisableElectrocution => !_experimental.Setting_EnableElectrocution.Value;
@@ -54,7 +44,7 @@ public sealed class Configuration
     public float DivingSuitEPP => _general.Setting_DivingSuitExtPressProtection.Value;
     public int DivingSuitServiceLife => _deterioration.Setting_DivingSuitServiceLife.Value;
     public float FrictionBaseDPS => 1f;
-    public float FuseboxDeterioration => _advanced.Setting_FuseboxDeteriorationRate.Value;
+    public float FuseboxDeterioration => _deterioration.Setting_FuseboxDeteriorationRate.Value;
     public float FuseboxOvervoltDamage => _advanced.Setting_FuseboxOvervoltDamage.Value;
     public float OilBaseDPS => _test.Setting_OilBaseDPS.Value;
     public float OilFilterDPS => GetDPS(_deterioration.Setting_OilFilterServiceLife.Value);
@@ -86,341 +76,124 @@ public sealed class Configuration
     #region TYPEDEF
 
 
-    public Configuration()
-    { 
-        _general = new(this);
-        _deterioration = new(this);
-        _advanced = new(this);
-        _experimental = new(this);
-        _biotrauma = new(this);
-        _test = new(this);
+    private readonly ContentPackage _selfPackage;
+    private readonly IConfigService _configService;
+    
+    public Configuration(IConfigService configService, ContentPackage selfPackage)
+    {
+        _configService = configService;
+        _selfPackage = selfPackage;
+        _general = new(configService, selfPackage);
+        _deterioration = new(configService, selfPackage);
+        _advanced = new(configService, selfPackage);
+        _experimental = new(configService, selfPackage);
+        _biotrauma = new(configService, selfPackage);
+        _test = new(configService, selfPackage);
     }
 
     //DETERIORATION SECTION: 
     public sealed class Settings_Deterioration
     {
-        public readonly IConfigRangeFloat
+        public readonly ISettingRangeBase<float>
             Setting_CirculatorServiceLife,
             Setting_OilFilterServiceLife,
             Setting_OilFiltrationEfficiencyRating,
             Setting_FuelFilterServiceLife,
             Setting_FuelPumpServiceLife,
+            Setting_FuseboxDeteriorationRate,
             Setting_ThrustbearingServiceLife,
             Setting_EngineBlockServiceLife,
             Setting_ExhaustManifoldGasketServiceLife;
         
-        public readonly IConfigRangeInt
+        public readonly ISettingRangeBase<int>
            Setting_ExhaustManifoldServiceLife,
            Setting_DivingSuitServiceLife;
 
 
         //public readonly IConfigRangeInt;
 
-        public Settings_Deterioration(Configuration instance)
-        {
-            Setting_FuelPumpServiceLife = ConfigManager.AddConfigRangeFloat(
-            "FuelPumpServiceLife", ModName,
-            30f, 1f, 120f, GetStepCount(1f, 120f, 1f),
-            NetworkSync.ServerAuthority,
-            displayData: new DisplayData(
-                DisplayName: "Standard Fuel Pump Service Life (min)",
-                DisplayCategory: "Deterioration",
-                Tooltip: "How many minutes a Fuel Pump will take to deteriorate under 'normal' operating conditions. "
-                ));
-            Setting_CirculatorServiceLife = ConfigManager.AddConfigRangeFloat(
-            "CirculatorServiceLife", ModName,
-            13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-            NetworkSync.ServerAuthority,
-            displayData: new DisplayData(
-                DisplayName: "Standard Circulator Service Life (min)",
-                DisplayCategory: "Deterioration",
-                Tooltip: "How many minutes a Circulator Pump will take to deteriorate under 'normal' operating conditions. "
-            ));
-            Setting_DivingSuitServiceLife = ConfigManager.AddConfigRangeInt(
-            "DivingSuitServiceLife", ModName,
-            60, 0, 120, GetStepCount(0, 120, 10),
-            NetworkSync.ServerAuthority,
-            displayData: new DisplayData(
-                DisplayName: "Diving Suit Service Life (min)",
-                DisplayCategory: "Deterioration",
-                Tooltip: "How many minutes a Diving Suit will take to deteriorate under 'normal' operating conditions. "
-                ));
-            Setting_OilFilterServiceLife = ConfigManager.AddConfigRangeFloat(
-               "OilFilterServiceLife", ModName,
-               6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-               NetworkSync.ServerAuthority,
-               displayData: new DisplayData(
-                    DisplayName: "Standard Oil Filter Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes an Oil Filter will take to deteriorate under 'normal' operating conditions. "
-                    ));
-            Setting_OilFiltrationEfficiencyRating = ConfigManager.AddConfigRangeFloat(
-                "OilFilterEfficiencyRating", ModName,
-                25f, 1f, 100f, GetStepCount(1f, 100f, 1f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Oil Filter Efficiency Rating (%)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "Determines the deterioration speed of oil. 100% filtration efficiency means that oil will not deteriorate. "
-                    ));
-            Setting_FuelFilterServiceLife = ConfigManager.AddConfigRangeFloat(
-                "FuelFilterServiceLife", ModName,
-                6.5f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Fuel Filter Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes a Fuel Filter will take to deteriorate under 'normal' operating conditions. "
-                    ));
-            Setting_ThrustbearingServiceLife = ConfigManager.AddConfigRangeFloat(
-                "ThrustBearingServiceLife", ModName,
-                13f, 0.5f, 60f, GetStepCount(0.5f, 60f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Thrust Bearing Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes a Thrust Bearing will take to deteriorate under 'normal' operating conditions. "
-                    ));
-            Setting_EngineBlockServiceLife = ConfigManager.AddConfigRangeFloat(
-                "EngineBlockServiceLife", ModName,
-                300f, 5f, 500f, GetStepCount(100f, 100f, 4.0f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Engine Block Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes an Engine Block will take to deteriorate under 'normal' operating conditions. "
-                    ));
-            Setting_ExhaustManifoldServiceLife = ConfigManager.AddConfigRangeInt(
-                "ExhaustManifoldServiceLife", ModName,
-                 60, 0, 120, GetStepCount(0, 120, 10),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes an Exhaust Manifold will take to deteriorate under 'normal' operating conditions. "
-                    ));
-            Setting_ExhaustManifoldGasketServiceLife = ConfigManager.AddConfigRangeFloat(
-                "ExhaustManifoldGasketServiceLife", ModName,
-                30f, 1.0f, 150f, GetStepCount(15f, 150f, 1.0f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Standard Exhaust Manifold Service Life (min)",
-                    DisplayCategory: "Deterioration",
-                    Tooltip: "How many minutes an Exhaust Manifold Gasket will take to deteriorate under 'normal' operating conditions. "
-                    ));
+        public Settings_Deterioration(IConfigService instance, ContentPackage selfPackage)
+        { 
+            instance.TryGetConfig(selfPackage, "FuelPumpServiceLife", out Setting_FuelPumpServiceLife);
+            instance.TryGetConfig(selfPackage, "CirculatorServiceLife", out Setting_CirculatorServiceLife);
+            instance.TryGetConfig(selfPackage, "DivingSuitServiceLife", out Setting_DivingSuitServiceLife);
+            instance.TryGetConfig(selfPackage, "OilFilterServiceLife", out Setting_OilFilterServiceLife);
+            instance.TryGetConfig(selfPackage, "OilFiltrationEfficiencyRating", out Setting_OilFiltrationEfficiencyRating);
+            instance.TryGetConfig(selfPackage, "FuelFilterServiceLife", out Setting_FuelFilterServiceLife);
+            instance.TryGetConfig(selfPackage, "FuseboxDeteriorationRate", out Setting_FuseboxDeteriorationRate);
+            instance.TryGetConfig(selfPackage, "ThrustbearingServiceLife", out Setting_ThrustbearingServiceLife);
+            instance.TryGetConfig(selfPackage, "EngineBlockServiceLife", out Setting_EngineBlockServiceLife);
+            instance.TryGetConfig(selfPackage, "ExhaustManifoldServiceLife", out Setting_ExhaustManifoldServiceLife);
+            instance.TryGetConfig(selfPackage, "ExhaustManifoldGasketServiceLife", out Setting_ExhaustManifoldGasketServiceLife);
         }
     }
 
     public sealed class Settings_General
     {
-        public readonly IConfigRangeFloat
-
+        public readonly ISettingRangeBase<float>
             Setting_DivingSuitExtPressProtection;
 
-        //public readonly IConfigRangeInt;
-         
-
-
-        public Settings_General(Configuration instance)
-        {       
-
-            Setting_DivingSuitExtPressProtection = ConfigManager.AddConfigRangeFloat(
-                "DivingSuitExtendedPressureProtection", ModName,
-                2f, 1f, 2.5f, GetStepCount(1f, 2.5f, 0.1f),
-                NetworkSync.ServerAuthority, displayData: new DisplayData(
-                    DisplayName: "Diving Suit Extended Pressure Protection (multiplier)",
-                    DisplayCategory: "General",
-                    Tooltip: "The EPP multiplier determines how far past the max depth EPP will work. If the multiplier is 2.0, a diving suit will receive EPP up to twice its max depth.",
-#if DEBUG
-                    MenuCategory: Category.Gameplay
-#else
-                    MenuCategory: Category.Ignore
-#endif
-                    ));           
+        public Settings_General(IConfigService instance, ContentPackage selfPackage)
+        { 
+            instance.TryGetConfig(selfPackage, "DivingSuitExtPressProtection", out Setting_DivingSuitExtPressProtection);
         }
     }
 
 
     public sealed class Settings_Advanced
     {
-        public readonly IConfigRangeFloat
+        public readonly ISettingRangeBase<float>
             Setting_PartFaultRangeModifier,
             Setting_DieselGeneratorEfficiency,
             Setting_ConversionRatioHPtoDiesel,
             Setting_ConversionRatioOxygenToDiesel,
-            Setting_FuseboxDeteriorationRate,
             Setting_FuseboxOvervoltDamage,
             Setting_LuaUpdateInterval,
             Setting_PriorityUpdateInterval;
             
 
-        public Settings_Advanced(Configuration instance)
+        public Settings_Advanced(IConfigService instance, ContentPackage selfPackage)
         {
-            Setting_PartFaultRangeModifier = ConfigManager.AddConfigRangeFloat(
-                "PartFaultRangeModifier", ModName,
-                1f, 1f, 10f, GetStepCount(1f, 10f, 0.5f),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Part Fault Range Modifier",
-                    DisplayCategory: "Advanced",
-                    Tooltip: "I don't remember what the does. I'm pretty sure it has to do with how often part faults occur.",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
-            Setting_DieselGeneratorEfficiency = ConfigManager.AddConfigRangeFloat(
-                "DieselGeneratorEfficiency", ModName,
-                0.3f, 1f, 20f, GetStepCount(1f, 20f, 1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Diesel Generator Efficiency",
-                    DisplayCategory: "Advanced",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
-            Setting_ConversionRatioHPtoDiesel = ConfigManager.AddConfigRangeFloat(
-                "ConversionRatioHPtoDieselFuel", ModName,
-                0.25f, 0.2f, 1.0f, GetStepCount(0.2f, 1.0f, 0.05f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Conversion Ratio: kWh : Diesel (1L)",
-                    DisplayCategory: "Advanced",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Gameplay
-                    //MenuCategory: Category.Ignore
-                    #endif
-                ));
-            Setting_ConversionRatioOxygenToDiesel = ConfigManager.AddConfigRangeFloat(
-                "ConversionRatioOxygenToDieselFuel", ModName,
-                7.0f, 1.0f, 14f, GetStepCount(1f, 14f, 1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Conversion Ratio: Oxygen Unit : Diesel (1L)",
-                    DisplayCategory: "Advanced",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
-            Setting_FuseboxDeteriorationRate = ConfigManager.AddConfigRangeFloat(
-                "FuseboxDeviceDeteriorationRate", ModName,
-                0.12f, 0f, 1f, GetStepCount(0f, 1f, 0.05f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Fusebox Deterioration Rate",
-                    DisplayCategory: "Advanced",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
-            Setting_FuseboxOvervoltDamage = ConfigManager.AddConfigRangeFloat(
-                "FuseOvervoltDamage", ModName,
-                5f, 0f, 10f, GetStepCount(0f, 10f, 1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Fusebox Overvolt Damage",
-                    DisplayCategory: "Advanced"
-                ));
-
-            Setting_LuaUpdateInterval = ConfigManager.AddConfigRangeFloat(
-                "LuaUpdateInterval", ModName,
-                2f, 0.25f, 4f, GetStepCount(0.25f, 4f, 11),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Lua Update Interval",
-                    DisplayCategory: "Advanced",
-                    Tooltip: "How often (in seconds) the Mechtrauma item updates take place."
-                    ));
-            
-            Setting_PriorityUpdateInterval = ConfigManager.AddConfigRangeFloat(
-                "PriorityUpdateInterval", ModName,
-                0.25f, 0.01666666667f, 1f, GetStepCount(0.01666666667f, 1f, 61),
-                NetworkSync.ServerAuthority,
-                displayData: new DisplayData(
-                    DisplayName: "Priority Lua Update Interval",
-                    DisplayCategory: "Advanced",
-                    Tooltip: "How often (in seconds) the Mechtrauma priority item updates take place."
-                ));
+            instance.TryGetConfig(selfPackage, "PartFaultRangeModifier", out Setting_PartFaultRangeModifier);
+            instance.TryGetConfig(selfPackage, "DieselGeneratorEfficiency", out Setting_DieselGeneratorEfficiency);
+            instance.TryGetConfig(selfPackage, "ConversionRatioHPtoDiesel", out Setting_ConversionRatioHPtoDiesel);
+            instance.TryGetConfig(selfPackage, "ConversionRatioOxygenToDiesel", out Setting_ConversionRatioOxygenToDiesel);
+            instance.TryGetConfig(selfPackage, "FuseboxOvervoltDamage", out Setting_FuseboxOvervoltDamage);
+            instance.TryGetConfig(selfPackage, "LuaUpdateInterval", out Setting_LuaUpdateInterval);
+            instance.TryGetConfig(selfPackage, "PriorityUpdateInterval", out Setting_PriorityUpdateInterval);
         }
     }
 
     public sealed class Settings_Experimental
     {
-        public readonly IConfigEntry<bool> Setting_EnableElectrocution;
-        public readonly IConfigRangeFloat Setting_PumpGateDeteriorationRate;
+        public readonly ISettingBase<bool> Setting_EnableElectrocution;
+        public readonly ISettingRangeBase<float> Setting_PumpGateDeteriorationRate;
 
-        public Settings_Experimental(Configuration instance)
+        public Settings_Experimental(IConfigService instance, ContentPackage selfPackage)
         {
-            Setting_EnableElectrocution = ConfigManager.AddConfigEntry(
-                "EnableElectrocutionMechanic", ModName,
-                false, networkSync: NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Enable Electrocution Mechanic",
-                    DisplayCategory: "Experimental",
-                    Tooltip: "The electrocution mechanic punishes players from failing skill checks on high voltage devices."
-                ));
-            Setting_PumpGateDeteriorationRate = ConfigManager.AddConfigRangeFloat(
-                "PumpGateDeteriorationRateMulti", ModName,
-                1f, 0f, 100f, GetStepCount(0f, 100f, 0.1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Pump Gate Deterioration Rate (Multi)",
-                    DisplayCategory: "Experimental",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
+            instance.TryGetConfig(selfPackage, "EnableElectrocution", out Setting_EnableElectrocution);
+            instance.TryGetConfig(selfPackage, "PumpGateDeteriorationRate", out Setting_PumpGateDeteriorationRate);
         }
     }
 
     public sealed class Settings_Biotrauma
     {
-        public readonly IConfigRangeFloat Setting_FungusSpawnRate;
-        public Settings_Biotrauma(Configuration instance)
+        public readonly ISettingRangeBase<float> Setting_FungusSpawnRate;
+        public Settings_Biotrauma(IConfigService instance, ContentPackage selfPackage)
         {
-            Setting_FungusSpawnRate = ConfigManager.AddConfigRangeFloat(
-                "FungusSpawnRate", ModName,
-                0f, 0f, 10f, GetStepCount(0f, 10f, 0.1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Fungus Spawn Rate",
-                    DisplayCategory: "Biotrauma",                    
-                    Tooltip: "How many minutes (on average) between fungus events."
-                ));
+            instance.TryGetConfig(selfPackage, "FungusSpawnRate", out Setting_FungusSpawnRate);
         }
+        
+        
     }
 
     public sealed class Settings_Test
     {
-        public readonly IConfigRangeFloat Setting_OilBaseDPS;
+        public readonly ISettingRangeBase<float> Setting_OilBaseDPS;
 
-        public Settings_Test(Configuration instance)
+        public Settings_Test(IConfigService instance, ContentPackage selfPackage)
         {
-            Setting_OilBaseDPS = ConfigManager.AddConfigRangeFloat(
-                "OilBaseDPS", ModName,
-                1f, 1f, 20f, GetStepCount(1f, 20f, 1f),
-                NetworkSync.ServerAuthority, 
-                displayData: new DisplayData(
-                    DisplayName: "Oil Base DPS",
-                    DisplayCategory: "Test",
-                    #if DEBUG
-                    MenuCategory: Category.Gameplay
-                    #else
-                    MenuCategory: Category.Ignore
-                    #endif
-                ));
+            instance.TryGetConfig(selfPackage, "OilBaseDPS", out Setting_OilBaseDPS);
         }
     }
     

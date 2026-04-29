@@ -1,46 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>ModAssets</RootNamespace>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
-    <Import Project="../Build.props" />
+    <Import Project="../Build.props"/>
 
-    <ItemGroup>
-      <Folder Include="Content" />
-    </ItemGroup>
-
-    <Target Name="DeleteFiles" BeforeTargets="Build">
-        <ItemGroup>
-            <ImagesToDelete Include="$(ModDeployDir)Images\**\*.*" />
-            <LocalesToDelete Include="$(ModDeployDir)Localization\**\*.*" />
-            <LuaToDelete Include="$(ModDeployDir)Lua\**\*.*" />
-            <SoundToDelete Include="$(ModDeployDir)Sound\**\*.*" />
-            <XMLToDelete Include="$(ModDeployDir)XML\**\*.*" />
-        </ItemGroup>
-        <Message Text="Deleting Images @(ImagesToDelete)" />
-        <Delete Files="@(ImagesToDelete)" />
-        <Message Text="Deleting Localizations @(LocalesToDelete)" />
-        <Delete Files="@(LocalesToDelete)" />
-        <Message Text="Deleting Lua @(LuaToDelete)" />
-        <Delete Files="@(LuaToDelete)" />
-        <Message Text="Deleting Sounds @(SoundToDelete)" />
-        <Delete Files="@(SoundToDelete)" />
-        <Message Text="Deleting XML @(XMLToDelete)" />
-        <Delete Files="@(XMLToDelete)" />
-        <Message Text="Deleted files. Continuing build process." />
-    </Target>
     <Target Name="CopyFiles" AfterTargets="Build">
         <ItemGroup>
-            <FileList Include="$(ProjectDir)filelist.xml" />
-            <RunConfig Include="$(ProjectDir)RunConfig.xml" />
             <Content Include="$(ProjectDir)Content\**\*.*" />
         </ItemGroup>
-        <Copy SourceFiles="@(FileList)" DestinationFiles="$(ModDeployDir)filelist.xml" />
-        <Copy SourceFiles="@(RunConfig)" DestinationFiles="$(ModDeployDir)CSharp\RunConfig.xml" />
         <Copy SourceFiles="@(Content)" DestinationFolder="$(ModDeployDir)%(RecursiveDir)" />
     </Target>
 

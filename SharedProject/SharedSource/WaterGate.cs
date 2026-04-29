@@ -1,7 +1,6 @@
 /***
 Water gate that is needed to enable central pumps by giving them an external access port
 ***/
-using ModdingToolkit;
 
 using System;
 using Barotrauma;
