@@ -35,12 +35,13 @@
     <aitarget sightrange="500" soundrange="5000" staticsight="true" fadeouttime="5"/>
 
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
       </StatusEffect>
-    </LightComponent>
+    </MTLight>
 
     <!-- Diagnostic Terminal
     <Terminal canbeselected="true" msg="ItemMsgInteractSelect" AllowInGameEditing="false" AutoHideScrollbar="true" drawhudwhenequipped="true" allowuioverlap="false" draggable="false" >
@@ -158,13 +159,16 @@
 
     <aitarget sightrange="500" soundrange="3000" staticsight="true" fadeouttime="5"/>
 
+
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
       </StatusEffect>
-    </LightComponent>
+    </MTLight>
+
     <DieselEngine Generation="2" MaxHp="3000"/>
     <SimpleGenerator MaxPowerOut="3000" IsOn="true" powerconsumption="0" minvoltage="0.5" >
       <GuiFrame relativesize="0.25,0.20" minsize="350,200" anchor="Center" style="ItemUI" />
@@ -571,14 +575,14 @@
       <SchematicSprite texture="%ModDir%/Images/Pumps/MT_PUMPS_LARGE.png" sourcerect="0,1536,492,342" />
     </SwappableItem>
 
-
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
       </StatusEffect>
-    </LightComponent>
+    </MTLight>
 
     <!-- Diesel Generator -->
     <Databox/>
@@ -700,13 +704,15 @@
 
   <aitarget sightrange="500" soundrange="2500" staticsight="true" fadeouttime="5"/>
 
+
     <!-- Sound Light -->
-    <LightComponent range="140.0" lightcolor="255,184,108,193" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+    <MTLight Token="soundlight" range="140.0" lightcolor="255,184,108,75" powerconsumption="0" IsOn="false" minvoltage="0.0" voltage="1.0" castshadows="false" allowingameediting="false" >
+      <Sprite name="Diesel Generator Light" texture="%ModDir%/Images/Machines/Diesel/mt_diesel_engine.png" sourcerect="0,224,384,224" depth="0.5" origin="0.5,0.5" />
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>
         <sound file="%ModDir%/Sound/diesel_sound_deep.ogg" type="OnActive" range="800" loop="true" />
       </StatusEffect>
-    </LightComponent>
+    </MTLight>
     <Databox/>
     <Thermal/>
     <DieselEngine Generation="2" MaxHp="1500"/>
@@ -793,7 +799,7 @@
 
 
   <!-- DIESEL GENERATOR PDG500: Portable Power!. -->
-  <Item name="PDG500" identifier="PDG500" tags="Power,Portable,keyignition,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.4">
+  <Item name="PDG500" identifier="PDG500" tags="Power,Portable,keyignition,Generator,mtupdate,mtpriority,dieselEngine,dieselGenerator" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.4">
     <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
     <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
@@ -815,9 +821,9 @@
       <sprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="12,142,105,75" depth="0.54" origin="0.9,0.5" alpha="100.0"/>
       <StatusEffect type="OnActive" target="This" checkconditionalalways="true">
         <Conditional IsOn="true" target="This"/>
-
       </StatusEffect>
     </LightComponent>
+
     <Databox/>
     <Thermal/>
     <DieselEngine Generation="2" MaxHp="500"/>
@@ -905,9 +911,83 @@
 
   <!-- DIESEL GENERATOR PDG250: Portable Power!. -->
   <Item name="PDG250" identifier="PDG250" tags="Power,Portable,keyignition,Generator,mtupdate,mtpriority,DieselEngine,dieselGenerator" category="Machine" linkable="false" waterproof="true" damagedbyexplosions="true" explosiondamagemultiplier="0.5" health="100" scale="0.3">
-    <Sprite name="Diesel Generator" texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.55" origin="0.5,0.5" />
-    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="80" fadein="true" />
-    <BrokenSprite texture="%ModDir%/Images/portable_diesel_generator.png" sourcerect="0,0,224,136" depth="0.8" maxcondition="0" />
+    <Sprite name="Diesel Generator" texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png" sourcerect="640,64,320,256" depth="0.555" origin="0.5,0.5" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png" sourcerect="640,64,320,256" maxcondition="80" fadein="true" />
+    <BrokenSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png" sourcerect="640,64,320,256" depth="0.8" maxcondition="0" />
+
+  <!--
+                      offset="-101,36"
+                      offset="-12,23"
+                      -->
+    <!-- PUSH ARM: 1 -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="0,384,64,64"
+                      depth="0.552"
+                      origin="2.1,1.1"
+                      offset="-6,11.5"
+                      offsetanim="Sine"
+                      offsetanimspeed="50.0"
+                      scale="1.0">
+    <IsActiveConditional Condition="gt 0.0" />
+
+    </DecorativeSprite>
+    <!-- PUSH ARM: 2 -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="0,384,64,64"
+                      depth="0.552"
+                      origin="1.7,1.285"
+                       offset="-6,11.5"
+                      offsetanim="Sine"
+                      offsetanimspeed="25.0"
+                      scale="1.0">
+      <IsActiveConditional Condition="gt 0.0" />
+    </DecorativeSprite>
+
+    <!-- PUSH ARM: 3 -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="64,384,64,64"
+                      depth="0.552"
+                      origin="0.225,1.1"
+                      offset="6,11.5"
+                      offsetanim="Sine"
+                      offsetanimspeed="50.0"
+                      scale="1.0">
+    <IsActiveConditional Condition="gt 0.0" />
+    </DecorativeSprite>
+
+    <!-- PUSH ARM: 4 -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="64,384,64,64"
+                      depth="0.552"
+                      origin="0.625,1.285"
+                      offset="6,11.5"
+                      offsetanim="Sine"
+                      offsetanimspeed="50.0"
+                      scale="1.0">
+    <IsActiveConditional Condition="gt 0.0" />
+    </DecorativeSprite>
+
+    <!-- Vibration 1 -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="640,64,320,256"
+                      depth="0.5549"
+                      offset="40,0"
+                      offsetanim="Noise"
+                      offsetanimspeed="50.0"
+                      scale="1.0">
+    </DecorativeSprite>
+
+    <!-- COVER -->
+    <DecorativeSprite texture="%ModDir%/Images/Machines/Diesel/mt_pdg.png"
+                      sourcerect="1152,64,320,256"
+                      depth="0.551"
+                      origin="0.5,0.5"
+                      offset="0,5"
+                      offsetanim="Noise"
+                      offsetanimspeed="50.0"
+                      scale="1.0">
+    </DecorativeSprite>
+
 
     <Price baseprice="550" displaynonempty="true" minavailable="0">
       <Price storeidentifier="merchantoutpost" />

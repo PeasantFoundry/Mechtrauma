@@ -440,11 +440,10 @@ end
 
 -- called by item update cycle
 function MT.UF.dieselEngine(item)
-    print(tostring(item))
     local thermal = MTUtils.GetComponentByName(item, "Mechtrauma.Thermal")
     local DieselEngine = MTUtils.GetComponentByName(item, "Mechtrauma.DieselEngine")
     -- if not running, adjust temperature towards ambientTemperature
-    if not DieselEngine.IsRunning then thermal.UpdateTemperature(MT.HF.getNewTemp(thermal.Temperature, MT.ambientTemperature, item.InWater)) end
+    if not DieselEngine.IsRunning and thermal ~= nil then thermal.UpdateTemperature(MT.HF.getNewTemp(thermal.Temperature, MT.ambientTemperature, item.InWater)) end
 end
 
 -- Engine Block:

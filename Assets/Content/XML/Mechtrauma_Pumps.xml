@@ -70,7 +70,7 @@
 
 <!-- FLUID GATE: aliases="water_pump_gate" -->
  <Item name="Fluid Gate" identifier="mt_fluid_gate" tags="mtu,fluidgate,machine" IsActive="true" damagedbyrepairtools="true" pickdistance="150" waterproof="true" health="500" scale="0.6">
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" depth="0.8" sourcerect="96,896,150,116" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" depth="0.8" sourcerect="96,896,150,116" origin="0.5,0.5" />
     <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="true" msg="CleanGate">
       <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
     </ItemContainer>

@@ -36,6 +36,26 @@ Hook.Add("Mechtrauma.PlayerLadderDetector::OnLadderValueUpdate","MT.LadCheck", f
   end
 end)
 
+
+-- load materials depot from a crate (container)
+Hook.Add("mtUnpackCrate.OnUse", "MT.unpackCrate", function(effect, deltaTime, item, targets, worldPosition)
+  local slotIndex = 0
+print("Unpacking crate")
+  -- search the targets inventory for a mobile depot for items with a container
+  while(slotIndex < item.OwnInventory.Capacity) do
+    local childItem = item.OwnInventory.GetItemAt(slotIndex)
+    if childItem and childItem.OwnInventory ~= nil then
+      print("Child item found")
+      local index = 0
+      -- load eligable items from the child items container into the depot
+      MT.F.unpackCrate(childItem, item)
+    end
+    slotIndex = slotIndex + 1
+  end
+
+end)
+
+
 -- load materials depot from a crate (container)
 Hook.Add("mtLoadMaterialsDepotFC.OnUse", "MT.loadMaterialsDepot", function(effect, deltaTime, item, targets, worldPosition)
   local slotIndex = 0

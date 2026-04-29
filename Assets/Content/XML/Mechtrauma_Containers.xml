@@ -1,235 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
-    <!-- DELIVER BOXES: CARDBOARD -->
-
+    <!-- *********************************************************************** -->
+    <!-- MECHTRAUMA MISC CONTAINERS -->
+    <!-- *********************************************************************** -->
+    <!-- We all need places to put things. -->
+    <!-- MEDICAL CABINET: -->
+    <Item name="Medical Cabinet" identifier="mt_medical_cabinet" tags="container,medcontainer" category="Medical" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
+        <Sprite texture="%ModDir%/Images/Containers/mt_misc_containers.png" sourcerect="0,384,192,320" depth="0.84" />
+        <ItemContainer capacity="35" slotsperrow="7" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.28,0.48" anchor="Center" style="ItemUI" />
+            <Containable items="smallitem,mediumitem" excludedidentifiers="mobilecontainer" />
+            <SubContainer capacity="5" maxstacksize="1">
+                <SlotIcon texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
+                <Containable items="mobilecontainer,crate,case" />
+            </SubContainer>
+        </ItemContainer>
+        <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+            <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI" />
+            <!-- BUTTON: GET MEDICAL SUPPLIES -->
+            <Button text="GET SUPPLIES">
+                <StatusEffect type="OnUse" target="This">
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
+            <Button text="UNPACK CRATE">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtUnpackCrate.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
+        </CustomInterface>
+    </Item>
+    <!-- FIRE CABINET: -->
+    <Item name="Fire Cabinet" identifier="mt_fire_cabinet" category="Equipment" tags="extinguisherholder" canflipx="false" canflipy="false" scale="0.35" pickdistance="75">
+        <Sprite texture="%ModDir%/Images/Containers/mt_misc_containers.png" sourcerect="0,0,150,320" depth="0.843" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_misc_containers.png" sourcerect="192,0,150,320" depth="0.841" origin="0.5,0.5" />
+        <ItemContainer hideitems="false" drawinventory="true" capacity="1" maxstacksize="1" slotsperrow="1" itempos="80,-205" iteminterval="0,0" itemrotation="0" canbeselected="true" containedspritedepth="0.842"
+                       msg="ItemMsgInteractSelect">
+            <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
+            <Containable items="extinguisher" />
+        </ItemContainer>
+    </Item>
+    <!-- DELIVERY BOXES: CARDBOARD -->
     <Override>
         <!-- OVERRIDE: It's a lot easier to override the vanilla crates than to try and swap them out whenever purchased. -->
         <Item name="" identifier="chemicalcrate" variantof="mt_box_chemical" />
         <Item name="" identifier="metalcrate" variantof="mt_box_delivery" />
-        <Item name="" identifier="explosivecrate" variantof="mt_box_explosive"/>
+        <Item name="" identifier="explosivecrate" variantof="mt_box_explosive" />
         <Item name="" identifier="mediccrate" variantof="mt_box_medical" />
-
         <Item name="" identifier="chemicalcratedamaged" variantof="mt_box_chemical" tags="crate" waterproof="false">
-            <DecorativeSprite texture="Content/Items/Containers/containers2.png" sourcerect=" 0,86,146,83" depth="0.53" origin="0.5,0.5"  />
+            <DecorativeSprite texture="Content/Items/Containers/containers2.png" sourcerect=" 0,86,146,83" depth="0.53" origin="0.5,0.5" />
         </Item>
-
     </Override>
-      <!-- DELIVERY BOX: -->
-      <Item name="Delivery Box"
-              identifier="mt_box_delivery"
-              tags="mtu,cardboardbox,crate,allowcleanup"
-              aliases="metalcrate_event"
-              scale="0.625"
-              linkable="true"
-              pickdistance="150"
-              showcontentsintooltip="true"
-              canflipx="false"
-              waterproof="false"
-              impactsoundtag="impact_soft">
-            <Deconstruct time="5">
-                <Item identifier="organicfiber" />
-            </Deconstruct>
-            <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-            <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="480,0,96,64" depth="0.539" origin="0.5,0.5" />
-            <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="480,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
-            <Body width="96" height="64" density="25" />
-            <Holdable slots="RightHand+LeftHand"
-                  holdpos="100,-50"
-                  disablerotation="true"
-                  handle1="0,-35"
-                  handle2="0,0"
-                  holdangle="15"
-                  aimable="false"
-                  msg="ItemMsgPickUpSelect" />
-            <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
-                <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
-            </ItemContainer>
-            <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
-            <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
-            <Upgrade gameversion="1.1.0.0" maxstacksize="64">
-                <ItemContainer maxstacksize="64" />
-            </Upgrade>
-        </Item>
-
+    <!-- DELIVERY BOX: -->
+    <Item name="Delivery Box" identifier="mt_box_delivery" tags="mtu,cardboardbox,crate,allowcleanup" aliases="metalcrate_event" scale="0.625" linkable="true" pickdistance="150" showcontentsintooltip="true"
+          canflipx="false" waterproof="false" impactsoundtag="impact_soft">
+        <Deconstruct time="5">
+            <Item identifier="organicfiber" />
+        </Deconstruct>
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="480,0,96,64" depth="0.539" origin="0.5,0.5" />
+        <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="480,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
+        <Body width="96" height="64" density="25" />
+        <Holdable slots="RightHand+LeftHand" holdpos="100,-50" disablerotation="true" handle1="0,-35" handle2="0,0" holdangle="15" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
+        </ItemContainer>
+        <!-- the item used to have the (default) 64 max stack size, i.e. stack size was only limited by the max stack size of the contained items -->
+        <!-- set the stack size back in old saves/subs to prevent items from dropping from containers -->
+        <Upgrade gameversion="1.1.0.0" maxstacksize="64">
+            <ItemContainer maxstacksize="64" />
+        </Upgrade>
+    </Item>
     <!-- Explosives Cardboard Box: -->
-    <Item name="Explosives Delivery Box"
-          identifier="mt_box_explosive"
-          tags="mtu,cardboardbox,crate,allowcleanup"
-          aliases="metalcrate_event"
-          scale="0.625"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          canflipx="false"
-          waterproof="false"
-          impactsoundtag="impact_soft">
+    <Item name="Explosives Delivery Box" identifier="mt_box_explosive" tags="mtu,cardboardbox,crate,allowcleanup" aliases="metalcrate_event" scale="0.625" linkable="true" pickdistance="150"
+          showcontentsintooltip="true" canflipx="false" waterproof="false" impactsoundtag="impact_soft">
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,0,96,64" depth="0.539" origin="0.5,0.5" />
         <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="384,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
         <Body width="96" height="64" density="25" />
-        <Holdable slots="RightHand+LeftHand"
-                  holdpos="100,-50"
-                  disablerotation="true"
-                  handle1="0,-35"
-                  handle2="0,0"
-                  holdangle="15"
-                  aimable="false"
-                  msg="ItemMsgPickUpSelect" />
+        <Holdable slots="RightHand+LeftHand" holdpos="100,-50" disablerotation="true" handle1="0,-35" handle2="0,0" holdangle="15" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
         </ItemContainer>
     </Item>
-
     <!-- Chemical Cardboard Box: -->
-    <Item name="Chemicals Delivery Box"
-          identifier="mt_box_chemical"
-          tags="mtu,cardboardbox,crate,allowcleanup"
-          aliases="metalcrate_event"
-          scale="0.625"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          canflipx="false"
-          waterproof="false"
-          impactsoundtag="impact_soft">
+    <Item name="Chemicals Delivery Box" identifier="mt_box_chemical" tags="mtu,cardboardbox,crate,allowcleanup" aliases="metalcrate_event" scale="0.625" linkable="true" pickdistance="150"
+          showcontentsintooltip="true" canflipx="false" waterproof="false" impactsoundtag="impact_soft">
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="192,0,96,64" depth="0.539" origin="0.5,0.5" />
         <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="192,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
         <Body width="96" height="64" density="25" />
-        <Holdable slots="RightHand+LeftHand"
-                  holdpos="100,-50"
-                  disablerotation="true"
-                  handle1="0,-35"
-                  handle2="0,0"
-                  holdangle="15"
-                  aimable="false"
-                  msg="ItemMsgPickUpSelect" />
+        <Holdable slots="RightHand+LeftHand" holdpos="100,-50" disablerotation="true" handle1="0,-35" handle2="0,0" holdangle="15" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
         </ItemContainer>
     </Item>
-
     <!-- Medical Cardboard Box: -->
-    <Item name="Medical Delivery Box"
-          identifier="mt_box_medical"
-          tags="mtu,cardboardbox,crate,allowcleanup"
-          aliases="metalcrate_event"
-          scale="0.625"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          canflipx="false"
-          waterproof="false"
-          impactsoundtag="impact_soft">
+    <Item name="Medical Delivery Box" identifier="mt_box_medical" tags="mtu,cardboardbox,crate,allowcleanup" aliases="metalcrate_event" scale="0.625" linkable="true" pickdistance="150"
+          showcontentsintooltip="true" canflipx="false" waterproof="false" impactsoundtag="impact_soft">
         <Deconstruct time="5">
             <Item identifier="organicfiber" />
         </Deconstruct>
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,0,96,64" depth="0.539" origin="0.5,0.5" />
         <BrokenSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,64,96,64" origin="0.5,0.5" depth="0.538" maxcondition="90" fadein="true" />
         <Body width="96" height="64" density="25" />
-        <Holdable slots="RightHand+LeftHand"
-                  holdpos="100,-50"
-                  disablerotation="true"
-                  handle1="0,-35"
-                  handle2="0,0"
-                  holdangle="15"
-                  aimable="false"
-                  msg="ItemMsgPickUpSelect" />
+        <Holdable slots="RightHand+LeftHand" holdpos="100,-50" disablerotation="true" handle1="0,-35" handle2="0,0" holdangle="15" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="20" maxstacksize="32" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,largemobilecontainer" />
         </ItemContainer>
     </Item>
-
-
-
     <!-- *********************************************************************** -->
     <!-- MECHTRAUMA SHELVES -->
     <!-- *********************************************************************** -->
     <!-- We all need places to put things. -->
-
     <!-- CASE SHELF: -->
     <Item name="Case Shelf" identifier="mt_parts_shelf" tags="container,cargocontainer,caseShelf" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1056,0,186,368" depth="0.84" origin="0.5,0.5" />
-        <ItemContainer capacity="8"
-                       slotsperrow="4"
-                       maxstacksize="1"
-                       canbeselected="true"
-                       hideitems="false"
-                       itempos="92,-24"
-                       iteminterval="0,-46"
-                       msg="ItemMsgInteractSelect">
+         <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1696,384,186,368" depth="0.8315" origin="0.5,0.5"/>
+        <ItemContainer capacity="8" slotsperrow="4" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-24" iteminterval="0,-46" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.3,0.3" anchor="Center" style="ItemUI" />
             <Containable items="mtcase" />
         </ItemContainer>
     </Item>
-
     <!-- CASE SHELF: half -->
     <Item name="Case Shelf Small" identifier="mt_parts_shelf_h" tags="container,cargocontainer,caseShelf" linkable="true" canflipx="false" pickdistance="150" scale="0.5">
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="832,0,186,180" depth="0.84" origin="0.5,0.5" />
-        <ItemContainer capacity="4"
-                       slotsperrow="1"
-                       maxstacksize="1"
-                       canbeselected="true"
-                       hideitems="false"
-                       itempos="92,-24"
-                       iteminterval="0,-46"
-                       msg="ItemMsgInteractSelect">
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="832,0,186,192" depth="0.84" origin="0.5,0.5" />
+
+
+        <ItemContainer capacity="4" slotsperrow="1" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-26" iteminterval="0,-46" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.3,0.3" anchor="Center" style="ItemUI" />
             <Containable items="mtcase" />
         </ItemContainer>
     </Item>
-
     <!-- CRATE SHELF: -->
-    <Item name="Crate Shelf" identifier="mt_crate_shelf" tags="container,cargocontainer,closed,clipboard" linkable="true" canflipx="true" pickdistance="150" scale="0.5">
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1312,0,186,368" depth="0.84" origin="0.5,0.5"  />
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1504,0,186,368" depth="0.831" origin="0.5,0.5" >
+    <Item name="Crate Shelf" identifier="mt_crate_shelf" tags="container,cargocontainer,closed" linkable="true" canflipx="true" pickdistance="150" scale="0.5">
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1312,0,186,368" depth="0.84" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1312,384,186,368" depth="0.8315" origin="0.5,0.5">
+
+        </DecorativeSprite>
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1504,0,186,368" depth="0.831" origin="0.5,0.5">
             <IsActiveConditional hastag="eq closed" />
             <IsActiveConditional hastag="ne open" />
         </DecorativeSprite>
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1248,0,54,72" depth="0.83" origin="0.5,0.5" >
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1248,0,54,72" depth="0.83" origin="0.5,0.5">
             <IsActiveConditional hastag="eq clipboard" />
+            <IsActiveConditional hastag="ne open" />
         </DecorativeSprite>
         <ItemContainer capacity="4" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-48" iteminterval="0,-92" msg="ItemMsgInteractSelect">
-        <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
-        <Containable items="crate" />
+            <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
+            <Containable items="crate" />
         </ItemContainer>
     </Item>
-
     <!-- STORAGE SHELF: half -->
     <Item name="Crate Shelf Small" identifier="mt_crate_shelf_h" tags="container,cargocontainer,closed,clipboard" linkable="true" canflipx="true" pickdistance="150" scale="0.5">
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1696,0,186,180" depth="0.84" origin="0.5,0.5"  />
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1888,0,186,180" depth="0.831" origin="0.5,0.5" >
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1696,0,186,180" depth="0.84" origin="0.5,0.5" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1888,0,186,180" depth="0.831" origin="0.5,0.5">
             <IsActiveConditional hastag="eq closed" />
             <IsActiveConditional hastag="ne open" />
         </DecorativeSprite>
-        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1248,0,54,72" depth="0.83" origin="0.5,0.5" >
+        <DecorativeSprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="1248,0,54,72" depth="0.83" origin="0.5,0.5">
             <IsActiveConditional hastag="eq clipboard" />
         </DecorativeSprite>
         <ItemContainer capacity="2" maxstacksize="1" canbeselected="true" hideitems="false" itempos="92,-48" iteminterval="0,-92" msg="ItemMsgInteractSelect">
-        <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
-        <Containable items="crate" />
+            <GuiFrame relativesize="0.15,0.2" anchor="Center" style="ItemUI" />
+            <Containable items="crate" />
         </ItemContainer>
     </Item>
-
     <!-- *********************************************************************** -->
     <!-- MECHTRAUMA CASES -->
     <!-- *********************************************************************** -->
-
     <!-- CASE: Fuse -->
-    <Item name="Fuse Case"
-          identifier="mtcase_fuse"
-          tags="mtcase,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy"
-          canflipx="false">
-        <Deconstruct time="0.5" />
+    <Item name="Fuse Case" identifier="mtcase_fuse" tags="mtcase,allowcleanup" scale="0.3" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy" canflipx="false">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,544,240,128" depth="0.54" origin="0.5,0.5" />
         <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,480,240,64" depth="0.55" />
@@ -248,45 +200,35 @@
             <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="8" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="576,192,64,64" origin="0.5,0.5" />
-
             <!-- ***************************** CONTAINERS ****************************** -->
             <Containable items="fuse" excludefullcondition="true" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
-
             <SubContainer capacity="8" maxstacksize="64">
                 <Containable items="fuse" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
             </SubContainer>
         </ItemContainer>
-
-
-    <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-      <GuiFrame relativesize="0.15,0.1" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
-
-      <!-- BUTTON: Break and Consolidate -->
-      <Button text="Break Fuse">
-        <StatusEffect type="OnUse" target="This">
-            <LuaHook name="mtBreakerSlot.OnUse" />
-        <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
-        </StatusEffect>
-      </Button>
-
-    </CustomInterface>
-
+        <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
+            <GuiFrame relativesize="0.15,0.1" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI" />
+            <!-- BUTTON: Break and Consolidate -->
+            <Button text="Break Fuse">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtBreakerSlot.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
+        </CustomInterface>
     </Item>
-
     <!-- CASE: Generic -->
-    <Item name="Generic Case"
-          identifier="mtcase_generic"
-          tags="mtcase,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy"
+    <Item name="Storage Case" identifier="mtcase_generic" tags="mtcase,allowcleanup" scale="0.3" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy"
           canflipx="false">
-        <Deconstruct time="0.5" />
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,736,120,64" depth="0.54" origin="0.5,0.5" />
-        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,672,120,32" depth="0.55" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,736,236,128" depth="0.54" origin="0.5,0.5" />
+        <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,480,236,64" depth="0.55" />
         <Body width="236" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="4" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -318,7 +260,6 @@
             <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
             <!-- starter motor -->
             <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
-
             <!-- ***************************** CONTAINERS ****************************** -->
             <!-- oil filter: 0-3 -->
             <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
@@ -356,19 +297,15 @@
             </SubContainer>
         </ItemContainer>
     </Item>
-
     <!-- CASE: Engine Parts -->
-    <Item name="Engine Parts Case"
-          identifier="mtcase_engine_parts"
-          aliases="mtcase_diesel_parts"
-          tags="mtcase,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy"
-          canflipx="false">
-        <Deconstruct time="0.5" />
+    <Item name="Engine Parts Case" identifier="mtcase_engine_parts" aliases="mtcase_diesel_parts" tags="mtcase,allowcleanup" scale="0.3" linkable="true" pickdistance="150" showcontentsintooltip="true"
+          impactsoundtag="impact_metal_heavy" canflipx="false">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,736,236,128" depth="0.54" origin="0.5,0.5" />
         <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="768,672,236,64" depth="0.55" />
@@ -403,7 +340,6 @@
             <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,0,64,64" origin="0.5,0.5" />
             <!-- starter motor -->
             <SlotIcon slotindex="16" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,0,64,64" origin="0.5,0.5" />
-
             <!-- ***************************** CONTAINERS ****************************** -->
             <!-- oil filter: 0-3 -->
             <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
@@ -442,16 +378,14 @@
         </ItemContainer>
     </Item>
     <!-- CASE: Parts General -->
-    <Item name="Components Case"
-          identifier="mtcase_components"
-          tags="mtcase,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy"
+    <Item name="Components Case" identifier="mtcase_components" tags="mtcase,allowcleanup" scale="0.3" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy"
           canflipx="false">
-        <Deconstruct time="0.5" />
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="512,544,236,128" depth="0.54" origin="0.5,0.5" />
         <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="512,480,236,64" depth="0.55" />
@@ -529,16 +463,13 @@
         </ItemContainer>
     </Item>
     <!-- CASE: Parts -->
-    <Item name="Parts Case"
-          identifier="mtcase_parts"
-          tags="mtcase,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          canflipx="false"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Parts Case" identifier="mtcase_parts" tags="mtcase,allowcleanup" scale="0.3" linkable="true" pickdistance="150" showcontentsintooltip="true" canflipx="false" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,544,236,128" depth="0.54" origin="0.5,0.5" canflipx="false" />
         <ContainedSprite name="Case In Shelf" allowedcontainertags="caseShelf" texture="%ModDir%/Images/Items/Containers/mt_crates.png" sourcerect="0,480,236,64" depth="0.55" canflipx="false" />
@@ -551,34 +482,38 @@
             <Containable items="oilfilter" excludeditems="toolbelt,toolbox,bandolier,cargoscooter,crate,largeitem" />
         </ItemContainer>
     </Item>
-
     <!-- *********************************************************************** -->
     <!-- MECHTRAUMA CRATES -->
     <!-- *********************************************************************** -->
-
     <!-- CRATE: ToolBox -->
-    <Item name="MT Toolbox"
-          identifier="mtcrate_toolbox"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="MT Toolbox" identifier="mt_crate_toolbox" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="steel" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="steel" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="0,1152,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="18" maxstacksize="8" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
-            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,256,64,64" origin="0.5,0.5" /> <!-- wrench -->
-            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,256,64,64" origin="0.5,0.5" /> <!-- screwdriver -->
-            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,256,64,64" origin="0.5,0.5" /> <!-- flashlight -->
-            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" /> <!-- crowbar -->
-            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" /> <!-- batterycell -->
-            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" /> <!-- batterycell -->
-            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" /> <!-- tablet -->
-            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" /> <!-- tablet -->
+            <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,256,64,64" origin="0.5,0.5" />
+            <!-- wrench -->
+            <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,256,64,64" origin="0.5,0.5" />
+            <!-- screwdriver -->
+            <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="448,256,64,64" origin="0.5,0.5" />
+            <!-- flashlight -->
+            <SlotIcon slotindex="3" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="512,256,64,64" origin="0.5,0.5" />
+            <!-- crowbar -->
+            <SlotIcon slotindex="4" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" />
+            <!-- batterycell -->
+            <SlotIcon slotindex="5" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="640,256,64,64" origin="0.5,0.5" />
+            <!-- batterycell -->
+            <SlotIcon slotindex="6" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" />
+            <!-- tablet -->
+            <SlotIcon slotindex="7" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="704,256,64,64" origin="0.5,0.5" />
+            <!-- tablet -->
             <!-- SLOT 0: wrench -->
             <Containable items="wrench" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
             <!-- SLOT 1: screwdriver -->
@@ -603,18 +538,14 @@
             </SubContainer>
         </ItemContainer>
     </Item>
-
-
     <!-- CRATE: Medical -->
-    <Item name=""
-          identifier="mtcrate_medical"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Medical Crate" identifier="mt_crate_medical" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="0,896,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -623,17 +554,14 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
     <!-- CRATE: Medical Basic - DARK -->
-    <Item name="Medical Crate"
-          identifier="mtcrate_d_medical_basic"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Medical Crate" identifier="mt_crate_d_medical_basic" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="0,1024,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -642,17 +570,15 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
     <!-- CRATE: Medical Emergency - DARK -->
-    <Item name="Emergency Medical Crate"
-          identifier="mtcrate_d_medical_emergency"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
+    <Item name="Emergency Medical Crate" identifier="mt_crate_d_medical_emergency" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true"
           impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="512,1024,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -661,17 +587,14 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
     <!-- CRATE: Explosives -->
-    <Item name="Explosives Crate"
-          identifier="mtcrate_d_explosives"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Explosives Crate" identifier="mt_crate_d_explosives" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="256,1024,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -680,17 +603,14 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
-    <!-- CRATE: Explosives -->
-    <Item name="Chemicals Crate"
-          identifier="mtcrate_d_chemicals"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <!-- CRATE: Chemicals -->
+    <Item name="Chemicals Crate" identifier="mt_crate_d_chemicals" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="768,1024,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -699,17 +619,14 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
     <!-- CRATE: Storage -->
-    <Item name="Storage Crate"
-          identifier="mtcrate_d_storage"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Storage Crate" identifier="mt_crate_d_storage" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
         <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="1024,1024,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
@@ -718,19 +635,32 @@
             <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
         </ItemContainer>
     </Item>
-
-    <!-- CRATE: Mechanical -->
-    <Item name="Mechanical Crate"
-          identifier="mtcrate_mechanical"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <!-- CRATE: Mechanical dark -->
+    <Item name="Mechanical Crate" identifier="mt_crate_d_mechanical" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="512,1280,240,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="256,1280,240,128" origin="0.5,0.5" />
+        <Body width="240" height="128" density="25" />
+        <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
+        <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
+            <Containable items="smallitem,mediumitem" excludeditems="toolbelt,toolbox,bandolier,cargoscooter" />
+        </ItemContainer>
+    </Item>
+    <!-- CRATE: Mechanical -->
+    <Item name="Mechanical Crate" identifier="mt_crate_mechanical" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
+        <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="256,1152,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -738,17 +668,15 @@
         </ItemContainer>
     </Item>
     <!-- CRATE: Generic -->
-    <Item name="Generic Crate"
-          identifier="mtcrate_generic"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Generic Crate" identifier="mt_crate_d_generic" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="320,192,240,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="0,1408,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -756,17 +684,15 @@
         </ItemContainer>
     </Item>
     <!-- CRATE: Rusty -->
-    <Item name="Rusty Crate"
-          identifier="mtcrate_rusty"
-          tags="crate,allowcleanup"
-          scale="0.325"
-          linkable="true"
-          pickdistance="150"
-          showcontentsintooltip="true"
-          impactsoundtag="impact_metal_heavy">
-        <Deconstruct time="0.5" />
+    <Item name="Rusty Crate" identifier="mt_crate_rusty" tags="crate,allowcleanup" scale="0.325" linkable="true" pickdistance="150" showcontentsintooltip="true" impactsoundtag="impact_metal_heavy">
+        <Fabricate suitablefabricators="fabricator,cncfab,3dfab" requiredtime="30">
+            <Item identifier="aluminium" amount="1" />
+        </Fabricate>
+        <Deconstruct time="10">
+            <Item identifier="aluminium" amount="0.5" />
+        </Deconstruct>
         <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" /> -->
-        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="64,448,240,128" origin="0.5,0.5" />
+        <Sprite texture="%ModDir%/Images/Items/Containers/mt_crates.png" depth="0.54" sourcerect="256,1408,240,128" origin="0.5,0.5" />
         <Body width="240" height="128" density="25" />
         <Holdable slots="RightHand,LeftHand" holdpos="0,-80" handle1="-0,70" aimable="false" msg="ItemMsgPickUpSelect" />
         <ItemContainer capacity="16" canbeselected="false" hideitems="true" keepopenwhenequipped="true" movableframe="true">
@@ -777,14 +703,7 @@
     <!-- UTILITY CONTAINERS -->
     <!-- *********************************************************************** -->
     <!-- CARGO CRANE: -->
-    <Item name="Cargo Crane"
-          identifier="cargo_crane"
-          tags="decorative"
-          linkable="true"
-          allowedlinks="cargo_crane,cargocontainer"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.6">
+    <Item name="Cargo Crane" identifier="cargo_crane" tags="decorative" linkable="true" allowedlinks="cargo_crane,cargocontainer" pickdistance="150" waterproof="true" scale="0.6">
         <Sprite texture="%ModDir%/Images/cargo_crane.png" depth="0.84" sourcerect="0,0,724,360" origin="0.5,0.5" />
         <ItemContainer capacity="1" slotsperrow="1" canbeselected="true" hideitems="false" itempos="28,-132" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
@@ -802,11 +721,17 @@
         </ItemContainer>
     </Item>
     <!-- CARGO CONTRAINER SMALL: (does NOT allow spawning of mission cargo) -->
-    <Item name="s12 Cargo Container" identifier="s12a_container" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="false" scale="0.5">
+    <Item name="s12 Cargo Container" identifier="s12a_container" tags="container,suppliescontainer,locker" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
         <Sprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.84" sourcerect="0,0,312,440" origin="0.5,0.5" />
-        <DecorativeSprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.83" sourcerect="320,0,312,440" spritecolor="255,255,255,255" origin="0.75,0.5" IgnoreTint="True" />
-        <ItemContainer capacity="9" slotsperrow="3" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
+        <!-- <DecorativeSprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.83" sourcerect="320,0,312,440" spritecolor="255,255,255,255" origin="0.75,0.5" IgnoreTint="True" /> -->
+        <ItemContainer capacity="8" slotsperrow="4" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.5" anchor="Center" style="ItemUI" />
+            <!-- SLOT 0: M/S -->
+            <Containable identifiers="smallitem,mediumitem" excludeditems="largemobilecontainer" />
+            <!-- SLOT 1: LARGE -->
+            <SubContainer capacity="8" maxstacksize="64">
+                <SlotIcon texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,256,64,64" origin="0.5,0.5" />
+            </SubContainer>
         </ItemContainer>
     </Item>
     <!-- CARGO CONTRAINER SMALL: (does NOT allow spawning of mission cargo) -->
@@ -814,15 +739,8 @@
         <Sprite texture="%ModDir%/Images/Containers/mechtrauma_cargo_containers.png" depth="0.84" sourcerect="640,0,312,440" origin="0.5,0.5" />
     </Item>
     <!-- CARGO CONTAINER: Open. (does NOT allow spawning of mission cargo) -->
-    <Item name="Cargo Container Open"
-          identifier="cargo_container_open"
-          aliases="shipping_container_open"
-          tags="container,locker,suppliescontainer"
-          depth="0.84"
-          linkable="true"
-          pickdistance="150"
-          waterproof="false"
-          scale="0.6">
+    <Item name="Cargo Container Open" identifier="cargo_container_open" aliases="shipping_container_open" tags="container,locker,suppliescontainer" depth="0.84" linkable="true" pickdistance="150"
+          waterproof="false" scale="0.6">
         <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="1028,0,256,396" origin="0.5,0.5" />
         <DecorativeSprite texture="%ModDir%/Images/mechtrauma_containers.png" sourcerect="0,0,1024,436" depth="0.841" origin="0.0,0.5" offset="-128,0" />
         <ItemContainer capacity="32" slotsperrow="8" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
@@ -830,16 +748,8 @@
         </ItemContainer>
     </Item>
     <!-- CARGO CONTAINER: Closed. (allow spawning of mission cargo) -->
-    <Item name="Cargo Container Closed"
-          identifier="mt_cargo_container_closed"
-          aliases="shipping_container_closed"
-          tags="container,suppliescontainer,locker,cargocontainer"
-          allowedlinks="cargo_crane,cargocontainer"
-          depth="0.84"
-          linkable="true"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.6">
+    <Item name="Cargo Container Closed" identifier="mt_cargo_container_closed" aliases="shipping_container_closed" tags="container,suppliescontainer,locker,cargocontainer"
+          allowedlinks="cargo_crane,cargocontainer" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
         <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,0,1024,436" origin="0.5,0.5" />
         <ItemContainer capacity="32" slotsperrow="10" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.5,0.37" relativeoffset="-0.01,0.0" anchor="Center" allowuioverlap="false" style="ItemUI" />
@@ -847,16 +757,8 @@
         </ItemContainer>
     </Item>
     <!-- STORAGE CONTAINER: Single. (allow spawning of mission cargo) -->
-    <Item name="Cargo Container Small"
-          identifier="mt_cargo_container_single"
-          aliases="storage_container_single"
-          tags="container,suppliescontainer,locker,cargocontainer"
-          allowedlinks="cargo_crane,cargocontainer,fabricator,cncfab"
-          depth="0.84"
-          linkable="true"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.6">
+    <Item name="Cargo Container Small" identifier="mt_cargo_container_single" aliases="storage_container_single" tags="container,suppliescontainer,locker,cargocontainer"
+          allowedlinks="cargo_crane,cargocontainer,fabricator,cncfab" depth="0.84" linkable="true" pickdistance="150" waterproof="true" scale="0.6">
         <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,448,256,433" origin="0.5,0.5" />
         <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.45" anchor="Center" relativeoffset="-0.01,0.0" style="ItemUI" />
@@ -866,18 +768,8 @@
     <!-- *********************************************************************** -->
     <!-- MISC CONTAINERS -->
     <!-- *********************************************************************** -->
-
-
     <!-- STORAGE CABINET: -->
-    <Item name="Storage Cabinet"
-          identifier="storage_cabinet"
-          Aliases="steelcabinet"
-          category="Misc"
-          tags="locker,container"
-          linkable="true"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.5">
+    <Item name="Storage Cabinet" identifier="storage_cabinet" Aliases="steelcabinet" category="Misc" tags="locker,container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
         <Sprite texture="%ModDir%/Images/mechtrauma_containers.png" depth="0.84" sourcerect="0,896,256,320" />
         <trigger x="0" y="0" width="256" height="320" />
         <ItemContainer capacity="30" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
@@ -885,24 +777,13 @@
             <Containable identifiers="smallitem" />
         </ItemContainer>
     </Item>
-
-
     <!-- PARTS STORAGE: -->
-    <Item name="Parts Storage"
-          identifier="mt_parts_storage"
-          Aliases=""
-          category="Misc"
-          tags="locker,container,partsStorage"
-          linkable="true"
-          allowedlinks="fabricator,container,suppliescontainer,locker"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.5">
+    <Item name="Parts Storage" identifier="mt_parts_storage" Aliases="" category="Misc" tags="locker,container,partsStorage" linkable="true" allowedlinks="fabricator,container,suppliescontainer,locker"
+          pickdistance="150" waterproof="true" scale="0.5">
         <Sprite texture="%ModDir%/Images/Containers/mt_storage_containers.png" depth="0.84" sourcerect="0,0,736,608" />
         <ItemContainer capacity="1" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
-
-                            <!-- ***************************** SLOT ICONS ****************************** -->
+            <!-- ***************************** SLOT ICONS ****************************** -->
             <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="192,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,960,64,64" origin="0.5,0.5" />
@@ -919,8 +800,6 @@
             <SlotIcon slotindex="13" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="832,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="14" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="896,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="15" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,960,64,64" origin="0.5,0.5" />
-
-
             <!-- SLOT 0: steel bar -->
             <Containable identifiers="steel" />
             <!-- SLOT 1: titaniumaluminiumalloy -->
@@ -987,50 +866,34 @@
             <SubContainer capacity="1" maxstacksize="64">
                 <Containable identifiers="unknown" />
             </SubContainer>
-
-
-
             <SubContainer capacity="6" maxstacksize="64">
                 <Containable identifiers="smallitem,mediumitem,crate" />
             </SubContainer>
         </ItemContainer>
-
-
         <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-        <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
-
-        <!-- BUTTON: LOAD DEPOT -->
-        <Button text="GET MATERIALS">
-            <StatusEffect type="OnUse" target="This">
-                <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
-            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
-            </StatusEffect>
-        </Button>
-        <Button text="UNPACK CRATE">
-            <StatusEffect type="OnUse" target="This">
-                <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
-            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
-            </StatusEffect>
-        </Button>
+            <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI" />
+            <!-- BUTTON: LOAD DEPOT -->
+            <Button text="GET MATERIALS">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
+            <Button text="UNPACK CRATE">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
         </CustomInterface>
     </Item>
-
     <!-- MATERIALS DEPOT: -->
-    <Item name="Materials Locker"
-          identifier="mt_materials_locker"
-          Aliases=""
-          category="Misc"
-          tags="locker,container"
-          linkable="true"
-          allowedlinks="fabricator,container,suppliescontainer,locker"
-          pickdistance="150"
-          waterproof="true"
-          scale="0.5">
+    <Item name="Materials Locker" identifier="mt_materials_locker" Aliases="" category="Misc" tags="locker,container" linkable="true" allowedlinks="fabricator,container,suppliescontainer,locker"
+          pickdistance="150" waterproof="true" scale="0.5">
         <Sprite texture="%ModDir%/Images/Containers/mt_storage_containers.png" depth="0.84" sourcerect="0,0,736,608" />
         <ItemContainer capacity="1" slotsperrow="6" canbeselected="true" hideitems="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.45" anchor="Center" style="ItemUI" />
-
-                            <!-- ***************************** SLOT ICONS ****************************** -->
+            <!-- ***************************** SLOT ICONS ****************************** -->
             <SlotIcon slotindex="0" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="0,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="1" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="64,960,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="2" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="128,960,64,64" origin="0.5,0.5" />
@@ -1055,16 +918,6 @@
             <SlotIcon slotindex="21" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="256,896,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="22" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="320,896,64,64" origin="0.5,0.5" />
             <SlotIcon slotindex="23" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="384,896,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="24" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="25" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="26" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="27" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="28" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-            <SlotIcon slotindex="29" texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
-
-
-
-
             <!-- SLOT 0: steel bar -->
             <Containable identifiers="steel" />
             <!-- SLOT 1: titaniumaluminiumalloy -->
@@ -1131,7 +984,6 @@
             <SubContainer capacity="1" maxstacksize="64">
                 <Containable identifiers="unknown" />
             </SubContainer>
-
             <!-- SLOT 17: lithium -->
             <SubContainer capacity="1" maxstacksize="64">
                 <Containable identifiers="lithium" />
@@ -1162,62 +1014,40 @@
             </SubContainer>
             <!-- SLOTS 24-31: crates -->
             <SubContainer capacity="6" maxstacksize="64">
+                <SlotIcon texture="%ModDir%/Images/GUI/mt_slot_icons.png" sourcerect="960,256,64,64" origin="0.5,0.5" />
                 <Containable identifiers="smallitem,mediumitem,crate" />
             </SubContainer>
         </ItemContainer>
-
-
         <CustomInterface canbeselected="true" allowuioverlap="false" drawhudwhenequipped="true">
-        <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI"/>
-
-        <!-- BUTTON: LOAD DEPOT -->
-        <Button text="GET MATERIALS">
-            <StatusEffect type="OnUse" target="This">
-                <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
-            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
-            </StatusEffect>
-        </Button>
-        <Button text="UNPACK CRATE">
-            <StatusEffect type="OnUse" target="This">
-                <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
-            <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
-            </StatusEffect>
-        </Button>
+            <GuiFrame relativesize="0.15,0.15" anchor="BottomCenter" pivot="BottomCenter" relativeoffset="0,0.1" style="ItemUI" />
+            <!-- BUTTON: LOAD DEPOT -->
+            <Button text="GET MATERIALS">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtLoadMaterialsDepotFL.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
+            <Button text="UNPACK CRATE">
+                <StatusEffect type="OnUse" target="This">
+                    <LuaHook name="mtLoadMaterialsDepotFC.OnUse" />
+                    <Sound file="Content/Sounds/Damage/GlassImpact2.ogg" range="100" />
+                </StatusEffect>
+            </Button>
         </CustomInterface>
     </Item>
-
-
     <!-- GEAR LOCKER: Gear locker, for storing SCBA suits as well as diving suits (I didnt' want to override the vanilla lockers)  -->
     <Item name="Gear Locker" identifier="gear_locker" category="Equipment" tags="container,divingsuitcontainer,divingsuitcontainerwindow,gearcontainerwindow" pickdistance="50" scale="0.5">
         <Sprite name="Diving Suit Locker Vertical" texture="Content/Items/Containers/containers.png" depth="0.84" sourcerect="714,1,99,256" origin="0.5,0.5" />
-        <ItemContainer hideitems="false"
-                       drawinventory="true"
-                       capacity="1"
-                       slotsperrow="1"
-                       itempos="0,0"
-                       iteminterval="0,0"
-                       canbeselected="true"
-                       msg="ItemMsgInteractSelect">
+        <ItemContainer hideitems="false" drawinventory="true" capacity="1" slotsperrow="1" itempos="0,0" iteminterval="0,0" canbeselected="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.2,0.25" anchor="Center" minsize="140,170" maxsize="280,280" style="ItemUI" />
             <Containable items="deepdiving,gear" />
         </ItemContainer>
     </Item>
-
-
-
     <!-- MECHCABINET (quick cab / grab cab) -->
     <Item name="Mechcab" identifier="mechcab" tags="container" linkable="true" pickdistance="150" waterproof="true" scale="0.5">
         <Sprite texture="%ModDir%/Images/mechcab.png" depth="0.84" sourcerect="0,0,128,128" origin="0.5,0.5" />
         <DecorativeSprite texture="%ModDir%/Images/mechcab.png" sourcerect="128,0,128,128" depth="0.80" offset="9,-7" origin="0.5,0.5" />
-        <ItemContainer capacity="1"
-                       slotsperrow="1"
-                       maxstacksize="64"
-                       canbeselected="true"
-                       hideitems="false"
-                       itempos="64,-64"
-                       iteminterval="0,0"
-                       autointeractwithcontained="true"
-                       msg="ItemMsgInteractSelect">
+        <ItemContainer capacity="1" slotsperrow="1" maxstacksize="64" canbeselected="true" hideitems="false" itempos="64,-64" iteminterval="0,0" autointeractwithcontained="true" msg="ItemMsgInteractSelect">
             <GuiFrame relativesize="0.25,0.25" anchor="Center" style="ItemUI" />
             <Containable items="smallitem,mediumitem" />
         </ItemContainer>

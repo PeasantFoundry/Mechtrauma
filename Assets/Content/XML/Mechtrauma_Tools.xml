@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
 
+<!-- OXYGEN BOTTLE: Fire Resistant -->
+  <Item name="Oxygen Tank - Fire Resistant "
+        identifier="mt_oxygentank_fr"
+        aliases="oxygentank_fr"
+        category="Diving,Equipment"
+        maxstacksize="2"
+        health="200"
+        Tags="smallitem,oxygensource,refillableoxygensource"
+        cargocontaineridentifier="metalcrate"
+        scale="0.5"
+        impactsoundtag="impact_metal_light"
+        allowdroppingonswap="true">
+    <Price baseprice="150">
+      <Price storeidentifier="merchantoutpost" minavailable="10" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="15" />
+      <Price storeidentifier="merchantresearch" minavailable="10" />
+      <Price storeidentifier="merchantmilitary" minavailable="10" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="20" />
+    </Price>
+    <PreferredContainer secondary="respawncontainer" amount="8" spawnprobability="1" notcampaign="true" />
+    <PreferredContainer primary="oxygentankcontainer" amount="3" spawnprobability="1" />
+    <PreferredContainer primary="oxygengenerator" maxcondition="75" />
+    <PreferredContainer primary="deepdiving,turnout_gearv2" spawnprobability="1.0" mincondition="25" />
+    <PreferredContainer secondary="divingcab" minamount="3" maxamount="5" spawnprobability="1" mincondition="25" notcampaign="true" />
+    <PreferredContainer secondary="supplycab" amount="1" spawnprobability="0.5" mincondition="25" notcampaign="true" />
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.2" />
+    <PreferredContainer secondary="wreckoxygentankcontainer" minamount="1" maxamount="3" spawnprobability="0.3" />
+    <PreferredContainer secondary="outpostcrewcabinet" minamount="1" maxamount="3" spawnprobability="0.2" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="3" spawnprobability="0.1" />
+    <Deconstruct time="10">
+      <Item identifier="aluminium" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" displayname="OxygenTankFrEmpty">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="aluminium" amount="2" />
+      <RequiredItem identifier="carbon" amount="1" />
+      <RequiredItem identifier="organicfiber" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/mechtrauma.png" sourcerect="96,128,32,118" depth="0.55" origin="0.5,0.5" />
+    <Body width="32" height="128" density="9.7" />
+    <Holdable canbecombined="false" slots="Any,RightHand,LeftHand" holdpos="30,-15" handle1="0,5" handle2="0,-5" msg="ItemMsgPickUpSelect"></Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1" />
+    </Quality>
+  </Item>
+
+
+  <!-- OXYGEN TANK: Mini -->
+  <Item name="Oxygen Tank - Mini"
+        identifier="mt_oxygentank_mini"
+        category="Diving,Equipment"
+        maxstacksize="2"
+        health="50"
+        Tags="smallitem,oxygensource,refillableoxygensource"
+        cargocontaineridentifier="metalcrate"
+        scale="0.3"
+        impactsoundtag="impact_metal_light"
+        allowdroppingonswap="true">
+    <Price baseprice="50">
+      <Price storeidentifier="merchantoutpost" minavailable="10" />
+      <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="15" />
+      <Price storeidentifier="merchantresearch" minavailable="10" />
+      <Price storeidentifier="merchantmilitary" minavailable="10" />
+      <Price storeidentifier="merchantmine" multiplier="1.25" minavailable="20" />
+    </Price>
+    <PreferredContainer secondary="respawncontainer" amount="8" spawnprobability="1" notcampaign="true" />
+    <PreferredContainer primary="oxygentankcontainer" amount="3" spawnprobability="1" />
+    <PreferredContainer primary="oxygengenerator" maxcondition="75" />
+    <PreferredContainer primary="deepdiving,turnout_gearv2" spawnprobability="1.0" mincondition="25" />
+    <PreferredContainer secondary="divingcab" minamount="3" maxamount="5" spawnprobability="1" mincondition="25" notcampaign="true" />
+    <PreferredContainer secondary="supplycab" amount="1" spawnprobability="0.5" mincondition="25" notcampaign="true" />
+    <PreferredContainer secondary="wrecksupplycab,beaconsupplycab" amount="1" spawnprobability="0.2" />
+    <PreferredContainer secondary="wreckoxygentankcontainer" minamount="1" maxamount="3" spawnprobability="0.3" />
+    <PreferredContainer secondary="outpostcrewcabinet" minamount="1" maxamount="3" spawnprobability="0.2" />
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" minamount="1" maxamount="3" spawnprobability="0.1" />
+    <Deconstruct time="10">
+      <Item identifier="aluminium" amount="0.25" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" displayname="OxygenTankMiniEmpty" amount="4">
+      <RequiredSkill identifier="mechanical" level="35" />
+      <RequiredItem identifier="aluminium" amount="1" />
+    </Fabricate>
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="320,352,54,88" depth="0.55" origin="0.5,0.5" />
+    <Body width="32" height="128" density="9.7" />
+    <Holdable canbecombined="false" slots="Any,RightHand,LeftHand" holdpos="30,-15" handle1="0,5" handle2="0,-5" msg="ItemMsgPickUpSelect"></Holdable>
+    <Quality>
+      <QualityStat stattype="Condition" value="0.1" />
+    </Quality>
+  </Item>
 
     <!-- TOOL CART: my hopeful -->
     <Item name="Tool Cart"
@@ -86,7 +175,7 @@
         <Deconstruct time="5">
             <Item identifier="scrap_steel" />
         </Deconstruct>
-        <!--<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="448,128,64,64" />-->
+        <InventoryIcon texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="0,576,192,192" />
         <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="0,224,180,336" depth="0.54" origin="0.5,0.5" />
         <Body width="240" height="325" density="50" />
         <Holdable slots="RightHand+LeftHand" holdpos="-75,-250" handle1="-75,75" handle2="-75,75" holdangle="45" aimable="false" msg="ItemMsgPickUpSelect">
@@ -95,12 +184,6 @@
         <RangedWeapon barrelpos="0,0" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" crosshairscale="0.1" crosshairpointerscale="0.1">
             <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,0,64,64" />
             <Sound file="Content/Sounds/Impact/MetalImpactHeavy2.ogg" type="OnUse" range="1000" />
-            <!--<CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="2112,448,256,256" />
-
-      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
-      <StatusEffect type="OnUse">
-        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
-      </StatusEffect>-->
             <StatusEffect type="OnUse" target="Character">
                 <LuaHook name="mtHandTruck.onUse" />
             </StatusEffect>
@@ -115,10 +198,6 @@
                        keepopenwhenequipped="true"
                        movableframe="true">
             <Containable items="handtruck,largeitem,mediumitem,ammobox,mobilecontainer,crate" />
-            <!-- <StatusEffect type="OnContaining" targettype="This,Contained" condition="-50" itempos="0,-50" Comparison="And">
-          <Requireditem items="oil_barrel" type="contained" />
-           <ParticleEmitter particle="heavysmoke" particleburstinterval="0.25" particlespersecond="2" scalemin="2.5" scalemax="5.0" />
-        </StatusEffect> -->
             <SubContainer capacity="1">
                 <Containable items="handtruck,mediumitem,ammobox,mobilecontainer,crate" />
             </SubContainer>
@@ -490,18 +569,18 @@
 
 
     <!-- LARGE EXTINGUISHER: For use with turnout gear. -->
-    <Item name="L100-Extinguisher"
+    <Item name="Fire Extinguisher L100"
           identifier="l100_extinguisher"
           category="Equipment"
-          Tags="mediumitem,fireextinguisher,provocative"
+          Tags="mediumitem,fireextinguisher,provocative,extinguisher"
           cargocontaineridentifier="metalcrate"
-          description="L100-Extinguisher"
+          description="Fire Extinguisher L100"
           health="120"
-          Scale="0.5"
+          scale="0.3"
           impactsoundtag="impact_metal_light"
           donttransferbetweensubs="true">
-        <PreferredContainer primary="extinguisherholder" spawnprobability="1.0" />
-        <PreferredContainer secondary="engcab,reactorcab" />
+        <PreferredContainer primary="mt_fire_cabinet" spawnprobability="1.0" />
+        <PreferredContainer secondary="extingusiherholder,reactorcab" />
         <Price baseprice="100" displaynonempty="true">
             <Price storeidentifier="merchantoutpost" minavailable="1" />
             <Price storeidentifier="merchantcity" multiplier="0.9" minavailable="4" />
@@ -516,9 +595,9 @@
             <RequiredSkill identifier="mechanical" level="20" />
             <RequiredItem identifier="aluminium" />
         </Fabricate>
-        <Sprite texture="%ModDir%/Images/mechtrauma.png" depth="0.55" sourcerect="128,128,48,128" origin="0.5,0.5" />
-        <Body width="48" height="128" density="5" />
-        <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,10" handle2="-10,40" msg="ItemMsgPickUpSelect" />
+        <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="224,352,96,224" depth="0.55" origin="0.5,0.5" />
+        <Body width="96" height="224" density="5" />
+        <Holdable slots="RightHand+LeftHand" controlpose="true" aimpos="40,-20" handle1="-6,30" handle2="-10,70" msg="ItemMsgPickUpSelect" />
         <RepairTool extinguishamount="60.0" range="500" barrelpos="21,25" repairthroughholes="true" hititems="false">
             <ParticleEmitter particle="extinguisher" velocitymin="1000.0" velocitymax="1650.0" particlespersecond="100" />
             <StatusEffect type="OnUse" targettype="This" Condition="-2.0" />
@@ -746,6 +825,64 @@
           <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
         </StatusEffect>
     </RangedWeapon>
+
+    <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
+    <Quality>
+      <QualityStat stattype="RepairSpeed" value="0.1"/>
+    </Quality>
+    <Upgrade gameversion="0.10.0.0" scale="0.5" />
+  </Item>
+
+ <!-- AIR WRENCH: -->
+<Item name="Air Wrench" identifier="mt_air_wrench" category="Equipment" Tags="smallitem,tool,simpletool,mechanicalrepairtool,wrenchitem,mountableweapon" cargocontaineridentifier="metalcrate" Scale="0.25" impactsoundtag="impact_metal_light" RequireAimToUse="True">
+    <Preferredcontainer secondary="respawncontainer" amount="1" spawnprobability="1" notcampaign="true"/>
+    <PreferredContainer primary="engcab"/>
+    <PreferredContainer secondary="wreckstoragecab,abandonedstoragecab" amount="1" spawnprobability="0.2"/>
+    <PreferredContainer primary="wreckengcab,abandonedengcab,outpostengcab,beaconengcab" amount="1" spawnprobability="0.5"/>
+    <PreferredContainer secondary="outpostcrewcabinet" amount="1" spawnprobability="0.3"/>
+    <PreferredContainer secondary="outposttrashcan" amount="1" spawnprobability="0.1" />
+    <Price baseprice="20" minavailable="10">
+      <Price storeidentifier="merchantoutpost" />
+      <Price storeidentifier="merchantcity" minavailable="5" />
+      <Price storeidentifier="merchantresearch" multiplier="1.25" />
+      <Price storeidentifier="merchantmilitary" multiplier="1.25" />
+      <Price storeidentifier="merchantmine" />
+      <Price storeidentifier="merchantengineering" minavailable="10" multiplier="0.9"/>
+    </Price>
+    <Deconstruct time="10">
+      <Item identifier="iron" />
+    </Deconstruct>
+    <Fabricate suitablefabricators="fabricator" requiredtime="10">
+      <RequiredSkill identifier="mechanical" level="20" />
+      <RequiredItem identifier="iron" amount="2" />
+    </Fabricate>
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="416,192,184,144" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_tools.png" sourcerect="416,192,184,148" depth="0.55" origin="0.5,0.5" />
+    <Body width="96" height="128" density="80" />
+    <Holdable slots="Any,RightHand,LeftHand" controlpose="true" aimpos="50,10" handle1="-70,-15" msg="ItemMsgPickUpSelect" />
+    <RangedWeapon barrelpos="29,11" spread="0" unskilledspread="2" combatPriority="70" drawhudwhenequipped="true" CrossHairScale="0.1">
+      <!-- <Crosshair texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="64,64,0,0" /> -->
+      <CrosshairPointer texture="%ModDir%/Images/GUI/mt_GUI_icons.png" sourcerect="0,0,64,64" />
+      <Sound file="%ModDir%/Sound/air_wrench.ogg" type="OnUse" range="1000.0" onlyinsamesub="true" />
+      <!--
+      <ParticleEmitter particle="muzzleflash" particleamount="1" velocitymin="0" velocitymax="0" />
+      <StatusEffect type="OnUse">
+        <Explosion range="150.0" force="1.5" shockwave="false" smoke="false" flames="false" sparks="false" underwaterbubble="false" camerashake="6.0" />
+      </StatusEffect> -->
+      <StatusEffect type="OnUse" target="Character">
+        <LuaHook name="mtImpactDriver.onUse" />
+      </StatusEffect>
+      <StatusEffect type="OnUse" target="UseTarget">
+          <Conditional entitytype="eq Character"/>
+          <Sound file="Content/Items/Weapons/Smack1.ogg" selectionmode="random" range="500"/>
+          <Sound file="Content/Items/Weapons/Smack2.ogg" range="500" />
+        </StatusEffect>
+    </RangedWeapon>
+
+    <ItemContainer capacity="1" maxstacksize="1" hideitems="false" itempos="-50,-115" containedspritedepth="0.56" containedstateindicatorstyle="tank">
+      <SlotIcon slotindex="0" texture="Content/UI/StatusMonitorUI.png" sourcerect="64,448,64,64" origin="0.5,0.5" />
+      <Containable items="weldingtoolfuel,oxygensource" />
+    </ItemContainer>
 
     <aitarget sightrange="500" soundrange="500" fadeouttime="1" />
     <Quality>

@@ -326,8 +326,8 @@
       <Item identifier="scrap_steel" />
     </Deconstruct>
 
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,1088,128,192" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,1088,128,192" depth="0.55" canflipx="true" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,1088,128,192" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,1088,128,192" depth="0.55" canflipx="true" />
     <!-- <Sprite texture="%ModDir%/Images/diesel_fuel_barrel.png" sourcerect="0,0,156,248" depth="0.55" />-->
     <Body width="128" height="192" density="20" />
     <Holdable holdpos="150,-100" handle1="0,0" holdangle="0" slots="Any,RightHand,LeftHand" msg="ItemMsgPickUpSelect">
@@ -552,8 +552,8 @@
       <RequiredSkill identifier="mechanical" level="20" />
       <RequiredItem identifier="plastic" amount="1" />
     </Fabricate>
-    <InventoryIcon texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,608,128,168" origin="0.5,0.5" />
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="544,608,128,168" depth="0.55" />
+    <InventoryIcon texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="544,608,128,168" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="544,608,128,168" depth="0.55" />
     <Thermal MinOpTemp="-40" TargetOpTemp="200" MaxOpTemp="220" FailTemp="250" />
     <Body width="128" height="168" density="20" />
     <Holdable canbecombined="true" holdpos="0,-130" handle1="0,80" holdangle="0" slots="RightHand,LeftHand" msg="ItemMsgPickUpSelect" />
@@ -2371,7 +2371,7 @@
                       MessageFont="MonospacedFont" />
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.1,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200" />
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5" />
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1856,704,384,576" origin="0.5,0.5" />
       </OuterSprite>
     </AdvancedTerminal>
     <!-- Mechtrauma Computer-->
@@ -2649,7 +2649,7 @@
       <Price storeidentifier="merchantengineering" multiplier="0.9" />
     </Price>
     <!-- <InventoryIcon texture="Content/Items/InventoryIconAtlas2.png" sourcerect="323,193,60,61" origin="0.5,0.5" /> -->
-    <Sprite texture="%ModDir%/Images/Items/mechtrauma_parts.png" sourcerect="0,896,96,140" depth="0.6" origin="0.5,0.5" />
+    <Sprite texture="%ModDir%/Images/Items/mt_parts.png" sourcerect="0,896,96,140" depth="0.6" origin="0.5,0.5" />
     <Body width="96" height="140" density="60" />
     <Holdable slots="Any,RightHand,LeftHand" controlpose="true" holdangle="30" handle1="-50,0" msg="ItemMsgPickUpSelect" />
     <MTC />
@@ -4796,7 +4796,7 @@
                       MessageFont="MonospacedFont" />
       <GuiFrame relativesize="0.38,0.56" relativeoffset="0.0,0.05" anchor="TopCenter" style="ItemUI" Color="20,20,20,200" />
       <OuterSprite Offset="0.5,0.5" Size="1.0,1.0" Scale="1.75">
-        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/Tablet-B-Orange0.png" sourcerect="0,0,450,344" origin="0.5,0.5" />
+        <Sprite name="OuterSpriteGUI" texture="%ModDir%/Images/GUI/mt_GUI.png" sourcerect="1856,704,384,576" origin="0.5,0.5" />
       </OuterSprite>
     </AdvancedTerminal>
     <!-- Mechtrauma Computer-->

@@ -188,11 +188,11 @@
     <Item name="Electrical Panel" identifier="mt_epanel" aliases="electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="" scale="0.35" allowedlinks="gap,door" linkable="true"
           damagedbyexplosions="true" explosiondamagemultiplier="0.2">
         <InventoryIcon texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" origin="0.5,0.5" canflipx="false" />
-        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,175,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-64" />
-        <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
-        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
-        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="128,0,112,172" depth="0.8" origin="0.5,0.5" canflipx="false" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" canflipx="true" origin="0.5,0.5" offset="0,0" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="256,0,112,172" depth="0.8" maxcondition="80" fadein="true" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="384,0,112,172" depth="0.8" maxcondition="0" />
+
         <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
         <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
         <!-- POWER LIGHT -->
@@ -270,21 +270,22 @@
     <Item name="Safety Electrical Panel" identifier="s_electrical_panelv2" tags="junctionbox,fusebox,mtupdate" category="Electrical,Machine" description="Disables with no fuse." scale="0.35"
           allowedlinks="gap,door" linkable="true" damagedbyexplosions="true" explosiondamagemultiplier="0.2">
         <InventoryIcon texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" origin="0.5,0.5" />
-        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" origin="0.5,0.5" canflipx="false" />
-        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,175,112,48" depth="0.8" canflipx="true" origin="0.5,0.5" offset="0,-64" />
+        <Sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="128,0,112,172" depth="0.8" origin="0.5,0.5" canflipx="false" />
+        <DecorativeSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,0,112,172" depth="0.82" canflipx="true" origin="0.5,0.5" offset="0,0" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="256,0,112,172" depth="0.8" maxcondition="80" fadein="true" />
+        <BrokenSprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="384,0,112,172" depth="0.8" maxcondition="0" />
         <UpgradePreviewSprite texture="Content/UI/WeaponUI.png" sourcerect="99,961,28,32" origin="0.5,0.45" />
-        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,1,110,176" depth="0.8" maxcondition="80" fadein="true" />
-        <BrokenSprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="488,1,110,176" depth="0.8" maxcondition="0" />
+
         <InfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="8,260,149,170" origin="0.5,0.5" />
         <DamagedInfectedSprite texture="Content/Items/Gardening/ballastflora.png" sourcerect="157,260,149,170" origin="0.5,0.5" />
         <!-- POWER LIGHT -->
         <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="true" castshadows="false" allowingameediting="false">
-            <sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="0,224,112,172" depth="0.1" origin="0.5,0.5" alpha="0.25" />
+            <sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="512,0,112,172" depth="0.1" origin="0.5,0.5" alpha="0.25" />
             <IsActive targetitemcomponent="FusedJB" overload="eq False" />
         </LightComponent>
         <!-- OVERVOLTAGE LIGHT -->
         <LightComponent range="10.0" lightcolor="255,255,255,0" powerconsumption="1" IsOn="false" castshadows="false" allowingameediting="false" blinkfrequency="1.5">
-            <sprite texture="Content/Items/Electricity/signalcomp.png" sourcerect="376,186,110,176" depth="0.1" origin="0.5,0.5" alpha="1.0" />
+            <sprite texture="%ModDir%/Images/Items/mt_electrical.png" sourcerect="640,0,112,172" depth="0.1" origin="0.5,0.5" alpha="1.0" />
             <IsActive targetitemcomponent="FusedJB" overload="eq True" />
         </LightComponent>
         <!-- FUSE LIGHT -->
