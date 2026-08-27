@@ -27,6 +27,8 @@ public partial class AdvancedTerminal : ItemComponent
 
     //--- CVARS
 
+
+
     public AdvancedTerminal(Item item, ContentXElement element) : base(item, element)
     {
         // ReSharper disable once VirtualMemberCallInConstructor

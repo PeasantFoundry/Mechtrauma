@@ -97,10 +97,10 @@
   <entityname.spore_fungus>Fungus</entityname.spore_fungus>
   <entitydescription.spore_fungus>An unknown fungus.</entitydescription.spore_fungus>
 
-   <entityname.mt_medical_tablet>Medical Tablet</entityname.mt_medical_tablet>
-   <entitydescription.mt_medical_tablet>The creator is appreciated by medical professionals everywhere. Reports health information such as blood types and locations of pharmaceuticals.</entitydescription.mt_medical_tablet>
+  <entityname.mt_medical_tablet>Medical Tablet</entityname.mt_medical_tablet>
+  <entitydescription.mt_medical_tablet>The creator is appreciated by medical professionals everywhere. Reports health information such as blood types and locations of pharmaceuticals.</entitydescription.mt_medical_tablet>
    
-   <!-- =============< DECORATIVE >=============  -->
+  <!-- =============< DECORATIVE >=============  -->
   <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
   <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
 
