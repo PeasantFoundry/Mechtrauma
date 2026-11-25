@@ -97,10 +97,10 @@
   <entityname.spore_fungus>Fungus</entityname.spore_fungus>
   <entitydescription.spore_fungus>An unknown fungus.</entitydescription.spore_fungus>
 
-   <entityname.mt_medical_tablet>Medical Tablet</entityname.mt_medical_tablet>
-   <entitydescription.mt_medical_tablet>The creator is appreciated by medical professionals everywhere. Reports health information such as blood types and locations of pharmaceuticals.</entitydescription.mt_medical_tablet>
+  <entityname.mt_medical_tablet>Medical Tablet</entityname.mt_medical_tablet>
+  <entitydescription.mt_medical_tablet>The creator is appreciated by medical professionals everywhere. Reports health information such as blood types and locations of pharmaceuticals.</entitydescription.mt_medical_tablet>
    
-   <!-- =============< DECORATIVE >=============  -->
+  <!-- =============< DECORATIVE >=============  -->
   <entityname.copper_pipe_h>Copper Pipe Horizontal</entityname.copper_pipe_h>
   <entitydescription.copper_pipe_h>Resizable Horizontal Copper Pipe. </entitydescription.copper_pipe_h>
 
@@ -115,10 +115,10 @@
   <entitydescription.cargo_hatch>Sometimes, you need to move big things.</entitydescription.cargo_hatch>
 
   <!-- =============< ELECTRICAL >=============  -->
-  <entityname.textdisplaylarge>textdisplaylarge</entityname.textdisplaylarge>
-  <entitydescription.textdisplaylarge>textdisplaylarge</entitydescription.textdisplaylarge>
+  <entityname.textdisplaylarge>Large Text Display</entityname.textdisplaylarge>
+  <entitydescription.textdisplaylarge>Designed for more complex values compared to the Short Text Display</entitydescription.textdisplaylarge>
 
-  <entityname.textdisplay_short_tight>textdisplay_short_tight</entityname.textdisplay_short_tight>
+  <entityname.textdisplay_short_tight>Short Text Display</entityname.textdisplay_short_tight>
   <entitydescription.textdisplay_short_tight>Designed for short number such as 3 digit condition.</entitydescription.textdisplay_short_tight>
 
   <entityname.average_component>Average Component</entityname.average_component>
